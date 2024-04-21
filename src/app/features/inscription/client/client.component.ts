@@ -57,7 +57,7 @@ export class ClientComponent {
 
               // Handle the response from the server
 
-              this.router.navigate([clientName + '/informations/' + this.register_id]);
+              this.router.navigate([clientName + '/pending']);
             },
             error: (e) => {
               // Handle errors
