@@ -1,0 +1,107 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<div class="container">
+    <div class="left-panel">
+        <img src="/assets/client.png" width="100%" height="100%" style="border-radius: 1.875rem;">
+        <div class="text-overlay">
+            <h5> Saisissez les détails de votre société et de votre rôle pour faciliter la gestion et le suivi de vos
+                interactions professionnelles. </h5>
+        </div>
+        <div class="logo-overlay">
+            <div class="image">
+                <img src="/assets/Calque 4.png">
+            </div>
+        </div>
+    </div>
+    <div class="form-panel">
+        <div class="form-container">
+            <div>
+                <img src="/assets/mk 3.svg" width="30%" height="30%">
+            </div>
+            <div>
+                <div class="Connectez"> <b>
+                        Information du client
+                    </b> </div>
+                <div class="under-connect"> Rejoignez MyKrew : Suivez vos investissements et élargissez votre réseau
+                    professionnel en quelques clics.</div>
+            </div>
+            <div> Pré-inscription</div>
+            <div>
+                <form action="/submit_form" method="post" [formGroup]="myForm">
+                    <div class="form-section">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <input formControlName="father_name" type="text" id="fatherName"
+                                    placeholder="Nom du père" name="fatherName" />
+                            </div>
+                            <div class="error"
+                                *ngIf="myForm.get('father_name')?.invalid && myForm.get('father_name')?.touched">
+                                Nom du père est obligatoire.
+                            </div>
+
+                            <div class="grid-item">
+                                <input formControlName="mother_name" type="text" id="motherName"
+                                    placeholder="Nom de la mère" name="motherName" />
+                            </div>
+                            <div class="error"
+                                *ngIf="myForm.get('mother_name')?.invalid && myForm.get('mother_name')?.touched">
+                                Nom de la mère est obligatoire.
+                            </div>
+
+                            <div class="grid-item">
+                                <input formControlName="father_phone" type="text" id="fatherPhone"
+                                    placeholder="Téléphone du père" name="fatherPhone" />
+                            </div>
+                            <div class="error"
+                                *ngIf="myForm.get('father_phone')?.invalid && myForm.get('father_phone')?.touched">
+                                Téléphone du père est obligatoire.
+                            </div>
+
+                            <div class="grid-item">
+                                <input formControlName="mother_phone" type="text" id="motherPhone"
+                                    placeholder="Téléphone de la mère" name="motherPhone" />
+                            </div>
+                            <div class="error"
+                                *ngIf="myForm.get('mother_phone')?.invalid && myForm.get('mother_phone')?.touched">
+                                Téléphone de la mère est obligatoire.
+                            </div>
+
+                            <div class="grid-item">
+                                <input formControlName="father_job" type="text" id="fatherJob"
+                                    placeholder="Profession du père" name="fatherJob" />
+                            </div>
+                            <div class="error"
+                                *ngIf="myForm.get('father_job')?.invalid && myForm.get('father_job')?.touched">
+                                Profession du père est obligatoire.
+                            </div>
+
+                            <div class="grid-item">
+                                <input formControlName="mother_job" type="text" id="motherJob"
+                                    placeholder="Profession de la mère" name="motherJob" />
+                            </div>
+                            <div class="error"
+                                *ngIf="myForm.get('mother_job')?.invalid && myForm.get('mother_job')?.touched">
+                                Profession de la mère est obligatoire.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div> <br>
+            <div class="buttons">
+                <button type="submit" class="button1">
+                    <div class="inscrire"> retour </div>
+                </button>
+                <button type="submit" class="button" (click)="onSubmit()">
+                    <div class="inscrire"> Suivant</div>
+                </button>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>

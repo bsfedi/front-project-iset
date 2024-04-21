@@ -1,0 +1,395 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpHeaders } from '@angular/common/http';
+
+import { ActivatedRoute, Router } from '@angular/router';
+import { InscriptionService } from 'src/app/services/inscription.service';
+import Swal from 'sweetalert2';
+
+import { delay, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+const clientName = `${environment.default}`;
+
+import { WebSocketService } from 'src/app/services/web-socket.service';
+import { UserService } from 'src/app/services/user.service';
+import { ConsultantService } from 'src/app/services/consultant.service';
+import { DatePipe } from '@angular/common';
+import { StudentService } from 'src/app/services/student.service';
+const baseUrl = `${environment.baseUrl}`;
+
+
+declare const PDFObject: any;
+
+@Component({
+  selector: 'app-validation',
+  templateUrl: './validation.component.html',
+  styleUrls: ['./validation.component.css'],
+
+})
+export class ValidationComponent implements OnInit {
+
+  @Input() isLoading: boolean = false;
+  personalInfo: any; // Adjust the type as per your data structure
+  clientInfo: any;
+  consultant_id: any
+  missionInfo: any;
+  first_nameValidation: boolean = true
+  first_nameCause: string = '';
+  last_nameValidation: boolean = true
+  last_nameCause: string = ''
+  cinValidation: boolean = true
+  cinCause: string = ""
+  levelValidation: boolean = true
+  levelCause: string = ""
+  baccalaureateValidation: boolean = true
+  baccalaureateCause: string = ""
+  codeValidation: boolean = true
+  codeCause: string = ""
+  adresseValidation: boolean = true
+  adresseCause: string = ""
+  phoneValidation: boolean = true
+  phoneCause: string = ""
+  brith_dateValidation: boolean = true
+  brith_dateCause: string = ""
+  sexeValidation: boolean = true
+  sexeCause: string = ""
+  father_nameValidation: boolean = true
+  father_nameCause: string = ""
+  mother_nameValidation: boolean = true
+  mother_nameCause: string = ""
+  mother_phoneValidation: boolean = true
+  mother_phoneCause: string = ""
+  father_phoneValidation: boolean = true
+  father_phoneCause: string = ""
+  father_jobValidation: boolean = true
+  father_jobCause: string = ""
+  mother_jobValidation: boolean = true
+  mother_jobCause: string = ""
+  cinimgValidation: boolean = true
+  cinimgCause: string = ""
+  transcriptsValidation: boolean = true
+  transcriptsCause: string = ""
+  departementValidation: boolean = true
+  departementCause: string = ""
+  classeValidation: boolean = true
+  classeCause: string = ""
+  issLoading = false;
+  hasCar: any;
+  preinscription_id: any
+  token: any;
+  headers: any
+  pdfData: any;
+  ispdfdocrib: any
+  lastnotifications: any
+  notification: string[] = [];
+  res: any
+  new_notif: any
+  constructor(private inscriptionservice: StudentService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private consultantService: ConsultantService, private route: ActivatedRoute, private userservice: UserService, private socketService: WebSocketService) {
+
+
+
+  }
+  formatDate(date: string): string {
+    return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
+  }
+  loading: boolean = false;
+
+  zoomState: string = 'normal';
+  userSelection: string = 'true';
+
+  toggleZoom() {
+    this.zoomState = this.zoomState === 'normal' ? 'zoomed' : 'normal';
+  }
+  nblastnotifications: any
+  shownotiff: boolean = false
+  shownotif() {
+
+    this.shownotiff = !this.shownotiff
+  }
+  familyinfo: any
+  docs: any
+  ngOnInit(): void {
+    this.new_notif = localStorage.getItem('new_notif');
+    this.consultantService.getlastnotificationsrh().subscribe({
+      next: (res1) => {
+        console.log(res1);
+        this.lastnotifications = res1.slice(0, 10);
+        for (let item of this.lastnotifications) {
+          //getuserinfomation
+          this.consultantService.getuserinfomation(item["userId"], this.headers).subscribe({
+            next: (info) => {
+              console.log(info);
+
+              item["userId"] = info["firstName"] + ' ' + info["lastName"]
+            }
+          })
+        }
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+        // Set loading to false in case of an error
+
+      }
+    });
+    const user_id = localStorage.getItem('user_id')
+    this.userservice.getpersonalinfobyid(user_id).subscribe({
+
+
+      next: (res) => {
+        // Handle the response from the server
+        this.res = res
+
+
+
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+        // Set loading to false in case of an error
+
+      }
+    });
+    this.consultantService.getRhNotificationsnotseen().subscribe({
+      next: (res1) => {
+        this.nblastnotifications = res1.length
+        this.lastnotifications = res1
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.nblastnotifications = 0
+        console.error(e);
+        // Set loading to false in case of an error
+
+      }
+    });
+    this.socketService.connect()
+    // Listen for custom 'rhNotification' event in WebSocketService
+    this.socketService.onRhNotification().subscribe((event: any) => {
+      console.log(event);
+
+      if (event.notification.toWho == "RH") {
+        this.lastnotifications.push(event.notification.typeOfNotification)
+        this.nblastnotifications = this.lastnotifications.length
+        this.notification.push(event.notification.typeOfNotification)
+        localStorage.setItem('new_notif', 'true');
+      }
+
+      // Handle your rhNotification event here
+    });
+    // Get the user ID from the route parameters
+    this.route.params.subscribe((params) => {
+      this.preinscription_id = params['id'];
+    });
+    this.token = localStorage.getItem('token');
+    this.headers = new HttpHeaders().set('Authorization', `${this.token}`);
+
+    // Check if token is available
+    if (this.token) {
+      // Include the token in the headers
+
+      this.inscriptionservice.getinscrption(this.preinscription_id).subscribe({
+        next: (res) => {
+          // Handle the response from the server
+          this.consultant_id = res.userId
+          this.personalInfo = res.preregister.personalInfo;
+          this.familyinfo = res.preregister.family_info;
+          this.docs = res.preregister.docs
+          this.docs.cin = baseUrl + "uploads/" + this.docs.cin
+          this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+          this.personalInfo.identificationDocument.value = baseUrl + "uploads/" + this.personalInfo.identificationDocument.value
+          this.personalInfo.dateOfBirth.value = this.personalInfo.dateOfBirth.value.split('T')[0]
+          this.personalInfo.carInfo.drivingLicense.value = baseUrl + "uploads/" + this.personalInfo.carInfo.drivingLicense.value
+          this.personalInfo.ribDocument.value = baseUrl + "uploads/" + this.personalInfo.ribDocument.value
+          this.missionInfo.isSimulationValidated.value = baseUrl + "uploads/" + this.missionInfo.isSimulationValidated.value
+          this.missionInfo.startDate.value.split('T')[0]
+          this.hasCar = this.personalInfo.carInfo.hasCar.value;
+          this.loading = false;
+          this.isLoading = true;
+          // if (this.personalInfo.ribDocument.value.endsWith('.pdf')) {
+          //   this.inscriptionservice.getPdf(this.personalInfo.ribDocument.value).subscribe({
+          //     next: (res) => {
+          //       this.pdfData = res;
+          //       this.isLoading = false;
+          //       if (this.pdfData) {
+          //         this.handlesecondRenderPdf(this.pdfData);
+          //       }
+          //     },
+          //   });
+          //   this.ispdfdocrib = true
+          // } else {
+          //   this.ispdfdocrib = false
+          // }
+
+          // this.inscriptionservice.getPdf(this.missionInfo.isSimulationValidated.value).subscribe({
+          //   next: (res) => {
+          //     this.pdfData = res;
+          //     this.isLoading = false;
+          //     if (this.pdfData) {
+          //       this.handleRenderPdf(this.pdfData);
+          //     }
+          //   },
+          // });
+        },
+        error: (e) => {
+          // Handle errors
+          console.error(e);
+          // Set loading to false in case of an error
+          this.loading = false;
+        }
+      });
+    }
+  }
+  update_register() {
+    const data = {
+      "first_nameValidation": this.first_nameValidation,
+      "first_nameCause": this.first_nameCause,
+      "last_nameValidation": this.last_nameValidation,
+      "last_nameCause": this.last_nameCause,
+      "cinValidation": this.cinValidation,
+      "cinCause": this.cinCause,
+      "levelValidation": this.levelValidation,
+      "levelCause": this.levelCause,
+      "baccalaureateValidation": this.baccalaureateValidation,
+      "baccalaureateCause": this.baccalaureateCause,
+      "codeValidation": this.codeValidation,
+      "codeCause": this.codeCause,
+      "adresseValidation": this.adresseValidation,
+      "adresseCause": this.adresseCause,
+      "phoneValidation": this.phoneValidation,
+      "phoneCause": this.phoneCause,
+      "brith_dateValidation": this.brith_dateValidation,
+      "brith_dateCause": this.brith_dateCause,
+      "sexeValidation": this.sexeValidation,
+      "sexeCause": this.sexeCause,
+      "father_nameValidation": this.father_nameValidation,
+      "father_nameCause": this.father_nameCause,
+      "mother_nameValidation": this.mother_nameValidation,
+      "mother_nameCause": this.mother_nameCause,
+      "mother_phoneValidation": this.mother_phoneValidation,
+      "mother_phoneCause": this.mother_phoneCause,
+      "father_phoneValidation": this.father_phoneValidation,
+      "father_phoneCause": this.father_phoneCause,
+      "father_jobValidation": this.father_jobValidation,
+      "father_jobCause": this.father_jobCause,
+      "mother_jobValidation": this.mother_jobValidation,
+      "mother_jobCause": this.mother_jobCause,
+      "cinimgValidation": this.cinimgValidation,
+      "cinimgCause": this.cinimgCause,
+      "transcriptsValidation": this.transcriptsValidation,
+      "transcriptsCause": this.transcriptsCause,
+      "departementValidation": this.departementValidation,
+      "departementCause": this.departementCause,
+      "classeValidation": this.classeValidation,
+      "classeCause": this.classeCause,
+    };
+
+    Swal.fire({
+      title: "Confirmez l'action",
+
+      html: `
+        <div  style="backgound-color:red">
+        <div style="font-size:1.2rem"> Êtes-vous sûr de vouloir soumettre <br> vos informations personnelles ?  </div> 
+          <div style="color:#a8a3a3;margin-top:5px"">Veuillez vérifier que toutes les données <br> saisies sont correctes et à jour.?</div>
+        </div>
+      `,
+      iconColor: '#CDC7B9',
+      showCancelButton: true,
+      background: '#fefcf1',
+      confirmButtonText: 'Confirmer',
+      confirmButtonColor: "#91c593",
+      cancelButtonText: 'Annuler',
+      cancelButtonColor: "black",
+      customClass: {
+        confirmButton: 'custom-confirm-button-class',
+        cancelButton: 'custom-cancel-button-class'
+
+      },
+      reverseButtons: true // Reversing button order
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User clicked 'Yes', call the endpoint
+        this.inscriptionservice.rhvalidation(data, this.preinscription_id).subscribe({
+          next: (res) => {
+            // Handle success
+            Swal.fire({
+              background: '#fefcf1',
+
+              title: 'Pré-inscription mise à jour avec succès !',
+              confirmButtonText: 'OK',
+              confirmButtonColor: "#91c593",
+              timer: 1500
+            });
+            this.router.navigate([clientName + '/dashboard'])
+          },
+          error: (e) => {
+            // Handle errors
+            console.error(e);
+            Swal.fire('Error', "Échec de la mise à jour de l'enregistrement.", 'error');
+          }
+        });
+      } else {
+        Swal.fire({
+          background: '#fefcf1',
+          title: 'Annulé',
+          text: "Aucune modification n'a été apportée.",
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+        })
+        // // User clicked 'Cancel' or closed the popup
+        // Swal.fire('Annulé',
+        //   "Aucune modification n'a été apportée.", 'info');
+      }
+    });
+
+  }
+  handlesecondRenderPdf(data: any) {
+
+    const pdfObject = PDFObject.embed(data, '#pdfContainer1');
+
+  }
+  // killmission(killed: any) {
+  //   console.log(killed);
+  //   if (killed == true) {
+
+
+  //     this.inscriptionservice.killmission(this.preinscription_id, this.headers).subscribe({
+  //       next: (res) => {
+  //         console.log(res);
+
+  //       }
+
+  //     })
+  //   }
+
+  // }
+  gotoconsultantprofil() {
+    this.router.navigate([clientName + '/missions/' + this.consultant_id])
+
+  }
+  gotoallnotification() {
+    this.router.navigate([clientName + '/consultant/allnotifications'])
+  }
+  onRadioChange(value: boolean) {
+    // Update hasCar based on radio button change
+    this.hasCar = value;
+  }
+
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
+  handleRenderPdf(data: any) {
+
+    const pdfObject = PDFObject.embed(data, '#pdfContainer');
+
+
+  }
+
+
+
+}

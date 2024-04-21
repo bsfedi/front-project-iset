@@ -1,0 +1,223 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<div class="container">
+  <div class="left-panel">
+    <img src="/assets/personal.png" width="100%" height="100%" style="border-radius: 1.875rem" />
+    <div class="text-overlay">
+      <h5>
+        Sécurisez vos informations : Une étape clé vers une gestion financière
+        intelligente avec MyKrew.
+      </h5>
+    </div>
+    <div class="logo-overlay">
+      <div class="image">
+        <img src="/assets/Calque 4.png" />
+      </div>
+    </div>
+  </div>
+  <div class="form-panel">
+    <div class="form-container">
+      <div>
+        <img src="/assets/mk 3.svg" width="30%" height="30%" />
+      </div>
+      <div>
+        <div class="Connectez"><b> Créer votre compte </b></div>
+        <div class="under-connect">
+          Rejoignez MyKrew : Suivez vos investissements et élargissez votre
+          réseau professionnel en quelques clics.
+        </div>
+      </div>
+      <div>Documents personnels</div>
+      <form action="/submit_form" method="post" [formGroup]="DocPersolForm">
+        <div>
+          <div class="custom-file-input" (change)="setFileInput('cin', $event)" style="cursor: pointer">
+            <label class="file-label" for="fileInput" style="cursor: pointer">
+
+              Pièce d’identité (CNI)
+            </label>
+
+            <div class="vertical-line"></div>
+            <input class="file-input" type="file" id="fileInput" name="fileInput" formControlName="idCardFile"
+              onclick="document.getElementById('fileInput').click()" />
+
+            <div class="upload-icon" onclick="document.getElementById('fileInput').click()">
+              <div class="chose-file" *ngIf="!cin_img">
+
+                choisir un fichier <br />
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" class="icon-file"
+                  fill="none">
+                  <g clip-path="url(#clip0_972_185)">
+                    <path
+                      d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                      stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_972_185">
+                      <rect width="14" height="14" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <div *ngIf="cin_img" style="align-items: center; text-align: center">
+
+                <img *ngIf="cin_img.split('/')[1].split(';')[0]==='pdf'"
+                  src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                max-width: 320%;
+                max-height: 50px;
+                margin: 5px;
+                margin-top: 10px;
+              " />
+                <img *ngIf="cin_img.split('/')[1].split(';')[0]!='pdf'" [src]="cin_img" alt="Selected Image" style="
+                    max-width: 320%;
+                    max-height: 50px;
+                    margin: 5px;
+                    margin-top: 10px;
+                  " />
+              </div>
+
+            </div>
+
+          </div>
+          <div class="error" *ngIf="
+              DocPersolForm.get('idCardFile')?.invalid &&
+              DocPersolForm.get('idCardFile')?.touched
+            ">
+            Pièce d’identité est obligatoire.
+          </div>
+          <div class="custom-file-input" *ngIf="show_bac" (change)="setFileInput('bac', $event)"
+            style="cursor: pointer">
+            <label class="file-label" for="fileInput" style="cursor: pointer">
+
+              diplome baccalauréat
+            </label>
+
+            <div class="vertical-line"></div>
+            <input class="file-input" type="file" id="bac" name="bac" formControlName="idCardFile"
+              onclick="document.getElementById('bac').click()" />
+
+            <div class="upload-icon" onclick="document.getElementById('bac').click()">
+              <div class="chose-file" *ngIf="!bac_img">
+
+                choisir un fichier <br />
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" class="icon-file"
+                  fill="none">
+                  <g clip-path="url(#clip0_972_185)">
+                    <path
+                      d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                      stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_972_185">
+                      <rect width="14" height="14" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <div *ngIf="bac_img" style="align-items: center; text-align: center">
+
+                <img *ngIf="bac_img.split('/')[1].split(';')[0]==='pdf'"
+                  src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                max-width: 320%;
+                max-height: 50px;
+                margin: 5px;
+                margin-top: 10px;
+              " />
+                <img *ngIf="bac_img.split('/')[1].split(';')[0]!='pdf'" [src]="bac_img" alt="Selected Image" style="
+                    max-width: 320%;
+                    max-height: 50px;
+                    margin: 5px;
+                    margin-top: 10px;
+                  " />
+              </div>
+
+            </div>
+
+          </div>
+          <div class="error" *ngIf="
+              DocPersolForm.get('idCardFile')?.invalid &&
+              DocPersolForm.get('idCardFile')?.touched
+            ">
+            Pièce d’identité est obligatoire.
+          </div>
+          <div>
+            <div class="custom-file-input" (change)="setFileInput('transcripts', $event)">
+              <label class="file-label" for="transcripts" style="cursor: pointer"
+                onclick="document.getElementById('idCardUploadPermis').click()">Relevé de note</label>
+              <div class="vertical-line"></div>
+              <input class="file-input" type="file" name="transcripts" formControlName="transcripts"
+                (change)="setFileInput('transcripts', $event)" id="transcripts"
+                onclick="document.getElementById('transcripts').click()" />
+              <div class="upload-icon" onclick="document.getElementById('transcripts').click()">
+                <div class="chose-file" *ngIf="!ribdoc_img">
+                  choisir un fichier <br />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" class="icon-file"
+                    fill="none">
+                    <g clip-path="url(#clip0_972_185)">
+                      <path
+                        d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                        stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_972_185">
+                        <rect width="14" height="14" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div *ngIf="ribdoc_img" style="align-items: center; text-align: center">
+
+                  <img *ngIf="ribdoc_img.split('/')[1].split(';')[0]==='pdf'"
+                    src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                  max-width: 320%;
+                  max-height: 50px;
+                  margin: 5px;
+                  margin-top: 10px;
+                " />
+                  <img *ngIf="ribdoc_img.split('/')[1].split(';')[0]!='pdf'" [src]="ribdoc_img" alt="Selected Image"
+                    style="
+                      max-width: 320%;
+                      max-height: 50px;
+                      margin: 5px;
+                      margin-top: 10px;
+                    " />
+                </div>
+                <!-- <div *ngIf="ribdoc_img" style="align-items: center; text-align: center">
+                  <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                      max-width: 320%;
+                      max-height: 50px;
+                      margin: 5px;
+                      margin-top: 10px;
+                    " />
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="error" *ngIf="
+              DocPersolForm.get('ribdoc')?.invalid &&
+              DocPersolForm.get('ribdoc')?.touched
+            ">
+            ribdoc est obligatoire.
+          </div>
+
+        </div>
+        <br />
+      </form>
+      <div class="buttons">
+        <button type="submit" class="button1">
+          <div class="inscrire">retour</div>
+        </button>
+        <button type="submit" class="button" (click)="logForm()">
+          <div class="inscrire">Suivant</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

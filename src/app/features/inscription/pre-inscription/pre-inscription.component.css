@@ -1,0 +1,244 @@
+.container {
+  display: flex;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.left-panel {
+  padding: 3px;
+  flex: 1;
+  position: relative;
+  height: 96vh;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 80%;
+  left: 40%;
+  transform: translate(-40%, -50%);
+
+  z-index: 2;
+  width: 30.5rem;
+  color: #fff;
+
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  /* Set a higher z-index for the logo overlay */
+}
+
+.image {
+  margin-top: -43px;
+  z-index: 1;
+  margin-left: -45px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  /* Adjust object-fit as needed */
+}
+
+.content {
+  filter: drop-shadow(0px 4px 68.8px rgba(255, 255, 255, 0.56));
+}
+
+.logo-overlay {
+  width: 6.25rem;
+  height: 4.3125rem;
+  position: fixed;
+  top: 4%;
+  left: 3%;
+  border-radius: 1.1875rem;
+  border: 0px solid #fff;
+  background: rgba(215, 215, 209, 0.32);
+  backdrop-filter: blur(3.6500000953674316px);
+  z-index: 2;
+}
+
+.form-container {
+  width: 420px;
+}
+
+.image img {
+  border-radius: 10px;
+  object-fit: cover;
+  /* Maintain aspect ratio and cover the container */
+}
+
+.inputs {
+  align-items: center;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.form {
+  justify-content: center;
+  align-items: center;
+}
+
+.form-panel {
+  flex: 0.7;
+  padding-top: 15px;
+  padding-left: 80px;
+  display: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  border-radius: 0.875rem;
+  background: #1e1e1e;
+  width: 7.5rem;
+  height: 3.0625rem;
+  flex-shrink: 0;
+}
+
+
+
+
+.inscrire {
+  color: #fff;
+}
+
+.under-connect {
+  margin-bottom: 15px;
+}
+
+.mdp {
+  color: #000;
+
+  margin-left: 280px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Inscrivez-vous {
+  margin-left: 80px;
+  margin-top: 30px;
+}
+
+select,
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="search"] {
+  width: 26.04313rem;
+  height: 3.61006rem;
+  flex-shrink: 0;
+
+  padding: 8px;
+  margin-top: 10px;
+
+  border-radius: 0.5rem;
+  border: 1px solid #1e1e1e;
+
+  background: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.Connectez {
+  margin-top: 15px;
+  margin-bottom: 3px;
+  font-size: 24px;
+}
+
+@media (min-width: 950px) {
+  .buttons {
+    display: flex;
+    float: right;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 700px) {
+  .left-panel {
+    height: 50%;
+    width: 100%;
+
+  }
+
+  .mdp {
+    color: #000;
+    cursor: pointer;
+    margin-left: 180px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .buttons {
+    display: flex;
+    margin-left: 100px;
+  }
+
+  .under-connect {
+    width: 345px;
+  }
+
+  select,
+  input[type="email"],
+  input[type="date"],
+  input[type="text"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"] {
+    width: 21.04313rem;
+
+  }
+
+  .Inscrivez-vous {
+    margin-left: 35px;
+
+  }
+
+  button {
+    margin-top: 35px;
+    width: 21.04313rem;
+    height: 3.61006rem;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    background: black;
+  }
+
+  .form-panel {
+
+    margin-top: -270px;
+    padding-left: 20px;
+    display: row;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .text-overlay {
+    left: 39%;
+    width: 20rem;
+    top: 70%;
+    font-size: 1.5rem;
+    transform: translate(-40%, -50%);
+  }
+
+  .container {
+    display: grid;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif !important;
+  }
+
+  .left-image {
+    border-radius: 1.875rem;
+    height: 100%;
+    width: 100%;
+  }
+
+  .image {
+    margin-top: -43px;
+    z-index: 1;
+    margin-left: -45px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}

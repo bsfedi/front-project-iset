@@ -1,0 +1,151 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<div class="container">
+  <div class="left-panel">
+    <img src="/assets/pre-inscription.png" width="100%" height="100%" style="border-radius: 1.875rem" />
+    <div class="text-overlay">
+      <h5>
+        Créez votre compte MyKrew pour suivre vos investissements, gérer vos
+        relations professionnelles et booster votre succès.
+      </h5>
+    </div>
+    <div class="logo-overlay">
+      <div class="image">
+        <img src="/assets/Calque 4.png" />
+      </div>
+    </div>
+  </div>
+  <div class="form-panel">
+    <div class="form-container">
+      <div>
+        <img src="/assets/mk 3.svg" width="30%" height="30%" />
+      </div>
+      <div>
+        <div class="Connectez"><b> Pré-inscription </b></div>
+        <div class="under-connect">
+          Rejoignez MyKrew : Suivez vos investissements et élargissez votre
+          réseau professionnel en quelques clics.
+        </div>
+      </div>
+      <div>Pré-inscription</div>
+      <form [formGroup]="myForm" (ngSubmit)="logForm1()">
+        <div>
+          <div>
+            <input type="text" formControlName="first_name" class="form-control" placeholder="Prénom" required />
+          </div>
+          <div class="error" *ngIf="myForm.get('first_name')?.invalid && myForm.get('first_name')?.touched">
+            Prénom est obligatoire.
+          </div>
+          <div>
+            <input type="text" formControlName="last_name" class="form-control" placeholder="Nom" required />
+          </div>
+          <div class="error" *ngIf="myForm.get('last_name')?.invalid && myForm.get('last_name')?.touched">
+            Nom est obligatoire.
+          </div>
+          <div>
+            <input type="text" formControlName="cin" class="form-control" placeholder="CIN" required />
+          </div>
+          <div class="error" *ngIf="myForm.get('cin')?.invalid && myForm.get('cin')?.touched">
+            CIN est obligatoire.
+          </div>
+          <div>
+
+            <select formControlName="level" id="level" class="form-control" required>
+              <option value="" disabled selected>Sélectionner le niveau</option>
+              <option value="1"> 1</option>
+              <option value="2"> 2</option>
+              <option value="3"> 3</option>
+            </select>
+          </div>
+          <div class="error" *ngIf="myForm.get('level')?.invalid && myForm.get('level')?.touched">
+            Niveau est obligatoire.
+          </div>
+
+          <!-- <div>
+            <input type="text" formControlName="code" class="form-control" placeholder="Code" required />
+          </div>
+          <div class="error" *ngIf="myForm.get('code')?.invalid && myForm.get('code')?.touched">
+            Code est obligatoire.
+          </div> -->
+          <div>
+            <input type="text" formControlName="adresse" class="form-control" placeholder="Adresse" required />
+          </div>
+          <div class="error" *ngIf="myForm.get('adresse')?.invalid && myForm.get('adresse')?.touched">
+            Adresse est obligatoire.
+          </div>
+          <div>
+            <select formControlName="annee" class="form-control" required>
+              <option value="" disabled selected>Choisir l'année scolaire</option>
+              <option value="2023-2024">2023-2024</option>
+              <option value="2024-2025">2024-2025</option>
+              <option value="2025-2026">2025-2026</option>
+            </select>
+          </div>
+          <div class="error" *ngIf="myForm.get('annee')?.invalid && myForm.get('annee')?.touched">
+            annee est obligatoire.
+          </div>
+          <div>
+            <input type="tel" formControlName="phone" class="form-control" placeholder="Numéro de téléphone" required />
+          </div>
+          <div class="error" *ngIf="myForm.get('phone')?.invalid && myForm.get('phone')?.touched">
+            Numéro de téléphone est obligatoire.
+          </div>
+          <div>
+            <input type="date" formControlName="brith_date" class="form-control" placeholder="Date de naissance"
+              required />
+          </div>
+          <div class="error" *ngIf="myForm.get('brith_date')?.invalid && myForm.get('brith_date')?.touched">
+            Date de naissance est obligatoire.
+          </div>
+          <div>
+            <select formControlName="sexe" class="form-control" required>
+              <option value="" disabled selected>Choisir le sexe</option>
+              <option value="male">Homme</option>
+              <option value="female">Femme</option>
+            </select>
+          </div>
+
+          <div>
+            <select formControlName="departement" class="form-control" required>
+              <option value="" disabled selected>Choisir le departement</option>
+              <option value="GM">GM</option>
+              <option value="GE">GE</option>
+              <option value="IT">IT</option>
+              <option value="GC">GC</option>
+              <option value="SEG">SEG</option>
+            </select>
+          </div>
+          <div class="error" *ngIf="myForm.get('departement')?.invalid && myForm.get('departement')?.touched">
+            departement est obligatoire.
+          </div>
+          <div>
+            <select formControlName="classe" class="form-control" required>
+              <option value="" disabled selected>Choisir le class</option>
+              <option value="blalb">blab</option>
+              <option value="blalb">blalb</option>
+              <option value="blalb">blalb</option>
+            </select>
+          </div>
+          <div class="error" *ngIf="myForm.get('classe')?.invalid && myForm.get('classe')?.touched">
+            class est obligatoire.
+          </div>
+          <div class="error" *ngIf="myForm.get('sexe')?.invalid && myForm.get('sexe')?.touched">
+            Sexe est obligatoire.
+          </div>
+        </div>
+        <br />
+
+      </form>
+
+      <div class="buttons">
+        <!-- <button type="submit" class="button1">
+                    <div class="inscrire"> retour </div>
+                </button> -->
+        <button type="submit" class="button" (click)="logForm1()">
+          <div class="inscrire">Suivant</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="right-item">
+  <div class="historique">
+    <div class="historique-demandes">
+      <div class="text"><b>Nouvelles pré-inscription </b></div>
+      <div class="plus" style="cursor: pointer" (click)="gottoallConsultants()">
+        Voir tout
+      </div>
+    </div>
+    <div *ngFor="let item of items">
+      <div style="display: flex; margin-bottom: 10px ; margin-left: 10px;" (click)="gotovalidation(item)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          style="width: 1rem;border-radius: 50%; background: #f3f4f6;margin: 2%;" class="bi bi-person-fill"
+          viewBox="0 0 16 16">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        </svg>
+        <div class="historique-consultant">
+          {{ item.personalInfo?.firstName.value }}
+          {{ item.personalInfo?.lastName.value }}
+
+          <div>{{ formatDate(item.addedDate.split('T')[0]) }}</div>
+
+        </div>
+
+      </div>
+    </div>
+    <br />
+  </div>
+  <div class="historique">
+    <div class="historique-consultants">
+      <div class="text" style="margin-right: 30px"><b> Notifications </b></div>
+      <div class="plus" (click)="gotoallnotification()">Voir tout</div>
+    </div>
+    <div *ngFor="let item of lastnotifications">
+
+      <div *ngIf="item.typeOfNotification == 'NEWMISSION'" (click)="gotovalidationmission(item._id,item.missionId)">
+        <div style="display: flex;">
+
+          <div>
+          </div>
+          <div style="margin-bottom: 5px;margin: 15px;">
+            Nouvelle mission - <b> {{item.userId}} </b>
+
+            <div class="date"> {{ formatDate(item.createdAt.split(["T"])[0]) }} </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div *ngIf="item.typeOfNotification == 'TJMREQUEST'" (click)="gotovalidationtjm(item._id,item.tjmRequestId)">
+        <div style="display: flex;">
+
+          <div>
+          </div>
+          <div style="margin: 15px 0px 5px 25px;">
+            Demande TJM - <b> {{item.userId}} </b>
+
+            <div class="date"> {{ formatDate(item.createdAt.split(["T"])[0]) }} </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="item.typeOfNotification === 'NEWPREREGISTER'"
+        (click)="gotovalidationpreregister(item._id,item.preregisterId)">
+        <div style="display: flex;">
+
+
+          <div>
+          </div>
+          <div style="margin: 15px 0px 5px 25px;">
+            Nouvelle pré-inscription
+
+            <div class="date"> {{ formatDate(item.createdAt.split(["T"])[0]) }} </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <div *ngIf="item.typeOfNotification === 'UPDATEREREGISTER'"
+        (click)="gotovalidationpreregister(item._id,item.preregisterId)">
+        <div style="display: flex;">
+
+
+          <div>
+          </div>
+          <div style="margin: 15px 0px 5px 25px;">
+            Modification de pré-inscription
+
+            <div class="date"> {{ formatDate(item.createdAt.split(["T"])[0]) }} </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>

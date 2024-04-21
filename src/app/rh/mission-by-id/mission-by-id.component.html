@@ -1,0 +1,278 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/pdfobject@2.2.8/pdfobject.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/pdfobject@2.2.8/pdfobject.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <app-left-bar> </app-left-bar>
+        <div class="second-container">
+
+
+            <div class="Information"> Information du client (pour la contractualisation) </div>
+            <div class="Tableau1">
+                <div>
+                    <div class="label"> Prénom :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="clientInfo?.clientContact.firstName">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="firstNameValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!firstNameValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairefirstNameValue">
+
+                    <div class="label"> Nom :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="clientInfo?.clientContact.lastName">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="clientlastNameValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!clientlastNameValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairetoggleValue1">
+                    <div class="label"> Email :</div>
+                    <div class="Tableau">
+                        <input type="email" [value]="clientInfo?.clientContact.email">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="clientContactemailValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!clientContactemailValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantaireclientContactemailValue">
+                    <div class="label"> Société :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="clientInfo?.company">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="companyValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!companyValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairecompanyValue">
+                    <div class="label">Poste du contact :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="clientInfo?.clientContact.position">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="positionValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!positionValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairepositionValue">
+                    <div class="label"> Numéro de téléphone :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="clientInfo?.clientContact.phoneNumber">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="clientContactphoneNumberValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!clientContactphoneNumberValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantaireclientContactphoneNumberValue">
+
+
+
+
+                </div>
+                <div class="left-item">
+                    <div class="label"> Métier :</div>
+                    <div class="Tableau">
+                        <input [value]="missionInfo?.profession" type="text" id="birthDate" name="birthDate" required
+                            placeholder="RIB" />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="professionValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!professionValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantaireprofessionValue">
+                    <div class="label"> TJM :</div>
+                    <div class="Tableau">
+                        <input [value]="missionInfo?.dailyRate" type="text" id="companyName" placeholder="Société"
+                            name="companyName" required />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="dailyRateValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!dailyRateValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairedailyRateValue">
+
+                    <div class="label"> Secteur d'activité : </div>
+                    <div class="Tableau">
+                        <input [value]="missionInfo?.industrySector" type="text" id="email"
+                            placeholder="Secteur d'activité" name="email" required />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="industrySectorValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!industrySectorValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantaireindustrySectorValue">
+                    <div class="label"> Date de début : </div>
+                    <div class="Tableau">
+                        <input type="date" id="birthDate" name="birthDate"
+                            [value]="missionInfo?.startDate.split('T')[0]" required />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="startDateValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!startDateValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairestartDateValue">
+                    <div class="label"> Client final : </div>
+                    <div class="Tableau">
+                        <input [value]="missionInfo?.finalClient" type="text" id="phoneNumber" name="phoneNumber"
+                            placeholder="téléphone" required /> <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="finalClientValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!finalClientValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantairefinalClientValue">
+                    <div class="label"> Date de fin de mission : </div>
+                    <div class="Tableau">
+                        <input [value]="missionInfo?.endDate.split('T')[0]" type="date" id="phoneNumber"
+                            name="phoneNumber" placeholder="téléphone" required />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="endDateValue">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!endDateValue" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantaireendDateValue">
+
+                    <div class="label"> Simulation : </div>
+
+
+                    <div class="Tableau">
+                        <div id="pdfContainer"></div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="missionInfo.isSimulationValidated">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!missionInfo?.isSimulationValidated" type="text" placeholder="Commentaire"
+                        [(ngModel)]="commantaireendDateValue">
+                    <div style="margin-left:150px;margin-top: 20px;" *ngIf="getMissionuserb != 'VALIDATED'">
+                        <button (click)="update_register()">Valider</button>
+                    </div>
+                </div>
+
+                <div class="historique mobile">
+                    <div class="historique-demandes">
+                        <div class="text"><b>Historique TJM </b></div>
+
+
+                    </div>
+                    <hr>
+                    <div *ngFor="let item of TjmRequestsByMissionId">
+                        <div style="display: flex; ">
+                            <div>
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8" />
+                                </svg> -->
+                            </div>
+                            <div style="margin-bottom: 10px ; margin-left: 15px;width: 150px;" class="
+                                historique-consultant">
+                                TJM : <b> {{ item.valueOfNewTjm }} </b>
+
+
+                                <div style="width: 300px;"> Date de prise en compte : {{
+                                    formatDate(item.datecompte.split('T')[0]) }}</div>
+
+                            </div>
+
+                        </div>
+                        <hr>
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="right-item">
+            <div style="display: flex">
+                <div class="profil1" (click)="gotoallnotification()" style="cursor: pointer;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="31" viewBox="0 0 32 31" fill="none">
+                            <path
+                                d="M23.2203 20.62C23.2203 21.47 22.5303 22.16 21.6803 22.16H8.32027C7.47027 22.16 6.78027 21.47 6.78027 20.62C6.78027 19.77 7.47027 19.08 8.32027 19.08H8.83027V13.94C8.83027 10.54 11.5903 7.77002 15.0003 7.77002C16.7003 7.77002 18.2403 8.46002 19.3603 9.58002C20.4803 10.69 21.1703 12.23 21.1703 13.94V19.08H21.6803C22.5303 19.08 23.2203 19.77 23.2203 20.62Z"
+                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M15 7.78V6.75" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M18.0799 22.1699C18.0799 23.8799 16.6999 25.2499 14.9999 25.2499C13.2999 25.2499 11.9199 23.8699 11.9199 22.1699H18.0799Z"
+                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="21.5" cy="7.5" r="4.5" fill="#F33A2A"
+                                *ngIf="nblastnotifications > 0 || new_notif === true " />
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="width: 220px; margin-top: 10px; font-size: 0.8125rem">
+                            <b> Toutes les notifications </b>
+                        </div>
+                        <div style="
+                      color: rgba(0, 0, 0, 0.52);
+
+                      font-size: 0.8125rem;
+                      font-style: normal;
+                      font-weight: 400;
+
+                      line-height: 100%; /* 0.8125rem */
+                    ">
+                            {{ nblastnotifications }} notification
+                        </div>
+                    </div>
+
+                </div>
+                <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
+                    <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                    <div class="nom-prenom">{{res.firstName}} {{res.lastName}} <br>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="historique">
+                <div class="historique-demandes">
+                    <div class="text"><b>Historique TJM </b></div>
+
+
+                </div>
+                <hr>
+                <div *ngFor="let item of TjmRequestsByMissionId">
+                    <div style="display: flex; ">
+                        <div>
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg> -->
+                        </div>
+                        <div style="margin-bottom: 10px ; margin-left: 15px;width: 150px;" class="
+                            historique-consultant">
+                            TJM : <b> {{ item.valueOfNewTjm }} </b>
+
+
+                            <div style="width: 300px;"> Date de prise en compte : {{
+                                formatDate(item.datecompte.split('T')[0]) }}</div>
+
+                        </div>
+
+                    </div>
+                    <hr>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</body>

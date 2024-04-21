@@ -1,0 +1,126 @@
+<div class="wrapper">
+  <div>
+    <app-left-bar></app-left-bar>
+  </div>
+  <div class="second-container">
+
+    <div class="flex-container1" #myPdfContent>
+      <div>
+
+
+        <div class="title">Compte Rendu d’Activité</div>
+
+
+        <hr>
+        <div class="Informations">Informations</div>
+
+        <div class="flex-container">
+          <div class="flex-container">
+            <div class="time">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                <circle cx="13.5" cy="13.5" r="12" stroke="#76736E" stroke-opacity="0.55" stroke-width="3" />
+              </svg>
+            </div>
+            <div class="days-mission">
+              <!-- {{ daysDifference }} -->
+              {{ selectedDays.length }} j
+            </div>
+          </div>
+
+          <div class="flex-container" style="margin-left: 30px">
+            <div class="time">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="24" viewBox="0 0 32 24" fill="none">
+                <rect x="2" y="2" width="28" height="20.2222" rx="2" stroke="#A9A6A1" stroke-width="3" />
+                <path d="M8.2222 16H8.23664" stroke="#A9A6A1" stroke-width="3" stroke-linecap="round" />
+                <path d="M2 10L30 10" stroke="#A9A6A1" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="days-mission">
+              {{ mission_details?.missionInfo.finalClient }}
+            </div>
+          </div>
+          <div class="flex-container" style="margin-left: 15px">
+          </div>
+        </div><br>
+        <hr>
+
+        <div class="note">Note globale</div>
+        <div>
+          <input type="text" placeholder="Note sur le compte rendu d’activité" [(ngModel)]="noteGlobale" />
+        </div><br>
+        <hr>
+        <div class="note">Personnalisation</div>
+        <div class="addsig">Ajouter ma signature :</div>
+        <div class="signature" (click)="openFileInput()">
+          <div *ngIf="permis_img" style="height: 65%; margin: 8px">
+            <img [src]="permis_img" alt="Selected Image" width="80%" height="100%" />
+          </div>
+          <input type="file" style="display: none" (change)="setFileInput('signature', $event)" #fileInput />
+        </div>
+      </div>
+      <div class="cracra">
+        <div class="calendar-container">
+          <div>
+            <div class="month-navigation">
+              <div class="month-label">
+                <div class="flex-container">
+                  <div>{{ months[currentMonth] }} - {{ currentYear }}</div>
+                  <div>
+                    <select [(ngModel)]="currentMonth" (change)="onMonthChange()">
+                      <option *ngFor="let month of months; let i = index" [value]="i">
+                        {{ month }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="week-labels">
+              <span *ngFor="
+                  let day of [
+                    
+                    'lun.',
+                    'mar.',
+                    'mer.',
+                    'jeu.',
+                    'ven.',
+                    'sam.',
+                    'dim.'
+                  ]
+                ">{{ day }}</span>
+            </div>
+            <div class="days-container" *ngIf="dowloded">
+              <div class="day empty" *ngFor="let emptyDay of emptyStartDays"></div>
+              <div class="day" *ngFor="let day of daysInMonth" [class.today]="isToday(day)"
+                [class.selected]="isSelected(day)" [class.selected-day]="isSelected(day)" (click)="selectDay(day)"
+                [attr.id]="'day-' + day.day">
+                {{ day.day }} <!-- Display the 'day' property -->
+              </div>
+            </div>
+
+            <div class="days-container" *ngIf="!dowloded">
+              <div class="day empty" *ngFor="let emptyDay of emptyStartDays"></div>
+              <div class="day" *ngFor="let day of daysInMonth" [class.today]="isToday(day)"
+                [class.selected]="isSelected(day)" [class.selected-day]="isSelected(day)" (click)="selectDay(day)"
+                [attr.id]="'day-' + day.day">
+                {{ day }} <!-- Display the 'day' property -->
+              </div>
+              <div class="day empty" *ngFor="let emptyDay of emptyEndDays"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="vider" (click)="videcra()">Vider le CRA</div>
+        </div>
+        <div class="flex-container" style="margin-top: -60px;">
+          <!-- <div class="button1">
+            <button (click)="updatemoncre()">Enregistrer</button>
+          </div> -->
+          <div class="button1">
+            <button (click)="generatePdf()" style="background-color: #00C97B;">PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

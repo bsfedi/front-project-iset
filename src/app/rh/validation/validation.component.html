@@ -1,0 +1,310 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/pdfobject@2.2.8/pdfobject.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/pdfobject@2.2.8/pdfobject.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <app-left-bar> </app-left-bar>
+        <div class="second-container">
+            <div class="title">Validation de la pré-inscription</div>
+            <div class="demande-ng-consultants ">
+                <div class="demande">
+                    <div>
+                        <img src="/assets/4035887-200.png"
+                            style="width: 40px; border-radius: 20%; height: 42px;margin-top: 20px;" />
+
+                    </div>
+                    <div class="nb-demande">
+                        <div class="nameofconsultant">
+                            <b> {{personalInfo?.first_name}} {{personalInfo?.last_name}} </b>
+                        </div>
+                        <div> {{ formatDate(personalInfo?.brith_date) }} </div>
+                    </div>
+                    <div class="post-email">
+                        <div class="nameofconsultant">
+                            {{personalInfo?.code}}
+                        </div>
+                        <div> {{personalInfo?.classe}}</div>
+                    </div>
+
+                    <div style="margin-left: -100px;">
+                        <button type="submit" class="primry-button" (click)="gotoconsultantprofil()"> Envoyer un email
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="Information"> Information personnel et du compte</div>
+            <div style="display: flex;">
+                <div>
+                    <div class="label"> first_name : </div>
+                    <div class="Tableau">
+                        <input type="text" [value]="personalInfo?.first_name">
+
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="first_nameValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="first_nameCause"
+                        [hidden]="first_nameValidation">
+
+
+                    <div class="label"> last_name :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="personalInfo?.last_name">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="last_nameValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="last_nameCause"
+                        [hidden]="last_nameValidation">
+
+                    <div class="label"> Date de naissance :</div>
+                    <div class="Tableau">
+                        <input type="date" [value]="personalInfo?.brith_date">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="brith_dateValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="brith_dateCause"
+                        [hidden]="brith_dateValidation">
+
+                    <div class="label"> CIN :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="personalInfo?.cin">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="cinValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="cinCause" [hidden]="cinValidation">
+
+
+                    <div class="label"> level :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="personalInfo?.level">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="levelValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="levelCause" [hidden]="levelValidation">
+
+
+                    <div class="label"> Adresse :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="personalInfo?.adresse">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="adresseValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="adresseCause"
+                        [hidden]="adresseValidation">
+
+
+                    <div class="label"> Numéro de téléphone :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="personalInfo?.phone">
+                        <label class="toggle-switch" [ngClass]="{'commantaire-style': !phoneValidation}">
+                            <input type="checkbox" [(ngModel)]="phoneValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="phoneCause" [hidden]="phoneValidation">
+
+                    <div class="label"> Pièce d'identité (CNI) :</div>
+                    <div class="Tableau">
+                        <div class="zoom">
+                            <img [src]="docs?.cin" />
+                        </div><label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="cinimgValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="cinimgCause" [hidden]="cinimgValidation">
+
+                </div>
+                <div style="margin-left: 150px;">
+                    <div class="label"> Departement :</div>
+                    <div class="Tableau">
+                        <input [value]="personalInfo?.departement" type="text" id="birthDate" name="birthDate" required
+                            placeholder="RIB" />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="departementValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="departementCause"
+                        [hidden]="departementValidation">
+
+
+                    <div class="label"> Classe:</div>
+                    <div class="Tableau">
+                        <input [value]="personalInfo?.classe" type="text" id="birthDate" name="birthDate" required
+                            placeholder="RIB" />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="classeValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="classeCause" [hidden]="classeValidation">
+                    <div class="label"> Pièce d'identité (CNI) :</div>
+                    <div class="Tableau">
+                        <div class="zoom">
+                            <img [src]="docs?.transcripts" />
+                        </div><label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="transcriptsValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="transcriptsCause"
+                        [hidden]="transcriptsValidation">
+
+                    <!-- <div class="label"> Boite de rattachement :</div>
+                    <div class="Tableau">
+                        <input [value]="personalInfo?.portage.value" type="text" id="birthDate" name="birthDate"
+                            required placeholder="Boite de rattachement " />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="portage">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input *ngIf="!portage" type="text" placeholder="COMMENTAIRE" [(ngModel)]="commantaireportageValue"> -->
+                </div>
+
+            </div>
+            <div class="Information"> Informations du client </div>
+            <div style="display: flex;">
+                <div>
+                    <div class="label"> Père Prénom :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="familyinfo?.father_name">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="father_nameValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="father_nameCause"
+                        [hidden]="father_nameValidation">
+
+                    <div class="label">Mére Prénom :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="familyinfo?.mother_name">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="mother_nameValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="mother_nameCause"
+                        [hidden]="mother_nameValidation">
+                    <div class="label"> Mere Télephone :</div>
+                    <div class="Tableau">
+                        <input type="email" [value]="familyinfo?.mother_phone">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="mother_phoneValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="mother_phoneCause"
+                        [hidden]="mother_phoneValidation">
+                    <div class="label"> Père Télephone :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="familyinfo?.father_phone">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="father_phoneValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="father_phoneCause"
+                        [hidden]="father_phoneValidation">
+                    <div class="label">Père Profession :</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="familyinfo?.father_job">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="father_jobValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="father_jobCause"
+                        [hidden]="father_jobValidation">
+                    <div class="label"> Mére Profession:</div>
+                    <div class="Tableau">
+                        <input type="text" [value]="familyinfo?.mother_job">
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="mother_jobValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="mother_jobCause"
+                        [hidden]="mother_jobValidation">
+
+
+
+
+                </div>
+
+
+            </div>
+            <div style="margin-right: 60px;margin-top: 20px;">
+                <button (click)="update_register()">Valider</button>
+            </div>
+
+        </div>
+        <div class="right-item" style="cursor: pointer;">
+            <div style="display: flex">
+                <div class="profil1" (click)="shownotif()" style="cursor: pointer;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="31" viewBox="0 0 32 31" fill="none">
+                            <path
+                                d="M23.2203 20.62C23.2203 21.47 22.5303 22.16 21.6803 22.16H8.32027C7.47027 22.16 6.78027 21.47 6.78027 20.62C6.78027 19.77 7.47027 19.08 8.32027 19.08H8.83027V13.94C8.83027 10.54 11.5903 7.77002 15.0003 7.77002C16.7003 7.77002 18.2403 8.46002 19.3603 9.58002C20.4803 10.69 21.1703 12.23 21.1703 13.94V19.08H21.6803C22.5303 19.08 23.2203 19.77 23.2203 20.62Z"
+                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M15 7.78V6.75" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M18.0799 22.1699C18.0799 23.8799 16.6999 25.2499 14.9999 25.2499C13.2999 25.2499 11.9199 23.8699 11.9199 22.1699H18.0799Z"
+                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="21.5" cy="7.5" r="4.5" fill="#F33A2A"
+                                *ngIf="nblastnotifications > 0 || new_notif === true " />
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="width: 220px; margin-top: 10px; font-size: 0.8125rem">
+                            <b> Toutes les notifications </b>
+                        </div>
+                        <div style="
+                      color: rgba(0, 0, 0, 0.52);
+          
+                      font-size: 0.8125rem;
+                      font-style: normal;
+                      font-weight: 400;
+          
+                      line-height: 100%; /* 0.8125rem */
+                    ">
+                            {{ nblastnotifications }} notifications
+                        </div>
+                    </div>
+
+                </div>
+                <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
+                    <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                    <div class="nom-prenom">{{res.firstName}} {{res.lastName}} <br>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <app-notificaion-rh *ngIf="shownotiff"></app-notificaion-rh>
+        </div>
+
+        <!-- <app-notificaion-rh></app-notificaion-rh> -->
+    </div>
+</body>

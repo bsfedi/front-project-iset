@@ -1,0 +1,200 @@
+<body>
+  <div>
+    <div>
+      <app-left-bar></app-left-bar>
+    </div>
+    <div>
+      <div class="second-container" *ngIf="role != 'CONSULTANT'">
+
+        <div class="title">
+          Notifications <div class="right-item" style="cursor: pointer;">
+            <div style="display: flex">
+
+              <div class="profil" style="cursor: pointer;">
+                <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                <div class="nom-prenom">{{res.firstName}} {{res.lastName}} <br>
+
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div><br>
+        <div class="loader" *ngIf="!show"></div>
+
+        <table style="width: 100%;" *ngIf="show">
+          <thead>
+            <tr>
+              <th style="border-radius: 0.6875rem 0rem 0rem 0rem;text-align: left;">
+                Type
+              </th>
+              <th> Consultant</th>
+
+
+              <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of getDisplayedNotifications(); let i = index"
+              style="height: auto; text-align: left; cursor: pointer;" [ngClass]="{ 'seen-background': item.isSeen }">
+              <td class="Tableau" style="height: auto; width: 400px;text-align: left;">
+                <!-- *ngIf="item.isAvtivated"-->
+                <div *ngIf="item.typeOfNotification == 'NEWMISSION'" (click)="gotovalidation(item._id,item.missionId)">
+                  Nouvelle mission
+                </div>
+                <div *ngIf="item.typeOfNotification == 'TJMREQUEST'"
+                  (click)="gotovalidationtjm(item._id,item.tjmRequestId)">
+                  Nouvelle demande de TJM
+                </div>
+                <div *ngIf="item.typeOfNotification == 'NEWPREREGISTER'"
+                  (click)="gotovalidationpreregister(item._id,item.preregisterId)">
+                  Nouvelle pre inscription <br>
+                </div>
+                <div *ngIf="item.typeOfNotification == 'UPDATEREREGISTER'">
+                  UPDATEREREGISTER
+                </div>
+              </td>
+              <td style="min-width: 350px;">
+                {{item.userId}}
+              </td>
+              <td>
+                {{ formatDate(item.createdAt.split(["T"])[0]) }}
+              </td>
+
+
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination" style="cursor: pointer;" *ngIf="show">
+          <div (click)="previousPage()" style="cursor: pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+              <path fill-rule="evenodd"
+                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            </svg>
+          </div>
+
+
+          <span> {{ currentPage }} sur {{ totalPages }}</span>
+          <div (click)="nextPage()" style="cursor: pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+              <path fill-rule="evenodd"
+                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+            </svg>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="second-container" *ngIf="role === 'CONSULTANT'">
+      <div class="title">
+        Notifications <div class="right-item" style="cursor: pointer;">
+          <div style="display: flex">
+
+            <div class="profil" style="cursor: pointer;">
+              <img src="/assets/avatar-user.png" width="15%" height="10%" />
+              <div class="nom-prenom">{{res.firstName}} {{res.lastName}} <br>
+
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div><br>
+      <div class="loader" *ngIf="!show"></div>
+      <div class="table-wrapper">
+        <table style="width: 100%;" *ngIf="show">
+          <thead>
+            <tr>
+              <th style="border-radius: 0.6875rem 0rem 0rem 0rem;text-align: left;">
+                Type
+              </th>
+              <th> Note</th>
+
+
+              <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of getDisplayedNotifications(); let i = index"
+              style="height: auto; text-align: left; cursor: pointer;" [ngClass]="{ 'seen-background': item.isSeen }">
+
+              <td class="Tableau" style="height: auto; text-align: left;width: 300px;">
+                <!-- *ngIf="item.isAvtivated"-->
+                <div *ngIf="item.typeOfNotification == 'MISSIONKILLED'"
+                  (click)="detailsmission(item._id,item.missionId)">
+                  Mission Annulée
+                </div>
+                <div *ngIf="item.typeOfNotification == 'MISSIONVALID'"
+                  (click)="detailsmission(item._id,item.missionId)">
+                  Mission Validé
+                </div>
+                <div *ngIf="item.typeOfNotification == 'MISSIONNOTVALID'"
+                  (click)="detailsmission(item._id,item.missionId)">
+                  Mission Non Validé <br>
+                </div>
+                <div *ngIf="item.typeOfNotification == 'TJMREQUESTRESPONSEVALIDATED'">
+                  Nouveau TJM Validé
+                </div>
+                <div *ngIf="item.typeOfNotification == 'TJMREQUESTRESPONSENOTVALIDATED'">
+                  TJM non Validé
+                </div>
+                <div *ngIf="item.typeOfNotification == 'TJMREQUESTRESPONSE'">Nouveau TJM Validé</div>
+
+                <div *ngIf="item.typeOfNotification == 'VIREMENT'"> Virement</div>
+              </td>
+              <td style="min-width: 450px;">
+                {{item.note}}
+              </td>
+              <td>
+                {{ formatDate(item.createdAt.split(["T"])[0]) }}
+              </td>
+
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination" style="cursor: pointer;">
+        <div (click)="previousPage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            <path fill-rule="evenodd"
+              d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+          </svg>
+        </div>
+
+
+        <span> {{ currentPage }} sur {{ totalPages }}</span>
+        <div (click)="nextPage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+            <path fill-rule="evenodd"
+              d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
