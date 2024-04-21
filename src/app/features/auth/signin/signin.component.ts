@@ -84,10 +84,11 @@ export class SigninComponent {
             this.userservice.getinscrption(res.register_id).subscribe({
 
 
-              next: (res) => {
+              next: (res1) => {
                 // Handle the response from the server
-                this.res = res
+                this.res = res1.preregister
 
+                console.log(this.res);
 
                 if (this.res.status == 'NOTEXIST') {
                   this.router.navigate([clientName + '/pre-inscription']);
