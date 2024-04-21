@@ -236,7 +236,6 @@ export class InformationsComponent {
             "phone": this.myForm.value.phone,
             "brith_date": this.myForm.value.brith_date,
             "sexe": this.myForm.value.sexe,
-
             "departement": this.myForm.value.departement,
             "classe": this.myForm.value.classe
           },
