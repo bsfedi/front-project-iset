@@ -154,11 +154,56 @@ export class AdminComponent {
     formData.append('file', cin)
     this.studentservice.upload_users(formData).subscribe({
       next: (res) => {
-        Swal.fire('Success', 'Utilisateur ajouté avec succès!', 'success');
+        if (res) {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> data uploaded avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+        if (res.error) {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> ckeck the file please the header should be like this
+              ["nom", "prenom", "code_enseignement", "email", "numtel", "identifiantunique","departement", "role" ,"grade"]! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+
         this.showPopup = false;
         // Handle the response from the server
         console.log(res);
-        window.location.reload();
+        // window.location.reload();
         // Additional logic if needed
       },
       error: (e) => {
