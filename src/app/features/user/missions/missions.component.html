@@ -106,16 +106,9 @@
             <tr *ngFor="let item of getDisplayeddocspending(); let j = index" (click)="gotovalidation(item._id)"
               style="cursor: pointer;">
               <td>
-                <div *ngIf="item.newMissionStatus == 'WAITINGCONTRACT' &&  item.missionKilled == false"
-                  class="ancienne">
-                  En attente
-                </div>
-                <div *ngIf="item.newMissionStatus != 'WAITINGCONTRACT' &&  item.missionKilled == false" class="pending">
-                  Nouvelle
-                </div>
-                <div *ngIf="item.missionKilled == true" class="pending"
-                  style="background-color: rgb(230, 102, 102);color:white">
-                  Annuler
+
+                <div>
+                  {{ item.status }}
                 </div>
               </td>
 
@@ -182,7 +175,9 @@
 
             <tr *ngFor="let item of getDisplayeddocs()">
 
-              <td></td>
+              <td>
+                {{ item.status }}
+              </td>
 
               <td>
                 {{ item.nb_arab }}
@@ -387,14 +382,11 @@
                       </select>
                       <div class="overSelect"></div>
                     </div>
-                    <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
-                      <label for="one">
-                        <input type="checkbox" (change)="toggleTeacher('enseignant 1')" id="one" />enseignant 1</label>
-                      <label for="two">
-                        <input type="checkbox" (change)="toggleTeacher('enseignant 2')" id="two" />enseignant 2</label>
-                      <label for="three">
-                        <input type="checkbox" (change)="toggleTeacher('enseignant 3')" id="three" />enseignant
-                        3</label>
+                    <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'" *ngFor="let en of ens">
+                      <label for="en._id">
+                        <input type="checkbox" (change)="toggleTeacher(en._id)" id="en._id" />{{en.first_name}}
+                        {{en.last_name}}</label>
+
                     </div>
                   </div>
 

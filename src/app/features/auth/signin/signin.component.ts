@@ -98,35 +98,35 @@ export class SigninComponent {
 
                 }
                 else if (this.res.status == 'VALIDATED') {
+                  this.router.navigate([clientName + '/consultant/missions']);
+
+                  // this.inscriptionservice.getContaractByPrerigister(this.res._id, headers).subscribe({
+                  //   next: (res1) => {
 
 
-                  this.inscriptionservice.getContaractByPrerigister(this.res._id, headers).subscribe({
-                    next: (res1) => {
 
 
+                  //     this.validation_rh = this.res.status
+                  //     this.clientValidation = res1.clientValidation
+                  //     this.contactClient = res1.contactClient
+                  //     this.contractValidation = res1.contractValidation
+                  //     this.jobCotractEdition = res1.jobCotractEdition
+                  //     if (this.validation_rh == 'VALIDATED' || this.clientValidation == 'VALIDATED' || this.contactClient == 'VALIDATED' || this.contactClient == 'VALIDATED' || this.jobCotractEdition == 'VALIDATED') {
+                  //       this.router.navigate([clientName + '/consultant/missions']);
+                  //     }
+                  //     else {
+                  //      
+                  //     }
 
 
-                      this.validation_rh = this.res.status
-                      this.clientValidation = res1.clientValidation
-                      this.contactClient = res1.contactClient
-                      this.contractValidation = res1.contractValidation
-                      this.jobCotractEdition = res1.jobCotractEdition
-                      if (this.validation_rh == 'VALIDATED' || this.clientValidation == 'VALIDATED' || this.contactClient == 'VALIDATED' || this.contactClient == 'VALIDATED' || this.jobCotractEdition == 'VALIDATED') {
-                        this.router.navigate([clientName + '/consultant/missions']);
-                      }
-                      else {
-                        this.router.navigate([clientName + '/consultant/missions']);
-                      }
+                  //   },
+                  //   error: (e) => {
+                  //     // Handle errors
+                  //     console.error(e);
+                  //     // Set loading to false in case of an error
 
-
-                    },
-                    error: (e) => {
-                      // Handle errors
-                      console.error(e);
-                      // Set loading to false in case of an error
-
-                    }
-                  });
+                  //   }
+                  // });
 
 
 
@@ -156,6 +156,14 @@ export class SigninComponent {
           }
           else if (res.role == "tuitionofficer") {
             this.router.navigate([clientName + '/dashboard']);
+          }
+          else if (res.role == "enseignant") {
+            this.router.navigate([clientName + '/enseignant']);
+
+          }
+          else if (res.role == "ADMIN") {
+            this.router.navigate([clientName + '/members']);
+
           }
           else {
             this.router.navigate([clientName + '/dashboard']);

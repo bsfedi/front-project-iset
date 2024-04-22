@@ -21,6 +21,7 @@ import { ValidatedTjmComponent } from './validated-tjm/validated-tjm.component';
 import { CraMissionComponent } from './cra-mission/cra-mission.component';
 import { AdminComponent } from './admin/admin.component';
 import { AllCrasComponent } from './all-cras/all-cras.component';
+import { EnseignantComponent } from './enseignant/enseignant.component';
 
 export const routes: Routes = [
   {
@@ -54,6 +55,10 @@ export const routes: Routes = [
     path: 'missions/:id',
     component: ConsultantMissionComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'enseignant',
+    component: EnseignantComponent
   },
   {
     path: 'mission/:id',
@@ -114,6 +119,7 @@ export const routes: Routes = [
     AdminComponent,
 
     AllCrasComponent,
+    EnseignantComponent,
   ],
   imports: [
     CommonModule,

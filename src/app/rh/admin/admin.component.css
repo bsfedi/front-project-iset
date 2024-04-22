@@ -169,25 +169,86 @@ svg {
   align-items: center;
 }
 
+.custom-file-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #1e1e1e;
+  border-radius: 0.5rem;
+
+  width: 26.04313rem;
+  height: 3.61006rem;
+  flex-shrink: 0;
+
+  margin-top: 10px;
+}
+
+.chose-file {
+  margin-top: 5px;
+  margin-right: 10px;
+  color: #000;
+
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.icon-file {
+  margin-top: 5px;
+  flex-shrink: 0;
+  margin-left: 30px;
+}
+
+.vertical-line {
+  height: 58px;
+  /* Adjust the height as needed */
+  border-left: 1px solid #000;
+  /* Adjust the color as needed */
+  margin-right: 10px;
+}
+
+.file-label {
+  margin-left: 6px;
+  font-size: 1rem;
+
+  flex: 1;
+  margin-right: 10px;
+  color: #9c9a9a;
+
+  font-size: 0.8rem;
+}
+
+.file-input {
+  display: none;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+.custom-file-input {
+  cursor: pointer;
+}
+
 .popup-content {
   width: 25.6875rem;
   margin-left: 50px;
-  height: 28.4375rem;
+  height: 34.4375rem;
   border-radius: 2.125rem;
   background: white;
   padding: 30px;
-  margin-top: 15px;
+
 }
 
 select,
 input[type="text"],
 input[type="date"],
 input[type="email"],
-input[type="tel"],
+input[type="file"],
 input[type="password"],
-input[type="number"] {
+input[type="tel"] {
   width: 26.04313rem;
-  height: 3.61006rem;
+  height: 2.31006rem;
   flex-shrink: 0;
 
   padding: 8px;

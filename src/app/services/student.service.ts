@@ -49,7 +49,26 @@ export class StudentService {
 
     return this.http.post(baseUrl + 'auth/newuser', data);
   }
+  getallusers(): Observable<any> {
+    return this.http.get(baseUrl + 'users');
+  }
 
+  upload_users(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'upload_users', data);
+  }
+  getdemadndesenseignant(enseignant_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'attestation_by_enseignant/' + enseignant_id);
+  }
+  update_status_demande(data: any, demande_id: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'update_status_demande/' + demande_id, data);
+  }
+  enseignantsbydepartement(departement: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'enseignants/' + departement);
+  }
 
   getpendingregister() {
     return this.http.get(baseUrl + 'preregister');

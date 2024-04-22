@@ -209,6 +209,7 @@ export class MissionsComponent {
   res: any
   register_id: any
   res1: any
+  ens: any
   ngOnInit(): void {
     this.user_id = localStorage.getItem('user_id')
     this.register_id = localStorage.getItem('register_id')
@@ -217,33 +218,12 @@ export class MissionsComponent {
       next: (res) => {
         // Handle the response from the server
         this.res = res.preregister
+        this.studentservice.enseignantsbydepartement(this.res.personalInfo.departement).subscribe({
+          next: (res) => {
+            this.ens = res
+          }
+        })
 
-        // this.inscriptionService.getContaractByPrerigister(this.res._id, headers).subscribe({
-        //   next: (res1) => {
-
-
-        //     console.log(res1);
-
-
-        //     this.validation_rh = this.res.status
-        //     this.clientValidation = res1.clientValidation
-        //     this.contactClient = res1.contactClient
-        //     this.contractValidation = res1.contractValidation
-        //     this.jobCotractEdition = res1.jobCotractEdition
-        //     if (this.validation_rh == 'VALIDATED' && this.clientValidation == 'VALIDATED' && this.contactClient == 'VALIDATED' && this.contractValidation == 'VALIDATED' && this.jobCotractEdition == 'VALIDATED') {
-        //       this.router.navigate([clientName + '/consultant/missions']);
-        //     }
-
-
-
-        //   },
-        //   error: (e) => {
-        //     // Handle errors
-        //     console.error(e);
-        //     // Set loading to false in case of an error
-
-        //   }
-        // });
       },
       error: (e) => {
         // Handle errors
@@ -591,7 +571,26 @@ export class MissionsComponent {
     this.studentservice.demandeattestation(formData12)
       .subscribe({
         next: (res) => {
+          Swal.fire({
 
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> demande ajouté avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
           console.log(res);
 
           // Handle the response from the server
@@ -628,7 +627,26 @@ export class MissionsComponent {
     this.studentservice.demandeverification(formData12)
       .subscribe({
         next: (res) => {
+          Swal.fire({
 
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> demande ajouté avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
           console.log(res);
 
           // Handle the response from the server

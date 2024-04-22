@@ -27,40 +27,171 @@
               <div style="float: right" (click)="closePopup()">
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
               </div>
+              <h3>Ajouter un nouvel utilisateur</h3>
               <div>
-                <h3>Ajouter un nouvel utilisateur</h3>
-                <form (submit)="add_userrh()" style="display: flex" [formGroup]="myForm">
-                  <div class="form-section">
-                    <div class="grid-container">
-                      <div class="grid-item">
-                        <input type="text" id="email" placeholder="Prénom" name="email" required
-                          formControlName="firstName" />
-                      </div>
-                      <div class="grid-item">
-                        <input type="text" id="email" placeholder="Nom" name="email" required
-                          formControlName="lastName" />
-                      </div>
-                      <div class="grid-item">
-                        <input type="text" id="email" placeholder="identifiant" name="email" required
-                          formControlName="immat" />
-                      </div>
-                      <div class="grid-item">
-                        <input type="email" id="email" placeholder="Email" name="email" required
-                          formControlName="email" />
-                      </div>
-                      <div class="grid-item">
-                        <input type="password" id="password" placeholder="Password" name="password" required
-                          formControlName="password" />
-                      </div>
+                <select [(ngModel)]="selectedOption" (ngModelChange)="updateForms()">
+                  <option value="import">Import</option>
+                  <option value="manu">Manuellement </option>
+                </select>
+
+                <form [formGroup]="myForm" *ngIf="form1">
+                  <div>
+                    <div>
+                      <input type="text" formControlName="first_name" class="form-control" placeholder="Prénom"
+                        required />
                     </div>
-                    <br />
-                    <div class="buttons">
-                      <button type="submit" class="button" style="margin-left: 290px">
-                        <div class="inscrire">Ajouter</div>
-                      </button>
+                    <div class="error" *ngIf="myForm.get('first_name')?.invalid && myForm.get('first_name')?.touched">
+                      Prénom est obligatoire.
+                    </div>
+                    <div>
+                      <input type="text" formControlName="last_name" class="form-control" placeholder="Nom" required />
+                    </div>
+                    <div class="error" *ngIf="myForm.get('last_name')?.invalid && myForm.get('last_name')?.touched">
+                      Nom est obligatoire.
+                    </div>
+
+                    <div>
+                      <input type="text" formControlName="identity" class="form-control" placeholder="identifiant"
+                        required />
+                    </div>
+                    <div class="error" *ngIf="myForm.get('identity')?.invalid && myForm.get('identity')?.touched">
+                      identifiant est obligatoire.
+                    </div>
+
+                    <div>
+                      <input type="text" formControlName="code" class="form-control" placeholder="code" required />
+                    </div>
+                    <div class="error" *ngIf="myForm.get('code')?.invalid && myForm.get('code')?.touched">
+                      code est obligatoire.
+                    </div>
+                    <div>
+
+                      <select formControlName="departement" id="level" class="form-control" required>
+                        <option value="" disabled selected>Sélectionner le departement</option>
+                        <option value="GM"> GM</option>
+                        <option value="GE"> GE </option>
+                        <option value="TI"> TI</option>
+                        <option value="GC"> GC </option>
+                        <option value="SEG"> SEG</option>
+                      </select>
+                    </div>
+                    <div class="error" *ngIf="myForm.get('departement')?.invalid && myForm.get('departement')?.touched">
+                      departement est obligatoire.
+                    </div>
+
+                    <div>
+                      <input type="text" formControlName="email" class="form-control" placeholder="email" required />
+                    </div>
+                    <div class="error" *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+                      email est obligatoire.
+                    </div>
+                    <div>
+                      <select formControlName="grade" class="form-control" required>
+                        <option value="" disabled selected>Choisir le grade</option>
+                        <option value="technologue">technologue</option>
+                        <option value="maître technologue">maître technologue</option>
+                        <option value="professeur technologue">professeur technologue</option>
+                        <option value="PES">PES </option>
+                        <option value="vacataire">vacataire </option>
+                        <option value="maître assistant">maître assistant </option>
+                        <option value="maitre de conference">maitre de conference </option>
+                        <option value="autre">autre</option>
+                      </select>
+                    </div>
+                    <div class="error" *ngIf="myForm.get('grade')?.invalid && myForm.get('grade')?.touched">
+                      grade est obligatoire.
+                    </div>
+                    <div>
+                      <input type="tel" formControlName="phone" class="form-control" placeholder="Numéro de téléphone"
+                        required />
+                    </div>
+                    <div class="error" *ngIf="myForm.get('phone')?.invalid && myForm.get('phone')?.touched">
+                      Numéro de téléphone est obligatoire.
+                    </div>
+
+                    <div>
+                      <select formControlName="role" class="form-control" required>
+                        <option value="" disabled selected>Choisir le role</option>
+                        <option value="technicien">Technicien </option>
+                        <option value="enseignant">Enseignant </option>
+                        <option value="personneladministratif"> personnel administratif </option>
+                      </select>
+                    </div>
+                    <div class="error" *ngIf="myForm.get('role')?.invalid && myForm.get('role')?.touched">
+                      role est obligatoire.
                     </div>
                   </div>
+                  <br />
+
                 </form>
+                <form style="display: flex" [formGroup]="myForm" *ngIf="form2">
+                  <div class="grid-item">
+                    <div class="custom-file-input" (change)="setFileInput('cin', $event)" style="cursor: pointer">
+                      <label class="file-label" for="fileInput" style="cursor: pointer">
+
+                        Pièce d’identité (CNI)
+                      </label>
+
+                      <div class="vertical-line"></div>
+                      <input class="file-input" type="file" id="fileInput" name="fileInput" formControlName="idCardFile"
+                        onclick="document.getElementById('fileInput').click()" />
+
+                      <div class="upload-icon" onclick="document.getElementById('fileInput').click()">
+                        <div class="chose-file" *ngIf="!users_data">
+
+                          choisir un fichier <br />
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                            class="icon-file" fill="none">
+                            <g clip-path="url(#clip0_972_185)">
+                              <path
+                                d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                                stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                              <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_972_185">
+                                <rect width="14" height="14" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                        <div *ngIf="users_data" style="align-items: center; text-align: center">
+
+                          <img *ngIf="users_data.split('/')[1].split(';')[0]==='csv'"
+                            src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image"
+                            style="
+                          max-width: 320%;
+                          max-height: 50px;
+                          margin: 5px;
+                          margin-top: 10px;
+                        " />
+                          <img *ngIf="users_data.split('/')[1].split(';')[0]!='pdf'" [src]="users_data"
+                            alt="Selected Image" style="
+                              max-width: 320%;
+                              max-height: 50px;
+                              margin: 5px;
+                              margin-top: 10px;
+                            " />
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </form>
+                <div class="buttons" *ngIf="form2">
+                  <button type="submit" (click)="upload_users()" class="button" style="margin-left: 290px">
+                    <div class="inscrire">Ajouter</div>
+                  </button>
+                </div>
+                <div class="buttons" *ngIf="form1">
+                  <button type="submit" (click)="addnewuser()" class="button" style="margin-left: 290px">
+                    <div class="inscrire">Ajouter</div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -72,7 +203,7 @@
             <br />
           </div>
           <div>
-            <div class="table-wrapper">
+            <!-- <div class="table-wrapper">
               <table>
                 <thead>
                   <tr>
@@ -159,7 +290,7 @@
                         </div>
                       </div>
                       <div class="dropdown-content">
-                        <!-- Your dropdown content here -->
+                       
                         <div style="display: flex; cursor: pointer" (click)="deleteconsultant(rh._id)">
                           <img src="/assets/Checkmark.svg" width="12%" />
                           <div style="
@@ -200,7 +331,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> -->
           </div>
         </div>
         <br />
@@ -224,7 +355,7 @@
                       </div>
                     </th>
                     <th> Email</th>
-                    <th>Status</th>
+                    <th>Role</th>
                     <th>Télephone</th>
 
                     <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Action</th>
@@ -243,9 +374,9 @@
 
                       <div
                         style="margin-top: 0px; text-align: left;min-width: 100px;margin-left: 15px;margin-top: 15px;">
-                        <div *ngIf="rh.personalInfo">
-                          {{ rh.personalInfo.firstName }}
-                          {{ rh.personalInfo.lastName }} <br>
+                        <div>
+                          {{ rh.first_name }}
+                          {{ rh.last_name }} <br>
 
                         </div>
 
@@ -261,7 +392,7 @@
                       </div>
                     </td>
                     <td style="width: 70px;">
-                      <div *ngIf="rh.personalInfo && rh.isAvtivated == true " style="
+                      <div style="
                       display: flex;
                       width: 140px;
                       
@@ -273,40 +404,13 @@
                       border-radius: 0.875rem;
                       background: #b4ee8a;
                     ">
-                        Activé
+                        {{ rh.role }}
                       </div>
-                      <div *ngIf="rh.personalInfo && rh.isAvtivated != true" style="
-                      display: flex;
-                      width: 140px;
-                     
-                      height: 1.75rem;
-                      padding: 0.25rem 0.6875rem 0.25rem 0.5rem;
-                      justify-content: center;
-                      align-items: center;
-                      flex-shrink: 0;
-                      border-radius: 0.875rem;
-                      background: #e98989;
-                    ">
-                        Désactivé
-                      </div>
-                      <div *ngIf="!rh.personalInfo && rh.isAvtivated == true" style="
-                    display: flex;
-                    width: 140px;
-                   
-                    height: 1.75rem;
-                    padding: 0.25rem 0.6875rem 0.25rem 0.5rem;
-                    justify-content: center;
-                    align-items: center;
-                    flex-shrink: 0;
-                    border-radius: 0.875rem;
-                    background: #e7e3e3;
-                  ">
-                        En attente
-                      </div>
+
                     </td>
 
-                    <td *ngIf="rh.personalInfo">{{ rh.personalInfo.phoneNumber }}</td>
-                    <td *ngIf="!rh.personalInfo"></td>
+                    <td>{{ rh.phone }}</td>
+
                     <td style="cursor: pointer" class="dropdown">
                       <div>
                         <div>
@@ -333,7 +437,7 @@
                             Supprimer le compte
                           </div>
                         </div>
-                        <!-- Your dropdown content here -->
+
                         <div style="display: flex; cursor: pointer" (click)="updateAccountVisibility(rh._id,false)"
                           *ngIf="rh.isAvtivated == true">
                           <img src="/assets/Checkmark.svg" width="12%" />
@@ -375,6 +479,31 @@
                 </tbody>
               </table>
             </div>
+            <div class="pagination">
+              <div (click)="previousPage()" style="cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                  <path fill-rule="evenodd"
+                    d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                </svg>
+              </div>
+
+
+              <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages
+                }}</span>
+              <div (click)="nextPage()" style="cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                  <path fill-rule="evenodd"
+                    d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                </svg>
+              </div>
+
+            </div>
           </div>
         </div>
         <br />
@@ -385,11 +514,11 @@
 
     <div>
       <div class="right-item" (click)="gotomyprofile()" style="cursor: pointer;">
-        <div class="profil">
+        <!-- <div class="profil">
           <img src="/assets/avatar-user.png" width="15%" height="10%" />
           <div style="" class="nom-prenom">{{res.firstName}} {{res.lastName}}</div>
 
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -23,15 +23,21 @@ export class AdminComponent {
   isMenuOpen: boolean[] = [];
   isMenuOpen1: boolean[] = [];
   res: any
+  form1: boolean = false;
+  form2: boolean = false;
+  selectedOption: any
   constructor(private inscriptionservice: InscriptionService, private studentservice: StudentService, private consultantservice: ConsultantService, private router: Router, private userservice: UserService, private socketService: WebSocketService, private fb: FormBuilder) {
     this.myForm = this.fb.group({
-
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      code: ['', Validators.required],
       email: ['', Validators.required],
+      phone: ['', Validators.required],
+      departement: ['', Validators.required],
+      grade: ['', Validators.required],
+      identifiant: ['', Validators.required],
+      role: ['', Validators.required],
       password: ['', Validators.required],
-      immat: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      // Add other form controls as needed
     });
   }
 
@@ -50,7 +56,7 @@ export class AdminComponent {
 
       }
     });
-    this.consultantservice.getallrh().subscribe({
+    this.studentservice.getallusers().subscribe({
       next: (res) => {
         this.all_rh = res
 
@@ -59,9 +65,11 @@ export class AdminComponent {
 
       }
     });
-    this.consultantservice.getConsultantusers().subscribe({
+    this.studentservice.getallusers().subscribe({
       next: (res) => {
-        this.all_users = res
+        this.all_users = res.users
+        console.log(this.all_users);
+
 
       }, error(e) {
         console.log(e);
@@ -70,8 +78,81 @@ export class AdminComponent {
     });
 
   }
+  fileInputs: any = {};
+
+  fileName: string = '';
+  selectedFile: any | null = null;
+  users_data: any
+  setFileInput(field: string, event: any): void {
+
+    this.fileInputs[field] = event.target;
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+
+      // Read the file and set the image URL
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (field == 'cin') {
+
+          this.users_data = e.target!.result as string;
+
+        }
+
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+  updateForms() {
+    if (this.selectedOption === 'manu') {
+      this.form1 = true;
+      this.form2 = false;
+    } else if (this.selectedOption === 'import') {
+      this.form1 = false;
+      this.form2 = true;
+    }
+  }
+  pageSizenv = 5; // Number of items per page
+  currentPagenv = 1; // Current page
+
+  totalPagesnv: any = 1;
+  nextPagenv() {
+    if (this.currentPagenv < this.totalPagesnv) {
+      this.totalPagesnv++;
+    }
+  }
+
+  previousPagenv() {
+    if (this.currentPagenv > 1) {
+      this.currentPagenv--;
+    }
+  }
+  add_user() {
+    console.log(this.myForm.value);
+    // You can do further processing here, such as sending the form data to an API
+  }
   addnewuser() {
     this.studentservice.newuser(this.myForm.value).subscribe({
+      next: (res) => {
+        Swal.fire('Success', 'Utilisateur ajouté avec succès!', 'success');
+        this.showPopup = false;
+        // Handle the response from the server
+        console.log(res);
+        window.location.reload();
+        // Additional logic if needed
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      },
+    });
+  }
+
+  upload_users() {
+    const cin = this.fileInputs.cin.files[0];
+    const formData = new FormData();
+    formData.append('file', cin)
+    this.studentservice.upload_users(formData).subscribe({
       next: (res) => {
         Swal.fire('Success', 'Utilisateur ajouté avec succès!', 'success');
         this.showPopup = false;
@@ -179,7 +260,7 @@ export class AdminComponent {
   getDisplayedconsultants(): any[] {
 
     this.totalPages = Math.ceil(this.all_users.length / this.pageSize);
-    const startIndex = (this.currentPageconsultant - 1) * this.pageSize;
+    const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = Math.min(startIndex + this.pageSize, this.all_users.length);
 
 
