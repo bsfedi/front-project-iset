@@ -532,34 +532,34 @@ export class MissionsComponent {
         },
       });
 
-      this.consultantservice.getNotValidatedMissions(this.headers).subscribe({
-        next: (res) => {
-          if (res.length != 0) {
-            this.NotValidated_mission = res
-            console.log(this.NotValidated_mission);
+      // this.consultantservice.getNotValidatedMissions(this.headers).subscribe({
+      //   next: (res) => {
+      //     if (res.length != 0) {
+      //       this.NotValidated_mission = res
+      //       console.log(this.NotValidated_mission);
 
 
-          } else {
-            this.NotValidated_mission = []
-            console.log(this.NotValidated_mission.length);
+      //     } else {
+      //       this.NotValidated_mission = []
+      //       console.log(this.NotValidated_mission.length);
 
-          }
+      //     }
 
-          console.log(this.NotValidated_mission);
+      //     console.log(this.NotValidated_mission);
 
 
 
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
+      //   },
+      //   error: (e) => {
+      //     // Handle errors
+      //     console.error(e);
 
-          this.NotValidated_mission = []
+      //     this.NotValidated_mission = []
 
-          // Set loading to false in case of an error
+      //     // Set loading to false in case of an error
 
-        }
-      });
+      //   }
+      // });
 
     }
   }

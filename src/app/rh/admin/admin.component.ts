@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;
 @Component({
   selector: 'app-admin',
@@ -22,7 +23,7 @@ export class AdminComponent {
   isMenuOpen: boolean[] = [];
   isMenuOpen1: boolean[] = [];
   res: any
-  constructor(private inscriptionservice: InscriptionService, private consultantservice: ConsultantService, private router: Router, private userservice: UserService, private socketService: WebSocketService, private fb: FormBuilder) {
+  constructor(private inscriptionservice: InscriptionService, private studentservice: StudentService, private consultantservice: ConsultantService, private router: Router, private userservice: UserService, private socketService: WebSocketService, private fb: FormBuilder) {
     this.myForm = this.fb.group({
 
       email: ['', Validators.required],
@@ -68,6 +69,22 @@ export class AdminComponent {
       }
     });
 
+  }
+  addnewuser() {
+    this.studentservice.newuser(this.myForm.value).subscribe({
+      next: (res) => {
+        Swal.fire('Success', 'Utilisateur ajouté avec succès!', 'success');
+        this.showPopup = false;
+        // Handle the response from the server
+        console.log(res);
+        window.location.reload();
+        // Additional logic if needed
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      },
+    });
   }
   deleteconsultant(id: any) {
     Swal.fire({

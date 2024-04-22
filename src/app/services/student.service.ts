@@ -41,6 +41,16 @@ export class StudentService {
     return this.http.get(baseUrl + 'preregister/' + register_id);
   }
 
+  getuserbyid(user_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'user/' + user_id);
+  }
+
+  newuser(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'auth/newuser', data);
+  }
+
+
   getpendingregister() {
     return this.http.get(baseUrl + 'preregister');
   }

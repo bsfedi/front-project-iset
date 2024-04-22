@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { StudentService } from 'src/app/services/student.service';
 const baseUrl = `${environment.baseUrl}`;
 const clientName = `${environment.default}`;
 
@@ -52,7 +53,7 @@ export class ConsultantMissionComponent {
   foremData: FormGroup;
   formData1: FormGroup;
   show_mission: boolean = true
-  show_doc: boolean = false
+  show_doc: boolean = true
   show_historique: boolean = false
   res: any
   res14: any
@@ -61,6 +62,7 @@ export class ConsultantMissionComponent {
   searchTerm: any
   searchTerm1: any
   constructor(private consultantservice: ConsultantService, private inscriptionservice: InscriptionService,
+    private studentservice: StudentService,
     private datePipe: DatePipe,
     private userservice: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     const today = new Date();
@@ -90,14 +92,106 @@ export class ConsultantMissionComponent {
     });
   }
   allcra: any
-
+  preinscription_id: any
+  personalInfo: any
+  familyinfo: any
+  validation: any
+  user_email: any
+  validated_mission: any
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
   }
   ngOnInit(): void {
     const user_id = localStorage.getItem('user_id');
+    this.route.params.subscribe((params) => {
+      this.user_id = params['id'];
+      this.preinscription_id = params['id'];
+    });
 
 
+    this.studentservice.getinscrption(this.preinscription_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+
+        this.studentservice.getuserbyid(res.preregister.user_id).subscribe({
+          next: (res) => {
+            this.user_email = res.email
+          }
+        })
+        this.studentservice.getdemandeattestation(res.preregister.user_id).subscribe({
+          next: (res) => {
+            this.validated_mission = res;
+
+
+          },
+          error: (e) => {
+            // Handle errors
+            this.validated_mission = [];
+            console.error(e);
+
+            // Set loading to false in case of an error
+          },
+        });
+        this.validation = res.preregister.validation.paymenttype
+        console.log(this.validation);
+        this.show_doc = true
+        this.personalInfo = res.preregister.personalInfo;
+        this.familyinfo = res.preregister.family_info;
+        this.docs = res.preregister.docs
+        this.docs.cin = baseUrl + "uploads/" + this.docs.cin
+        this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+
+        this.personalInfo.brith_date = this.personalInfo.brith_date.split('T')[0]
+
+
+        if (this.personalInfo.identificationDocument.value.endsWith('.pdf')) {
+          console.log(this.personalInfo.identificationDocument.value);
+
+          // this.inscriptionservice.getPdf(baseUrl + "uploads/" + this.personalInfo.identificationDocument.value).subscribe({
+          //   next: (res) => {
+          //     this.pdfData = res;
+          //     this.identificationDocumentpdf = true;
+          //     if (this.pdfData) {
+          //       this.handleRenderPdf1(this.pdfData);
+          //     }
+          //   },
+          // });
+
+        }
+        this.personalInfo.carInfo.drivingLicense.value = baseUrl + "uploads/" + this.personalInfo?.carInfo.drivingLicense.value
+        // this.inscriptionservice.getPdf(baseUrl + "uploads/" + this.missionInfo.isSimulationValidated.value).subscribe({
+        //   next: (res) => {
+        //     this.pdfData = res;
+        //     this.isLoading = false;
+        //     if (this.pdfData) {
+        //       this.handleRenderPdf(this.pdfData);
+        //     }
+        //   },
+        // });
+
+        // this.inscriptionservice.getPdf(baseUrl + "uploads/" + this.personalInfo.ribDocument.value).subscribe({
+        //   next: (res) => {
+        //     this.pdfData = res;
+        //     this.isLoading = false;
+        //     if (this.pdfData) {
+        //       this.handlesecondRenderPdf(this.pdfData);
+        //     }
+        //   },
+        // });
+
+
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+        // Set loading to false in case of an error
+
+      }
+    });
 
     this.userservice.getpersonalinfobyid(user_id).subscribe({
 
@@ -121,9 +215,7 @@ export class ConsultantMissionComponent {
       }
     });
     const token = localStorage.getItem('token');
-    this.route.params.subscribe((params) => {
-      this.user_id = params['id'];
-    });
+
 
     this.userservice.getMyvirements(this.user_id).subscribe({
       next: (res) => {
@@ -178,42 +270,42 @@ export class ConsultantMissionComponent {
 
 
 
-    this.userservice.getAllDacumentsofuser(this.user_id).subscribe({
+    // this.userservice.getAllDacumentsofuser(this.user_id).subscribe({
 
 
-      next: (res) => {
-        // Handle the response from the server
-        this.docs = res
-        this.filteredItems = this.docs
-        for (let item of this.filteredItems) {
-          if (item.document.endsWith('.pdf')) {
-            item.pdf = true
-            item.document = baseUrl + "uploads/" + item.document
-            this.inscriptionservice.getPdf(item.document).subscribe({
+    //   next: (res) => {
+    //     // Handle the response from the server
+    //     this.docs = res
+    //     this.filteredItems = this.docs
+    //     for (let item of this.filteredItems) {
+    //       if (item.document.endsWith('.pdf')) {
+    //         item.pdf = true
+    //         item.document = baseUrl + "uploads/" + item.document
+    //         this.inscriptionservice.getPdf(item.document).subscribe({
 
-            });
+    //         });
 
-          } else {
-            item.pdf = false
-            item.document = baseUrl + "uploads/" + item.document
-          }
+    //       } else {
+    //         item.pdf = false
+    //         item.document = baseUrl + "uploads/" + item.document
+    //       }
 
-          //   if (item.document.split(['.'][-1] == 'pdf')){
-
-
-        }
+    //       //   if (item.document.split(['.'][-1] == 'pdf')){
 
 
+    //     }
 
 
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
 
-      }
-    });
+
+    //   },
+    //   error: (e) => {
+    //     // Handle errors
+    //     console.error(e);
+    //     // Set loading to false in case of an error
+
+    //   }
+    // });
     // Check if token is available
     if (token) {
       // Include the token in the headers
@@ -293,6 +385,20 @@ export class ConsultantMissionComponent {
         }
       });
     }
+
+  }
+
+  getDisplayeddocs(): any[] {
+
+
+    this.totalPages = Math.ceil(this.validated_mission.length / this.pageSize);
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = Math.min(startIndex + this.pageSize, this.validated_mission.length);
+
+
+    return this.validated_mission.slice(startIndex, endIndex);
+
+
 
   }
   getvalidateby(user_id: any) {
@@ -429,44 +535,22 @@ export class ConsultantMissionComponent {
     this.showPopup3 = true;
   }
   selectedDate: any;
-  applyFiltercra() {
-    // Check if search term is empty
-    if (this.searchTerm.trim() === ' ') {
-      // If search term is empty, reset the filtered items to the original items
-      this.docs = this.docs;
-      console.log("docsssss" + this.docs);
+  // applyFiltercra() {
+  //   // Check if search term is empty
+  //   if (this.searchTerm.trim() === ' ') {
+  //     // If search term is empty, reset the filtered items to the original items
+  //     this.docs = this.docs;
+  //     console.log("docsssss" + this.docs);
 
-    } else {
-      // Apply filter based on search term
-      this.docs = this.docs.filter((item: any) =>
-        item.filename.split('uploads/')[1].toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-      console.log("docseeeessss" + this.docs);
-    }
-  }
-  getDisplayeddocs(): any[] {
-    if (this.show_doc) {
+  //   } else {
+  //     // Apply filter based on search term
+  //     this.docs = this.docs.filter((item: any) =>
+  //       item.filename.split('uploads/')[1].toLowerCase().includes(this.searchTerm.toLowerCase())
+  //     );
+  //     console.log("docseeeessss" + this.docs);
+  //   }
+  // }
 
-      this.totalPages15 = Math.ceil(this.filteredItems.length / this.pageSize15);
-      const startIndex = (this.currentPage15 - 1) * this.pageSize15;
-      const endIndex = Math.min(startIndex + this.pageSize15, this.filteredItems.length);
-
-
-      return this.filteredItems.slice(startIndex, endIndex);
-    }
-    else if (this.show_mission) {
-      this.totalPages = Math.ceil(this.items.length / this.pageSize);
-      const startIndex = (this.currentPage - 1) * this.pageSize;
-      const endIndex = Math.min(startIndex + this.pageSize, this.items.length);
-      return this.items.slice(startIndex, endIndex);
-    } else {
-      this.totalPages = Math.ceil(this.allcra.length / this.pageSize);
-      const startIndex = (this.currentPage - 1) * this.pageSize;
-      const endIndex = Math.min(startIndex + this.pageSize, this.allcra.length);
-      return this.allcra.slice(startIndex, endIndex);
-    }
-
-  }
   filterByUploadDate(uploadDate: Date): boolean {
     if (!this.selectedDate) {
       this.showfilter = true
