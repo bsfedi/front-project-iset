@@ -99,9 +99,15 @@ export class InformationsComponent {
           this.personalInfo = res.preregister.personalInfo;
           this.familyinfo = res.preregister.family_info;
           this.docs = res.preregister.docs
+          this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
           this.docs.cin = baseUrl + "uploads/" + this.docs.cin
           this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
-
+          if (this.docs.note1) {
+            this.docs.note1 = baseUrl + "uploads/" + this.docs.note1
+          }
+          if (this.docs.note2) {
+            this.docs.note2 = baseUrl + "uploads/" + this.docs.note2
+          }
           this.personalInfo.brith_date = this.personalInfo.brith_date.split('T')[0]
           this.hasCar = this.personalInfo.carInfo.hasCar.value;
 

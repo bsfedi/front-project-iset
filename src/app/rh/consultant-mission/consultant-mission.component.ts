@@ -39,6 +39,7 @@ export class ConsultantMissionComponent {
   totalPages15: any
   nbdemande: any
   contractValidation: any
+  roleofcurrent_user: any
   jobCotractEdition: any
   idcontractByPreregister: any
   getContaractByPrerigister: any
@@ -103,6 +104,7 @@ export class ConsultantMissionComponent {
   }
   ngOnInit(): void {
     const user_id = localStorage.getItem('user_id');
+    this.roleofcurrent_user = localStorage.getItem('role');
     this.route.params.subscribe((params) => {
       this.user_id = params['id'];
       this.preinscription_id = params['id'];
@@ -118,20 +120,38 @@ export class ConsultantMissionComponent {
             this.user_email = res.email
           }
         })
-        this.studentservice.getdemandeattestation(res.preregister.user_id).subscribe({
-          next: (res) => {
-            this.validated_mission = res;
+        if (this.roleofcurrent_user == 'tuitionofficer') {
+          this.studentservice.validated_attestation(res.preregister.user_id).subscribe({
+            next: (res) => {
+              this.validated_mission = res;
 
 
-          },
-          error: (e) => {
-            // Handle errors
-            this.validated_mission = [];
-            console.error(e);
+            },
+            error: (e) => {
+              // Handle errors
+              this.validated_mission = [];
+              console.error(e);
 
-            // Set loading to false in case of an error
-          },
-        });
+              // Set loading to false in case of an error
+            },
+          });
+        } else {
+          this.studentservice.getdemandeattestation(res.preregister.user_id).subscribe({
+            next: (res) => {
+              this.validated_mission = res;
+
+
+            },
+            error: (e) => {
+              // Handle errors
+              this.validated_mission = [];
+              console.error(e);
+
+              // Set loading to false in case of an error
+            },
+          });
+        }
+
         this.validation = res.preregister.validation.paymenttype
         console.log(this.validation);
         this.show_doc = true
@@ -716,6 +736,20 @@ export class ConsultantMissionComponent {
 
       }
     });
+  }
+  as_prete(id: any) {
+    this.studentservice.update_new_status_demande(id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+        // Set loading to false in case of an error
+
+      }
+    });
+
   }
   gotovalidemission(mission_id: any, id: any) {
     this.router.navigate([clientName + '/validationmission/' + mission_id + '/' + id])

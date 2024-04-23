@@ -31,6 +31,15 @@ export class StudentService {
     return this.http.post(baseUrl + 'docs/' + register_id, data);
   }
 
+  addnote1(data: any, register_id: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'new_docs_1/' + register_id, data);
+  }
+  addnote2(data: any, register_id: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'new_docs_2/' + register_id, data);
+  }
+
 
   createfamilyinfo(data: any, register_id: any): Observable<any> {
 
@@ -44,6 +53,9 @@ export class StudentService {
   getuserbyid(user_id: any): Observable<any> {
     return this.http.get(baseUrl + 'user/' + user_id);
   }
+  getpreregisterbyid(user_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'get_preregister/' + user_id);
+  }
 
   newuser(data: any): Observable<any> {
 
@@ -53,21 +65,26 @@ export class StudentService {
     return this.http.get(baseUrl + 'users');
   }
 
-  upload_users(data: any): Observable<any> {
+  upload_users(data: any, type: any): Observable<any> {
 
-    return this.http.post(baseUrl + 'upload_users', data);
+    return this.http.post(baseUrl + 'upload_users/' + type, data);
   }
   getdemadndesenseignant(enseignant_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'attestation_by_enseignant/' + enseignant_id);
   }
-  update_status_demande(data: any, demande_id: any): Observable<any> {
+  update_status_demande(data: any, demande_id: any, enseignant: any): Observable<any> {
 
-    return this.http.put(baseUrl + 'update_status_demande/' + demande_id, data);
+    return this.http.put(baseUrl + 'update_status_demande/' + demande_id + "/" + enseignant, data);
   }
   enseignantsbydepartement(departement: any): Observable<any> {
 
     return this.http.get(baseUrl + 'enseignants/' + departement);
+  }
+
+  deleteuser(user_id: any): Observable<any> {
+    return this.http.delete(baseUrl + 'user/' + user_id);
+
   }
 
   getpendingregister() {
@@ -81,6 +98,12 @@ export class StudentService {
 
     return this.http.put(baseUrl + 'update_register/' + register_id, data);
   }
+
+  attribut_role(user_id: any, privilege: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'add_privilege/' + user_id + "/" + privilege);
+  }
+
 
   update_paiemnt_status(data: any, register_id: any): Observable<any> {
 
@@ -114,6 +137,16 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'attestation/' + user_id);
   }
+
+  validated_attestation(user_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'validated_attestation/' + user_id);
+  }
+  update_new_status_demande(demande_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'update_new_status_demande/' + demande_id);
+  }
+
   validated_preregister(): Observable<any> {
 
     return this.http.get(baseUrl + 'validated_preregister');

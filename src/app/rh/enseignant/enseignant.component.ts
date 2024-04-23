@@ -3,7 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
-
+import { environment } from 'src/environments/environment';
+const baseUrl = `${environment.baseUrl}`;
 @Component({
   selector: 'app-enseignant',
   templateUrl: './enseignant.component.html',
@@ -18,11 +19,11 @@ export class EnseignantComponent {
   currentPageconsultant = 1; // Current page
   totalPages: any;
   role: any
-
+  ens_id: any
   ngOnInit(): void {
-    const user_id = localStorage.getItem('user_id');
+    this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
-    this.studentservice.getdemadndesenseignant(user_id).subscribe({
+    this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes = res
         console.log(this.all_demandes);
@@ -35,13 +36,13 @@ export class EnseignantComponent {
     });
 
   }
-  validated(demande_id: any) {
+  validated() {
     const data = {
-      "role": this.role,
-      "status": "validated by enseignant"
+      "role": "string",
+      "validated": true
 
     }
-    this.studentservice.update_status_demande(data, demande_id).subscribe({
+    this.studentservice.update_status_demande(data, this.demande_id, this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes = res
         console.log(this.all_demandes);
@@ -73,13 +74,13 @@ export class EnseignantComponent {
     });
 
   }
-  refus(demande_id: any) {
+  refus() {
     const data = {
-      "role": this.role,
-      "status": "invalidated by enseignant"
+      "role": "string",
+      "validated": false
 
     }
-    this.studentservice.update_status_demande(data, demande_id).subscribe({
+    this.studentservice.update_status_demande(data, this.demande_id, this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes = res
         console.log(this.all_demandes);
@@ -129,6 +130,41 @@ export class EnseignantComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+  user_info: any
+  showPopup1: any
+  personalInfo: any
+  docs: any
+  demande_id: any
+  openPopup1(user_id: any, demande_id: any): void {
+    this.demande_id = demande_id
+
+    this.studentservice.getpreregisterbyid(user_id).subscribe({
+      next: (res) => {
+        console.log(res);
+
+
+        this.personalInfo = res.personalInfo;
+
+        this.docs = res.docs
+        this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
+        this.docs.cin = baseUrl + "uploads/" + this.docs.cin
+        this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+
+
+    this.showPopup1 = true;
+  }
+  closePopup1(): void {
+    this.showPopup1 = false;
+
   }
 
 }

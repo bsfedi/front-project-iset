@@ -20,12 +20,16 @@ export class AdminComponent {
   showPopup: any
   myForm: FormGroup;
   all_users: any
+  selectedOption3: any
+  user_id: any
+  showPopup1: any
   isMenuOpen: boolean[] = [];
   isMenuOpen1: boolean[] = [];
   res: any
   form1: boolean = false;
   form2: boolean = false;
   selectedOption: any
+  selectedOption1: string = '';
   constructor(private inscriptionservice: InscriptionService, private studentservice: StudentService, private consultantservice: ConsultantService, private router: Router, private userservice: UserService, private socketService: WebSocketService, private fb: FormBuilder) {
     this.myForm = this.fb.group({
       first_name: ['', Validators.required],
@@ -38,6 +42,7 @@ export class AdminComponent {
       identifiant: ['', Validators.required],
       role: ['', Validators.required],
       password: ['', Validators.required],
+      service: ['', Validators.required],
     });
   }
 
@@ -112,6 +117,8 @@ export class AdminComponent {
       this.form2 = true;
     }
   }
+
+
   pageSizenv = 5; // Number of items per page
   currentPagenv = 1; // Current page
 
@@ -148,11 +155,27 @@ export class AdminComponent {
     });
   }
 
-  upload_users() {
+  attribut_role() {
+    this.studentservice.newuser(this.myForm.value).subscribe({
+      next: (res) => {
+        Swal.fire('Success', 'Utilisateur ajouté avec succès!', 'success');
+        this.showPopup = false;
+        // Handle the response from the server
+        console.log(res);
+        window.location.reload();
+        // Additional logic if needed
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      },
+    });
+  }
+  upload_users(selectedOption1: any) {
     const cin = this.fileInputs.cin.files[0];
     const formData = new FormData();
     formData.append('file', cin)
-    this.studentservice.upload_users(formData).subscribe({
+    this.studentservice.upload_users(formData, selectedOption1).subscribe({
       next: (res) => {
         if (res) {
           Swal.fire({
@@ -212,61 +235,134 @@ export class AdminComponent {
       },
     });
   }
-  deleteconsultant(id: any) {
-    Swal.fire({
-      title: "Confirmez l'action",
-      background: '#fefcf1',
-      html: `
-        <div>
-        <div style="font-size:1.2rem"> Êtes-vous sûr de vouloir supprimer ce compte ?  </div> 
-          
-        </div>
-      `,
-      iconColor: '#1E1E1E',
-      showCancelButton: true,
-      confirmButtonText: 'Confirmer',
-      confirmButtonColor: "#91c593",
-      cancelButtonText: 'Annuler',
-      cancelButtonColor: "black",
-      customClass: {
-        confirmButton: 'custom-confirm-button-class',
-        cancelButton: 'custom-cancel-button-class'
+  deletenewuser(user_id: any) {
+    this.studentservice.deleteuser(user_id).subscribe({
+      next: (res) => {
+        if (res) {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> utilisateur supprimé avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+        if (res.error) {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> Error
+         </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+
+        this.showPopup = false;
+        // Handle the response from the server
+        console.log(res);
+        window.location.reload();
+        // Additional logic if needed
       },
-      reverseButtons: true // Reversing button order
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // User clicked 'Yes', call the endpoint
-        this.consultantservice.deleteconsultant(id).subscribe({
-          next: (res) => {
-            Swal.fire('Success', 'le consultant supprimé avec succes', 'success');
-
-            // Handle the response from the server
-            console.log(res);
-            window.location.reload();
-            // Additional logic if needed
-          },
-          error: (e) => {
-            // Handle errors
-            console.error(e);
-          },
-        });
-      } else {
-        Swal.fire({
-          background: '#fefcf1',
-          title: 'Annulé',
-          text: "Aucune modification n'a été apportée.",
-          iconColor: '#1E1E1E',
-
-          confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
-        })
-        // // User clicked 'Cancel' or closed the popup
-        // Swal.fire('Annulé',
-        //   "Aucune modification n'a été apportée.", 'info');
-      }
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      },
     });
 
   }
+
+  attributrole() {
+
+    this.studentservice.attribut_role(this.user_id, this.selectedOption3).subscribe({
+      next: (res) => {
+        if (res.message == 'privilege add sucessufly') {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+                <div>
+                <div style="font-size:1.2rem"> privilege ajouté avec succès! </div> 
+                  
+                </div>
+              `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+        if (res.message == 'can add this privilege to tow users') {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+                <div>
+                <div style="font-size:1.2rem"> can add this privilege to tow users
+           </div> 
+                  
+                </div>
+              `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+
+        this.showPopup = false;
+        // Handle the response from the server
+        console.log(res);
+        // window.location.reload();
+        // Additional logic if needed
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      },
+    });
+
+  }
+
+
   gotocdashboad() {
 
     this.router.navigate([clientName + '/allConsultants'])
@@ -343,6 +439,17 @@ export class AdminComponent {
   }
   closePopup(): void {
     this.showPopup = false;
+
+  }
+
+  openPopup1(id: any): void {
+    this.user_id = id
+    console.log(this.user_id);
+
+    this.showPopup1 = true;
+  }
+  closePopup1(): void {
+    this.showPopup1 = false;
 
   }
 

@@ -53,6 +53,7 @@ export class PersonalDocComponent {
       baccalaureate: ['', Validators.required],
       cin: ['', Validators.required],
       transcripts: ['', Validators.required],
+      img_profil: ['', Validators.required]
       // Add other controls for the additional form as needed
     });
   }
@@ -115,10 +116,13 @@ export class PersonalDocComponent {
         // Assuming these are the file input names in your form 
         const cin = this.fileInputs.cin.files[0];
         const transcripts = this.fileInputs.transcripts.files[0];
+        const img_profil = this.fileInputs.img_profil.files[0];
 
         formData.append('cin', cin);
 
         formData.append('transcripts', transcripts)
+        formData.append('img_profil', img_profil)
+
         if (this.show_bac === true) {
           const bac = this.fileInputs.bac.files[0] || ''
 
@@ -153,7 +157,7 @@ export class PersonalDocComponent {
   // Assuming you have an object to hold file inputs
   fileInputs: any = {};
   fileName: string = '';
-
+  img_profil: any
   setFileInput(field: string, event: any): void {
 
     this.fileInputs[field] = event.target;
@@ -171,6 +175,10 @@ export class PersonalDocComponent {
         }
         else if (field == 'transcripts') {
           this.ribdoc_img = e.target!.result as string;
+        }
+        else if (field == 'img_profil') {
+          this.img_profil = e.target!.result as string;
+
         }
         else {
           this.bac_img = e.target!.result as string;

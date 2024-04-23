@@ -83,7 +83,7 @@ export const routes: Routes = [
   {
     path: 'tjmrequests',
     component: TjmrequestsComponent,
-    canActivate: [AuthGuard]
+
   },
   {
     path: 'validated-tjmrequests/:id',

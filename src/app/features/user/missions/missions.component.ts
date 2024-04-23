@@ -552,7 +552,6 @@ export class MissionsComponent {
 
   demandeattestation() {
     const formData12 = {
-
       "user_id": this.res.user_id,
       "first_name": this.res.personalInfo.first_name,
       "last_name": this.res.personalInfo.last_name,
@@ -560,13 +559,15 @@ export class MissionsComponent {
       "nb_page": 0,
       "nb_arab": this.myForm.value.arabicAttestations,
       "nb_fr": this.myForm.value.frenchAttestations,
-      "enseignants": this.selectedTeachers,
       "code": this.res.personalInfo.code,
       "departement": this.res.personalInfo.departement,
-      "classe": this.res.personalInfo.classe
-
+      "classe": this.res.personalInfo.classe,
+      // Modified enseignants field
+      "enseignants": [
+        { "_id": this.selectedTeachers[0], "validated": false },
+        { "_id": this.selectedTeachers[1], "validated": false }
+      ]
     }
-    console.log(formData12);
 
     this.studentservice.demandeattestation(formData12)
       .subscribe({

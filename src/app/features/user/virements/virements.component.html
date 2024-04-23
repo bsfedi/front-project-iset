@@ -2,88 +2,648 @@
   <app-left-bar></app-left-bar>
   <div class="second-container">
 
-
-    <div style="display: flex">
-
-      <div class="title">
-        Mes Virements
-      </div>
-    </div>
-    <br />
-
-    <div id="chart" *ngIf="show_chart ">
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-        [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke"
-        [colors]="chartOptions.colors" [title]="chartOptions.title" [yaxis]="chartOptions.yaxis"
-        [fill]="chartOptions.fill"></apx-chart>
-    </div>
-
-
-
-    <div class="transaction-header">
-
-
-      <select [(ngModel)]="selectedType" (change)="filterByType(selectedType,date)">
-        <option value="all">Tous les virements</option>
-        <option value="Participation">Participation</option>
-        <option value="Cooptation">Cooptation</option>
-        <option value="Frais">Frais</option>
-      </select>
-      <select [(ngModel)]="date" (change)="filterByType(selectedType,date)">
-        <option value="today">Aujourd’hui</option>
-        <option value="7days">7 Derniers Jours</option>
-        <option value="month">Dernier mois</option>
-        <option value="year">Dernière Année</option>
-      </select>
-
-    </div>
-    <br><br><br><br>
-    <div class="mobile"><br><br></div>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-
-          <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Date</th>
-          <th>Type</th>
-          <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Montant</th>
-
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of getDisplayeddocs()">
-            <td>{{ item.createdAt.split("T")[0] }}</td>
-            <td>{{ item.typeVirement }}</td>
-            <td>{{ item.montant }}€</td>
-          </tr>
-
-          <!-- Repeat this row for other transactions -->
-          <!-- ... other transactions ... -->
-        </tbody>
-      </table>
-    </div>
-
-    <div class="pagination">
-      <div (click)="previousPage()" style="cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-          class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-          <path fill-rule="evenodd"
-            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+    <!-- <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+                d="M21.7555 20.6065L18.3182 17.2458L18.2376 17.1233C18.0878 16.9742 17.883 16.8902 17.6692 16.8902C17.4554 16.8902 17.2505 16.9742 17.1007 17.1233C14.1795 19.8033 9.67815 19.949 6.58201 17.4637C3.48586 14.9784 2.75567 10.6334 4.87568 7.31017C6.9957 3.98697 11.3081 2.71685 14.9528 4.34214C18.5976 5.96743 20.4438 9.98379 19.267 13.7276C19.1823 13.9981 19.2515 14.2922 19.4487 14.4992C19.6459 14.7062 19.9411 14.7946 20.223 14.7311C20.505 14.6676 20.7309 14.4619 20.8156 14.1914C22.2224 9.74864 20.0977 4.96755 15.8161 2.94106C11.5345 0.914562 6.38084 2.25082 3.68905 6.08542C0.99727 9.92001 1.57518 15.1021 5.04893 18.2795C8.52268 21.4569 13.8498 21.6759 17.5841 18.7949L20.6277 21.7705C20.942 22.0765 21.4502 22.0765 21.7645 21.7705C22.0785 21.4602 22.0785 20.9606 21.7645 20.6503L21.7555 20.6065Z"
+                fill="#1E1E1E" />
         </svg>
+        <div class="Search-text">
+            <input type="search" placeholder="Search Anything Here...">
+        </div>
+        <div>
+            <button> Rechercher </button>
+        </div>
+    </div> -->
+
+    <br> <br>
+    <div class="Information"> information personnelle et du compte</div> <br>
+    <form [formGroup]="myForm">
+
+      <div style="display: flex;">
+        <div>
+
+        </div>
+
+        <div>
+          <div class="label"> Pciture :</div>
+          <div class="Tableau">
+
+            <div class="zoom">
+              <img [src]="docs?.img_profil" [ngModel]="docs?.img_profil" formControlName="img_profil"
+                style="max-width: 200px; max-height: 200px;" />
+
+
+
+
+
+            </div><label class="toggle-switch" *ngIf="!docs?.cinimgValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="label"> Prénom :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="first_name" [ngModel]="personalInfo?.first_name"
+              [readonly]="personalInfo?.first_nameValidation">
+
+            <label class="toggle-switch" *ngIf="!personalInfo?.first_nameValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+
+          </div>
+
+          <div class="cause">
+            {{ personalInfo?.first_nameCause}}
+          </div>
+
+          <div class="label"> Nom :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="last_name" [ngModel]="personalInfo?.last_name"
+              [readonly]="personalInfo?.last_nameValidation">
+            <label class="toggle-switch" *ngIf="!personalInfo?.last_nameValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.last_nameCause}}
+          </div>
+
+          <div class="label"> Carte d'identité :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="cin" [ngModel]="personalInfo?.cin"
+              [readonly]="personalInfo?.cinValidation">
+            <label class="toggle-switch" *ngIf="!personalInfo?.cinValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.cinCause }}
+          </div>
+
+          <div class="label"> Niveau :</div>
+          <div class="Tableau">
+            <select formControlName="level" [ngModel]="personalInfo?.level">
+              <option value="1"> 1</option>
+              <option value="2"> 2 </option>
+              <option value="3"> 3 </option>
+            </select>
+            <!-- <input type="text" formControlName="level" [ngModel]="personalInfo?.level"
+              [readonly]="personalInfo?.levelValidation"> -->
+            <!-- <label class="toggle-switch" *ngIf="!personalInfo?.levelValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label> -->
+          </div>
+          <div *ngIf="myForm.get('level')!.value == 2">
+            <form action="/submit_form" method="post" [formGroup]="DocPersolForm">
+              <div>
+
+                <div>
+                  <div class="custom-file-input" (change)="setFileInput('note1', $event)">
+                    <label class="file-label" for="note1" style="cursor: pointer"
+                      onclick="document.getElementById('idCardUploadPermis').click()">Relevé de note premier
+                      année</label>
+                    <div class="vertical-line"></div>
+                    <input class="file-input" type="file" name="note1" formControlName="note1"
+                      (change)="setFileInput('note1', $event)" id="note1"
+                      onclick="document.getElementById('note1').click()" />
+                    <div class="upload-icon" onclick="document.getElementById('note1').click()">
+                      <div class="chose-file" *ngIf="!note1_img">
+                        choisir un fichier <br />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                          class="icon-file" fill="none">
+                          <g clip-path="url(#clip0_972_185)">
+                            <path
+                              d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                              stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_972_185">
+                              <rect width="14" height="14" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                      <div *ngIf="note1_img" style="align-items: center; text-align: center">
+
+                        <img *ngIf="note1_img.split('/')[1].split(';')[0]==='pdf'"
+                          src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image"
+                          style="
+                        max-width: 320%;
+                        max-height: 50px;
+                        margin: 5px;
+                        margin-top: 10px;
+                      " />
+                        <img *ngIf="note1_img.split('/')[1].split(';')[0]!='pdf'" [src]="note1_img" alt="Selected Image"
+                          style="
+                            max-width: 320%;
+                            max-height: 50px;
+                            margin: 5px;
+                            margin-top: 10px;
+                          " />
+                      </div>
+                      <!-- <div *ngIf="ribdoc_img" style="align-items: center; text-align: center">
+                        <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                            max-width: 320%;
+                            max-height: 50px;
+                            margin: 5px;
+                            margin-top: 10px;
+                          " />
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="error" *ngIf="
+                    DocPersolForm.get('ribdoc')?.invalid &&
+                    DocPersolForm.get('ribdoc')?.touched
+                  ">
+                  ribdoc est obligatoire.
+                </div>
+
+
+
+              </div>
+              <br />
+            </form>
+          </div>
+          <div *ngIf="myForm.get('level')!.value == 3">
+            <form action="/submit_form" method="post" [formGroup]="DocPersolForm">
+              <div>
+
+                <div>
+                  <div class="custom-file-input" (change)="setFileInput('note1', $event)">
+                    <label class="file-label" for="note1" style="cursor: pointer"
+                      onclick="document.getElementById('idCardUploadPermis').click()">Relevé de note premier
+                      année</label>
+                    <div class="vertical-line"></div>
+                    <input class="file-input" type="file" name="note1" formControlName="note1"
+                      (change)="setFileInput('note1', $event)" id="note1"
+                      onclick="document.getElementById('note1').click()" />
+                    <div class="upload-icon" onclick="document.getElementById('note1').click()">
+                      <div class="chose-file" *ngIf="!note1_img">
+                        choisir un fichier <br />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                          class="icon-file" fill="none">
+                          <g clip-path="url(#clip0_972_185)">
+                            <path
+                              d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                              stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_972_185">
+                              <rect width="14" height="14" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                      <div *ngIf="note1_img" style="align-items: center; text-align: center">
+
+                        <img *ngIf="note1_img.split('/')[1].split(';')[0]==='pdf'"
+                          src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image"
+                          style="
+                        max-width: 320%;
+                        max-height: 50px;
+                        margin: 5px;
+                        margin-top: 10px;
+                      " />
+                        <img *ngIf="note1_img.split('/')[1].split(';')[0]!='pdf'" [src]="note1_img" alt="Selected Image"
+                          style="
+                            max-width: 320%;
+                            max-height: 50px;
+                            margin: 5px;
+                            margin-top: 10px;
+                          " />
+                      </div>
+                      <!-- <div *ngIf="ribdoc_img" style="align-items: center; text-align: center">
+                        <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                            max-width: 320%;
+                            max-height: 50px;
+                            margin: 5px;
+                            margin-top: 10px;
+                          " />
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="error" *ngIf="
+                    DocPersolForm.get('ribdoc')?.invalid &&
+                    DocPersolForm.get('ribdoc')?.touched
+                  ">
+                  ribdoc est obligatoire.
+                </div>
+                <div>
+                  <div class="custom-file-input" (change)="setFileInput('note2', $event)">
+                    <label class="file-label" for="note2" style="cursor: pointer"
+                      onclick="document.getElementById('idCardUploadPermis').click()">Relevé de note premier
+                      année</label>
+                    <div class="vertical-line"></div>
+                    <input class="file-input" type="file" name="note2" formControlName="note2"
+                      (change)="setFileInput('note2', $event)" id="note2"
+                      onclick="document.getElementById('note2').click()" />
+                    <div class="upload-icon" onclick="document.getElementById('note2').click()">
+                      <div class="chose-file" *ngIf="!note2_img">
+                        choisir un fichier <br />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                          class="icon-file" fill="none">
+                          <g clip-path="url(#clip0_972_185)">
+                            <path
+                              d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                              stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_972_185">
+                              <rect width="14" height="14" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                      <div *ngIf="note2_img" style="align-items: center; text-align: center">
+
+                        <img *ngIf="note2_img.split('/')[1].split(';')[0]==='pdf'"
+                          src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image"
+                          style="
+                        max-width: 320%;
+                        max-height: 50px;
+                        margin: 5px;
+                        margin-top: 10px;
+                      " />
+                        <img *ngIf="note2_img.split('/')[1].split(';')[0]!='pdf'" [src]="note2_img" alt="Selected Image"
+                          style="
+                            max-width: 320%;
+                            max-height: 50px;
+                            margin: 5px;
+                            margin-top: 10px;
+                          " />
+                      </div>
+                      <!-- <div *ngIf="ribdoc_img" style="align-items: center; text-align: center">
+                        <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image" style="
+                            max-width: 320%;
+                            max-height: 50px;
+                            margin: 5px;
+                            margin-top: 10px;
+                          " />
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="error" *ngIf="
+                    DocPersolForm.get('ribdoc')?.invalid &&
+                    DocPersolForm.get('ribdoc')?.touched
+                  ">
+                  ribdoc est obligatoire.
+                </div>
+
+
+              </div>
+              <br />
+            </form>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.levelCause }}
+          </div>
+          <div class="label"> Adresse :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="adresse" [ngModel]="personalInfo?.adresse"
+              [readonly]="personalInfo?.adresseValidation">
+            <label class="toggle-switch" *ngIf="!personalInfo?.adresseValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.adresseCause }}
+          </div>
+          <div class="label"> Date de naissance :</div>
+          <div class="Tableau">
+            <input type="date" formControlName="brith_date" [readonly]="personalInfo?.brith_dateValidation"
+              [ngModel]="personalInfo?.brith_date">
+            <label class="toggle-switch" *ngIf="!personalInfo?.brith_dateValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.brith_dateCause }}
+          </div>
+
+          <div class="label"> Numéro de téléphone :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="phone" [ngModel]="personalInfo?.phone">
+            <label class="toggle-switch" *ngIf="!personalInfo?.phoneValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.phoneCause }}
+          </div>
+          <div class="label"> sexe : </div>
+          <div class="Tableau">
+            <input type="text" formControlName="sexe" [ngModel]="personalInfo?.sexe"
+              [readonly]="personalInfo?.sexeValidation">
+            <label class="toggle-switch" *ngIf="!personalInfo?.sexeValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.sexeCause }}
+          </div>
+
+
+
+        </div>
+        <div style="margin-left:220px;">
+          <div class="label"> Pièce d'identité (CNI) :</div>
+          <div class="Tableau">
+
+            <div class="zoom">
+              <img [src]="docs?.cin" [ngModel]="docs?.cin" formControlName="cin_img"
+                style="max-width: 200px; max-height: 200px;" />
+
+
+
+
+
+            </div><label class="toggle-switch" *ngIf="!docs?.cinimgValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <input type="file" style="display: none" #identificationDocument />
+          <div class="cause">
+            {{ docs?.cinimgCause}}
+          </div>
+
+
+          <div class="label"> Relevé de note:</div>
+          <div class="Tableau">
+
+            <div class="zoom">
+              <img [src]="docs?.transcripts" [ngModel]="docs?.transcripts" formControlName="transcripts"
+                style="max-width: 200px; max-height: 200px;" />
+
+
+
+
+
+            </div><label class="toggle-switch" *ngIf="!docs?.transcriptsValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+
+          <div class="cause">
+            {{ docs?.transcriptsCause}}
+          </div>
+
+          <div class="label" *ngIf="docs?.baccalaureate"> Diplome baccalauréat:</div>
+          <div class="Tableau" *ngIf="docs?.baccalaureate ">
+
+            <div class="zoom">
+              <img [src]="docs?.baccalaureate" [ngModel]="docs?.baccalaureate" formControlName="transcripts"
+                style="max-width: 200px; max-height: 200px;" />
+
+
+
+
+
+            </div><label class="toggle-switch" *ngIf="!docs?.baccalaureateValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+
+          <div class="cause" *ngIf="docs?.baccalaureate">
+            {{ docs?.baccalaureateCause}}
+          </div>
+
+
+
+          <div class="label"> Departement :</div>
+          <div class="Tableau">
+            <input formControlName="departement" [ngModel]="personalInfo?.departement"
+              [readonly]="personalInfo?.departementValidation" type="text" required placeholder="RIB" />
+            <label class="toggle-switch" *ngIf="!personalInfo?.departementValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.departementCause}}
+          </div>
+          <div class="label"> classe :</div>
+          <div class="Tableau">
+            <input formControlName="classe" [ngModel]="personalInfo?.classe" type="text" required placeholder="RIB" />
+            <label class="toggle-switch" *ngIf="!personalInfo?.classeValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ personalInfo?.classeCause}}
+          </div>
+        </div>
+
       </div>
+      <div class="Information"> Information du client (pour la contractualisation) </div>
+      <div class="personal-info">
+        <div>
+          <div class="label"> Père Prénom :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="father_name" [readonly]="familyinfo?.father_nameValidation"
+              [ngModel]="familyinfo?.father_name">
+            <label class="toggle-switch" *ngIf="!familyinfo?.father_nameValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ familyinfo?.father_nameCause }}
+          </div>
+          <div class="label"> Mére Prénom :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="mother_name" [readonly]="familyinfo?.mother_nameValidation"
+              [ngModel]="familyinfo?.mother_name">
+            <label class="toggle-switch" *ngIf="!familyinfo?.mother_nameValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ familyinfo?.mother_nameCause }}
+          </div>
+          <div class="label"> Mere Télephone :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="mother_phone" [ngModel]="familyinfo?.mother_phone"
+              [readonly]="familyinfo?.mother_phoneValidation">
+            <label class="toggle-switch" *ngIf="!familyinfo?.mother_phoneValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ familyinfo?.mother_phoneCause }}
+          </div>
+          <div class="label"> Père Télephone :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="father_phone" [readonly]="familyinfo?.father_phoneValidation"
+              [ngModel]="familyinfo?.father_phone">
+            <label class="toggle-switch" *ngIf="!familyinfo?.father_phoneValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ familyinfo?.father_phoneCause }}
+          </div>
+          <div class="label"> Père Profession :</div>
+          <div class="Tableau">
+            <input type="text" formControlName="father_job" [readonly]="familyinfo?.father_jobValidation"
+              [ngModel]="familyinfo?.father_job">
+            <label class="toggle-switch" *ngIf="!familyinfo?.father_jobValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ familyinfo?.father_jobCause }}
+          </div>
+          <div class="label"> Mére Profession:</div>
+          <div class="Tableau">
+            <input type="text" formControlName="mother_job" [readonly]="familyinfo?.mother_jobValidation"
+              [ngModel]="familyinfo?.mother_job">
+            <label class="toggle-switch" *ngIf="!familyinfo?.mother_jobValidation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+              </svg>
+            </label>
+          </div>
+          <div class="cause">
+            {{ familyinfo?.mother_jobCause }}
+          </div>
 
 
-      <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages }}</span>
-      <div (click)="nextPage()" style="cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-          class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
-          <path fill-rule="evenodd"
-            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
-        </svg>
+
+
+
+
+        </div>
+
+
       </div>
-
+    </form>
+    <div style="margin-right: 60px;margin-top: 20px;">
+      <button (click)=" edit()">Terminer</button>
     </div>
 
   </div>
@@ -117,14 +677,14 @@
   
               line-height: 100%; /* 0.8125rem */
             ">
-            {{ nblastnotifications }} notifications
+            1 notifications
           </div>
         </div>
 
       </div>
       <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
         <img src="/assets/avatar-user.png" width="15%" height="10%" />
-        <div class="nom-prenom">{{res2.firstName}} {{res2.lastName}} <br>
+        <div class="nom-prenom"> nom prénom <br>
 
         </div>
 

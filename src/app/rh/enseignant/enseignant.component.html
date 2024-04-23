@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="dropdown-content">
                                                 <div class="dropdown-menu">
-                                                    <div style="display: flex; cursor: pointer">
+                                                    <!-- <div style="display: flex; cursor: pointer">
                                                         <img src="/assets/Checkmark.svg" width="12%" />
                                                         <div (click)="validated(item._id)" style="
                                                     margin-top: 7px;
@@ -93,8 +93,18 @@
                                                   ">
                                                             Non
                                                         </div>
-                                                    </div>
+                                                    </div> -->
+                                                    <div style="display: flex; cursor: pointer">
+                                                        <img src="/assets/Checkmark.svg" width="12%" />
+                                                        <div (click)="openPopup1(item.user_id,item._id)" style="
+                                                    margin-top: 7px;
+                                                    margin-bottom: 10px;
+                                                    margin-left: 5px;
+                                                  ">
+                                                            Voir details
 
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -138,7 +148,38 @@
             </div>
         </div>
 
+        <div class="popup" *ngIf="showPopup1">
+            <div class="popup-content" style="height: 12rem;">
+                <div style="float: right" (click)="closePopup1()">
+                    <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                </div>
+                <h3>Demande de presence</h3>
+                <div class="grid-item">
 
+                    <div style="display: flex;">
+                        <img [src]="docs?.img_profil" [ngModel]="docs?.img_profil" formControlName="img_profil"
+                            style="max-width: 100px; max-height: 100px; border-radius: 50%;" />
+                        <div style="margin: 15px;">
+                            <b> Nom :</b>{{personalInfo.first_name}} <br>
+                            <b> Prénom :</b>{{personalInfo.last_name}} <br>
+                            <b> Classe :</b> {{personalInfo.classe}} <br>
+                        </div>
+                    </div>
+
+
+                </div> <br>
+                <div style="display: flex;">
+                    <button type="submit" class="button" (click)="validated()"
+                        style="background-color: rgb(192, 198, 204); color: black;margin-left: 200px">
+                        <div class="inscrire">Oui</div>
+                    </button>
+                    <button type="submit" class="button" (click)="refus()">
+                        <div class="inscrire">Non</div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
         <div>
             <div class="right-item" style="cursor: pointer;">
                 <div class="profil">

@@ -80,8 +80,8 @@ export class ValidationMissionComponent {
           this.getContaractByPrerigister = res
 
           this.payment = res.preregister.validation.payment
-          this.depot = res.preregister.validation.depot || " eaz"
-          this.type = res.preregister.validation.type
+          this.depot = res.preregister.validation.depot
+
           this.contractValidation = res.contractValidation
           this.jobCotractEdition = res.jobCotractEdition
           // Handle the response from the server

@@ -73,6 +73,10 @@ export class ValidationComponent implements OnInit {
   departementCause: string = ""
   classeValidation: boolean = true
   classeCause: string = ""
+  note1Validation: boolean = true
+  note1Cause: string = ""
+  note2Validation: boolean = true
+  note2Cause: string = ""
   issLoading = false;
   hasCar: any;
   preinscription_id: any
@@ -201,7 +205,14 @@ export class ValidationComponent implements OnInit {
           this.familyinfo = res.preregister.family_info;
           this.docs = res.preregister.docs
           this.docs.cin = baseUrl + "uploads/" + this.docs.cin
+          this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
           this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+          if (this.docs.note1) {
+            this.docs.note1 = baseUrl + "uploads/" + this.docs.note1
+          }
+          if (this.docs.note2) {
+            this.docs.note2 = baseUrl + "uploads/" + this.docs.note2
+          }
           this.personalInfo.identificationDocument.value = baseUrl + "uploads/" + this.personalInfo.identificationDocument.value
           this.personalInfo.dateOfBirth.value = this.personalInfo.dateOfBirth.value.split('T')[0]
           this.personalInfo.carInfo.drivingLicense.value = baseUrl + "uploads/" + this.personalInfo.carInfo.drivingLicense.value
@@ -287,6 +298,10 @@ export class ValidationComponent implements OnInit {
       "departementCause": this.departementCause,
       "classeValidation": this.classeValidation,
       "classeCause": this.classeCause,
+      "note1Validation": this.note1Validation,
+      "note1Cause": this.note1Cause,
+      "note2Validation": this.note1Validation,
+      "note2Cause": this.note2Cause,
     };
 
     Swal.fire({
