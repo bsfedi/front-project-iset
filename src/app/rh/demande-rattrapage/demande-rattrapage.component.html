@@ -1,0 +1,229 @@
+<div class="wrapper">
+    <div>
+        <app-left-bar></app-left-bar>
+    </div>
+    <div class="container">
+        <div class="title"> Déclarer une nouvelle mission
+        </div>
+        <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
+            <div class="form-section">
+                <b> Information de la mission : <br></b>
+
+                <div class="grid-container">
+
+                    <div class="grid-item">
+                        <br> Type de rattrapage <br>
+                        <select formControlName="type" id="fullName" placeholder="Métier" name="fullName" required>
+                            <option value="anticipé">
+                                Anticipé
+                            </option>
+                            <option value="suiteabsence">
+                                Suite une absence
+                            </option>
+                        </select>
+
+                        <div class="error" *ngIf="
+                      myForm.get('type')?.invalid &&
+                      myForm.get('type')?.touched
+                    ">
+                            type est obligatoire.
+                        </div>
+                    </div>
+                    <div *ngIf="myForm.get('type')?.value =='anticipé'">
+                        <br> Date absence <br>
+                        <input type="date" formControlName="date">
+                    </div>
+
+                    <div *ngIf="myForm.get('type')?.value =='suiteabsence'">
+                        <div class="grid-item">
+                            <br> Date absence <br>
+                            <select formControlName="date">
+                                <option *ngFor="let en of ens" [value]="en.date">{{en.date}}
+                                </option>
+                            </select>
+
+
+                        </div>
+
+                    </div>
+                    <div class="grid-item">
+                        <br> Nombre de séance <br><select formControlName="nb_senace">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="grid-item">
+                        <form [formGroup]="myForm1">
+                            <div
+                                *ngIf="myForm.get('nb_senace')?.value == '1' || myForm.get('nb_senace')?.value == '2' || myForm.get('nb_senace')?.value == '3' || myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
+                                <br> séance 1 <br>
+                                <input type="date" formControlName="date"><br>
+
+                                <select formControlName="inputClass">
+                                    <option value="Class 1"> Class 1 </option>
+                                    <option value="Class 2"> Class 2 </option>
+                                    <option value="Class 3"> Class 3 </option>
+                                </select> <br>
+                                <select formControlName="inputModule">
+                                    <option value="Module 1"> Module 1 </option>
+                                    <option value="Module 2"> Module 2 </option>
+                                    <option value="Module 2"> Module 3 </option>
+                                </select> <br>
+                                <select formControlName="inputHoraire">
+                                    <option value="S1"> S1 </option>
+                                    <option value="S2"> S2 </option>
+                                    <option value="S3">S3 </option>
+                                    <option value="S4">S4 </option>
+                                    <option value="S5">S5 </option>
+                                </select>
+
+
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="grid-item">
+                        <form [formGroup]="myForm2">
+                            <div
+                                *ngIf="myForm.get('nb_senace')?.value == '2' || myForm.get('nb_senace')?.value == '3'  || myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
+                                <br> séance 2 <br>
+                                <input type="date" formControlName="date"><br>
+                                <select formControlName="inputClass">
+                                    <option value="Class 1"> Class 1 </option>
+                                    <option value="Class 2"> Class 2 </option>
+                                    <option value="Class 3"> Class 3 </option>
+                                </select> <br>
+                                <select formControlName="inputModule">
+                                    <option value="Module 1"> Module 1 </option>
+                                    <option value="Module 2"> Module 2 </option>
+                                    <option value="Module 2"> Module 3 </option>
+                                </select> <br>
+                                <select formControlName="inputHoraire">
+                                    <option value="S1"> S1 </option>
+                                    <option value="S2"> S2 </option>
+                                    <option value="S3">S3 </option>
+                                    <option value="S4">S4 </option>
+                                    <option value="S5">S5 </option>
+                                </select>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="error" *ngIf="
+                      myForm.get('profession')?.invalid &&
+                      myForm.get('profession')?.touched
+                    ">
+                        Métier est obligatoire.
+                    </div>
+
+
+
+                    <div class="buttons" style="margin-left: 90px;">
+
+                        <button type="submit" class="button" (click)="submitAll()">
+                            <div class="inscrire"> Ajouter</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <form [formGroup]="myForm3">
+                            <div
+                                *ngIf="myForm.get('nb_senace')?.value == '3' ||myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
+                                <br> séance 3 <br>
+                                <input type="date" formControlName="date3"><br>
+                                <select formControlName="inputClass">
+                                    <option value="Class 1"> Class 1 </option>
+                                    <option value="Class 2"> Class 2 </option>
+                                    <option value="Class 3"> Class 3 </option>
+                                </select> <br>
+                                <select formControlName="inputModule">
+                                    <option value="Module 1"> Module 1 </option>
+                                    <option value="Module 2"> Module 2 </option>
+                                    <option value="Module 2"> Module 3 </option>
+                                </select> <br>
+                                <select formControlName="inputHoraire">
+                                    <option value="S1"> S1 </option>
+                                    <option value="S2"> S2 </option>
+                                    <option value="S3">S3 </option>
+                                    <option value="S4">S4 </option>
+                                    <option value="S5">S5 </option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="grid-item">
+                        <form [formGroup]="myForm4">
+                            <div *ngIf="myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
+                                <br> séance 4 <br>
+                                <input type="date" formControlName="date4"><br>
+
+                                <select formControlName="inputClass">
+                                    <option value="Class 1"> Class 1 </option>
+                                    <option value="Class 2"> Class 2 </option>
+                                    <option value="Class 3"> Class 3 </option>
+                                </select> <br>
+                                <select formControlName="inputModule">
+                                    <option value="Module 1"> Module 1 </option>
+                                    <option value="Module 2"> Module 2 </option>
+                                    <option value="Module 2"> Module 3 </option>
+                                </select> <br>
+                                <select formControlName="inputHoraire">
+                                    <option value="S1"> S1 </option>
+                                    <option value="S2"> S2 </option>
+                                    <option value="S3">S3 </option>
+                                    <option value="S4">S4 </option>
+                                    <option value="S5">S5 </option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="grid-item">
+                        <form [formGroup]="myForm5">
+                            <div *ngIf="myForm.get('nb_senace')?.value == '5' ">
+                                <br> séance 5<br>
+                                <input type="date" formControlName="date5"><br>
+                                <select formControlName="inputClass">
+                                    <option value="Class 1"> Class 1 </option>
+                                    <option value="Class 2"> Class 2 </option>
+                                    <option value="Class 3"> Class 3 </option>
+                                </select> <br>
+                                <select formControlName="inputModule">
+                                    <option value="Module 1"> Module 1 </option>
+                                    <option value="Module 2"> Module 2 </option>
+                                    <option value="Module 2"> Module 3 </option>
+                                </select> <br>
+                                <select formControlName="inputHoraire">
+                                    <option value="S1"> S1 </option>
+                                    <option value="S2"> S2 </option>
+                                    <option value="S3">S3 </option>
+                                    <option value="S4">S4 </option>
+                                    <option value="S5">S5 </option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <!-- <div class="right-item">
+
+        <app-notification></app-notification>
+    </div> -->
+
+</div>

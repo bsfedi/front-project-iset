@@ -17,49 +17,68 @@
         </div>
         <div class="first" [ngClass]="{ 'tjmselected': tjm }">
           <div style="margin-right: 5px; cursor: pointer;" (click)="showtjm()">
-            Nouveau TJM
+            Verfiction de note
           </div>
           <div>
-            <div class="second" [ngClass]="{ 'missionselectd': !mission }" (click)="showmission()">Nouvelles missions
+            <div class="second" [ngClass]="{ 'missionselectd': !mission }" (click)="showmission()">
+              Attestation de presence
+            </div>
+          </div>
+          <div>
+            <div class="second" [ngClass]="{ 'missionselectd': !rattrapge }" style="" (click)="showrattrapge()">
+              Demande Rttrapge
             </div>
           </div>
         </div>
         <div class="table-wrapper">
           <table *ngIf="tjm">
             <thead>
-              <th style="border-radius: 0.6875rem 0rem 0rem 0rem;text-align: left;"> Consultant</th>
+              <th style="border-radius: 0.6875rem 0rem 0rem 0rem;text-align: left;"> Etudiant</th>
 
 
 
-              <th>TJM</th>
-
-              <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Date</th>
+              <th>note</th>
+              <th>enseignant</th>
+              <th>matiere</th>
+              <th>classe</th>
+              <th style="border-radius: 0rem 0.6875rem 0rem 0rem">commantaire</th>
             </thead>
             <tbody>
-              <tr *ngFor="let tjm of getDisplayeddocs(); let j = index" (click)="gotovalidation(tjm._id)"
-                style="cursor: pointer;">
+              <tr *ngFor="let item of getDisplayeddocs(); let j = index" style="cursor: pointer;">
 
-                <td style="text-align: left;padding: 15px 15px ;">{{ tjm.username }} </td>
+                <td style="text-align: left;padding: 15px 15px ;">{{ item.first_name }} {{ item.last_name }} </td>
 
 
-                <td>{{ tjm.valueOfNewTjm }}</td>
-                <td style="width: 20%;">{{ formatDate(tjm.createdAt.split("T")[0]) }}</td>
+                <td>{{ item.note }} </td>
+                <td *ngIf="item.enseignant"> {{item.enseignant}}</td>
+                <td *ngIf="!item.enseignant">
+                  <select #selectElement (change)="affecter_damande1(item._id, selectElement.value)">
+                    <option value=""> Seletioner un enseignant</option>
+                    <option *ngFor="let en of ens" [value]="en._id">{{en.first_name}} {{en.last_name}}</option>
+                  </select>
+
+
+                </td>
+                <td>{{ item.matiere }}</td>
+                <td>{{ item.classe }}</td>
+                <td>{{ item.commantaire }}</td>
 
               </tr>
             </tbody>
           </table>
           <table *ngIf="mission">
             <thead>
-              <th style="border-radius: 0.6875rem 0rem 0rem 0rem"></th>
-              <th>Consultant</th>
-              <th>Client final</th>
-              <th>Date</th>
+              <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Status</th>
+              <th>Etudiant</th>
+              <th>attestation en arabe</th>
+              <th>attestation en francais</th>
               <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
             </thead>
             <tbody>
               <tr *ngFor="let item of getDisplayeddocs(); let i = index" (click)="toggleMenu(i)"
                 style="cursor: pointer">
                 <td style="width: 100px;">
+                  {{ item.status }}
                   <div class="new" *ngIf="item.newMissionStatus == 'PENDING' && item.missionKilled == false">
                     Nouvelle
                   </div>
@@ -78,14 +97,14 @@
                 </td>
 
                 <td style="min-width: 120px; max-width: 120px;">
-                  {{item.userId}}
+                  {{ item.first_name }} {{ item.last_name }}
                 </td>
                 <td style="min-width: 80px; max-width: 80px;">
-                  {{ item.clientInfo.clientContact.firstName.value }} {{ item.clientInfo.clientContact.lastName.value }}
+                  {{ item.nb_arab }}
 
                 </td>
                 <td>
-                  {{ formatDate(item.missionInfo.startDate.value.split("T")[0]) }}
+                  {{ item.nb_fr }}
 
                 </td>
                 <td style="cursor: pointer" class="dropdown">
@@ -100,12 +119,12 @@
                     <!-- Menu items go here -->
                     <div style="display: flex; cursor: pointer">
                       <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="gotovalidationmission(item._id)" style="
+                      <div (click)="accept(item._id)" style="
                           margin-top: 7px;
                           margin-bottom: 10px;
                           margin-left: 5px;
                         ">
-                        Voir details
+                        Accepter
                       </div>
                     </div>
 
@@ -116,21 +135,152 @@
                           d="M9 4H19V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H9M12 15L15 12M15 12L12 9M15 12H5"
                           stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
-                      <div (click)="
-                          gotovalidemission(item._id, item.contractProcess)
-                        " style="
-                          margin-top: 12px;
-                          cursor: pointer;
-                          margin-left: -5px;
-                        ">
-                        Process de validation
-                      </div>
+
                     </div>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          <table *ngIf="rattrapge">
+            <thead>
+              <tr>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> </th>
+                <th>ID</th>
+                <th> Date demande</th>
+
+                <th>Module</th>
+                <th>Etat</th>
+
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of getDisplayeddocs();let i = index">
+                <td></td>
+                <td>
+                  {{ item.id_demande}}
+                </td>
+                <td>
+                  {{ item.date_depot.split('T')[0]}}
+                </td>
+
+                <td>
+                  <div *ngFor="let ee of item.data">
+                    <div *ngIf="ee.inputClass"> <b> {{ee.inputClass}} - {{ee.inputModule}} -
+                        {{ee.inputHoraire}} -
+                        {{ee.date}} </b>
+
+                    </div>
+
+                  </div>
+                </td>
+                <td>
+                  {{ item.status }}
+                </td>
+
+                <td style="cursor: pointer" class="dropdown">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
+                        fill="black" />
+                    </svg>
+                  </span>
+                  <div class="dropdown-content">
+                    <!-- Menu items go here -->
+                    <div style="display: flex; cursor: pointer">
+                      <img src="/assets/Checkmark.svg" width="12%" />
+                      <div (click)="openPopup2(item._id)" style="
+                          margin-top: 7px;
+                          margin-bottom: 10px;
+                          margin-left: 5px;
+                        ">
+                        Accepter
+                      </div>
+                    </div>
+                    <div style="display: flex; cursor: pointer">
+                      <img src="/assets/Checkmark.svg" width="12%" />
+                      <div (click)="openPopup1(item._id)" style="
+                          margin-top: 7px;
+                          margin-bottom: 10px;
+                          margin-left: 5px;
+                        ">
+                        Refuser
+                      </div>
+                    </div>
+                    <div style="display: flex; cursor: pointer" *ngIf="item.newMissionStatus == 'WAITINGCONTRACT'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24"
+                        style="margin-left: -13px" fill="none">
+                        <path
+                          d="M9 4H19V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H9M12 15L15 12M15 12L12 9M15 12H5"
+                          stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+
+                    </div>
+                  </div>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+          <div class="popup" *ngIf="showPopup1">
+            <div class="popup-content" style="height: 12rem;">
+              <div style="float: right" (click)="closePopup1()">
+                <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+              </div>
+              <h3>Motif rattrapage</h3>
+              <div class="grid-item">
+
+                <div style="display: flex;">
+                  <input type="text" placeholder="motif" [(ngModel)]="motif">
+                </div>
+
+
+              </div> <br>
+              <div style="display: flex;">
+
+                <button type="submit" class="button" style="margin-left: 150px;" (click)="refuse_rattrapage()">
+                  <div class="inscrire">refuser</div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <div class="popup" *ngIf="showPopup2">
+            <div class="popup-content" style="height: 14rem;">
+              <div style="float: right" (click)="closePopup2()">
+                <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+              </div>
+              <h3>Motif rattrapage</h3>
+              <div class="grid-item">
+
+                <div>
+                  <input type="text" placeholder="Salle" [(ngModel)]="Salle"> <br><br>
+                  <select [(ngModel)]="horaire">
+                    <option value=""> Selectioner un horaire </option>
+                    <option value="S1"> S1</option>
+                    <option value="S2"> S2</option>
+                    <option value="S3"> S3 </option>
+                    <option value="S4"> S4</option>
+                    <option value="S5"> S5</option>
+                  </select>
+                </div>
+
+
+              </div> <br>
+              <div style="display: flex;">
+
+                <button type="submit" class="button" style="margin-left: 150px;" (click)="update_rattrapage()">
+                  <div class="inscrire">Accepter</div>
+                </button>
+              </div>
+            </div>
+
+          </div>
           <div class="pagination">
             <div *ngIf="mission" (click)="previousPage()" style="cursor: pointer;">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -209,7 +359,7 @@
       
                   line-height: 100%; /* 0.8125rem */
                 ">
-                {{ nblastnotifications }} notifications
+                1 notifications
               </div>
             </div>
 

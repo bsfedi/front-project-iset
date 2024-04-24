@@ -314,6 +314,25 @@ button {
   display: flex;
 }
 
+.rechercher {
+  width: 10rem;
+}
+
+.first {
+  display: flex;
+  width: 20rem;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.625rem;
+  border: 2px solid #eae3d5;
+  background: #fff;
+  margin: 3.25px;
+  padding: 3.25px 8px 3.25px 8px;
+
+
+}
+
 .write {
   width: 350px;
 }

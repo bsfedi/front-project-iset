@@ -73,6 +73,7 @@ export class AdminComponent {
     this.studentservice.getallusers().subscribe({
       next: (res) => {
         this.all_users = res.users
+        this.filteredItems = this.all_users
         console.log(this.all_users);
 
 
@@ -400,12 +401,12 @@ export class AdminComponent {
 
   getDisplayedconsultants(): any[] {
 
-    this.totalPages = Math.ceil(this.all_users.length / this.pageSize);
+    this.totalPages = Math.ceil(this.filteredItems.length / this.pageSize);
     const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(startIndex + this.pageSize, this.all_users.length);
+    const endIndex = Math.min(startIndex + this.pageSize, this.filteredItems.length);
 
 
-    return this.all_users.slice(startIndex, endIndex);
+    return this.filteredItems.slice(startIndex, endIndex);
 
 
 
@@ -452,7 +453,35 @@ export class AdminComponent {
     this.showPopup1 = false;
 
   }
+  filteredItems: any[] = [];
+  searchTerm: any
+  searchTerm1: any
+  applyFilter() {
+    // Check if search term is empty
+    if (this.searchTerm.trim() === '' && this.searchTerm1.trim() === '') {
+      // If search term is empty, reset the filtered items to the original items
+      this.filteredItems = this.all_users;
+    } else {
+      // Apply filter based on search term
+      this.filteredItems = this.all_users.filter((item: any) =>
+        item.departement.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+  applyFilter1() {
+    console.log(this.searchTerm1, this.searchTerm);
 
+    // Check if search term is empty
+    if (this.searchTerm.trim() === '' && this.searchTerm1.trim() === '') {
+      // If search term is empty, reset the filtered items to the original items
+      this.filteredItems = this.all_users;
+    } else {
+      // Apply filter based on search term
+      this.filteredItems = this.all_users.filter((item: any) =>
+        item.first_name.toLowerCase().includes(this.searchTerm1.toLowerCase())
+      );
+    }
+  }
   add_userrh() {
     const token = localStorage.getItem('token');
     if (token) {

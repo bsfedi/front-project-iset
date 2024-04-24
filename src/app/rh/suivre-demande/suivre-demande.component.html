@@ -18,7 +18,7 @@
 
                 <div>
                     <div>
-                        <div><b> Attestation de presence </b></div>
+                        <div><b> Demandes de rattrapage</b></div>
                         <br />
                     </div>
                     <div>
@@ -26,11 +26,13 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> status</th>
-                                        <th> Etudiant</th>
+                                        <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> </th>
+                                        <th>ID</th>
+                                        <th> Date demande</th>
 
-                                        <th>attestation en arabe</th>
-                                        <th>attestation en francais</th>
+                                        <th>Module</th>
+                                        <th>Etat</th>
+
                                         <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
 
 
@@ -42,21 +44,29 @@
                                     <!-- Afficher ensuite les éléments avec d'autres statuts -->
 
                                     <tr *ngFor="let item of getDisplayedconsultants()">
-                                        <td *ngIf="item.status !='prete'">
-                                            {{ item.status}}
+                                        <td></td>
+                                        <td>
+                                            {{ item.id_demande}}
                                         </td>
-                                        <td *ngIf="item.status !='prete'">
-                                            {{ item.first_name }} {{item.last_name}}
-                                        </td>
-
-                                        <td *ngIf="item.status !='prete'">
-                                            {{ item.nb_arab }}
-                                        </td>
-                                        <td *ngIf="item.status !='prete'">
-                                            {{ item.nb_fr }}
+                                        <td>
+                                            {{ item.date_depot.split('T')[0]}}
                                         </td>
 
-                                        <td style="cursor: pointer" class="dropdown" *ngIf="item.status !='prete'">
+                                        <td>
+                                            <div *ngFor="let ee of item.data">
+                                                <div *ngIf="ee.inputClass"> <b> {{ee.inputClass}} - {{ee.inputModule}} -
+                                                        {{ee.inputHoraire}} -
+                                                        {{ee.date}} </b>
+
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ item.status }}
+                                        </td>
+
+                                        <td style="cursor: pointer" class="dropdown">
                                             <div>
                                                 <div>
                                                     <div style="margin-left: 8px">
@@ -144,139 +154,7 @@
                     </div>
                 </div>
                 <br><br>
-                <div>
-                    <div>
-                        <div><b> Attestation de presence </b></div>
-                        <br />
-                    </div>
-                    <div>
-                        <div class="table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Status</th>
-                                        <th>Etudiant</th>
-                                        <th> note </th>
 
-                                        <th>matiere</th>
-                                        <th>classe</th>
-                                        <th> commentaire</th>
-                                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Afficher d'abord les éléments avec le statut "en cours" -->
-
-                                    <!-- Afficher ensuite les éléments avec d'autres statuts -->
-
-                                    <tr *ngFor="let item of getDisplayedconsultants1()">
-                                        <td> {{item.status}} </td>
-                                        <td>
-                                            {{ item.first_name}} {{item.last_name}}
-                                        </td>
-                                        <td>
-                                            {{ item.note }}
-                                        </td>
-
-                                        <td>
-                                            {{ item.matiere }}
-                                        </td>
-                                        <td>
-                                            {{ item.classe }}
-                                        </td>
-                                        <td>
-                                            {{ item.commantaire }}
-                                        </td>
-
-                                        <td style="cursor: pointer" class="dropdown">
-                                            <div>
-                                                <div>
-                                                    <div style="margin-left: 8px">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path
-                                                                    d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-content">
-                                                <div class="dropdown-menu">
-                                                    <!-- <div style="display: flex; cursor: pointer">
-                                                        <img src="/assets/Checkmark.svg" width="12%" />
-                                                        <div (click)="validated(item._id)" style="
-                                                    margin-top: 7px;
-                                                    margin-bottom: 10px;
-                                                    margin-left: 5px;
-                                                  ">
-                                                            Oui
-
-                                                        </div>
-                                                    </div> -->
-                                                    <div style="display: flex; cursor: pointer">
-                                                        <img src="/assets/Checkmark.svg" width="12%" />
-                                                        <div (click)="openPopup(item._id)" style="
-                                                    margin-top: 7px;
-                                                    margin-bottom: 10px;
-                                                    margin-left: 5px;
-                                                  ">
-                                                            Accpter
-                                                        </div>
-                                                    </div>
-                                                    <div style="display: flex; cursor: pointer">
-                                                        <img src="/assets/Checkmark.svg" width="12%" />
-                                                        <div (click)="refuserverification(item._id)" style="
-                                                    margin-top: 7px;
-                                                    margin-bottom: 10px;
-                                                    margin-left: 5px;
-                                                  ">
-                                                            Refuser
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="pagination">
-                            <div (click)="previousPage()" style="cursor: pointer;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                    <path fill-rule="evenodd"
-                                        d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg>
-                            </div>
-
-
-                            <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages
-                                }}</span>
-                            <div (click)="nextPage()" style="cursor: pointer;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
-                                </svg>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
                 <br />
                 <br />
             </div>

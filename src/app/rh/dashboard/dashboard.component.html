@@ -5,46 +5,32 @@
     </div>
 
     <div class="second-container">
-      <div class="title">Tableau de bord - RH</div>
-      <div id="chart">
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-          [dataLabels]="chartOptions.dataLabels" [yaxis]="chartOptions.yaxis" [colors]="chartOptions.colors"
-          [legend]="chartOptions.legend" [fill]="chartOptions.fill"></apx-chart>
-      </div>
-      <!-- <div class="Tableau1 left-first">
-        <div class="chiffre_affaire">
-          <div class="Tableau">
-            <div class="chaffaire">Chiffre d'affaires</div>
+      <div class="title">Tableau de bord </div>
+
+      <div class="Tableau1 left-first">
+
+        <div class="tjm_moyen">
+          <div class="chaffaire">Demandes de presence</div>
+          <div class="nb_money" style=" justify-content: center;">
+            <b> Toutes les demandes : {{all_demande_presence}} </b> <br> <br>
+            <b> Traité: {{all_demande_presence}} </b> <br> <br>
+            <b> En attente: {{all_demande_presence_pending}} </b>
 
           </div>
-          <div class="Tableau">
-            <div class="nb_money">
-              <b> {{ cardstats.totalRevenue }}€</b>
-            </div>
-            <div class="graph">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="560" viewBox="0 0 91 56" fill="none">
-                <path
-                  d="M2 54.1485C21.1808 54.9943 30.3079 49.9052 32.5 42.7153C35.0789 34.2567 39.5 28.816 43 27.2153C50.4957 23.7873 53.8751 30.4547 62 28.2153C69.0285 26.2781 71.3103 21.6768 74 16.7153C76.1698 12.7128 79.5 0.214852 89 2.21525"
-                  stroke="#FEFCF1" stroke-width="3" stroke-linecap="round" />
-              </svg>
-            </div>
-          </div>
         </div>
         <div class="tjm_moyen">
-          <div class="chaffaire">TJM Moyen</div>
-          <div class="nb_money" style=" justify-content: center;">
-            <b> {{ cardstats.averageTJM | number : "1.0-0" }}€ </b>
+          <div class="chaffaire"> Demande de verification
           </div>
-        </div>
-        <div class="tjm_moyen">
-          <div class="chaffaire">Nb de Consultants</div>
           <div class="nb_money">
-            <b> {{ nbdemande }} </b>
+            <b> Toutes les demandes : {{all_demande_verification}} </b> <br><br>
+            <b> Traité: {{all_demande_verification_validated}} </b> <br> <br>
+            <b> En attente: {{all_demande_verification_pending}} </b>
+
           </div>
         </div>
-      </div> -->
+      </div>
       <br />
-      <h2> Nouvelles pré-inscription </h2>
+      <!-- <h2> Nouvelles pré-inscription </h2>
       <div class="newflex">
         <div class="first" (click)="toggleMenu1()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -64,7 +50,7 @@
 
         </div>
         <div class="dropdown-menu" style="margin: 60px 0px 0px 10px;" *ngIf="isMenuOpen1">
-          <!-- Menu items go here -->
+        
           <div style="display: flex; cursor: pointer;width: auto;" (click)="resetFilter()">
             <div [ngClass]="{'selected': selectedItem === 'reset' , 'first1': selectedItem != 'reset'}">
               <svg (click)='resetFilter()' style="margin-top: 0px;cursor: pointer;;" xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +125,7 @@
               </th>
               <th>Email</th>
               <th>Téléphone</th>
-              <!-- <th>Status</th> -->
+
               <th>Date de création</th>
 
               <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Action</th>
@@ -187,7 +173,7 @@
                           </svg>
                         </span>
                         <div class="dropdown-content">
-                          <!-- Menu items go here -->
+      
                           <div style="display: flex; cursor: pointer"
                             *ngIf="item.status === 'PENDING' ||  item.status === 'NOTVALIDATED'">
                             <img src="/assets/Checkmark.svg" width="12%" />
@@ -247,7 +233,7 @@
           </svg>
         </div>
 
-      </div>
+      </div> -->
     </div>
     <div>
       <div class="right-item" style="cursor: pointer;">

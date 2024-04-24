@@ -310,6 +310,41 @@
                 <hr />
               </b>
             </div>
+            <div style="
+            color: #6e7787;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            margin-right: 30px;
+            line-height: 1.375rem; /* 157.143% *" (click)="showmidssions()">
+
+              <div style="color: #6e7787;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+           
+            line-height: 1.375rem; /* 157.143% */" *ngIf="!show_mission">
+                Sanctions Administratives
+              </div>
+              <div style="
+            color: #171a1f;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.375rem; /* 157.143% */
+            margin-bottom: 0px;
+            
+          " *ngIf="show_mission">
+                Sanctions Administratives
+              </div>
+
+              <b *ngIf="show_mission">
+                <hr />
+              </b>
+            </div>
 
           </div>
 
@@ -320,8 +355,8 @@
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
               </div>
               <div>
-                <h3>Ajouter un nouveau virement</h3>
-                <form (submit)="onFormSubmit()" style="display: flex" [formGroup]="foremData">
+                <h3>Ajouter sanction</h3>
+                <form style="display: flex" [formGroup]="foremData">
                   <div class="form-section">
                     <div class="grid-container">
                       <!-- <select formControlName="typeVirement">
@@ -340,17 +375,18 @@
                         />
                       </div> -->
                       <div class="grid-item">
-                        <select formControlName="typeVirement">
+                        <select formControlName="type">
                           <option *ngFor="let type of virementTypes" [value]="type">
                             {{ type }}
                           </option>
                         </select>
-                        <input type="number" id="montant" placeholder="montant" name="montant" required
-                          formControlName="montant" />
+                        <input type="date" formControlName="date">
+                        <input type="text" id="montant" placeholder="motif" name="montant" required
+                          formControlName="motif" />
                       </div>
                     </div>
                     <br />
-                    <div class="buttons">
+                    <div class="buttons" (click)="onFormSubmit()">
                       <button type="submit" class="button">
                         <div class="inscrire">Ajouter</div>
                       </button>
@@ -419,6 +455,43 @@
             <br>
 
 
+          </div>
+          <div *ngIf="show_mission">
+            <button (click)="openPopup1()" style="margin:5px;"> Ajouter</button>
+            <table style="max-width: 900px;">
+              <thead>
+                <tr>
+                  <th style="border-radius: 0.6875rem 0rem 0rem 0rem">type</th>
+                  <th>motif</th>
+
+                  <th style="border-radius: 0rem 0.6875rem 0rem 0rem">date</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Afficher d'abord les éléments avec le statut "en cours" -->
+
+                <!-- Afficher ensuite les éléments avec d'autres statuts -->
+
+                <tr *ngFor="let item of getDisplayeddocs1()">
+
+                  <td> {{ item.type }}</td>
+
+                  <td>
+                    {{ item.motif }}
+                  </td>
+                  <td>
+                    {{ item.date.split('T')[0] }}
+                  </td>
+
+
+
+                </tr>
+
+
+              </tbody>
+            </table>
           </div>
           <div *ngIf="show_cra"> <br>
             <b> List des demandes des attestations de presence</b> <br>

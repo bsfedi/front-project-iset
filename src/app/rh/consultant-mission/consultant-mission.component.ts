@@ -50,10 +50,10 @@ export class ConsultantMissionComponent {
   selectedFile: any
   myForm: FormGroup;
   docs: any
-  virementTypes = ['Participation', 'Cooptation', 'Frais'];
+  virementTypes = ['Avertissement', 'Blame', 'Renvoi', 'Exclusion'];
   foremData: FormGroup;
   formData1: FormGroup;
-  show_mission: boolean = true
+  show_mission: boolean = false
   show_doc: boolean = true
   show_historique: boolean = false
   res: any
@@ -73,9 +73,10 @@ export class ConsultantMissionComponent {
     // this.selectedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
 
     this.foremData = this.fb.group({
-      userId: [''],
-      typeVirement: ['Participation', Validators.required],
-      montant: ['', Validators.required],
+
+      type: ['Participation', Validators.required],
+      motif: ['', Validators.required],
+      date: ['']
       // Add other form controls as needed
     });
     this.formData1 = this.fb.group({
@@ -99,6 +100,7 @@ export class ConsultantMissionComponent {
   validation: any
   user_email: any
   validated_mission: any
+  student_id: any
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
   }
@@ -113,9 +115,15 @@ export class ConsultantMissionComponent {
 
     this.studentservice.getinscrption(this.preinscription_id).subscribe({
       next: (res) => {
+        this.student_id = res.preregister.user_id
         // Handle the response from the server
+        this.studentservice.sancttions(this.student_id).subscribe({
+          next: (res) => {
+            this.sanctions = res
 
-        this.studentservice.getuserbyid(res.preregister.user_id).subscribe({
+          }
+        })
+        this.studentservice.getuserbyid(this.student_id).subscribe({
           next: (res) => {
             this.user_email = res.email
           }
@@ -167,42 +175,8 @@ export class ConsultantMissionComponent {
         if (this.personalInfo.identificationDocument.value.endsWith('.pdf')) {
           console.log(this.personalInfo.identificationDocument.value);
 
-          // this.inscriptionservice.getPdf(baseUrl + "uploads/" + this.personalInfo.identificationDocument.value).subscribe({
-          //   next: (res) => {
-          //     this.pdfData = res;
-          //     this.identificationDocumentpdf = true;
-          //     if (this.pdfData) {
-          //       this.handleRenderPdf1(this.pdfData);
-          //     }
-          //   },
-          // });
-
         }
         this.personalInfo.carInfo.drivingLicense.value = baseUrl + "uploads/" + this.personalInfo?.carInfo.drivingLicense.value
-        // this.inscriptionservice.getPdf(baseUrl + "uploads/" + this.missionInfo.isSimulationValidated.value).subscribe({
-        //   next: (res) => {
-        //     this.pdfData = res;
-        //     this.isLoading = false;
-        //     if (this.pdfData) {
-        //       this.handleRenderPdf(this.pdfData);
-        //     }
-        //   },
-        // });
-
-        // this.inscriptionservice.getPdf(baseUrl + "uploads/" + this.personalInfo.ribDocument.value).subscribe({
-        //   next: (res) => {
-        //     this.pdfData = res;
-        //     this.isLoading = false;
-        //     if (this.pdfData) {
-        //       this.handlesecondRenderPdf(this.pdfData);
-        //     }
-        //   },
-        // });
-
-
-
-
-
 
       },
       error: (e) => {
@@ -421,6 +395,21 @@ export class ConsultantMissionComponent {
 
 
   }
+
+  getDisplayeddocs1(): any[] {
+
+
+    this.totalPages = Math.ceil(this.sanctions.length / this.pageSize);
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = Math.min(startIndex + this.pageSize, this.sanctions.length);
+
+
+    return this.sanctions.slice(startIndex, endIndex);
+
+
+  }
+  sanctions: any
+
   getvalidateby(user_id: any) {
     return this.consultantservice.getuserinfomation(user_id);
   }
@@ -838,7 +827,7 @@ export class ConsultantMissionComponent {
       title: 'Confirmer le virement',
       html: `
         <div>
-          <div style="font-size:1.2rem;">Êtes-vous sûr de vouloir effectuer ce virement ?</div> 
+          <div style="font-size:1.2rem;">Êtes-vous sûr de vouloir effectuer cet action ?</div> 
         </div>
       `,
       iconColor: '#1E1E1E',
@@ -855,29 +844,20 @@ export class ConsultantMissionComponent {
       reverseButtons: true // Reversing button order
     }).then((result) => {
       if (result.isConfirmed) {
-        this.foremData.controls['userId'].setValue(this.user_id);
 
-        this.consultantservice.createvirement(this.foremData.value).subscribe(
-          (response) => {
-            Swal.fire({
-              background: '#fefcf1',
-              title: 'Virement réussi',
-              text: 'Le virement a été effectué avec succès !',
-              confirmButtonColor: "#91c593",
 
-            });
-            this.showPopup1 = false
+        this.myForm.value.user_id = this.student_id
+        this.studentservice.new_sancttion(this.foremData.value, this.student_id).subscribe({
+          next: (res) => {
+            console.log(res);
+
           },
-          (error) => {
-            Swal.fire({
-              background: '#fefcf1',
-              confirmButtonColor: "#91c593",
-              title: 'Erreur de virement',
-              text: "Le virement n'a pas pu être effectué. Veuillez réessayer.",
-
-            });
+          error: (e) => {
+            // Handle errors
+            console.error(e);
+            // Set loading to false in case of an error
           }
-        );
+        });
 
       } else {
         Swal.fire({

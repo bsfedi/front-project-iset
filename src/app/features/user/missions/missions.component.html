@@ -97,6 +97,7 @@
               <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
               <th>type</th>
               <th>matiere</th>
+              <th> nouvelle note</th>
               <th style="border-radius: 0rem 0.6875rem 0rem 0rem">note</th>
 
 
@@ -120,6 +121,10 @@
               </td>
               <td>
                 {{ item.note }}
+              </td>
+              <td *ngIf="item.new_note">
+                {{ item.new_note }}
+
               </td>
 
             </tr>

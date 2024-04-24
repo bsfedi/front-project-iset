@@ -95,23 +95,23 @@
   background: #fff;
   margin: 3.25px;
   padding-left: 3px;
-  width: 288.5px;
+  width: 578.5px;
   margin-bottom: 8px;
 
 }
 
 .second {
   padding: 10px;
-  margin-left: 27px;
-  border-radius: 0rem 0.5rem 0.5rem 0rem;
-
+  margin-left: 37px;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+  width: 170px;
   background: #eae3d5;
 }
 
 .missionselectd {
   padding: 10px;
   margin-left: 27px;
-  border-radius: 0rem 0.5rem 0.5rem 0rem;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
   background: #fff;
 }
 
@@ -122,13 +122,13 @@
   cursor: pointer;
   justify-content: center;
   align-items: center;
-  border-radius: 0.625rem;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
   border: 2px solid #eae3d5;
 
   background: #eae3d5;
   margin: 3.25px;
   padding-left: 3px;
-  width: 288.5px;
+  width: 625.5px;
   margin-bottom: 8px;
 }
 
@@ -208,8 +208,8 @@ input[type="tel"],
 input[type="password"],
 input[type="number"],
 input[type="search"] {
-  width: 26.04313rem;
-  height: 3.61006rem;
+  width: 10.04313rem;
+  height: 2.11006rem;
   flex-shrink: 0;
 
   padding: 8px;
@@ -527,4 +527,50 @@ td {
     margin-left: -380px;
   }
 
+}
+
+.popup-content {
+  width: 25.6875rem;
+  margin-left: 50px;
+  height: 34.4375rem;
+  border-radius: 2.125rem;
+  background: white;
+  padding: 30px;
+
+}
+
+select,
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="file"],
+input[type="password"],
+input[type="tel"] {
+  width: 26.04313rem;
+  height: 2.31006rem;
+  flex-shrink: 0;
+
+  padding: 8px;
+  margin-top: 10px;
+
+  border-radius: 0.5rem;
+  border: 1px solid #1e1e1e;
+
+  background: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.32);
+
+  /* Use your preferred shade of green */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

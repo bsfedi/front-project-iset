@@ -5,12 +5,13 @@ import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 const baseUrl = `${environment.baseUrl}`;
+
 @Component({
-  selector: 'app-enseignant',
-  templateUrl: './enseignant.component.html',
-  styleUrls: ['./enseignant.component.css']
+  selector: 'app-suivre-demande',
+  templateUrl: './suivre-demande.component.html',
+  styleUrls: ['./suivre-demande.component.css']
 })
-export class EnseignantComponent {
+export class SuivreDemandeComponent {
   constructor(private studentservice: StudentService, private router: Router, private fb: FormBuilder) {
   }
   all_demandes: any
@@ -28,7 +29,7 @@ export class EnseignantComponent {
   ngOnInit(): void {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
-    this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
+    this.studentservice.rattrapage(this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes = res
         console.log(this.all_demandes);
@@ -296,5 +297,4 @@ export class EnseignantComponent {
     this.showPopup1 = false;
 
   }
-
 }

@@ -22,6 +22,9 @@ import { CraMissionComponent } from './cra-mission/cra-mission.component';
 import { AdminComponent } from './admin/admin.component';
 import { AllCrasComponent } from './all-cras/all-cras.component';
 import { EnseignantComponent } from './enseignant/enseignant.component';
+import { DemandeRattrapageComponent } from './demande-rattrapage/demande-rattrapage.component';
+import { AbsenceComponent } from './absence/absence.component';
+import { SuivreDemandeComponent } from './suivre-demande/suivre-demande.component';
 
 export const routes: Routes = [
   {
@@ -38,12 +41,12 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+
   },
   {
     path: 'allConsultants',
     component: AllConsultantsComponent,
-    canActivate: [AuthGuard]
+
   },
   {
     path: 'validation/:id',
@@ -74,6 +77,20 @@ export const routes: Routes = [
     path: 'charge-document',
     component: ChargeDocComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'demanderattrapage',
+    component: DemandeRattrapageComponent
+
+  },
+  {
+    path: 'suivirattrapage',
+    component: SuivreDemandeComponent
+  },
+  {
+    path: 'absence',
+    component: AbsenceComponent
+
   },
   {
     path: 'virements/:id',
@@ -120,6 +137,9 @@ export const routes: Routes = [
 
     AllCrasComponent,
     EnseignantComponent,
+    DemandeRattrapageComponent,
+    AbsenceComponent,
+    SuivreDemandeComponent,
   ],
   imports: [
     CommonModule,

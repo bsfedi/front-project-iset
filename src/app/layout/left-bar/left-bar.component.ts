@@ -18,7 +18,7 @@ export class LeftBarComponent {
 
       const menuToggle = document.querySelector(".menu-toggle") as HTMLElement;
       const firstItem = document.querySelector(".first-item") as HTMLElement;
-      console.log('ezaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+
 
 
     });
@@ -28,6 +28,17 @@ export class LeftBarComponent {
   }
   isActiveRoute(route: string): boolean {
     return this.route.snapshot.url.join('/') === route;
+  }
+  rat: boolean = false;
+  showPopup: boolean = false
+  openPopup(): void {
+    this.showPopup = true;
+  }
+  closePopup(): void {
+    this.showPopup = false;
+  }
+  showrattrapgeoption() {
+    this.rat = !this.rat; // Toggle the value of rat
   }
 
   azeaze() {
@@ -63,6 +74,21 @@ export class LeftBarComponent {
     this.router.navigate([clientName + '/consultant/virements'])
 
   }
+  demanderattrapage() {
+    this.router.navigate([clientName + '/demanderattrapage'])
+
+  }
+  suivirattrapage() {
+    this.router.navigate([clientName + '/suivirattrapage'])
+
+  }
+
+  absence() {
+    this.router.navigate([clientName + '/absence'])
+
+  }
+
+
   gottoallcras() {
     this.router.navigate([clientName + '/allcras'])
   }
@@ -74,6 +100,7 @@ export class LeftBarComponent {
   }
   goallConsultants() {
     this.router.navigate([clientName + '/allConsultants'])
+
   }
   gototjm() {
     this.router.navigate([clientName + '/tjmrequests'])

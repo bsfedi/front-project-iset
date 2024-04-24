@@ -67,7 +67,7 @@ export class DashboardComponent {
   public chartOptions: Partial<ChartOptions>;
   res: any
   showfilterbar: any;
-  constructor(private inscriptionservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
+  constructor(private studentservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
     this.chartOptions = {}
     this.consultantservice.getMonthlyStatsForAllUsers().subscribe({
       next: (res) => {
@@ -180,133 +180,45 @@ export class DashboardComponent {
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
   }
+  ens_id: any
+  role: any
+  all_demandes: any
+  all_demandes1: any
+  all_demande_presence_validated: any
+  all_demande_presence_pending: any
+  all_demande_presence: any
+  all_demande_verification_validated: any
+  all_demande_verification_pending: any
+  all_demande_verification: any
   ngOnInit(): void {
-    this.inscriptionservice.getpendingregister().subscribe({
+    this.ens_id = localStorage.getItem('user_id');
+    this.role = localStorage.getItem('role');
+    this.studentservice.stats_enseignant(this.ens_id).subscribe({
       next: (res) => {
-        // Handle the response from the server
 
-        console.log(res);
-
-        this.items = res
-
-        this.filteredItems = this.items
-
-
-
-
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        // You can handle different status codes here
-        if (e.status === 404) {
-          this.items = []
-
-        }
-
-        console.error(e);
-        // Set loading to false in case of an error
+        this.all_demande_presence_validated = res.all_demande_presence_validated
+        this.all_demande_presence_pending = res.all_demande_presence_pending
+        this.all_demande_presence = res.all_demande_presence
+        this.all_demande_verification_validated = res.all_demande_verification_validated
+        this.all_demande_verification_pending = res.all_demande_verification_pending
+        this.all_demande_verification = res.all_demande_verification
+      }, error(e) {
+        console.log(e);
 
       }
     });
-    // this.inscriptionservice.getvalidatedPreregisters(this.headers).subscribe({
-    //   next: (res) => {
-    //     // Handle the response from the server
-    //     this.nbdemande = res.length; // Assuming res is an array
-    //   },
-    //   error: (e) => {
-    //     // Handle errors
-    //     console.error(e);
-    //     // Set loading to false in case of an error
-    //   }
-    // });
-    const token = localStorage.getItem('token');
-    const user_id = localStorage.getItem('user_id');
-
-    this.new_notif = localStorage.getItem('new_notif');
-
-    this.socketService.connect()
-    // Listen for custom 'rhNotification' event in WebSocketService
-    this.socketService.onRhNotification().subscribe((event: any) => {
-      console.log(event);
-
-      if (event.notification.toWho == "RH") {
-        this.lastnotifications.push(event.notification.typeOfNotification)
-        this.nblastnotifications = this.lastnotifications.length
-        this.notification.push(event.notification.typeOfNotification)
-        localStorage.setItem('new_notif', 'true');
-      }
-
-      // Handle your rhNotification event here
-    });
-    // Check if token is available
-    this.userservice.getpersonalinfobyid(user_id).subscribe({
-
-
+    this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({
       next: (res) => {
-        // Handle the response from the server
-        this.res = res
-        console.log('inffffffffoooooo', this.res);
+        this.all_demandes1 = res
+        console.log(this.all_demandes);
 
 
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-    this.consultantservice.getRhNotificationsnotseen().subscribe({
-      next: (res1) => {
-        this.nblastnotifications = res1.length
-        this.lastnotifications = res1
-
-      },
-      error: (e) => {
-        this.nblastnotifications = 0
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
+      }, error(e) {
+        console.log(e);
 
       }
     });
 
-    // Check if token is available
-    if (token) {
-      // Include the token in the headers
-      this.headers = new HttpHeaders().set('Authorization', `${token}`);
-
-      this.consultantservice.getConsultantStats().subscribe({
-        next: (res) => {
-          // Handle the response from the server
-          this.getdemandes()
-          this.cardstats = res
-
-
-
-
-
-
-
-        },
-        error: (e) => {
-          // Handle errors
-
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
-    }
-    this.sortItems(); // Call the sorting function
   }
 
   getdemandes() {

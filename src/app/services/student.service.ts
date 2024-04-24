@@ -49,6 +49,28 @@ export class StudentService {
   getinscrption(register_id: any): Observable<any> {
     return this.http.get(baseUrl + 'preregister/' + register_id);
   }
+  get_absence_by_enseignant_id(enseignant_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'get_absence_by_enseignant_id/' + enseignant_id);
+  }
+
+  add_rattrapage(data: any, enseignant_id: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_rattrapage/' + enseignant_id, data);
+  }
+  rattrapage(enseignant_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'rattrapage/' + enseignant_id);
+  }
+  rattrapage_by_department(user_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'rattrapage_by_department/' + user_id);
+  }
+  update_rattrapage(rattrapage_id: any, data: any): Observable<any> {
+    return this.http.put(baseUrl + 'rattrapage/' + rattrapage_id, data);
+  }
+  sancttions(user_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'sancttion/' + user_id);
+  }
+
 
   getuserbyid(user_id: any): Observable<any> {
     return this.http.get(baseUrl + 'user/' + user_id);
@@ -61,6 +83,17 @@ export class StudentService {
 
     return this.http.post(baseUrl + 'auth/newuser', data);
   }
+  new_sancttion(data: any, user_id: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'sancttion/' + user_id, data);
+  }
+  stats_enseignant(enseignant_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'stats_enseignant/' + enseignant_id, enseignant_id);
+  }
+
+
+
   getallusers(): Observable<any> {
     return this.http.get(baseUrl + 'users');
   }
@@ -73,10 +106,34 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'attestation_by_enseignant/' + enseignant_id);
   }
+  getverification_by_enseignant(enseignant_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'verification_by_enseignant/' + enseignant_id);
+  }
+
   update_status_demande(data: any, demande_id: any, enseignant: any): Observable<any> {
 
     return this.http.put(baseUrl + 'update_status_demande/' + demande_id + "/" + enseignant, data);
   }
+  justif(data: any, note: any, demande_id: any) {
+    return this.http.put(baseUrl + 'justif/' + note + "/" + demande_id, data);
+
+  }
+  add_absence(data: any, enseignant_id: any) {
+    return this.http.post(baseUrl + 'add_absence/' + enseignant_id, data);
+
+  }
+
+  update_status_demande_bychef(demande_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'update_status_demande_bychef/' + demande_id);
+  }
+  notvalidate_verification(demande_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'notvalidate_verification/' + demande_id);
+  }
+
+
   enseignantsbydepartement(departement: any): Observable<any> {
 
     return this.http.get(baseUrl + 'enseignants/' + departement);
@@ -131,6 +188,19 @@ export class StudentService {
   getdemandeverification(user_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'verification/' + user_id);
+  }
+
+  getdemandeallverification(user_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'verification_by_department/' + user_id);
+  }
+  getdemandeallpresence(user_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'presence_by_department/' + user_id);
+  }
+  affecter_damande(demande_id: any, enseignant_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'affecter_damande/' + demande_id + '/' + enseignant_id);
   }
 
   getdemandeattestation(user_id: any): Observable<any> {
