@@ -1097,6 +1097,49 @@ svg {
   width: 200px;
 }
 
+.new {
+  display: flex;
+  width: 4.9375rem;
+  height: 1.5rem;
+  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  background: #fce9a4;
+  color: #bf6f25;
+  margin: 5px;
+}
+
+.nonvalidée {
+  display: flex;
+  width: 4.9375rem;
+  height: 1.5rem;
+  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+
+  margin: 5px;
+  background: #f3c0c0;
+  color: rgb(101, 0, 0);
+  margin: 5px;
+  font-size: 14px;
+}
+
+.waiting {
+  display: flex;
+  width: 4.9375rem;
+  height: 2rem;
+  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  background: #9bc4f9;
+  color: #241df5;
+  margin: 5px;
+  font-size: 14px;
+}
+
 .selectBox {
   position: relative;
 }

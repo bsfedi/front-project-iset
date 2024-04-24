@@ -107,10 +107,30 @@
             <tr *ngFor="let item of getDisplayeddocspending(); let j = index" (click)="gotovalidation(item._id)"
               style="cursor: pointer;">
               <td>
+                <div *ngIf="item.status == 'validated'" style="
+                display: flex;
+                width: 4.9375rem;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
 
-                <div>
-                  {{ item.status }}
+                border-radius: 0.75rem;
+                background: #eefdf3;
+                margin: 5px;
+                color: #187111;
+              ">
+                  validée
                 </div>
+                <div *ngIf="item.status == 'pending'" class="waiting">
+                  en attente
+                </div>
+                <div *ngIf="item.status == 'invalidated'" class="nonvalidée">
+                  Non validée
+                </div>
+                <!-- <div>
+                  {{ item.status }}
+                </div> -->
               </td>
 
               <td>
@@ -180,9 +200,46 @@
 
             <tr *ngFor="let item of getDisplayeddocs()">
 
-              <td>
-                {{ item.status }}
+
+              <td style="max-width: 50px;">
+                <div *ngIf="item.status == 'prete'" style="
+                  display: flex;
+                  width: 4.9375rem;
+                  height: 1.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+  
+                  border-radius: 0.75rem;
+                  background: #eefdf3;
+                  margin: 5px;
+                  color: #187111;
+                ">
+                  prete
+                </div>
+                <div *ngIf="item.status == 'pending'" class="waiting">
+                  en attente
+                </div>
+                <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                display: flex;
+                width: 4.9375rem;
+                height: 2.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+                padding: 5px;
+                border-radius: 0.75rem;
+                background: #eefdf3;
+                margin: 5px;
+                color: #73cf6c;
+              ">
+                  validé par les ensrignants
+                </div>
+                <!-- <div>
+                    {{ item.status }}
+                  </div> -->
               </td>
+
 
               <td>
                 {{ item.nb_arab }}

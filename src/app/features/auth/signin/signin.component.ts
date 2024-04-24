@@ -165,6 +165,11 @@ export class SigninComponent {
             this.router.navigate([clientName + '/members']);
 
           }
+          else if (res.role == "chefdepartement") {
+            this.router.navigate([clientName + '/tjmrequests']);
+
+          }
+
           else {
             this.router.navigate([clientName + '/dashboard']);
           }
