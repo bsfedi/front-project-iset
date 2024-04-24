@@ -57,7 +57,6 @@ export const routes: Routes = [
   {
     path: 'missions/:id',
     component: ConsultantMissionComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: 'enseignant',
