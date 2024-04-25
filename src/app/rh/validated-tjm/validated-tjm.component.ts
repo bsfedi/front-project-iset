@@ -156,7 +156,7 @@ export class ValidatedTjmComponent {
     if (token) {
       // Include the token in the headers
       this.headers = new HttpHeaders().set('Authorization', `${token}`);
-      this.consultantservice.getTjmRequestsByMissionId(this.tjmid).subscribe({
+      this.consultantservice.gettjmrequestsByMissionId(this.tjmid).subscribe({
         next: (res) => {
           // Handle the response from the server
           this.new_tjm = res

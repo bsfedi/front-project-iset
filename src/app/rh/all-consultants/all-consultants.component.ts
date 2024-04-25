@@ -40,7 +40,7 @@ export type ChartOptions = {
   templateUrl: './all-consultants.component.html',
   styleUrls: ['./all-consultants.component.css']
 })
-export class AllConsultantsComponent {
+export class allStudentsComponent {
   selectedItem: string | null = null;
   items: any[] = [];
   items1: any[] = [];
@@ -641,7 +641,7 @@ export class AllConsultantsComponent {
   gotovalidemission(id_mission: any, id: any) {
     this.router.navigate([clientName + '/validationmission/' + id_mission + '/' + id])
   }
-  gottoallConsultants() {
+  gottoallStudents() {
     this.router.navigate([clientName + '/dashboard'])
   }
 }

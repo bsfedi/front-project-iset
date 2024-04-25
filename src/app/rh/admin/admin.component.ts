@@ -366,7 +366,7 @@ export class AdminComponent {
 
   gotocdashboad() {
 
-    this.router.navigate([clientName + '/allConsultants'])
+    this.router.navigate([clientName + '/allStudents'])
 
   }
   pageSize = 5; // Number of items per page

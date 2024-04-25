@@ -134,7 +134,7 @@ export class AbsenceComponent {
               console.log(res);
               // this.router.navigate([clientName +'/client']);
               // this.router.navigate([clientName +'/informations/' + res._id]);
-              this.router.navigate([clientName + '/consultant/missions'])
+              this.router.navigate([clientName + '/student/requests'])
             },
             error: (e) => {
               // Handle errors

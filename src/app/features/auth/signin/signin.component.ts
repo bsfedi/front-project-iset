@@ -98,7 +98,7 @@ export class SigninComponent {
 
                 }
                 else if (this.res.status == 'VALIDATED') {
-                  this.router.navigate([clientName + '/consultant/missions']);
+                  this.router.navigate([clientName + '/student/requests']);
 
                   // this.inscriptionservice.getContaractByPrerigister(this.res._id, headers).subscribe({
                   //   next: (res1) => {
@@ -112,7 +112,7 @@ export class SigninComponent {
                   //     this.contractValidation = res1.contractValidation
                   //     this.jobCotractEdition = res1.jobCotractEdition
                   //     if (this.validation_rh == 'VALIDATED' || this.clientValidation == 'VALIDATED' || this.contactClient == 'VALIDATED' || this.contactClient == 'VALIDATED' || this.jobCotractEdition == 'VALIDATED') {
-                  //       this.router.navigate([clientName + '/consultant/missions']);
+                  //       this.router.navigate([clientName + '/student/requests']);
                   //     }
                   //     else {
                   //      
@@ -165,8 +165,8 @@ export class SigninComponent {
             this.router.navigate([clientName + '/members']);
 
           }
-          else if (res.role == "chefdepartement") {
-            this.router.navigate([clientName + '/tjmrequests']);
+          else if (res.role == "directeurdepartement" || res.role == "directeuretudes") {
+            this.router.navigate([clientName + '/gestionadministrative']);
 
           }
 

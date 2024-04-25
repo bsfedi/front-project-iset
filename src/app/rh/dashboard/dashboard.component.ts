@@ -143,7 +143,7 @@ export class DashboardComponent {
   }
   gotocdashboad() {
 
-    this.router.navigate([clientName + '/allConsultants'])
+    this.router.navigate([clientName + '/allStudents'])
 
   }
   pageSize = 5; // Number of items per page
@@ -191,6 +191,19 @@ export class DashboardComponent {
   all_demande_verification_pending: any
   all_demande_verification: any
   ngOnInit(): void {
+    this.studentservice.getpendingregister().subscribe({
+      next: (res) => {
+        this.items = res
+
+        this.filteredItems = this.items
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
     this.studentservice.stats_enseignant(this.ens_id).subscribe({
@@ -527,8 +540,8 @@ export class DashboardComponent {
     // });
   }
 
-  gottoallConsultants() {
-    this.router.navigate([clientName + '/allConsultants'])
+  gottoallStudents() {
+    this.router.navigate([clientName + '/allStudents'])
   }
 
 

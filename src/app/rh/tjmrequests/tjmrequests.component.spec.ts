@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TjmrequestsComponent } from './tjmrequests.component';
+import { tjmrequestsComponent } from './tjmrequests.component';
 
-describe('TjmrequestsComponent', () => {
-  let component: TjmrequestsComponent;
-  let fixture: ComponentFixture<TjmrequestsComponent>;
+describe('tjmrequestsComponent', () => {
+  let component: tjmrequestsComponent;
+  let fixture: ComponentFixture<tjmrequestsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TjmrequestsComponent ]
+      declarations: [tjmrequestsComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(TjmrequestsComponent);
+    fixture = TestBed.createComponent(tjmrequestsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

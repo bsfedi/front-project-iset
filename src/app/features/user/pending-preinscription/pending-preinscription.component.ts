@@ -46,7 +46,7 @@ export class PendingPreinscriptionComponent {
 
 
           if (this.res.status == 'VALIDATED') {
-            this.router.navigate([clientName + '/consultant/missions']);
+            this.router.navigate([clientName + '/student/requests']);
           }
 
           // this.inscriptionService.getContaractByPrerigister(this.res._id, headers).subscribe({
@@ -62,7 +62,7 @@ export class PendingPreinscriptionComponent {
           //     this.contractValidation = res1.contractValidation
           //     this.jobCotractEdition = res1.jobCotractEdition
           //     if (this.validation_rh == 'VALIDATED' && this.clientValidation == 'VALIDATED' && this.contactClient == 'VALIDATED' && this.contractValidation == 'VALIDATED' && this.jobCotractEdition == 'VALIDATED') {
-          //       this.router.navigate([clientName + '/consultant/missions']);
+          //       this.router.navigate([clientName + '/student/requests']);
           //     }
 
 

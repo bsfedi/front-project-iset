@@ -214,8 +214,8 @@ export class ConsultantService {
   getAllTjmRequest() {
     return this.http.get(baseUrl + 'tjmRequest/getAllTjmRequest');
   }
-  getallTjmRequestsByMissionId(id: any) {
-    return this.http.get(baseUrl + 'tjmRequest/getallTjmRequestsByMissionId/' + id);
+  getalltjmrequestsByMissionId(id: any) {
+    return this.http.get(baseUrl + 'tjmRequest/getalltjmrequestsByMissionId/' + id);
 
   }
 
@@ -235,8 +235,8 @@ export class ConsultantService {
     return this.http.put(baseUrl + 'tjmRequest/rhTjmValidation/' + id, data);
   }
 
-  getTjmRequestsByMissionId(id: any) {
-    return this.http.get(baseUrl + 'tjmRequest/getTjmRequestsByMissionId/' + id);
+  gettjmrequestsByMissionId(id: any) {
+    return this.http.get(baseUrl + 'tjmRequest/gettjmrequestsByMissionId/' + id);
   }
   getMonthlyStatsForAllUsers() {
     return this.http.get(baseUrl + 'user/getMonthlyStatsForAllUsers');

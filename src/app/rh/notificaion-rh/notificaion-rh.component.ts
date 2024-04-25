@@ -139,7 +139,7 @@ export class NotificaionRhComponent {
           // Handle the response from the server
 
           console.log(res);
-          if (this.url._value[0].path == 'allConsultants') {
+          if (this.url._value[0].path == 'allStudents') {
             this.shownb_consultants = true
             this.nb_consultants = res.length
           }
@@ -194,7 +194,7 @@ export class NotificaionRhComponent {
       });
     }
   }
-  gottoallConsultants() {
+  gottoallStudents() {
     this.route.navigate([clientName + '/dashboard'])
   }
   gotovalidation(item: any) {

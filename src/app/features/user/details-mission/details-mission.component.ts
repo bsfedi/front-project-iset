@@ -39,7 +39,7 @@ export class DetailsMissionComponent {
   pdfData: any;
   myForm: FormGroup;
   status: any
-  TjmRequestsByMissionId: any
+  tjmrequestsByMissionId: any
   constructor(private consultantservice: ConsultantService, private inscriptionservice: InscriptionService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     this.myForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -79,9 +79,9 @@ export class DetailsMissionComponent {
       this.mission_id = params['id'];
     });
 
-    this.consultantservice.getallTjmRequestsByMissionId(this.mission_id).subscribe({
+    this.consultantservice.getalltjmrequestsByMissionId(this.mission_id).subscribe({
       next: (res) => {
-        this.TjmRequestsByMissionId = res
+        this.tjmrequestsByMissionId = res
         console.log("tjmmission", res);
       },
       error: (e) => {

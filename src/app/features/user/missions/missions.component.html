@@ -97,8 +97,8 @@
               <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
               <th>type</th>
               <th>matiere</th>
-              <th> nouvelle note</th>
-              <th style="border-radius: 0rem 0.6875rem 0rem 0rem">note</th>
+              <th> note </th>
+              <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> nouvelle note</th>
 
 
             </tr>
@@ -106,10 +106,10 @@
           <tbody>
             <tr *ngFor="let item of getDisplayeddocspending(); let j = index" (click)="gotovalidation(item._id)"
               style="cursor: pointer;">
-              <td>
+              <td style="max-width: 50px;">
                 <div *ngIf="item.status == 'validated'" style="
                 display: flex;
-                width: 4.9375rem;
+                width: auto;
                 height: 1.5rem;
                 padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
                 justify-content: center;
@@ -142,8 +142,11 @@
               <td>
                 {{ item.note }}
               </td>
-              <td *ngIf="item.new_note">
-                {{ item.new_note }}
+              <td>
+                <div *ngIf="item.new_note">
+                  {{ item.new_note }}
+
+                </div>
 
               </td>
 
@@ -201,19 +204,19 @@
             <tr *ngFor="let item of getDisplayeddocs()">
 
 
-              <td style="max-width: 50px;">
+              <td style="max-width: 120px;">
                 <div *ngIf="item.status == 'prete'" style="
-                  display: flex;
-                  width: 4.9375rem;
-                  height: 1.5rem;
-                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
-                  justify-content: center;
-                  align-items: center;
-  
-                  border-radius: 0.75rem;
-                  background: #eefdf3;
-                  margin: 5px;
-                  color: #187111;
+                display: flex;
+                width: auto;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 0.75rem;
+                background: #eefdf3;
+                margin: 5px;
+                color: #187111;
                 ">
                   prete
                 </div>
@@ -222,19 +225,35 @@
                 </div>
                 <div *ngIf="item.status == 'validated_by_enseignant'" style="
                 display: flex;
-                width: 4.9375rem;
+                width: auto;
                 height: 2.5rem;
                 padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
                 justify-content: center;
                 align-items: center;
                 padding: 5px;
                 border-radius: 0.75rem;
-                background: #eefdf3;
+                background: #f7a690;
                 margin: 5px;
-                color: #73cf6c;
+                color: #d56515;
               ">
                   validé par les ensrignants
                 </div>
+                <div *ngIf="item.status == 'validated_by_departement'" style="
+                display: flex;
+                width: auto;
+                height: 2.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+                padding: 5px;
+                border-radius: 0.75rem;
+                background:  #f7a690;
+                margin: 5px;
+                color:  #d56515;
+              ">
+                  validé par les departement
+                </div>
+
                 <!-- <div>
                     {{ item.status }}
                   </div> -->
@@ -583,7 +602,7 @@
 
 
 
-    <!-- <div class="right-item">
+    <div class="right-item">
       <div style="display: flex;margin-bottom: 0px;">
         <div class="profil1" (click)="gotoallnotification()" style="cursor: pointer;">
           <div>
@@ -613,21 +632,21 @@
     
                 line-height: 100%; /* 0.8125rem */
               ">
-              {{ nblastnotifications }} notifications
+              1 notifications
             </div>
           </div>
 
         </div>
         <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
           <img src="/assets/avatar-user.png" width="15%" height="10%" />
-          <div class="nom-prenom">{{res.firstName}} {{res.lastName}} <br>
+          <div class="nom-prenom">nom prénom <br>
 
           </div>
 
         </div>
       </div>
       <app-notification></app-notification>
-    </div> -->
+    </div>
 
 
   </div>

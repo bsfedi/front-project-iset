@@ -14,7 +14,7 @@ const clientName = `${environment.default}`;
   templateUrl: './tjmrequests.component.html',
   styleUrls: ['./tjmrequests.component.css']
 })
-export class TjmrequestsComponent {
+export class tjmrequestsComponent {
   token: any
   headers: any
   user_id: any

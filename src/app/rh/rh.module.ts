@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthGuard } from '../auth/auth.module';
 import { ConsultantMissionComponent } from './consultant-mission/consultant-mission.component';
 import { MissionByIdComponent } from './mission-by-id/mission-by-id.component';
-import { AllConsultantsComponent } from './all-consultants/all-consultants.component';
+import { allStudentsComponent } from './all-consultants/all-consultants.component';
 import { ValidationMissionComponent } from './validation-mission/validation-mission.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LeftBarComponent } from '../layout/left-bar/left-bar.component';
@@ -16,7 +16,7 @@ import { NotificationComponent } from '../layout/notification/notification.compo
 import { NotificaionRhComponent } from './notificaion-rh/notificaion-rh.component';
 import { ChargeDocComponent } from './charge-doc/charge-doc.component';
 import { VirementComponent } from './virement/virement.component';
-import { TjmrequestsComponent } from './tjmrequests/tjmrequests.component';
+import { tjmrequestsComponent } from './tjmrequests/tjmrequests.component';
 import { ValidatedTjmComponent } from './validated-tjm/validated-tjm.component';
 import { CraMissionComponent } from './cra-mission/cra-mission.component';
 import { AdminComponent } from './admin/admin.component';
@@ -44,8 +44,8 @@ export const routes: Routes = [
 
   },
   {
-    path: 'allConsultants',
-    component: AllConsultantsComponent,
+    path: 'allStudents',
+    component: allStudentsComponent,
 
   },
   {
@@ -97,8 +97,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'tjmrequests',
-    component: TjmrequestsComponent,
+    path: 'gestionadministrative',
+    component: tjmrequestsComponent,
 
   },
   {
@@ -124,12 +124,12 @@ export const routes: Routes = [
     ValidationComponent,
     ConsultantMissionComponent,
     MissionByIdComponent,
-    AllConsultantsComponent,
+    allStudentsComponent,
     ValidationMissionComponent,
     NotificaionRhComponent,
     ChargeDocComponent,
     VirementComponent,
-    TjmrequestsComponent,
+    tjmrequestsComponent,
     ValidatedTjmComponent,
     CraMissionComponent,
     AdminComponent,

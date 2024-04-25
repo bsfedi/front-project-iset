@@ -96,7 +96,7 @@ export class MissionByIdComponent {
   }
   loading: boolean = true;
   getMissionuserb: any
-  TjmRequestsByMissionId: any
+  tjmrequestsByMissionId: any
   zoomState: string = 'normal';
   userSelection: string = 'true';
   toggleZoom() {
@@ -234,9 +234,9 @@ export class MissionByIdComponent {
         }
       });
 
-      this.consultantservice.getallTjmRequestsByMissionId(this.mission_id).subscribe({
+      this.consultantservice.getalltjmrequestsByMissionId(this.mission_id).subscribe({
         next: (res) => {
-          this.TjmRequestsByMissionId = res
+          this.tjmrequestsByMissionId = res
           console.log("tjmmission", res);
         },
         error: (e) => {

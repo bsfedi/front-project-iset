@@ -13,7 +13,7 @@ const baseUrl = `${environment.baseUrl}`;
 export class EnseignantComponent {
   constructor(private studentservice: StudentService, private router: Router, private fb: FormBuilder) {
   }
-  all_demandes: any
+  all_demandes: any[] = [];
 
   all_demandes1: any
   fileInputs: any = {};
@@ -29,24 +29,23 @@ export class EnseignantComponent {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
     this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
-      next: (res) => {
-        this.all_demandes = res
-        console.log(this.all_demandes);
-
-
-      }, error(e) {
-        console.log(e);
-
+      next: (res: any) => {
+        this.all_demandes = res;
+      },
+      error: (e: any) => { // corrected error function syntax
+        this.all_demandes = [];
       }
     });
+
     this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes1 = res
-        console.log(this.all_demandes);
+
 
 
       }, error(e) {
-        console.log(e);
+
+
 
       }
     });
@@ -87,7 +86,7 @@ export class EnseignantComponent {
 
     }
     this.studentservice.justif(formData, this.newNote, this.demande_id).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.all_demandes = res
         console.log(this.all_demandes);
         Swal.fire({

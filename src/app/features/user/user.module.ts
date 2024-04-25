@@ -38,7 +38,7 @@ export const routes: Routes = [
 
 
   {
-    path: 'consultant/missions',
+    path: 'student/requests',
     component: MissionsComponent,
 
   },
@@ -48,7 +48,7 @@ export const routes: Routes = [
 
   },
   {
-    path: 'consultant/virements',
+    path: 'student/inscriptions',
     component: VirementsComponent,
 
   },

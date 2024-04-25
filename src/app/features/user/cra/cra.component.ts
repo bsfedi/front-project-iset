@@ -183,7 +183,7 @@ export class CRAComponent {
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
 
-    }).pdf.save('document.pdf'), this.router.navigate([clientName + '/consultant/missions']);
+    }).pdf.save('document.pdf'), this.router.navigate([clientName + '/student/requests']);
 
 
 

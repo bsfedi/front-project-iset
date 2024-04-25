@@ -62,16 +62,19 @@ export class LeftBarComponent {
 
     }
   }
+  gotoenseignant() {
+    this.router.navigate([clientName + '/enseignant'])
 
+  }
   gottodashboard() {
     this.router.navigate([clientName + '/dashboard'])
   }
   gotomission() {
-    this.router.navigate([clientName + '/consultant/missions'])
+    this.router.navigate([clientName + '/student/requests'])
 
   }
   gotovirment() {
-    this.router.navigate([clientName + '/consultant/virements'])
+    this.router.navigate([clientName + '/student/inscriptions'])
 
   }
   demanderattrapage() {
@@ -98,12 +101,12 @@ export class LeftBarComponent {
   gomyprofil() {
     this.router.navigate([clientName + '/edit-profil'])
   }
-  goallConsultants() {
-    this.router.navigate([clientName + '/allConsultants'])
+  goallStudents() {
+    this.router.navigate([clientName + '/allStudents'])
 
   }
-  gototjm() {
-    this.router.navigate([clientName + '/tjmrequests'])
+  gotogestionadministrative() {
+    this.router.navigate([clientName + '/gestionadministrative'])
 
   }
   gotomembres() {

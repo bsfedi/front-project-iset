@@ -1112,7 +1112,7 @@ svg {
 
 .nonvalidée {
   display: flex;
-  width: 4.9375rem;
+  width: auto;
   height: 1.5rem;
   padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
   justify-content: center;
@@ -1127,17 +1127,19 @@ svg {
 }
 
 .waiting {
+
+
   display: flex;
-  width: 4.9375rem;
-  height: 2rem;
+  width: auto;
+  height: 1.5rem;
   padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
   justify-content: center;
   align-items: center;
+
   border-radius: 0.75rem;
   background: #9bc4f9;
-  color: #241df5;
   margin: 5px;
-  font-size: 14px;
+  color: #241df5;
 }
 
 .selectBox {
