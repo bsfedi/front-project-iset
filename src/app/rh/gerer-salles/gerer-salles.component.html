@@ -1,0 +1,829 @@
+<body>
+    <div class="container">
+        <div>
+            <app-left-bar></app-left-bar>
+        </div>
+
+        <div class="second-container">
+            <div style="display: flex">
+
+                <div class="title">Mes demandes</div>
+
+            </div>
+            <p></p>
+
+
+
+
+
+
+            <br />
+
+            <div>
+                <button class="button newmissionbutton" (click)="openPopup1()">
+                    Déclarer une nouvelle demande
+                </button>
+            </div>
+            <br />
+
+            <div class="custom-container">
+                Salles
+            </div>
+            <br />
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Code </th>
+
+
+                            <th> Utilisation </th>
+                            <th>Batiment</th>
+
+                            <th> Affectation</th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getDisplayeddocspending();let i = index">
+
+                            <td>
+                                {{ item.code}}
+                            </td>
+                            <td>
+                                {{ item.utilisation}}
+                            </td>
+                            <td>
+                                {{item.batiment}}
+                            </td>
+
+                            <td>
+                                {{ item.affectation }}
+                            </td>
+
+                            <td style="cursor: pointer" class="dropdown">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none">
+                                        <path
+                                            d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
+                                            fill="black" />
+                                    </svg>
+                                </span>
+                                <div class="dropdown-content">
+                                    <!-- Menu items go here -->
+                                    <div style="display: flex; cursor: pointer">
+                                        <img src="/assets/Checkmark.svg" width="12%" />
+                                        <div (click)="deletesalle(item._id)" style="
+                            margin-top: 7px;
+                            margin-bottom: 10px;
+                            margin-left: 5px;
+                          ">
+                                            Supprimer
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; cursor: pointer">
+                                        <img src="/assets/Checkmark.svg" width="12%" />
+                                        <div style="
+                                                    margin-top: 7px;
+                                                    margin-bottom: 10px;
+                                                    margin-left: 5px;
+                                                " (click)="get_salle_by_id(item._id)">
+                                            Modifier
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; cursor: pointer"
+                                        *ngIf="item.newMissionStatus == 'WAITINGCONTRACT'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
+                                            viewBox="0 0 24 24" style="margin-left: -13px" fill="none">
+                                            <path
+                                                d="M9 4H19V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H9M12 15L15 12M15 12L12 9M15 12H5"
+                                                stroke="black" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="popup" *ngIf="showPopup1">
+                    <div class="popup-content" style="height: auto;">
+                        <div style="float: right" (click)="closePopup1()">
+                            <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                        </div>
+                        <h3>Ajouer salle</h3>
+
+
+
+
+                        <form [formGroup]="myForm2">
+                            <div class="grid-item">
+
+                                <div style="display: flex;">
+                                    <select formControlName="utilisation">
+                                        <option value=""> Seletioner un niveau</option>
+                                        <option> Cours</option>
+                                        <option> Aterlier</option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="grid-item">
+
+                                <div style="display: flex;">
+                                    <input type="text" placeholder="code" formControlName="code">
+                                </div>
+                                <div style="display: flex;">
+                                    <input type="text" placeholder="batiment" formControlName="batiment">
+                                </div>
+                                <div style="display: flex;">
+                                    <select formControlName="affectation">
+                                        <option value=""> Seletioner un departement</option>
+                                        <option>
+                                            TI</option>
+                                        <option>
+                                            GE</option>
+                                        <option>
+                                            GM</option>
+                                        <option>
+                                            GC</option>
+                                        <option>
+                                            SEG</option>
+                                    </select>
+
+                                </div>
+
+                            </div> <br>
+                            <div style="display: flex;">
+
+                                <button type="submit" class="button" style="margin-left: 150px;" (click)="add_salle()">
+                                    <div class="inscrire">Ajouter</div>
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="popup" *ngIf="showPopup2">
+                    <div class="popup-content" style="height: auto">
+                        <div style="float: right" (click)="closePopup2()">
+                            <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                        </div>
+                        <h3>Modifier salle</h3>
+                        <form [formGroup]="myForm2">
+                            <div class="grid-item">
+
+                                <div style="display: flex;">
+                                    <select formControlName="utilisation" [ngModel]="salle_by_id.utilisation">
+                                        <option value=""> Seletioner un niveau</option>
+                                        <option> Cours</option>
+                                        <option> Aterlier</option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="grid-item">
+
+                                <div style="display: flex;">
+                                    <input type="text" placeholder="code" formControlName="code"
+                                        [ngModel]="salle_by_id.code">
+                                </div>
+                                <div style="display: flex;">
+                                    <input type="text" placeholder="batiment" formControlName="batiment"
+                                        [ngModel]="salle_by_id.batiment">
+                                </div>
+                                <div style="display: flex;">
+                                    <select formControlName="affectation" [ngModel]="salle_by_id.affectation">
+                                        <option value=""> Seletioner un departement</option>
+                                        <option>
+                                            TI</option>
+                                        <option>
+                                            GE</option>
+                                        <option>
+                                            GM</option>
+                                        <option>
+                                            GC</option>
+                                        <option>
+                                            SEG</option>
+                                    </select>
+
+                                </div>
+
+                            </div> <br>
+                            <div style="display: flex;">
+
+                                <button type="submit" class="button" style="margin-left: 150px;"
+                                    (click)="update_salles()">
+                                    <div class="inscrire">Ajouter</div>
+                                </button>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="pagination">
+                <div (click)="previousPagepending()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                        <path fill-rule="evenodd"
+                            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                    </svg>
+                </div>
+
+
+                <span style="margin-top: 10px;"> {{ currentPagepending }} sur {{ totalPagespending }}</span>
+                <div (click)="nextPagepending()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                        <path fill-rule="evenodd"
+                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </div>
+
+            </div>
+            <br /><br />
+            <div class="custom-container">
+                Demandes rattrapge
+            </div>
+            <br />
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> </th>
+                            <th>ID</th>
+                            <th> Date demande</th>
+                            <th> enseignanat </th>
+                            <th>Module</th>
+                            <th>Etat</th>
+                            <th>exécuté</th>
+
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getDisplayeddocs();let i = index">
+                            <td></td>
+                            <td>
+                                {{ item.id_demande}}
+                            </td>
+                            <td>
+                                {{ item.date_depot.split('T')[0]}}
+                            </td>
+                            <td>
+                                {{item.enseignant_id}}
+                            </td>
+                            <td>
+                                <div *ngFor="let ee of item.data">
+                                    <div *ngIf="ee.inputClass"> <b> {{ee.inputClass}} - {{ee.inputModule}} -
+                                            {{ee.inputHoraire}} -
+                                            {{ee.date}} </b>
+
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td>
+                                {{ item.status }}
+                            </td>
+                            <td>
+                                <div *ngIf="item.excuted">
+                                    <div *ngIf="item.excuted =='true'">
+                                        exécuté
+                                    </div>
+                                    <div *ngIf="item.excuted !='true'">
+                                        non exécuté
+                                    </div>
+                                </div>
+                                <div *ngIf="!item.excuted">
+
+                                </div>
+                            </td>
+
+                            <td style="cursor: pointer" class="dropdown">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none">
+                                        <path
+                                            d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
+                                            fill="black" />
+                                    </svg>
+                                </span>
+                                <div class="dropdown-content">
+                                    <!-- Menu items go here -->
+                                    <div style="display: flex; cursor: pointer">
+                                        <img src="/assets/Checkmark.svg" width="12%" />
+                                        <div style="
+                                  margin-top: 7px;
+                                  margin-bottom: 10px;
+                                  margin-left: 5px;
+                                " (click)="validated_rattrapage_by_etude(item._id)">
+                                            Exécuté
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; cursor: pointer">
+                                        <img src="/assets/Checkmark.svg" width="12%" />
+                                        <div style="
+                                  margin-top: 7px;
+                                  margin-bottom: 10px;
+                                  margin-left: 5px;
+                                " (click)="invalidated_rattrapage_by_etude(item._id)">
+                                            Non exécuté
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; cursor: pointer"
+                                        *ngIf="item.newMissionStatus == 'WAITINGCONTRACT'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
+                                            viewBox="0 0 24 24" style="margin-left: -13px" fill="none">
+                                            <path
+                                                d="M9 4H19V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H9M12 15L15 12M15 12L12 9M15 12H5"
+                                                stroke="black" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <div (click)="previousPagepending()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                        <path fill-rule="evenodd"
+                            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                    </svg>
+                </div>
+
+
+                <span style="margin-top: 10px;"> {{ currentPagepending }} sur {{ totalPagespending }}</span>
+                <div (click)="nextPagepending()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                        <path fill-rule="evenodd"
+                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </div>
+
+            </div>
+            <br /><br />
+            <!-- <div class="custom-container">
+                Demandes des attestation
+            </div>
+            <br />
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+                            <th>attestation en arabe</th>
+                            <th>attestation en francais</th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Enseignants</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                   
+
+                     <tr *ngFor="let item of getDisplayeddocs()">
+
+
+                            <td style="max-width: 120px;">
+                                <div *ngIf="item.status == 'prete'" style="
+                  display: flex;
+                  width: auto;
+                  height: 1.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+  
+                  border-radius: 0.75rem;
+                  background: #eefdf3;
+                  margin: 5px;
+                  color: #187111;
+                  ">
+                                    prete
+                                </div>
+                                <div *ngIf="item.status == 'pending'" class="waiting">
+                                    en attente
+                                </div>
+                                <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                  display: flex;
+                  width: auto;
+                  height: 2.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 5px;
+                  border-radius: 0.75rem;
+                  background: #f7a690;
+                  margin: 5px;
+                  color: #d56515;
+                ">
+                                    validé par les ensrignants
+                                </div>
+                                <div *ngIf="item.status == 'validated_by_departement'" style="
+                  display: flex;
+                  width: auto;
+                  height: 2.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 5px;
+                  border-radius: 0.75rem;
+                  background:  #f7a690;
+                  margin: 5px;
+                  color:  #d56515;
+                ">
+                                    validé par les departement
+                                </div>
+
+                              
+                      
+                            </td>
+
+
+                            <td>
+                                {{ item.nb_arab }}
+                            </td>
+                            <td>
+                                {{ item.nb_fr }}
+                            </td>
+                            <td>
+                                {{ item.enseignants }}
+                            </td>
+
+
+                        </tr> 
+
+
+                    </tbody>
+                </table>
+            </div> -->
+
+
+            <!-- <div class="pagination">
+                <div (click)="previousPage()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                        <path fill-rule="evenodd"
+                            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                    </svg>
+                </div>
+
+
+                <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages }}</span>
+                <div (click)="nextPage()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                        <path fill-rule="evenodd"
+                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </div>
+
+            </div>
+            <div class="popup" *ngIf="deposer">
+                <div class="popup-content" style="  height: 12.4375rem;">
+                    <div style="float: right" (click)="closePopup1()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Ajouter CRA</h3>
+                        <form action="/submit_form" method="post" style="display: flex">
+                            <div class="form-section">
+                                <div class="grid-container">
+
+
+                                    <div class="custom-file-input" (change)="setFileInput('cra', $event)"
+                                        style="cursor: pointer">
+                                        <label class="file-label" for="fileInput" style="cursor: pointer">
+                                            CRA {{document}}
+                                        </label>
+
+                                        <div class="vertical-line"></div>
+                                        <input class="file-input" type="file" id="fileInput" name="fileInput"
+                                            accept=".pdf" onclick="document.getElementById('fileInput').click()" />
+                                        <div class="upload-icon" onclick="document.getElementById('fileInput').click()">
+                                            <div class="chose-file" *ngIf="!cra">
+                                                choisir un fichier <br />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    viewBox="0 0 14 14" class="icon-file" fill="none">
+                                                    <g clip-path="url(#clip0_972_185)">
+                                                        <path
+                                                            d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                                                            stroke="#1E1E1E" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_972_185">
+                                                            <rect width="14" height="14" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                            <div *ngIf="cra" style="align-items: center; text-align: center">
+                                                <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg"
+                                                    alt="Selected Image" style="
+                              max-width: 320%;
+                              max-height: 50px;
+                              margin: 5px;
+                              margin-top: 10px;
+                            " />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div class="buttons" (click)="submitcra()">
+                                    <button type="submit" class="button">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" *ngIf="showPopup">
+                <div class="popup-content" style="  height: 22.4375rem;">
+                    <div style="float: right" (click)="closePopup()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Déclarer une nouvelle demande</h3>
+                        <select [(ngModel)]="selectedOption" (ngModelChange)="updateForms()">
+                            <option value="attestation">Demande attestation de présence</option>
+                            <option value="verification">Demande vérification de note</option>
+                        </select>
+                        <form action="/submit_form" method="post" style="display: flex" *ngIf="form1"
+                            [formGroup]="myForm">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <br>
+
+                                    <div class="grid-item">
+
+                                        <input type="number" id="TJM" formControlName="arabicAttestations"
+                                            placeholder="Nombre d'attestation en arabe" name="Nouveau TJM" required />
+                                    </div>
+                                    <br>
+
+                                    <div class="grid-item">
+
+                                        <input type="number" id="TJM" formControlName="frenchAttestations"
+                                            placeholder="Nombre d'attestation en francais" name="Nouveau TJM"
+                                            required />
+                                    </div>
+
+                                    <div class="multiselect">
+                                        <div class="selectBox" (click)="toggleCheckboxes()">
+                                            <select>
+                                                <option>choisir les enseignants</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
+                                            *ngFor="let en of ens">
+                                            <label for="en._id">
+                                                <input type="checkbox" (change)="toggleTeacher(en._id)"
+                                                    id="en._id" />{{en.first_name}}
+                                                {{en.last_name}}</label>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <br />
+                                <div class="buttons" (click)="demandeattestation()">
+                                    <button type="submit" class="button">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="/submit_form" method="post" style="display: flex" *ngIf="form2"
+                            [formGroup]="myForm2">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <select formControlName="type">
+                                            <option value="TP1">TP1</option>
+                                            <option value="TP2">TP2</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Examen">Examen</option>
+                                        </select>
+                                        <input type="text" formControlName="matiere" placeholder="Matière" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="number" formControlName="note" placeholder="Note obtenue"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="commentaire" placeholder="Commentaire"
+                                            required />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="buttons" (click)="demandeaverification()">
+                                    <button type="submit" class="button">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+
+            <br /><br />
+            <!-- <div style="display: flex">
+          <div style="
+              color: #323842;
+              font-size: 1.125rem;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 1.75rem; /* 155.556% */
+            ">
+            Non validées ({{ NotValidated_mission.length }})
+          </div>
+  
+        </div> -->
+
+            <!-- <br />
+        <br />
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+  
+                <th>Métier</th>
+                <th>Client</th>
+                <th>Secteur</th>
+                <th>TJM</th>
+                <th>Début</th>
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of getDisplayeddocsnv(); let k = index" (click)="gotovalidation(item._id)">
+                <td>
+                  <div>
+                    <div class="nonvalidée">Non validée</div>
+                  </div>
+                </td>
+  
+  
+                <td>
+                  {{ item.missionInfo.profession.value }}
+                </td>
+                <td>
+                  {{ item.clientInfo.company.value }}
+                </td>
+                <td>
+                  {{ item.missionInfo.industrySector.value }}
+                </td>
+                <td>
+                  {{ item.missionInfo.dailyRate.value }}
+                </td>
+                <td>
+                  {{ formatDate( item.missionInfo.startDate.value.split("T")[0]) }}
+  
+                </td>
+                <td>
+                  {{ formatDate( item.missionInfo.endDate.value.split("T")[0]) }}
+  
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" [hidden]="!hideMissions">
+          <div (click)="previousPagenv()" style="cursor: pointer;" [hidden]="!hideMissions">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+              <path fill-rule="evenodd"
+                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            </svg>
+          </div>
+  
+  
+          <span [hidden]="!hideMissions" style="margin-top: 10px;"> {{ currentPagenv }} sur {{ totalPagesnv }}</span>
+          <div (click)="nextPagenv()" style="cursor: pointer;" [hidden]="!hideMissions">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+              <path fill-rule="evenodd"
+                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+            </svg>
+          </div>
+  
+        </div> -->
+            <div class="popup" *ngIf="showPopup">
+                <div class="popup-content" style="  height: 14.4375rem;">
+                    <div style="float: right" (click)="closePopup()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Déclarer une nouvelle demande</h3>
+
+
+                        <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <select formControlName="type">
+                                            <option value="AT">Attestation de travail </option>
+                                            <option value="FP">fiche de paie </option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="grid-item" *ngIf=" myForm2.get('type')?.value === 'FP'">
+                                        <input type="month" formControlName="month" placeholder="month" required />
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="buttons">
+                                    <button type="submit" class="button" (click)="demandeaverification()">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="right-item">
+            <div style="display: flex;margin-bottom: 0px;">
+
+                <div class="profil" style="cursor: pointer;">
+                    <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                    <div class="nom-prenom">nom prénom <br>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>

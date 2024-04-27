@@ -27,6 +27,8 @@ import { AbsenceComponent } from './absence/absence.component';
 import { SuivreDemandeComponent } from './suivre-demande/suivre-demande.component';
 import { DemandesEnsrignantComponent } from './demandes-ensrignant/demandes-ensrignant.component';
 import { GererDepartementComponent } from './gerer-departement/gerer-departement.component';
+import { GererSallesComponent } from './gerer-salles/gerer-salles.component';
+import { GestionStagesComponent } from './gestion-stages/gestion-stages.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +45,11 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+
+  },
+  {
+    path: 'gestion-stage',
+    component: GestionStagesComponent,
 
   },
   {
@@ -82,6 +89,11 @@ export const routes: Routes = [
   {
     path: 'demanderattrapage',
     component: DemandeRattrapageComponent
+
+  },
+  {
+    path: 'salles-rattrapge',
+    component: GererSallesComponent
 
   },
   {
@@ -152,6 +164,8 @@ export const routes: Routes = [
     SuivreDemandeComponent,
     DemandesEnsrignantComponent,
     GererDepartementComponent,
+    GererSallesComponent,
+    GestionStagesComponent,
   ],
   imports: [
     CommonModule,

@@ -33,12 +33,13 @@ export type ChartOptions = {
   fill: ApexFill | any;
 };
 
+
 @Component({
-  selector: 'app-stages',
-  templateUrl: './stages.component.html',
-  styleUrls: ['./stages.component.css']
+  selector: 'app-gestion-stages',
+  templateUrl: './gestion-stages.component.html',
+  styleUrls: ['./gestion-stages.component.css']
 })
-export class StagesComponent {
+export class GestionStagesComponent {
   hideMissions: boolean = true;
   currentDate: Date | undefined;
   items: any;
@@ -75,7 +76,6 @@ export class StagesComponent {
   user_id: any
   mission_id: any
   formData = new FormData();
-  formData34 = new FormData();
   myForm1: FormGroup;
   tjm_moyen: any
   stats: any;
@@ -103,12 +103,6 @@ export class StagesComponent {
       tel: ['', Validators.required],
       departement: [''],
       email_entreprise: ['', Validators.required],
-      project: ['', Validators.required],
-      encadrent_externe: ['', Validators.required],
-      email_encadrent_externe: [''],
-      tel_encadrent_externe: [''],
-      encadrant_interne: [''],
-      fonctionalie: [''],
     });
     this.myForm = this.fb.group({
       arabicAttestations: ['', Validators.required], // Assuming this is for the Arabic attestations
@@ -227,30 +221,17 @@ export class StagesComponent {
   ens: any
   departement: any
   changewidth: any
+
   ngOnInit(): void {
     if (this.myForm2.value.type == 'stage PFE') {
       this.changewidth = true
     }
     this.user_id = localStorage.getItem('user_id')
-    this.register_id = localStorage.getItem('register_id')
-    this.studentservice.getinscrption(this.register_id).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res.preregister
-        this.departement = this.res.personalInfo.departement
-        this.studentservice.enseignantsbydepartement(this.res.personalInfo.departement).subscribe({
-          next: (res) => {
-            this.ens = res
-          }
-        })
+    this.departement = localStorage.getItem('departement')
 
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-      }
-    });
-    this.studentservice.get_stages(this.register_id).subscribe({
+    this.register_id = localStorage.getItem('register_id')
+
+    this.studentservice.get_stages_by_departement(this.user_id).subscribe({
       next: (res) => {
         // Handle the response from the server
         this.res = res
@@ -465,16 +446,15 @@ export class StagesComponent {
 
     this.myForm2.value.departement = this.departement
     this.myForm2.value.user_id = this.user_id
-    console.log(this.myForm2.value.type);
 
-    if (this.myForm2.value.type != "stage PFE") {
-      this.studentservice.addstage(this.myForm2.value)
-        .subscribe({
-          next: (res) => {
-            Swal.fire({
 
-              background: '#fefcf1',
-              html: `
+    this.studentservice.addstage(this.myForm2.value)
+      .subscribe({
+        next: (res) => {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
               <div>
               <div style="font-size:1.2rem"> stage ajouté avec succès! </div> 
                 
@@ -482,85 +462,26 @@ export class StagesComponent {
             `,
 
 
-              confirmButtonText: 'Ok',
-              confirmButtonColor: "#91c593",
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
 
-              customClass: {
-                confirmButton: 'custom-confirm-button-class',
-                cancelButton: 'custom-cancel-button-class'
-              },
-              reverseButtons: true // Reversing button order
-            })
-            console.log(res);
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+          console.log(res);
 
-            // Handle the response from the server
-
-
-          },
-          error: (e) => {
-            // Handle errors
-            console.error(e);
-          }
-        });
-    }
-    else {
-      const formData34 = new FormData();
-      const cin = this.fileInputs.cin.files[0];
-      console.log(cin);
+          // Handle the response from the server
 
 
-      formData34.append('cahier_charge', cin);
-      console.log(formData34);
-
-      this.studentservice.addstagepfe(this.myForm2.value)
-        .subscribe({
-          next: (res) => {
-
-            this.studentservice.add_cahier_cahrge(res, formData34).subscribe({
-
-              next: (res) => {
-
-
-                console.log(res);
-
-                Swal.fire({
-
-                  background: '#fefcf1',
-                  html: `
-                  <div>
-                  <div style="font-size:1.2rem"> stage ajouté avec succès! </div> 
-                    
-                  </div>
-                `,
-
-
-                  confirmButtonText: 'Ok',
-                  confirmButtonColor: "#91c593",
-
-                  customClass: {
-                    confirmButton: 'custom-confirm-button-class',
-                    cancelButton: 'custom-cancel-button-class'
-                  },
-                  reverseButtons: true // Reversing button order
-                })
-
-              }
-            })
-
-            console.log(res);
-
-            // Handle the response from the server
-
-
-          },
-          error: (e) => {
-            // Handle errors
-            console.error(e);
-          }
-        });
-
-    }
-
+        },
+        error: (e) => {
+          // Handle errors
+          console.error(e);
+        }
+      });
   }
   pageSize = 5; // Number of items per page
   currentPage = 1; // Current page
@@ -569,12 +490,12 @@ export class StagesComponent {
   getDisplayeddocs(): any[] {
 
 
-    this.totalPages = Math.ceil(this.validated_mission.length / this.pageSize);
+    this.totalPages = Math.ceil(this.res.length / this.pageSize);
     const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(startIndex + this.pageSize, this.validated_mission.length);
+    const endIndex = Math.min(startIndex + this.pageSize, this.res.length);
 
 
-    return this.validated_mission.slice(startIndex, endIndex);
+    return this.res.slice(startIndex, endIndex);
 
 
 
@@ -653,9 +574,23 @@ export class StagesComponent {
       this.currentPagenv--;
     }
   }
-
-  click() {
+  stage_by_id: any
+  click(stage_id: any) {
     this.showPopup = true
+    this.studentservice.get_stage_by_id(stage_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        this.stage_by_id = res
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
+
+
   }
   toggleMenu(i: number) {
     this.isMenuOpen[i] = !this.isMenuOpen[i];

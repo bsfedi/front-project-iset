@@ -37,6 +37,7 @@ export class EnseignantComponent {
       }
     });
 
+
     this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes1 = res

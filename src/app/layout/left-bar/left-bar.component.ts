@@ -41,6 +41,7 @@ export class LeftBarComponent {
     this.rat = !this.rat; // Toggle the value of rat
   }
 
+
   azeaze() {
     const menuToggle = document.querySelector(".menu-toggle") as HTMLElement;
     const firstItem = document.querySelector(".first-item") as HTMLElement;
@@ -68,6 +69,15 @@ export class LeftBarComponent {
   gotogestion() {
     this.router.navigate([clientName + '/gestion'])
   }
+  gotosallesrattrapge() {
+    this.router.navigate([clientName + '/salles-rattrapge'])
+
+  }
+  gotosatge() {
+    this.router.navigate([clientName + '/gestion-stage'])
+    // Toggle the value of rat
+  }
+
   gottodashboard() {
     this.router.navigate([clientName + '/dashboard'])
   }

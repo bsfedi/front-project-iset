@@ -231,7 +231,6 @@ body {
 
 
 
-
 td {
     margin: 5px;
     padding: 8px;
@@ -382,13 +381,13 @@ tr {
 }
 
 .popup-content1 {
-    width: 58.6875rem;
+    width: 62.6875rem;
     height: 36.4375rem;
     margin-left: 50px;
     border-radius: 2.125rem;
     background: white;
-    padding: 30px;
-    margin-top: 30px;
+    padding: 50px;
+
 }
 
 .popup-content-validation {
@@ -398,7 +397,7 @@ tr {
     border-radius: 6.125rem;
     background: rgb(255, 254, 254);
     padding: 30px;
-    margin-top: 30px;
+
 }
 
 select,
@@ -414,8 +413,8 @@ input[type="number"] {
     flex-shrink: 0;
 
     padding: 8px;
-    margin-top: 10px;
-
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 0.5rem;
     border: 1px solid #1e1e1e;
 

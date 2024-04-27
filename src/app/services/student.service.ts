@@ -212,16 +212,30 @@ export class StudentService {
     return this.http.post(baseUrl + 'add_classe', data);
   }
 
+  add_salle(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_salle', data);
+  }
+
   add_parcours(data: any): Observable<any> {
 
     return this.http.post(baseUrl + 'add_parcours', data);
   }
 
-
   addstage(data: any): Observable<any> {
 
     return this.http.post(baseUrl + 'add_stage', data);
   }
+  addstagepfe(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_pfe_stage', data);
+  }
+  add_cahier_cahrge(satge_id: any, data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_cahier_cahrge/' + satge_id, data);
+  }
+
+
   deleteparcour(parcours_id: any) {
     return this.http.delete(baseUrl + 'delete_parcours/' + parcours_id);
   }
@@ -231,9 +245,59 @@ export class StudentService {
   deletemodule(module_id: any) {
     return this.http.delete(baseUrl + 'delete_modules/' + module_id);
   }
+  deletesalle(salle_id: any) {
+    return this.http.delete(baseUrl + 'delete_salles/' + salle_id);
+  }
   stats_tuitionofficer(): Observable<any> {
 
     return this.http.get(baseUrl + 'stats_tuitionofficer');
+  }
+
+
+  update_parcours(parcours_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'update_parcours/' + parcours_id, data);
+  }
+  get_parcour_by_id(parcours_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_parcour/' + parcours_id);
+  }
+
+
+  update_modules(modules_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'update_modules/' + modules_id, data);
+  }
+  get_salle_by_id(salle_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_salle/' + salle_id);
+  }
+  get_module_by_id(module_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_module/' + module_id);
+  }
+
+  update_classes(classes_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'update_classes/' + classes_id, data);
+  }
+  update_salles(salles_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'update_salles/' + salles_id, data);
+  }
+  validated_rattrapage_by_etude(rattrapage_id: any, status: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'validated_rattrapage/' + rattrapage_id + '/' + status);
+  }
+
+
+  get_classe_by_id(classe_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_classe/' + classe_id);
+  }
+  validated_rattrapage(): Observable<any> {
+
+    return this.http.get(baseUrl + 'validated_rattrapage');
   }
 
 
@@ -258,11 +322,25 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_parcours');
   }
+  get_salles(): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_salles');
+  }
 
   get_classes(): Observable<any> {
 
     return this.http.get(baseUrl + 'get_classes');
   }
+  get_stages_by_departement(departement: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_stages_by_departement/' + departement);
+  }
+  get_stage_by_id(stage_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_stage_by_id/' + stage_id);
+  }
+
+
   get_modules(): Observable<any> {
 
     return this.http.get(baseUrl + 'get_modules');

@@ -297,6 +297,174 @@ export class GererDepartementComponent {
     });
 
   }
+  parcour_by_id: any
+  parcours_id: any
+  tjm1: any
+  get_parcour_by_id(parcours_id: any) {
+    this.parcours_id = parcours_id
+    this.tjm1 = true
+    this.showPopup2 = true;
+    this.studentservice.get_parcour_by_id(parcours_id).subscribe({
+      next: (res) => {
+
+        this.parcour_by_id = res
+        this.myForm1.value.code = this.parcour_by_id.code
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
+
+  classe_by_id: any
+  classe_id: any
+  parcours1: any
+
+  get_classe_by_id(classe_id: any) {
+    this.parcours_id = classe_id
+    this.parcours1 = true
+    this.showPopup2 = true;
+    this.studentservice.get_classe_by_id(classe_id).subscribe({
+      next: (res) => {
+
+        this.classe_by_id = res
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
+
+  module_by_id: any
+  module_id: any
+  rattrapge1: any
+
+  get_module_by_id(classe_id: any) {
+    this.module_id = classe_id
+    this.rattrapge1 = true
+    this.showPopup2 = true;
+    this.studentservice.get_module_by_id(classe_id).subscribe({
+      next: (res) => {
+
+        this.module_by_id = res
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
+
+  update_parcours() {
+
+    this.studentservice.update_parcours(this.parcours_id, this.myForm1.value).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> Parccours modifiée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
+  update_classes() {
+
+    this.studentservice.update_classes(this.classe_id, this.myForm2.value).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> Classe modifiée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
+
+  update_modules() {
+
+    this.studentservice.update_modules(this.module_id, this.myForm3.value).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> Module modifiée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
 
 
   showtjm() {
@@ -553,7 +721,7 @@ export class GererDepartementComponent {
           background: '#fefcf1',
           html: `
             <div>
-            <div style="font-size:1.2rem"> module ajoutée  avec succès! </div> 
+            <div style="font-size:1.2rem"> classe ajoutée  avec succès! </div> 
               
             </div>
           `,

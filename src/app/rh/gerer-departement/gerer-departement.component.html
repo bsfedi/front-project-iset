@@ -75,7 +75,16 @@
                                                 supprimer
                                             </div>
                                         </div>
-
+                                        <div style="display: flex; cursor: pointer">
+                                            <img src="/assets/Checkmark.svg" width="12%" />
+                                            <div (click)="get_parcour_by_id(item._id)" style="
+                            margin-top: 7px;
+                            margin-bottom: 10px;
+                            margin-left: 5px;
+                          ">
+                                                modifier
+                                            </div>
+                                        </div>
                                         <div style="display: flex; cursor: pointer"
                                             *ngIf="item.newMissionStatus == 'WAITINGCONTRACT'">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24"
@@ -133,6 +142,16 @@
                             margin-left: 5px;
                           ">
                                                 Supprimer
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; cursor: pointer">
+                                            <img src="/assets/Checkmark.svg" width="12%" />
+                                            <div (click)="get_classe_by_id(item._id)" style="
+                            margin-top: 7px;
+                            margin-bottom: 10px;
+                            margin-left: 5px;
+                          ">
+                                                modifier
                                             </div>
                                         </div>
 
@@ -205,17 +224,17 @@
                             margin-bottom: 10px;
                             margin-left: 5px;
                           ">
-                                                Supprime
+                                                Supprimer
                                             </div>
                                         </div>
                                         <div style="display: flex; cursor: pointer">
                                             <img src="/assets/Checkmark.svg" width="12%" />
                                             <div style="
-                            margin-top: 7px;
-                            margin-bottom: 10px;
-                            margin-left: 5px;
-                          ">
-                                                Refuser
+                                                    margin-top: 7px;
+                                                    margin-bottom: 10px;
+                                                    margin-left: 5px;
+                                                " (click)="get_module_by_id(item._id)">
+                                                Modifier
                                             </div>
                                         </div>
                                         <div style="display: flex; cursor: pointer"
@@ -269,6 +288,7 @@
                                     </button>
                                 </div>
                             </form>
+
                             <form *ngIf="parcours" [formGroup]="myForm2">
                                 <div class="grid-item">
 
@@ -334,7 +354,14 @@
                                         <input type="text" placeholder="intitule" formControlName="intitule">
                                     </div>
                                     <div style="display: flex;">
-                                        <input type="text" placeholder="type" formControlName="type">
+                                        <select formControlName="type">
+                                            <option value=""> Seletioner un type</option>
+                                            <option>
+                                                CI</option>
+                                            <option>
+                                                TP</option>
+                                        </select>
+
                                     </div>
 
                                 </div> <br>
@@ -351,34 +378,127 @@
 
                     </div>
                     <div class="popup" *ngIf="showPopup2">
-                        <div class="popup-content" style="height: 14rem;">
+                        <div class="popup-content" style="height: auto">
                             <div style="float: right" (click)="closePopup2()">
                                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                             </div>
-                            <h3>Motif rattrapage</h3>
-                            <div class="grid-item">
+                            <h3 *ngIf="tjm1">Modifier parcours</h3>
+                            <h3 *ngIf="parcours1">Modifier classe</h3>
+                            <h3 *ngIf="rattrapge1">Modifier module</h3>
+                            <form *ngIf="tjm1" [formGroup]="myForm1">
+                                <div class="grid-item">
 
-                                <div>
-                                    <input type="text" placeholder="Salle" [(ngModel)]="Salle"> <br><br>
-                                    <select [(ngModel)]="horaire">
-                                        <option value=""> Selectioner un horaire </option>
-                                        <option value="S1"> S1</option>
-                                        <option value="S2"> S2</option>
-                                        <option value="S3"> S3 </option>
-                                        <option value="S4"> S4</option>
-                                        <option value="S5"> S5</option>
-                                    </select>
+                                    <div style="display: flex;">
+                                        <input type="text" placeholder="libelle" formControlName="libelle"
+                                            [ngModel]="parcour_by_id.libelle">
+                                    </div>
+
+
                                 </div>
+                                <div class="grid-item">
+
+                                    <div style="display: flex;">
+                                        <input type="text" placeholder="code" formControlName="code"
+                                            [ngModel]="parcour_by_id.code">
+                                    </div>
 
 
-                            </div> <br>
-                            <div style="display: flex;">
+                                </div> <br>
+                                <div style="display: flex;">
 
-                                <button type="submit" class="button" style="margin-left: 150px;"
-                                    (click)="update_rattrapage()">
-                                    <div class="inscrire">Accepter</div>
-                                </button>
-                            </div>
+                                    <button type="submit" class="button" style="margin-left: 150px;"
+                                        (click)="update_parcours()">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </form> <br>
+                            <form *ngIf="parcours1" [formGroup]="myForm2">
+                                <div class="grid-item">
+
+                                    <div style="display: flex;">
+                                        <select formControlName="niveau" [ngModel]="classe_by_id.niveau">
+                                            <option value=""> Seletioner un niveau</option>
+                                            <option> L1</option>
+                                            <option> L2</option>
+                                            <option> L3</option>
+                                        </select>
+
+                                    </div>
+                                    <select formControlName="parcour" [ngModel]="classe_by_id.parcour">
+                                        <option value=""> Seletioner un parcous</option>
+                                        <option *ngFor="let parcour of pending_parcourss" [value]="parcour._id">
+                                            {{parcour.libelle}}</option>
+                                    </select>
+
+
+                                </div>
+                                <div class="grid-item">
+
+                                    <div style="display: flex;">
+                                        <input type="text" placeholder="code" formControlName="code"
+                                            [ngModel]="classe_by_id.code">
+                                    </div>
+
+
+                                </div> <br>
+                                <div style="display: flex;">
+
+                                    <button type="submit" class="button" style="margin-left: 150px;"
+                                        (click)="update_classes()">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </form>
+                            <form *ngIf="rattrapge1" [formGroup]="myForm3">
+                                <div class="grid-item">
+
+                                    <div style="display: flex;">
+                                        <select formControlName="niveau" [ngModel]="module_by_id.niveau">
+                                            <option value=""> Seletioner un niveau</option>
+                                            <option> L1</option>
+                                            <option> L2</option>
+                                            <option> L3</option>
+                                        </select>
+
+                                    </div>
+                                    <select formControlName="parcours" [ngModel]="module_by_id.parcours">
+                                        <option value=""> Seletioner un parcous</option>
+                                        <option *ngFor="let parcour of pending_parcourss" [value]="parcour._id">
+                                            {{parcour.libelle}}</option>
+                                    </select>
+
+
+                                </div>
+                                <div class="grid-item">
+
+                                    <div style="display: flex;">
+                                        <input type="text" placeholder="code" formControlName="code"
+                                            [ngModel]="module_by_id.code">
+                                    </div>
+                                    <div style="display: flex;">
+                                        <input type="text" placeholder="intitule" formControlName="intitule"
+                                            [ngModel]="module_by_id.intitule">
+                                    </div>
+                                    <div style="display: flex;">
+                                        <select formControlName="type" [ngModel]="module_by_id.type">
+                                            <option value=""> Seletioner un type</option>
+                                            <option>
+                                                CI</option>
+                                            <option>
+                                                TP</option>
+                                        </select>
+
+                                    </div>
+
+                                </div> <br>
+                                <div style="display: flex;">
+
+                                    <button type="submit" class="button" style="margin-left: 150px;"
+                                        (click)="update_modules()">
+                                        <div class="inscrire">Modifier</div>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>

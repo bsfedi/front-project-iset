@@ -36,7 +36,7 @@
   margin-left: -16px;
   margin-top: -8px;
   position: fixed;
-  background: #1e1e1e;
+  background: #ca1616;
   align-items: center;
   justify-content: center;
   z-index: 999;
@@ -53,7 +53,7 @@
 /* Default styles for larger screens */
 .first-item {
   position: fixed;
-  background: #1e1e1e;
+  background: #0f1d70;
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -94,7 +94,7 @@
   height: 3rem;
 
   border-radius: 0.4375rem;
-  background: rgba(242, 239, 224, 0.1);
+  background: rgb(0, 17, 255);
   margin-left: 20px;
   display: flex;
 }
@@ -133,7 +133,7 @@ svg {
 }
 
 .faq-sedeconnecter1 {
-  margin-top: 255px;
+  float: bottom
 }
 
 .second-container {

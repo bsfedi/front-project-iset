@@ -104,8 +104,8 @@ input[type="search"]:focus {
 }
 
 table tr {
-    border-bottom: 1px solid #000;
-    /* You can adjust the color and thickness as needed */
+    border-bottom: 1px solid
+        /* You can adjust the color and thickness as needed */
 }
 
 
@@ -230,9 +230,6 @@ body {
 
 
 
-th {
-    color: #323842;
-}
 
 td {
     margin: 5px;
@@ -347,10 +344,7 @@ tr {
 
 
 
-th {
-    color: #323842;
-    border: none;
-}
+
 
 td {
     margin: 5px;

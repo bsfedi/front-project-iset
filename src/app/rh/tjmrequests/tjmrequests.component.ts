@@ -62,10 +62,10 @@ export class tjmrequestsComponent {
       return this.rattrapge_requests.slice(startIndex, endIndex);
     }
     else {
-      this.totalPages = Math.ceil(this.tjmrequests.length / this.pageSize);
+      this.totalPages = Math.ceil(this.filteredItems.length / this.pageSize);
       const startIndex = (this.currentPagetjm - 1) * this.pageSize;
-      const endIndex = Math.min(startIndex + this.pageSize, this.tjmrequests.length);
-      return this.tjmrequests.slice(startIndex, endIndex);
+      const endIndex = Math.min(startIndex + this.pageSize, this.filteredItems.length);
+      return this.filteredItems.slice(startIndex, endIndex);
     }
 
   }
@@ -102,17 +102,38 @@ export class tjmrequestsComponent {
   }
   role: any
   rattrapge_requests: any
+  salles: any
   ngOnInit(): void {
 
     const token = localStorage.getItem('token');
     this.user_id = localStorage.getItem('user_id')
     this.new_notif = localStorage.getItem('new_notif');
     this.role = localStorage.getItem('role');
-    this.studentservice.get_classes().subscribe({
+
+
+    this.studentservice.get_salles().subscribe({
+
+
+      next: (res) => {
+        this.salles = res
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.tjmrequests = []
+        console.error(e);
+        // Set loading to false in case of an error
+      }
+    });
+    this.studentservice.getdemandeallverification(this.user_id).subscribe({
 
 
       next: (res) => {
         this.tjmrequests = res
+        this.filteredItems = this.tjmrequests
         this.studentservice.enseignantsbydepartement(this.tjmrequests[0]["departement"]).subscribe({
           next: (res) => {
             this.ens = res
@@ -203,7 +224,22 @@ export class tjmrequestsComponent {
       }
     );
   }
-
+  filteredItems: any[] = [];
+  searchTerm: any
+  applyFilter() {
+    // Check if search term is empty
+    if (this.searchTerm.trim() === '') {
+      // If search term is empty, reset the filtered items to the original items
+      this.filteredItems = this.tjmrequests;
+    } else {
+      // Apply filter based on search term
+      this.filteredItems = this.tjmrequests.filter((item: any) =>
+        item.first_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.classe.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
   accept(demande_id: any) {
     const data = {
       "role": this.role,

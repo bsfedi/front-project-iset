@@ -84,6 +84,19 @@
   width: 100%;
 }
 
+.first1 {
+  display: flex;
+  width: auto;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.625rem;
+  border: 2px solid #eae3d5;
+  background: #fff;
+  margin: 3.25px;
+  padding: 3.25px 8px 3.25px 8px;
+}
+
 .first {
   display: flex;
   width: auto;
@@ -200,7 +213,13 @@ svg {
   float: right;
 }
 
-
+input[type="search"] {
+  border: none;
+  width: 480px;
+  height: 50%;
+  border: none none;
+  outline: none;
+}
 
 select,
 input[type="text"],
@@ -208,8 +227,7 @@ input[type="date"],
 input[type="email"],
 input[type="tel"],
 input[type="password"],
-input[type="number"],
-input[type="search"] {
+input[type="number"] {
   width: 10.04313rem;
   height: 2.11006rem;
   flex-shrink: 0;
