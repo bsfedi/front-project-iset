@@ -190,6 +190,7 @@ export class DashboardComponent {
   all_demande_verification_validated: any
   all_demande_verification_pending: any
   all_demande_verification: any
+  statsres: any
   ngOnInit(): void {
     this.studentservice.getpendingregister().subscribe({
       next: (res) => {
@@ -206,20 +207,46 @@ export class DashboardComponent {
 
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
-    this.studentservice.stats_enseignant(this.ens_id).subscribe({
-      next: (res) => {
+    if (this.role == "enseignant") {
+      this.studentservice.stats_enseignant(this.ens_id).subscribe({
+        next: (res) => {
 
-        this.all_demande_presence_validated = res.all_demande_presence_validated
-        this.all_demande_presence_pending = res.all_demande_presence_pending
-        this.all_demande_presence = res.all_demande_presence
-        this.all_demande_verification_validated = res.all_demande_verification_validated
-        this.all_demande_verification_pending = res.all_demande_verification_pending
-        this.all_demande_verification = res.all_demande_verification
-      }, error(e) {
-        console.log(e);
+          this.all_demande_presence_validated = res.all_demande_presence_validated
+          this.all_demande_presence_pending = res.all_demande_presence_pending
+          this.all_demande_presence = res.all_demande_presence
+          this.all_demande_verification_validated = res.all_demande_verification_validated
+          this.all_demande_verification_pending = res.all_demande_verification_pending
+          this.all_demande_verification = res.all_demande_verification
+        }, error(e) {
+          console.log(e);
 
-      }
-    });
+        }
+      });
+    } else if (this.role == "student") {
+      this.studentservice.stats_student(this.ens_id).subscribe({
+        next: (res) => {
+
+          this.statsres = res
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+
+    } else if (this.role == 'tuitionofficer') {
+
+      this.studentservice.stats_tuitionofficer().subscribe({
+        next: (res) => {
+
+          this.statsres = res
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
+
+
     this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes1 = res

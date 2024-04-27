@@ -109,8 +109,16 @@ export class LeftBarComponent {
     this.router.navigate([clientName + '/gestionadministrative'])
 
   }
+  gotstudentstages() {
+    this.router.navigate([clientName + '/student/stages'])
+
+  }
   gotomembres() {
     this.router.navigate([clientName + '/members'])
+
+  }
+  gotodemandes() {
+    this.router.navigate([clientName + '/demandes'])
 
   }
   role: any

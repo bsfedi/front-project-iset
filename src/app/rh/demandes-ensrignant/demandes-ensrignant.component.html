@@ -1,0 +1,559 @@
+<body>
+    <div class="container">
+        <div>
+            <app-left-bar></app-left-bar>
+        </div>
+
+        <div class="second-container">
+            <div style="display: flex">
+
+                <div class="title">Mes demandes</div>
+
+            </div>
+            <p></p>
+
+
+            <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
+
+                <div class="sp-container">
+                    <div class="sp-content">
+                        <div class="sp-globe"></div>
+                        <span class="frame-1">Lancement officiel du site KID&LANGUAGE: </span>
+                        <span class="frame-2">SOYEZ LES 1ERS </span>
+                        <span class="frame-3">A DEPOSER VOTRE ANNONCE!!!</span>
+                        <a class="sp-circle-link" href="#">Enregistrez-vous!</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+
+
+            <br />
+
+            <div>
+                <button class="button newmissionbutton" (click)="click()">
+                    Déclarer une nouvelle demande
+                </button>
+            </div>
+            <br />
+
+            <div class="custom-container">
+                Attestation de travail
+            </div>
+            <br />
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+                            <th>type</th>
+
+
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem">date </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getDisplayeddocs(); let j = index" style="cursor: pointer;">
+                            <td style="max-width: 50px;">
+                                <div *ngIf="item.status == 'validated'" style="
+                  display: flex;
+                  width: auto;
+                  height: 1.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+  
+                  border-radius: 0.75rem;
+                  background: #eefdf3;
+                  margin: 5px;
+                  color: #187111;
+                ">
+                                    validée
+                                </div>
+                                <div *ngIf="item.status == 'pending'" class="waiting">
+                                    en attente
+                                </div>
+                                <div *ngIf="item.status == 'invalidated'" class="nonvalidée">
+                                    Non validée
+                                </div>
+
+                            </td>
+
+                            <td>
+                                <div *ngIf="item.type == 'AT'">
+                                    Attestation de travail
+                                </div>
+                                <div *ngIf="item.type != 'AT'">
+                                    Fiche de paie
+                                </div>
+
+                            </td>
+
+
+                            <td>
+                                <div *ngIf="item.month">
+                                    {{ item.month }}
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <div (click)="previousPagepending()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                        <path fill-rule="evenodd"
+                            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                    </svg>
+                </div>
+
+
+                <span style="margin-top: 10px;"> {{ currentPagepending }} sur {{ totalPagespending }}</span>
+                <div (click)="nextPagepending()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                        <path fill-rule="evenodd"
+                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </div>
+
+            </div>
+            <br /><br />
+            <!-- <div class="custom-container">
+                Demandes des attestation
+            </div>
+            <br />
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+                            <th>attestation en arabe</th>
+                            <th>attestation en francais</th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Enseignants</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                   
+
+                     <tr *ngFor="let item of getDisplayeddocs()">
+
+
+                            <td style="max-width: 120px;">
+                                <div *ngIf="item.status == 'prete'" style="
+                  display: flex;
+                  width: auto;
+                  height: 1.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+  
+                  border-radius: 0.75rem;
+                  background: #eefdf3;
+                  margin: 5px;
+                  color: #187111;
+                  ">
+                                    prete
+                                </div>
+                                <div *ngIf="item.status == 'pending'" class="waiting">
+                                    en attente
+                                </div>
+                                <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                  display: flex;
+                  width: auto;
+                  height: 2.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 5px;
+                  border-radius: 0.75rem;
+                  background: #f7a690;
+                  margin: 5px;
+                  color: #d56515;
+                ">
+                                    validé par les ensrignants
+                                </div>
+                                <div *ngIf="item.status == 'validated_by_departement'" style="
+                  display: flex;
+                  width: auto;
+                  height: 2.5rem;
+                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 5px;
+                  border-radius: 0.75rem;
+                  background:  #f7a690;
+                  margin: 5px;
+                  color:  #d56515;
+                ">
+                                    validé par les departement
+                                </div>
+
+                              
+                      
+                            </td>
+
+
+                            <td>
+                                {{ item.nb_arab }}
+                            </td>
+                            <td>
+                                {{ item.nb_fr }}
+                            </td>
+                            <td>
+                                {{ item.enseignants }}
+                            </td>
+
+
+                        </tr> 
+
+
+                    </tbody>
+                </table>
+            </div> -->
+
+
+            <!-- <div class="pagination">
+                <div (click)="previousPage()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                        <path fill-rule="evenodd"
+                            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                    </svg>
+                </div>
+
+
+                <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages }}</span>
+                <div (click)="nextPage()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                        <path fill-rule="evenodd"
+                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </div>
+
+            </div>
+            <div class="popup" *ngIf="deposer">
+                <div class="popup-content" style="  height: 12.4375rem;">
+                    <div style="float: right" (click)="closePopup1()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Ajouter CRA</h3>
+                        <form action="/submit_form" method="post" style="display: flex">
+                            <div class="form-section">
+                                <div class="grid-container">
+
+
+                                    <div class="custom-file-input" (change)="setFileInput('cra', $event)"
+                                        style="cursor: pointer">
+                                        <label class="file-label" for="fileInput" style="cursor: pointer">
+                                            CRA {{document}}
+                                        </label>
+
+                                        <div class="vertical-line"></div>
+                                        <input class="file-input" type="file" id="fileInput" name="fileInput"
+                                            accept=".pdf" onclick="document.getElementById('fileInput').click()" />
+                                        <div class="upload-icon" onclick="document.getElementById('fileInput').click()">
+                                            <div class="chose-file" *ngIf="!cra">
+                                                choisir un fichier <br />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    viewBox="0 0 14 14" class="icon-file" fill="none">
+                                                    <g clip-path="url(#clip0_972_185)">
+                                                        <path
+                                                            d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
+                                                            stroke="#1E1E1E" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_972_185">
+                                                            <rect width="14" height="14" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                            <div *ngIf="cra" style="align-items: center; text-align: center">
+                                                <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg"
+                                                    alt="Selected Image" style="
+                              max-width: 320%;
+                              max-height: 50px;
+                              margin: 5px;
+                              margin-top: 10px;
+                            " />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div class="buttons" (click)="submitcra()">
+                                    <button type="submit" class="button">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="popup" *ngIf="showPopup">
+                <div class="popup-content" style="  height: 22.4375rem;">
+                    <div style="float: right" (click)="closePopup()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Déclarer une nouvelle demande</h3>
+                        <select [(ngModel)]="selectedOption" (ngModelChange)="updateForms()">
+                            <option value="attestation">Demande attestation de présence</option>
+                            <option value="verification">Demande vérification de note</option>
+                        </select>
+                        <form action="/submit_form" method="post" style="display: flex" *ngIf="form1"
+                            [formGroup]="myForm">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <br>
+
+                                    <div class="grid-item">
+
+                                        <input type="number" id="TJM" formControlName="arabicAttestations"
+                                            placeholder="Nombre d'attestation en arabe" name="Nouveau TJM" required />
+                                    </div>
+                                    <br>
+
+                                    <div class="grid-item">
+
+                                        <input type="number" id="TJM" formControlName="frenchAttestations"
+                                            placeholder="Nombre d'attestation en francais" name="Nouveau TJM"
+                                            required />
+                                    </div>
+
+                                    <div class="multiselect">
+                                        <div class="selectBox" (click)="toggleCheckboxes()">
+                                            <select>
+                                                <option>choisir les enseignants</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
+                                            *ngFor="let en of ens">
+                                            <label for="en._id">
+                                                <input type="checkbox" (change)="toggleTeacher(en._id)"
+                                                    id="en._id" />{{en.first_name}}
+                                                {{en.last_name}}</label>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <br />
+                                <div class="buttons" (click)="demandeattestation()">
+                                    <button type="submit" class="button">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="/submit_form" method="post" style="display: flex" *ngIf="form2"
+                            [formGroup]="myForm2">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <select formControlName="type">
+                                            <option value="TP1">TP1</option>
+                                            <option value="TP2">TP2</option>
+                                            <option value="TC">TC</option>
+                                            <option value="Examen">Examen</option>
+                                        </select>
+                                        <input type="text" formControlName="matiere" placeholder="Matière" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="number" formControlName="note" placeholder="Note obtenue"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="commentaire" placeholder="Commentaire"
+                                            required />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="buttons" (click)="demandeaverification()">
+                                    <button type="submit" class="button">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+
+            <br /><br />
+            <!-- <div style="display: flex">
+          <div style="
+              color: #323842;
+              font-size: 1.125rem;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 1.75rem; /* 155.556% */
+            ">
+            Non validées ({{ NotValidated_mission.length }})
+          </div>
+  
+        </div> -->
+
+            <!-- <br />
+        <br />
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+  
+                <th>Métier</th>
+                <th>Client</th>
+                <th>Secteur</th>
+                <th>TJM</th>
+                <th>Début</th>
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of getDisplayeddocsnv(); let k = index" (click)="gotovalidation(item._id)">
+                <td>
+                  <div>
+                    <div class="nonvalidée">Non validée</div>
+                  </div>
+                </td>
+  
+  
+                <td>
+                  {{ item.missionInfo.profession.value }}
+                </td>
+                <td>
+                  {{ item.clientInfo.company.value }}
+                </td>
+                <td>
+                  {{ item.missionInfo.industrySector.value }}
+                </td>
+                <td>
+                  {{ item.missionInfo.dailyRate.value }}
+                </td>
+                <td>
+                  {{ formatDate( item.missionInfo.startDate.value.split("T")[0]) }}
+  
+                </td>
+                <td>
+                  {{ formatDate( item.missionInfo.endDate.value.split("T")[0]) }}
+  
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" [hidden]="!hideMissions">
+          <div (click)="previousPagenv()" style="cursor: pointer;" [hidden]="!hideMissions">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+              <path fill-rule="evenodd"
+                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            </svg>
+          </div>
+  
+  
+          <span [hidden]="!hideMissions" style="margin-top: 10px;"> {{ currentPagenv }} sur {{ totalPagesnv }}</span>
+          <div (click)="nextPagenv()" style="cursor: pointer;" [hidden]="!hideMissions">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+              <path fill-rule="evenodd"
+                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+            </svg>
+          </div>
+  
+        </div> -->
+            <div class="popup" *ngIf="showPopup">
+                <div class="popup-content" style="  height: 14.4375rem;">
+                    <div style="float: right" (click)="closePopup()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Déclarer une nouvelle demande</h3>
+
+
+                        <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <select formControlName="type">
+                                            <option value="AT">Attestation de travail </option>
+                                            <option value="FP">fiche de paie </option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="grid-item" *ngIf=" myForm2.get('type')?.value === 'FP'">
+                                        <input type="month" formControlName="month" placeholder="month" required />
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="buttons">
+                                    <button type="submit" class="button" (click)="demandeaverification()">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="right-item">
+            <div style="display: flex;margin-bottom: 0px;">
+
+                <div class="profil" style="cursor: pointer;">
+                    <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                    <div class="nom-prenom">nom prénom <br>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>

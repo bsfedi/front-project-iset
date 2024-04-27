@@ -25,6 +25,10 @@ export class StudentService {
 
     return this.http.put(baseUrl + 'personalInfo/' + register_id, data);
   }
+  accept_note(register_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'accept_note/' + register_id);
+  }
 
   createfilesinscrption(data: any, register_id: any): Observable<any> {
 
@@ -90,6 +94,15 @@ export class StudentService {
   stats_enseignant(enseignant_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'stats_enseignant/' + enseignant_id, enseignant_id);
+  }
+
+  stats_student(student_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'stats_student/' + student_id);
+  }
+  get_stages(student_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_stages/' + student_id);
   }
 
 
@@ -184,10 +197,53 @@ export class StudentService {
 
     return this.http.post(baseUrl + 'verification', data);
   }
+  enseignant_demande(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'enseignant_demande', data);
+  }
+
+  add_module(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_module', data);
+  }
+
+  add_classe(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_classe', data);
+  }
+
+  add_parcours(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_parcours', data);
+  }
+
+
+  addstage(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'add_stage', data);
+  }
+  deleteparcour(parcours_id: any) {
+    return this.http.delete(baseUrl + 'delete_parcours/' + parcours_id);
+  }
+  deleteclasse(classe_id: any) {
+    return this.http.delete(baseUrl + 'delete_classes/' + classe_id);
+  }
+  deletemodule(module_id: any) {
+    return this.http.delete(baseUrl + 'delete_modules/' + module_id);
+  }
+  stats_tuitionofficer(): Observable<any> {
+
+    return this.http.get(baseUrl + 'stats_tuitionofficer');
+  }
+
 
   getdemandeverification(user_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'verification/' + user_id);
+  }
+  enseignants_demande(user_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'enseignants_demande/' + user_id);
   }
 
   getdemandeallverification(user_id: any): Observable<any> {
@@ -198,6 +254,20 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'presence_by_department/' + user_id);
   }
+  get_parcours(): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_parcours');
+  }
+
+  get_classes(): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_classes');
+  }
+  get_modules(): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_modules');
+  }
+
   affecter_damande(demande_id: any, enseignant_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'affecter_damande/' + demande_id + '/' + enseignant_id);

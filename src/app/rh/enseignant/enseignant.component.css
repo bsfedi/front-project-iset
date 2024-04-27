@@ -32,7 +32,51 @@
     cursor: pointer;
 }
 
+.nonvalidée {
+    display: flex;
 
+    height: 2rem;
+    padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    background: #f3c0c0;
+    color: rgb(101, 0, 0);
+    margin: 5px;
+    font-size: 14px;
+
+
+}
+
+.pending {
+    display: flex;
+
+    height: 2rem;
+    padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    background: #fce9a4;
+    color: #bf6f25;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.waiting {
+
+
+    display: flex;
+    width: auto;
+    height: 1.5rem;
+    padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 0.75rem;
+    background: #9bc4f9;
+    margin: 5px;
+    color: #241df5;
+}
 
 
 .nom-prenom {

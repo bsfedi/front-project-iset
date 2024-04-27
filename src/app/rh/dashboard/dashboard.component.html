@@ -11,26 +11,51 @@
 
         <div class="tjm_moyen">
           <div class="chaffaire">Demandes de presence</div>
-          <div class="nb_money" style=" justify-content: center;">
+          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'enseignant'">
             <b> Toutes les demandes : {{all_demande_presence}} </b> <br> <br>
             <b> Traité: {{all_demande_presence}} </b> <br> <br>
             <b> En attente: {{all_demande_presence_pending}} </b>
 
           </div>
+          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'student'">
+            <b> Toutes les demandes : {{statsres.all_demande_presence}} </b> <br> <br>
+            <b> Traité: {{statsres.all_demande_presence_validated}} </b> <br> <br>
+            <b> En attente: {{statsres.all_demande_presence - statsres.all_demande_presence_validated}} </b>
+
+          </div>
+          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'tuitionofficer'">
+            <b> Toutes les demandes : {{statsres.processed_count + statsres.unprocessed_count}} </b> <br> <br>
+            <b> Traité: {{statsres.processed_count}} </b> <br> <br>
+            <b> En attente: {{statsres.unprocessed_count}} </b>
+
+          </div>
+
         </div>
         <div class="tjm_moyen">
           <div class="chaffaire"> Demande de verification
           </div>
-          <div class="nb_money">
+          <div class="nb_money" *ngIf="role == 'enseignant'">
             <b> Toutes les demandes : {{all_demande_verification}} </b> <br><br>
             <b> Traité: {{all_demande_verification_validated}} </b> <br> <br>
             <b> En attente: {{all_demande_verification_pending}} </b>
 
           </div>
+          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'student'">
+            <b> Toutes les demandes : {{statsres.all_demande_verification}} </b> <br> <br>
+            <b> Traité: {{statsres.all_demande_verification_validated}} </b> <br> <br>
+            <b> En attente: {{statsres.all_demande_verification - statsres.all_demande_verification_validated}} </b>
+
+          </div>
+          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'tuitionofficer'">
+            <b> Toutes les demandes : {{statsres.preregistres_count }} </b> <br> <br>
+            <b> Traité: {{statsres.preregistres_traites_count}} </b> <br> <br>
+            <b> En attente: {{ statsres.preregistres_count - statsres.preregistres_traites_count}} </b>
+
+          </div>
         </div>
       </div>
       <br />
-      <div>
+      <div *ngIf="role == 'tuitionofficer'">
         <h2> Nouvelles pré-inscription </h2>
         <div class="newflex">
           <div class="first" (click)="toggleMenu1()">

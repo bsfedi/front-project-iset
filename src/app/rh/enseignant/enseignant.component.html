@@ -42,21 +42,22 @@
                                     <!-- Afficher ensuite les éléments avec d'autres statuts -->
 
                                     <tr *ngFor="let item of getDisplayedconsultants()">
-                                        <td *ngIf="item.status !='prete'">
-                                            {{ item.status}}
+                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
+                                            <div class="waiting"> En attente</div>
                                         </td>
-                                        <td *ngIf="item.status !='prete'">
+                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement' ">
                                             {{ item.first_name }} {{item.last_name}}
                                         </td>
 
-                                        <td *ngIf="item.status !='prete'">
+                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
                                             {{ item.nb_arab }}
                                         </td>
-                                        <td *ngIf="item.status !='prete'">
+                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
                                             {{ item.nb_fr }}
                                         </td>
 
-                                        <td style="cursor: pointer" class="dropdown" *ngIf="item.status !='prete'">
+                                        <td style="cursor: pointer" class="dropdown"
+                                            *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
                                             <div>
                                                 <div>
                                                     <div style="margin-left: 8px">
@@ -146,7 +147,7 @@
                 <br><br>
                 <div>
                     <div>
-                        <div><b> Attestation de presence </b></div>
+                        <div><b> Verification de note</b></div>
                         <br />
                     </div>
                     <div>
@@ -172,7 +173,19 @@
                                     <!-- Afficher ensuite les éléments avec d'autres statuts -->
 
                                     <tr *ngFor="let item of getDisplayedconsultants1()">
-                                        <td> {{item.status}} </td>
+                                        <td>
+
+                                            <div class="nonvalidée" *ngIf="item.status === 'notvalidate'">
+                                                Non validée
+                                            </div>
+                                            <div class="waiting" *ngIf="item.status === 'validated'">
+                                                validée
+                                            </div>
+                                            <div class="pending"
+                                                *ngIf="item.status === 'pending' &&  item.status === 'validated_by_enseignant' ">
+                                                En attente
+                                            </div>
+                                        </td>
                                         <td>
                                             {{ item.first_name}} {{item.last_name}}
                                         </td>

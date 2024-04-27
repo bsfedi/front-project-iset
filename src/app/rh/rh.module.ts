@@ -25,6 +25,8 @@ import { EnseignantComponent } from './enseignant/enseignant.component';
 import { DemandeRattrapageComponent } from './demande-rattrapage/demande-rattrapage.component';
 import { AbsenceComponent } from './absence/absence.component';
 import { SuivreDemandeComponent } from './suivre-demande/suivre-demande.component';
+import { DemandesEnsrignantComponent } from './demandes-ensrignant/demandes-ensrignant.component';
+import { GererDepartementComponent } from './gerer-departement/gerer-departement.component';
 
 export const routes: Routes = [
   {
@@ -92,6 +94,15 @@ export const routes: Routes = [
 
   },
   {
+    path: 'demandes',
+    component: DemandesEnsrignantComponent
+
+  },
+  {
+    path: 'gestion',
+    component: GererDepartementComponent
+  },
+  {
     path: 'virements/:id',
     component: VirementComponent,
     canActivate: [AuthGuard]
@@ -139,6 +150,8 @@ export const routes: Routes = [
     DemandeRattrapageComponent,
     AbsenceComponent,
     SuivreDemandeComponent,
+    DemandesEnsrignantComponent,
+    GererDepartementComponent,
   ],
   imports: [
     CommonModule,

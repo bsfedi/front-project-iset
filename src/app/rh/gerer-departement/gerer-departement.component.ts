@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultantService } from 'src/app/services/consultant.service';
 import { StudentService } from 'src/app/services/student.service';
@@ -9,12 +10,13 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 const clientName = `${environment.default}`;
+
 @Component({
-  selector: 'app-tjmrequests',
-  templateUrl: './tjmrequests.component.html',
-  styleUrls: ['./tjmrequests.component.css']
+  selector: 'app-gerer-departement',
+  templateUrl: './gerer-departement.component.html',
+  styleUrls: ['./gerer-departement.component.css']
 })
-export class tjmrequestsComponent {
+export class GererDepartementComponent {
   token: any
   headers: any
   user_id: any
@@ -28,35 +30,60 @@ export class tjmrequestsComponent {
   notification: string[] = [];
   res: any
   shownotiff: boolean = false
-  pending_missions: any
+  pending_parcourss: any
   tjm: boolean = true
-  mission: any
+  parcours: any
   rattrapge: any
-  constructor(private consultantservice: ConsultantService, private studentservice: StudentService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe, private userservice: UserService, private socketService: WebSocketService) { }
+  myForm1: FormGroup;
+  myForm2: FormGroup;
+  myForm3: FormGroup;
+  constructor(private consultantservice: ConsultantService, private studentservice: StudentService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe, private userservice: UserService, private fb: FormBuilder,) {
+    this.myForm1 = this.fb.group({
+      libelle: [''],
+      code: [''],
+
+    });
+    this.myForm2 = this.fb.group({
+      niveau: [''],
+      parcour: [''],
+      code: [''],
+    });
+    this.myForm3 = this.fb.group({
+      niveau: [''],
+      parcours: [''],
+      code: [''],
+      intitule: [''],
+      type: ['']
+
+
+    });
+  }
+
+
 
   shownotif() {
 
     this.shownotiff = !this.shownotiff
   }
   pageSize = 0; // Number of items per page
-  currentPagemission = 1; // Current page
+  currentPageparcours = 1; // Current page
   currentPagetjm = 1; // Current page
   totalPages: any;
   getDisplayeddocs(): any[] {
     this.pageSize = 8
 
-    if (this.mission) {
+    if (this.tjm) {
 
-      this.totalPages = Math.ceil(this.pending_missions.length / this.pageSize);
-      const startIndex = (this.currentPagemission - 1) * this.pageSize;
-      const endIndex = Math.min(startIndex + this.pageSize, this.pending_missions.length);
+      this.totalPages = Math.ceil(this.pending_parcourss.length / this.pageSize);
+      const startIndex = (this.currentPageparcours - 1) * this.pageSize;
+      const endIndex = Math.min(startIndex + this.pageSize, this.pending_parcourss.length);
 
-      return this.pending_missions.slice(startIndex, endIndex);
+      return this.pending_parcourss.slice(startIndex, endIndex);
     }
     if (this.rattrapge) {
 
       this.totalPages = Math.ceil(this.rattrapge_requests.length / this.pageSize);
-      const startIndex = (this.currentPagemission - 1) * this.pageSize;
+      const startIndex = (this.currentPageparcours - 1) * this.pageSize;
       const endIndex = Math.min(startIndex + this.pageSize, this.rattrapge_requests.length);
 
       return this.rattrapge_requests.slice(startIndex, endIndex);
@@ -70,14 +97,14 @@ export class tjmrequestsComponent {
 
   }
   nextPage() {
-    if (this.currentPagemission < this.totalPages) {
-      this.currentPagemission++;
+    if (this.currentPageparcours < this.totalPages) {
+      this.currentPageparcours++;
     }
   }
 
   previousPage() {
-    if (this.currentPagemission > 1) {
-      this.currentPagemission--;
+    if (this.currentPageparcours > 1) {
+      this.currentPageparcours--;
     }
   }
   nextPagetjm() {
@@ -113,12 +140,7 @@ export class tjmrequestsComponent {
 
       next: (res) => {
         this.tjmrequests = res
-        this.studentservice.enseignantsbydepartement(this.tjmrequests[0]["departement"]).subscribe({
-          next: (res) => {
-            this.ens = res
 
-          }
-        })
 
 
       },
@@ -129,7 +151,7 @@ export class tjmrequestsComponent {
         // Set loading to false in case of an error
       }
     });
-    this.studentservice.rattrapage_by_department(this.user_id).subscribe({
+    this.studentservice.get_modules().subscribe({
 
 
       next: (res) => {
@@ -189,15 +211,15 @@ export class tjmrequestsComponent {
     this.token = localStorage.getItem('token');
     this.headers = new HttpHeaders().set('Authorization', `${this.token}`);
 
-    this.studentservice.getdemandeallpresence(this.user_id).subscribe(
+    this.studentservice.get_parcours().subscribe(
       (response) => {
-        this.pending_missions = response
-        console.log(this.tjmrequests);
+        this.pending_parcourss = response
+
 
         // Add any additional handling or notifications if needed
       },
       (error) => {
-        this.pending_missions = []
+        this.pending_parcourss = []
         console.error('Error getting virement:', error);
         // Handle the error or display an error message
       }
@@ -279,12 +301,12 @@ export class tjmrequestsComponent {
 
   showtjm() {
     this.tjm = true
-    this.mission = false
+    this.parcours = false
     this.rattrapge = false
   }
-  showmission() {
+  showparcours() {
     this.tjm = false
-    this.mission = true
+    this.parcours = true
     this.rattrapge = false
   }
   Salle: string = ''
@@ -304,6 +326,103 @@ export class tjmrequestsComponent {
           html: `
             <div>
             <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+  }
+
+  deleteparcour(id: any) {
+
+    this.studentservice.deleteparcour(id).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> parcour supprimée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+  }
+  deleteclasse(id: any) {
+
+    this.studentservice.deleteclasse(id).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> parcour supprimée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+  }
+  deletemodule(id: any) {
+
+    this.studentservice.deletemodule(id).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> parcour supprimée  avec succès! </div> 
               
             </div>
           `,
@@ -360,12 +479,108 @@ export class tjmrequestsComponent {
       }
     });
   }
+  add_module() {
+
+    this.studentservice.add_module(this.myForm3.value).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> module ajoutée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+  }
+  add_parcours() {
+
+    this.studentservice.add_parcours(this.myForm1.value).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> module ajoutée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+  }
+  add_classe() {
+
+    this.studentservice.add_classe(this.myForm2.value).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: '#fefcf1',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> module ajoutée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#91c593",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+  }
   motif: string = '';
   showPopup1: any
   showPopup2: any
   rattrapage_id: any
-  openPopup1(rattrapage_id: any): void {
-    this.rattrapage_id = rattrapage_id
+  openPopup1(): void {
+
     this.showPopup1 = true;
   }
   closePopup1(): void {
@@ -382,7 +597,7 @@ export class tjmrequestsComponent {
   }
   showrattrapge() {
     this.tjm = false
-    this.mission = false
+    this.parcours = false
     this.rattrapge = true
   }
   toggleMenu(i: number) {
@@ -391,11 +606,11 @@ export class tjmrequestsComponent {
   gotovalidation(_id: string) {
     this.router.navigate([clientName + '/validated-tjmrequests/' + _id])
   }
-  gotovalidationmission(_id: string) {
-    this.router.navigate([clientName + '/mission/' + _id])
+  gotovalidationparcours(_id: string) {
+    this.router.navigate([clientName + '/parcours/' + _id])
   }
-  gotovalidemission(mission_id: any, id: any) {
-    this.router.navigate([clientName + '/validationmission/' + mission_id + '/' + id])
+  gotovalideparcours(parcours_id: any, id: any) {
+    this.router.navigate([clientName + '/validationparcours/' + parcours_id + '/' + id])
   }
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
