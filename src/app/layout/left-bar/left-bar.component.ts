@@ -64,7 +64,9 @@ export class LeftBarComponent {
   }
   gotoenseignant() {
     this.router.navigate([clientName + '/enseignant'])
-
+  }
+  gotogestion() {
+    this.router.navigate([clientName + '/gestion'])
   }
   gottodashboard() {
     this.router.navigate([clientName + '/dashboard'])
