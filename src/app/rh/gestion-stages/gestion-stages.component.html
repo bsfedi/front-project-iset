@@ -24,7 +24,26 @@
             <div class="custom-container">
                 Demandes des stages
             </div>
+
             <br />
+            <select [(ngModel)]="searchTerm" (change)="applyFilter()">
+                <option value="">Sélectionner type de stage</option>
+                <option value="stage initiation">stage initiation</option>
+                <option value="stage perfectionnement">stage perfectionnement</option>
+                <option value="stage PFE">stage PFE</option>
+            </select>
+            <div>
+                <div *ngIf="show_filter_classe" class="first rechercher">
+                    <svg style="margin-top: -2px;margin-left: -60px;" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M21.7555 20.6065L18.3182 17.2458L18.2376 17.1233C18.0878 16.9742 17.883 16.8902 17.6692 16.8902C17.4554 16.8902 17.2505 16.9742 17.1007 17.1233C14.1795 19.8033 9.67815 19.949 6.58201 17.4637C3.48586 14.9784 2.75567 10.6334 4.87568 7.31017C6.9957 3.98697 11.3081 2.71685 14.9528 4.34214C18.5976 5.96743 20.4438 9.98379 19.267 13.7276C19.1823 13.9981 19.2515 14.2922 19.4487 14.4992C19.6459 14.7062 19.9411 14.7946 20.223 14.7311C20.505 14.6676 20.7309 14.4619 20.8156 14.1914C22.2224 9.74864 20.0977 4.96755 15.8161 2.94106C11.5345 0.914562 6.38084 2.25082 3.68905 6.08542C0.99727 9.92001 1.57518 15.1021 5.04893 18.2795C8.52268 21.4569 13.8498 21.6759 17.5841 18.7949L20.6277 21.7705C20.942 22.0765 21.4502 22.0765 21.7645 21.7705C22.0785 21.4602 22.0785 20.9606 21.7645 20.6503L21.7555 20.6065Z"
+                            fill="#1E1E1E" />
+                    </svg>
+                    <input type="search" placeholder="Rechercher par classe" [(ngModel)]="searchTerm2"
+                        (input)="applyFilter2()">
+                </div>
+            </div>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -35,7 +54,9 @@
                             <th> encadrantinterne</th>
                             <th>date debut</th>
                             <th>date fin</th>
+                            <th> note</th>
                             <th>type</th>
+
                             <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
 
 
@@ -84,9 +105,12 @@
                                 {{item.date_fin.split(['T'])[0] }}
                             </td>
                             <td>
+                                {{item.note }}
+                            </td>
+                            <td>
                                 {{item.type }}
                             </td>
-                            <td style="cursor: pointer" class="dropdown">
+                            <td style="cursor: pointer" class="dropdown" *ngIf="item.type  === 'stage PFE'">
                                 <div>
                                     <div>
                                         <div style="margin-left: 8px">
@@ -121,7 +145,41 @@
 
                                 </div>
                             </td>
+                            <td style="cursor: pointer" class="dropdown" *ngIf="item.type  != 'stage PFE'">
+                                <div>
+                                    <div>
+                                        <div style="margin-left: 8px">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-content">
+                                    <div class="dropdown-menu">
+                                        <div style="display: flex; cursor: pointer">
+                                            <img src="/assets/Checkmark.svg" width="12%" />
+                                            <div (click)="click(item._id)" style="
+                                margin-top: 7px;
+                                margin-bottom: 10px;
+                                margin-left: 5px;
+                              ">
+                                                Note
 
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                            </td>
                         </tr>
 
 
@@ -331,173 +389,23 @@
 
     </div>
     <div class="popup" *ngIf="showPopup">
-        <div class="popup-content1">
+        <div class="popup-content">
             <div style="float: right" (click)="closePopup()">
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
             </div>
             <div>
-                <h3>Détails stage</h3>
+                <h3>Note de stage</h3>
 
                 <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
-                    <div class="form-section">
-                        <div class="grid-container" style="display: flex;">
-                            <div>
-
-                                <div class="grid-item">
-                                    Entreprise
-                                    <input type="text" formControlName="entreprise" [ngModel]="stage_by_id.entreprise"
-                                        placeholder="responsable" required />
-                                </div>
-                                <div class="grid-item">
-                                    Date début
-                                    <input type="date" formControlName="date_debut" placeholder="date début" required />
-                                </div>
-                                <div class="grid-item">
-                                    Date Fin
-                                    <input type="date" formControlName="date_fin" placeholder="date Fin"
-                                        [ngModel]="stage_by_id.date_fin" required />
-                                </div>
-                                <div class="grid-item">
-                                    Responsable
-                                    <input type="text" formControlName="responsable" [ngModel]="stage_by_id.responsable"
-                                        placeholder="responsable" required />
-                                </div>
-                                <div class="grid-item">
-                                    Adresse
-                                    <input type="text" formControlName="adresse" placeholder="adresse"
-                                        [ngModel]="stage_by_id.adresse" required />
-                                </div>
-                                <div class="grid-item">
-                                    Fax
-                                    <input type="text" formControlName="fax" placeholder="fax"
-                                        [ngModel]="stage_by_id.fax" required />
-                                </div>
-                                <div class="grid-item"> Téléphone
-                                    <input type="text" formControlName="tel" placeholder="Téléphone"
-                                        [ngModel]="stage_by_id.tel" required />
-                                </div>
-
-
-                            </div>
-                            <div style="margin-left: 50px;">
-                                <div class="grid-item">
-                                    Email entreprise
-                                    <input type="text" formControlName="email_entreprise"
-                                        [ngModel]="stage_by_id.email_entreprise" placeholder="email entreprise"
-                                        required />
-                                </div>
-                                <div class="grid-item">
-                                    Projet <br>
-                                    <input type="text" formControlName="email_entreprise"
-                                        [ngModel]="stage_by_id.project" placeholder="titre de projet" required />
-                                </div>
-                                <div class="grid-item">
-                                    Encadrant externe
-                                    <input type="text" formControlName="email_entreprise"
-                                        placeholder="Encadrant externe" [ngModel]="stage_by_id.encadrent_externe"
-                                        required />
-                                </div>
-                                <div class="grid-item">
-                                    Email encadrant externe
-                                    <input type="text" formControlName="email_entreprise"
-                                        placeholder="email encadrant externe"
-                                        [ngModel]="stage_by_id.email_encadrent_externe" required />
-                                </div>
-                                <div class="grid-item">
-                                    Téléphone encadrant externe
-                                    <input type="text" formControlName="email_entreprise"
-                                        placeholder="Téléphone encadrant externe"
-                                        [ngModel]="stage_by_id.tel_encadrent_externe" required />
-                                </div>
-                                <div class="grid-item">
-                                    Encadrant interne
-                                    <input type="text" formControlName="email_entreprise"
-                                        placeholder="Encadrant interne" [ngModel]="stage_by_id.encadrant_interne"
-                                        required />
-                                </div>
-
-
-                                <div class="grid-item">
-                                    fonctionalité
-                                    {{stage_by_id.fonctionalie}}
-
-
-                                </div>
-                                <div class="grid-item">
-                                    <div class="custom-file-input" (change)="setFileInput('cin', $event)"
-                                        style="cursor: pointer">
-                                        <label class="file-label" for="fileInput" style="cursor: pointer">
-
-                                            Cahier de charge (facultatif)
-                                        </label>
-
-                                        <div class="vertical-line"></div>
-                                        <input class="file-input" type="file" id="fileInput" name="fileInput"
-                                            formControlName="idCardFile"
-                                            onclick="document.getElementById('fileInput').click()" />
-
-                                        <div class="upload-icon" onclick="document.getElementById('fileInput').click()">
-                                            <div class="chose-file" *ngIf="!cin_img">
-
-                                                choisir un fichier <br />
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" class="icon-file" fill="none">
-                                                    <g clip-path="url(#clip0_972_185)">
-                                                        <path
-                                                            d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
-                                                            stroke="#1E1E1E" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                        <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_972_185">
-                                                            <rect width="14" height="14" fill="white" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </div>
-                                            <div *ngIf="cin_img" style="align-items: center; text-align: center">
-
-                                                <img *ngIf="cin_img.split('/')[1].split(';')[0]==='pdf'"
-                                                    src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg"
-                                                    alt="Selected Image" style="
-                                            max-width: 320%;
-                                            max-height: 50px;
-                                            margin: 5px;
-                                            margin-top: 10px;
-                                          " />
-                                                <img *ngIf="cin_img.split('/')[1].split(';')[0]!='pdf'" [src]="cin_img"
-                                                    alt="Selected Image" style="
-                                                max-width: 320%;
-                                                max-height: 50px;
-                                                margin: 5px;
-                                                margin-top: 10px;
-                                              " />
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <br />
-                        <div class="buttons" (click)="demandeaverification()">
-                            <button type="submit" class="button">
-                                <div class="inscrire">Valider</div>
-                            </button>
-                        </div>
-                        <div class="buttons" (click)="demandeaverification()">
-                            <button type="submit" class="button">
-                                <div class="inscrire">Refuser</div>
-                            </button>
-                        </div>
+                    <div class="grid-item">
+                        <input type="text" formControlName="note" placeholder="note" required />
                     </div>
                 </form>
+                <div class="buttons">
+                    <button type="submit" class="button" (click)="notestage()">
+                        <div class="inscrire">Ajouter</div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

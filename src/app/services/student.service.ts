@@ -356,6 +356,11 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_stage_by_id/' + stage_id);
   }
+  note_satge(stage_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'note_satge/' + stage_id, data);
+  }
+
 
 
   get_modules(): Observable<any> {

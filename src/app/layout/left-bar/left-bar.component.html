@@ -122,7 +122,10 @@
       Gérer mes inscriptions
     </div>
   </div>
-  <div class="custom-item" *ngIf="role === 'ADMIN'" [ngClass]="{ 'board-item': isActiveRoute('members') }">
+ 
+
+  </div> -->
+  <div class="custom-item" *ngIf="role === 'admin'" [ngClass]="{ 'board-item': isActiveRoute('members') }">
     <div class="board-svg">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
         <g clip-path="url(#clip0_938_2097)">
@@ -149,9 +152,7 @@
     <div class="bord-text" (click)="gotomembres()">
       Membres
     </div>
-
-  </div> -->
-
+  </div>
   <div class="custom-item"
     *ngIf=" role ==='admin' ||role ==='student' || role ==='tuitionofficer' || role ==='enseignant' || role ==='directeurdepartement' || res.privilege ==='directeurdepartement'|| res.privilege ==='personneladministratif' || res.privilege ==='directeuretudes'"
     [ngClass]="{ 'board-item': isActiveRoute('dashboard')  }">
@@ -224,7 +225,7 @@
       Gérer les préinscription
     </div>
   </div> -->
-  <div class="custom-item" *ngIf=" role ==='admin' || role ==='tuitionofficer'"
+  <div class="custom-item" *ngIf=" role ==='admin' || role ==='tuitionofficer' || role ==='enseignant'"
     [ngClass]="{ 'board-item': isActiveRoute('allStudents')  }">
     <div class="board-svg">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -399,7 +400,7 @@
       <div class="bord-text" (click)="clearLocalStorage()">Se déconnecter</div>
     </div>
   </div>
-  <div class="faq-sedeconnecter" *ngIf="showmenu_consultant">
+  <!-- <div class="faq-sedeconnecter" *ngIf="showmenu_consultant">
     <div class="custom-item">
       <div class="board-svg">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -413,5 +414,5 @@
       </div>
       <div class="bord-text" (click)="clearLocalStorage()">Se déconnecter</div>
     </div>
-  </div>
+  </div> -->
 </div>

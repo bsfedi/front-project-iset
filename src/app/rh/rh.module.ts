@@ -142,7 +142,7 @@ export const routes: Routes = [
   {
     path: 'members',
     component: AdminComponent,
-    canActivate: [AuthGuard]
+
   }
 ]
 

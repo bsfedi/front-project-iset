@@ -17,7 +17,7 @@
         </div>
         <div class="first" [ngClass]="{ 'tjmselected': tjm }">
           <div style="margin-right: 5px; cursor: pointer;" (click)="showtjm()">
-            Verfiction de note
+            Vérification des notes
           </div>
           <div>
             <div class="second" [ngClass]="{ 'missionselectd': !mission }" (click)="showmission()">
@@ -154,6 +154,7 @@
             <thead>
               <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Status</th>
               <th>Etudiant</th>
+              <th> Date demande</th>
               <th>attestation en arabe</th>
               <th>attestation en francais</th>
               <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
@@ -182,6 +183,9 @@
 
                 <td style="min-width: 120px; max-width: 120px;">
                   {{ item.first_name }} {{ item.last_name }}
+                </td>
+                <td>
+                  {{item.datedepot.split(['T'])[0]}}
                 </td>
                 <td style="min-width: 80px; max-width: 80px;">
                   {{ item.nb_arab }}

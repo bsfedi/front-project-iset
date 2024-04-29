@@ -92,17 +92,7 @@ export class GestionStagesComponent {
 
     this.getCurrentDate();
     this.myForm2 = this.fb.group({
-      user_id: [''],
-      type: ['', Validators.required],
-      entreprise: ['', Validators.required],
-      date_debut: ['', Validators.required],
-      date_fin: ['', Validators.required],
-      responsable: ['', Validators.required],
-      adresse: ['', Validators.required],
-      fax: ['', Validators.required],
-      tel: ['', Validators.required],
-      departement: [''],
-      email_entreprise: ['', Validators.required],
+      note: [''],
     });
     this.myForm = this.fb.group({
       arabicAttestations: ['', Validators.required], // Assuming this is for the Arabic attestations
@@ -123,6 +113,7 @@ export class GestionStagesComponent {
     //   // Add other form controls as needed
     // });
   }
+
   expanded: boolean = false;
   toggleTeacher(teacher: string): void {
     const index = this.selectedTeachers.indexOf(teacher);
@@ -238,6 +229,7 @@ export class GestionStagesComponent {
       next: (res) => {
         // Handle the response from the server
         this.res = res
+        this.filteredItems = this.res
 
 
       },
@@ -286,6 +278,7 @@ export class GestionStagesComponent {
       next: (res) => {
         // Handle the response from the server
         this.res = res
+        this.filteredItems = this.res;
         console.log('inffffffffoooooo', this.res);
 
 
@@ -488,17 +481,52 @@ export class GestionStagesComponent {
   }
   pageSize = 5; // Number of items per page
   currentPage = 1; // Current page
+  selectedType: string = '';
+  searchTerm: any = ""
+  filteredItems: any
+  show_filter_classe: any
+  applyFilter() {
+    // Check if search term is empty
+    if (this.searchTerm.trim() === '') {
+      // If search term is empty, reset the filtered items to the original items
+      this.filteredItems = this.res;
 
+
+    } else {
+      this.show_filter_classe = true
+      // Apply filter based on search term
+      this.filteredItems = this.res.filter((item: any) =>
+        item.type.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  searchTerm2: any
+  applyFilter2() {
+    // Check if search term is empty
+    if (this.searchTerm2.trim() === '') {
+      // If search term is empty, reset the filtered items to the original items
+      this.filteredItems = this.res;
+
+
+    } else {
+      this.show_filter_classe = true
+      // Apply filter based on search term
+      this.filteredItems = this.res.filter((item: any) =>
+        item.class.toLowerCase().includes(this.searchTerm2.toLowerCase())
+      );
+    }
+  }
   totalPages: any;
   getDisplayeddocs(): any[] {
 
 
-    this.totalPages = Math.ceil(this.res.length / this.pageSize);
+    this.totalPages = Math.ceil(this.filteredItems.length / this.pageSize);
     const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(startIndex + this.pageSize, this.res.length);
+    const endIndex = Math.min(startIndex + this.pageSize, this.filteredItems.length);
 
 
-    return this.res.slice(startIndex, endIndex);
+    return this.filteredItems.slice(startIndex, endIndex);
 
 
 
@@ -578,9 +606,13 @@ export class GestionStagesComponent {
     }
   }
   stage_by_id: any
+  stage_id: any
   click(stage_id: any) {
+    this.stage_id = stage_id
     this.showPopup = true
-    this.studentservice.get_stage_by_id(stage_id).subscribe({
+  }
+  notestage() {
+    this.studentservice.note_satge(this.stage_id, this.myForm2.value).subscribe({
       next: (res) => {
         // Handle the response from the server
         this.stage_by_id = res
@@ -592,8 +624,6 @@ export class GestionStagesComponent {
         console.error(e);
       }
     });
-
-
   }
   toggleMenu(i: number) {
     this.isMenuOpen[i] = !this.isMenuOpen[i];

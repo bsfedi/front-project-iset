@@ -51,6 +51,7 @@
                             <th>entreprise</th>
                             <th>date debut</th>
                             <th>date fin</th>
+                            <th> note</th>
                             <th>type</th>
                             <th> commentaire</th>
                             <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
@@ -163,6 +164,9 @@
                             </td>
                             <td>
                                 {{item.date_fin.split(['T'])[0] }}
+                            </td>
+                            <td>
+                                {{item.note}}
                             </td>
                             <td>
                                 {{item.type }}
