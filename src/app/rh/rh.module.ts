@@ -29,6 +29,7 @@ import { DemandesEnsrignantComponent } from './demandes-ensrignant/demandes-ensr
 import { GererDepartementComponent } from './gerer-departement/gerer-departement.component';
 import { GererSallesComponent } from './gerer-salles/gerer-salles.component';
 import { GestionStagesComponent } from './gestion-stages/gestion-stages.component';
+import { DetailsStageComponent } from './details-stage/details-stage.component';
 
 export const routes: Routes = [
   {
@@ -66,6 +67,10 @@ export const routes: Routes = [
   {
     path: 'missions/:id',
     component: ConsultantMissionComponent,
+  },
+  {
+    path: 'details-stage/:id',
+    component: DetailsStageComponent,
   },
   {
     path: 'enseignant',
@@ -166,6 +171,7 @@ export const routes: Routes = [
     GererDepartementComponent,
     GererSallesComponent,
     GestionStagesComponent,
+    DetailsStageComponent,
   ],
   imports: [
     CommonModule,

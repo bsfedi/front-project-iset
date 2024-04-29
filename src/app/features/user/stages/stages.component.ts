@@ -2,7 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-
+import { jsPDF } from "jspdf";
+declare let html2pdf: any
 import { Router } from '@angular/router';
 import { ConsultantService } from 'src/app/services/consultant.service';
 import { environment } from 'src/environments/environment';
@@ -141,6 +142,184 @@ export class StagesComponent {
   toggleCheckboxes() {
     this.expanded = !this.expanded;
   }
+  generatePdf(stage_id: any) {
+    this.studentservice.generate_lettre(stage_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        const htmlContent = `
+        <html>
+          <head>
+  
+          </head>
+          <body>
+          <img src='/assets/logoiset.png' >
+          <div style="margin:10px 10px 30px 150px"> <b>Lettre d’affectation à un stage de fin de parcours </b><br>  </div> 
+          Le directeur du département Technologies de l’Informatique à l’Institut Supérieur des Etudes  
+          Technologiques de Nabeul atteste par la présente que :  <br> <br>
+          <b>  L’étudiant</b>  :  ${res.user.personalInfo.first_name}  ${res.user.personalInfo.last_name} <br> <br>
+          <b> N° CIN  : </b>   ${res.user.personalInfo.cin}<br> <br>
+          <b> Parcours</b>  :  ${res.user.personalInfo.level} <br><br>
+          est affecté à un stage de fin de parcours au sein de la société :  <br> <br>
+          <b> Société d’accueil :  </b>   ${res.stage.entreprise}  <br> <br>
+          et ce pendant la période :   <br><br>
+          <b> Date Début  </b> :  ${res.stage.date_debut.split(['T'])[0]} <br><br>
+          <b>  Date Fin :  </b>   ${res.stage.date_fin.split(['T'])[0]} <br><br>
+          Durant cette période, l’étudiant demeurera assuré par l’institut supérieur des études 
+          technologiques de Nabeul.   <br> <br>
+          Pendant le stage, l’étudiant est tenu de respecter les consignes de son encadrant  
+          professionnel<br>  et de s’aligner sur obligations et règlementations établies par la 
+          société d’accueil.  <br>  <br>
+          Le travail effectué par l'étudiant au cours de son stage sera évalué par l’entreprise à  <br>
+          l'aide d'un formulaire d'évaluation qui sera émis à la fin de la période de stage. Cette  
+          évaluation permettra de mesurer les compétences acquises par l'étudiant et sa  
+          contribution aux projets auxquels il a été affecté.    <br> <br>
+          <b style="margin:10px 10px 30px 500px"> Directeur du département    </b> <br>
+          <b style="margin:20px 10px 30px 550px"> ${res.chefdepartement.first_name}  ${res.chefdepartement.last_name}     </b>
+          <br>
+          <br><br><br><br><br><br><br><br><br><br>
+          </body>
+        </html>
+      `;
+
+        html2pdf(htmlContent, {
+          margin: 10,
+
+          filename: 'cra_' + formattedDate + '_' + "this.myinfo.firstName" + '.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+
+        }).pdf.save('document.pdf'), this.router.navigate([clientName + '/student/requests']);
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
+    const pdf = new jsPDF();
+    let currentDate = new Date();
+    let formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
+
+    // Create your HTML content as a string
+
+
+
+
+  }
+  generatePdf1(stage_id: any) {
+    this.studentservice.generate_lettre(stage_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        const htmlContent = `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: 'Poppins', sans-serif !important;
+            }
+            .custom-class {
+              color: red;
+            }
+            table {
+              border-collapse: collapse;
+              width: 130%;
+            }
+            th, td {
+              height : 1px;
+              padding: 1px;
+              text-align: left;
+            }
+          </style>
+        </head>
+        <body>
+        <img src='/assets/logoiset.png' >
+          <div style="margin:10px 10px 30px 220px;font-size : 2.5rem">  <b> Demande de Stage </b><br>  </div> 
+          <div style="display:flex;">
+          <div>
+            <b>  </b>
+      
+            <div style='width: 38.875rem;
+                  height: 10.0625rem;
+                flex-shrink: 0;
+                padding: 15px;
+                border-radius: 0.4375rem;
+                border: 2px solid black;'>
+             <b> Identification de l'etudiant (e) :  </b><br>  <br>
+             - Nom et prénom de l'etudiant (e) :  ${res.user.personalInfo.first_name}  ${res.user.personalInfo.last_name}  <br>  <br>
+             - Département : ${res.user.personalInfo.departement}  <br>  <br>
+             - Type de stage :  ${res.stage.type} <br>  <br>
+
+            </div> <br> 
+            Cher Monsieur;
+Nous tenons à vous remercier pour votre honorable participation dans le développement des Compétences professionnelles de nos étudiants(e), ainsi pour l'espit que vous déployez pour
+consolider leurs formations.
+Dans ce cadre, l'ISET de nabeul vous propose d'accorder pour l'étudiant(e) concerné(e)
+Un stage de formation de  ${res.stage.date_debut.split(['T'])[0]} au  ${res.stage.date_fin.split(['T'])[0]}  .
+<br> <br>
+En effet et en vue de nous permettre l'affectation de l'étudiant (e) concerné(e), nous vous prions
+de bien vouloir nous communiquer votre proposition dans les plus proches délais.
+Veuillez agréer, Monsieur, toute notre gratitude et tout notre respect.  <br>  <br>
+
+<div style='width: 38.875rem;
+height: 15.0625rem;
+flex-shrink: 0;
+padding: 15px;
+border-radius: 0.4375rem;
+border: 2px solid black;'>
+<b> Identification de l'Entreprise (e) :  </b><br>  <br>
+- Entreprise :  ${res.stage.entreprise} <br>  <br>
+- Adresse : ${res.stage.adresse} <br>  <br>
+- Service : ${res.stage.service} <br>  <br>
+- Responsable : ${res.stage.responsable}    Téléphone :  ${res.stage.tel}          Fax:  ${res.stage.fax} <br>  <br>
+- Email : ${res.stage.email_entreprise}
+
+</div> <br><br><br>
+
+<b style="margin:10px 10px 30px 500px"> Directeur du département    </b> <br>
+<b style="margin:20px 10px 30px 550px"> ${res.chefdepartement.first_name}  ${res.chefdepartement.last_name}     </b><br>  <br>  <br> <br>  <br> <br>  <br> <br>  <br>
+
+ 
+          </div>
+
+          </div>
+        </body>
+      </html>
+    `;
+
+        html2pdf(htmlContent, {
+          margin: 10,
+          filename: 'cra_' + formattedDate + '.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+
+        }).pdf.save('document.pdf'), this.router.navigate([clientName + '/student/requests']);
+
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
+    const pdf = new jsPDF();
+    let currentDate = new Date();
+    let formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
+
+    // Create your HTML content as a string
+
+
+
+
+  }
   updateForms() {
     if (this.selectedOption === 'attestation') {
       this.form1 = true;
@@ -228,6 +407,7 @@ export class StagesComponent {
   departement: any
   changewidth: any
   ngOnInit(): void {
+
     if (this.myForm2.value.type == 'stage PFE') {
       this.changewidth = true
     }
@@ -776,3 +956,5 @@ export class StagesComponent {
     }
   }
 }
+
+

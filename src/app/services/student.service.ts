@@ -61,6 +61,10 @@ export class StudentService {
   getinscrption(register_id: any): Observable<any> {
     return this.http.get(baseUrl + 'preregister/' + register_id);
   }
+
+  generate_lettre(stage_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'generate_lettre/' + stage_id);
+  }
   get_absence_by_enseignant_id(enseignant_id: any): Observable<any> {
     return this.http.get(baseUrl + 'get_absence_by_enseignant_id/' + enseignant_id);
   }
@@ -79,6 +83,10 @@ export class StudentService {
   update_rattrapage(rattrapage_id: any, data: any): Observable<any> {
     return this.http.put(baseUrl + 'rattrapage/' + rattrapage_id, data);
   }
+  update_satge(satge_id: any, data: any): Observable<any> {
+    return this.http.put(baseUrl + 'update_satge/' + satge_id, data);
+  }
+
   sancttions(user_id: any): Observable<any> {
     return this.http.get(baseUrl + 'sancttion/' + user_id);
   }
@@ -136,6 +144,7 @@ export class StudentService {
 
     return this.http.put(baseUrl + 'update_status_demande/' + demande_id + "/" + enseignant, data);
   }
+
   justif(data: any, note: any, demande_id: any) {
     return this.http.put(baseUrl + 'justif/' + note + "/" + demande_id, data);
 

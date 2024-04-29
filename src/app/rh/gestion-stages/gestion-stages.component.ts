@@ -147,6 +147,9 @@ export class GestionStagesComponent {
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
   }
+  godetailsstage(id: any) {
+    this.router.navigate([clientName + '/details-stage/' + id])
+  }
   gotoallnotification() {
     this.router.navigate([clientName + '/consultant/allnotifications'])
   }

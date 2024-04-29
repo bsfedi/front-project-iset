@@ -1,0 +1,166 @@
+<body>
+    <div class="wrapper">
+        <div>
+            <app-left-bar> </app-left-bar>
+        </div>
+        <div class="second-container">
+            <div class="title">Details stage</div>
+            <div class="newflex export" (click)="exportFormData()">
+
+                <div class="first exportlist">Exporter la liste</div>
+            </div>
+            <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
+                <div class="form-section">
+                    <div class="grid-container" style="display: flex;">
+                        <div>
+
+                            <div class="grid-item">
+                                Entreprise
+                                <input type="text" formControlName="entreprise" [ngModel]="stage_by_id.entreprise"
+                                    placeholder="responsable" required />
+                            </div>
+                            <div class="grid-item">
+                                Date début
+
+                                <input type="date" formControlName="date_debut" placeholder="date début"
+                                    [ngModel]="stage_by_id.date_debut.split(['T'])[0]" required />
+                            </div>
+                            <div class="grid-item">
+                                Date Fin
+                                <input type="date" formControlName="date_fin" placeholder="date Fin"
+                                    [ngModel]="stage_by_id.date_fin.split(['T'])[0]" required />
+                            </div>
+                            <div class="grid-item">
+                                Responsable
+                                <input type="text" formControlName="responsable" [ngModel]="stage_by_id.responsable"
+                                    placeholder="responsable" required />
+                            </div>
+                            <div class="grid-item">
+                                Adresse
+                                <input type="text" formControlName="adresse" placeholder="adresse"
+                                    [ngModel]="stage_by_id.adresse" required />
+                            </div>
+                            <div class="grid-item">
+                                Fax
+                                <input type="text" formControlName="fax" placeholder="fax" [ngModel]="stage_by_id.fax"
+                                    required />
+                            </div>
+                            <div class="grid-item"> Téléphone
+                                <input type="text" formControlName="tel" placeholder="Téléphone"
+                                    [ngModel]="stage_by_id.tel" required />
+                            </div>
+
+
+                            Cahier de charge
+                            <iframe *ngIf="showpdf" width="100%" height="50%" frameBorder="0" [src]="urlSafe"></iframe>
+
+                            <div>
+                                <img *ngIf="!showpdf" [src]="stage_by_id.cahier_charge">
+                            </div>
+
+
+                        </div>
+
+                        <div style="margin-left: 50px;">
+                            <div class="grid-item">
+                                Email entreprise
+                                <input type="text" formControlName="email_entreprise"
+                                    [ngModel]="stage_by_id.email_entreprise" placeholder="email entreprise" required />
+                            </div>
+                            <div class="grid-item">
+                                Projet <br>
+                                <input type="text" formControlName="project" [ngModel]="stage_by_id.project"
+                                    placeholder="titre de projet" required />
+                            </div>
+                            <div class="grid-item">
+                                Encadrant externe
+                                <input type="text" formControlName="encadrent_externe" placeholder="Encadrant externe"
+                                    [ngModel]="stage_by_id.encadrent_externe" required />
+                            </div>
+                            <div class="grid-item">
+                                Email encadrant externe
+                                <input type="text" formControlName="email_encadrent_externe"
+                                    placeholder="email encadrant externe"
+                                    [ngModel]="stage_by_id.email_encadrent_externe" required />
+                            </div>
+                            <div class="grid-item">
+                                Téléphone encadrant externe
+                                <input type="text" formControlName="tel_encadrent_externe"
+                                    placeholder="Téléphone encadrant externe"
+                                    [ngModel]="stage_by_id.tel_encadrent_externe" required />
+                            </div>
+                            <div class="grid-item">
+                                Encadrant interne
+                                <input type="text" formControlName="encadrant_interne" placeholder="Encadrant interne"
+                                    [ngModel]="stage_by_id.encadrant_interne" required />
+                            </div>
+
+
+                            <div class="grid-item">
+                                fonctionalité
+                                <pre style="font-size: 1rem;">{{ stage_by_id?.fonctionalie }}</pre>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br />
+
+                </div>
+
+            </form>
+            <div class="buttons">
+                <button type="submit" class="button" (click)="accpter_satge()">
+                    <div class="inscrire">Valider</div>
+                </button>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="button" (click)="showpopuprefuser()">
+                    <div class="inscrire">Refuser</div>
+                </button>
+            </div>
+        </div>
+        <div class="right-item">
+            <div style="display: flex;margin-bottom: 0px;">
+
+                <div class="profil" style="cursor: pointer;">
+                    <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                    <div class="nom-prenom">nom prénom
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup" *ngIf="showPopup3">
+        <div class="popup-content" style="height: 12.4375rem;font-family: 'Poppins', sans-serif !important;">
+            <div style="float: right" (click)="closePopup3()">
+                <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+            </div>
+            <div>
+                <h3>Refuser la demande de stage</h3>
+                <form style="display: flex" [formGroup]="formData1">
+                    <div class="form-section">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <b style="margin: 5px;"> commentaire </b>
+                                <input type="text" id="subject" placeholder="commentaire" name="commentaire" required
+                                    formControlName="commentaire" />
+                            </div>
+                            <br>
+                            <div class="buttons">
+                                <button type="submit" class="button1">
+                                    <div class="inscrire" (click)="refuser_stage()">Refuser</div>
+                                </button>
+                            </div>
+                        </div>
+                        <br />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
