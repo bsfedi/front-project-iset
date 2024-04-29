@@ -741,7 +741,7 @@ export class ConsultantMissionComponent {
 
   }
   gotovalidemission(mission_id: any, id: any) {
-    this.router.navigate([clientName + '/validationmission/' + mission_id + '/' + id])
+    this.router.navigate([clientName + '/validationmission/' + mission_id])
   }
   idpdf: any
   setFileInput(field: string, event: any): void {

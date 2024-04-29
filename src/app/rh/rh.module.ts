@@ -77,7 +77,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'validationmission/:id_mission/:id',
+    path: 'validationmission/:id_mission',
     component: ValidationMissionComponent,
     canActivate: [AuthGuard]
   },

@@ -39,7 +39,8 @@ export class PreInscriptionComponent {
       sexe: ['', Validators.required],
       annee: ['', Validators.required],
       departement: ['', Validators.required],
-      classe: ['', Validators.required]
+      classe: ['', Validators.required],
+      situation: ['']
     });
 
   }
@@ -140,7 +141,7 @@ export class PreInscriptionComponent {
         // this.voitureForm.markAllAsTouched()
         return;
       } else {
-        this.inscriptionservice.createinscrption(payload, headers)
+        this.inscriptionservice.createinscrption(payload, this.myForm.value)
           .subscribe({
             next: (res) => {
 

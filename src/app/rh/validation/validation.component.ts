@@ -73,6 +73,9 @@ export class ValidationComponent implements OnInit {
   departementCause: string = ""
   classeValidation: boolean = true
   classeCause: string = ""
+  situationValidation: boolean = true
+  situationCause: string = ""
+
   note1Validation: boolean = true
   note1Cause: string = ""
   note2Validation: boolean = true
@@ -88,9 +91,24 @@ export class ValidationComponent implements OnInit {
   notification: string[] = [];
   res: any
   new_notif: any
+  formData1: FormGroup;
   constructor(private inscriptionservice: StudentService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private consultantService: ConsultantService, private route: ActivatedRoute, private userservice: UserService, private socketService: WebSocketService) {
 
+    this.formData1 = this.fb.group({
 
+      subject: ['', Validators.required],
+      message: ['', Validators.required],
+      // Add other form controls as needed
+    });
+
+
+  }
+  showPopup3: any
+  openPopup3(): void {
+    this.showPopup3 = true;
+  }
+  closePopup3(): void {
+    this.showPopup3 = false;
 
   }
   formatDate(date: string): string {
@@ -200,13 +218,19 @@ export class ValidationComponent implements OnInit {
       this.inscriptionservice.getinscrption(this.preinscription_id).subscribe({
         next: (res) => {
           // Handle the response from the server
-          this.consultant_id = res.userId
+          console.log(res);
+
+          this.consultant_id = res.preregister.user_id
           this.personalInfo = res.preregister.personalInfo;
           this.familyinfo = res.preregister.family_info;
           this.docs = res.preregister.docs
           this.docs.cin = baseUrl + "uploads/" + this.docs.cin
           this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
           this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+          if (this.docs.baccalaureate) {
+            this.docs.baccalaureate = baseUrl + "uploads/" + this.docs.baccalaureate
+
+          }
           if (this.docs.note1) {
             this.docs.note1 = baseUrl + "uploads/" + this.docs.note1
           }
@@ -298,6 +322,8 @@ export class ValidationComponent implements OnInit {
       "departementCause": this.departementCause,
       "classeValidation": this.classeValidation,
       "classeCause": this.classeCause,
+      "situationValidation": this.situationValidation,
+      "situationCause": this.situationCause,
       "note1Validation": this.note1Validation,
       "note1Cause": this.note1Cause,
       "note2Validation": this.note1Validation,
@@ -309,8 +335,8 @@ export class ValidationComponent implements OnInit {
 
       html: `
         <div  style="backgound-color:red">
-        <div style="font-size:1.2rem"> Êtes-vous sûr de vouloir soumettre <br> vos informations personnelles ?  </div> 
-          <div style="color:#a8a3a3;margin-top:5px"">Veuillez vérifier que toutes les données <br> saisies sont correctes et à jour.?</div>
+        <div style="font-size:1.2rem"> Êtes-vous sûr de vouloir soumettre valider cette inscription ?  </div> 
+        
         </div>
       `,
       iconColor: '#CDC7B9',
@@ -405,6 +431,69 @@ export class ValidationComponent implements OnInit {
 
   }
 
+  sendmail() {
+    Swal.fire({
+      title: 'Confirmez l\'envoi de l\'email',
+      html: `
+        <div>
+          <div style="font-size:1.2rem;">Êtes-vous sûr de vouloir <br> envoyer cet email ?'</div> 
+        </div>
+      `,
+      iconColor: '#1E1E1E',
+      showCancelButton: true,
+      confirmButtonText: 'Oui',
+      background: '#fefcf1',
+      confirmButtonColor: "#91c593",
+      cancelButtonText: 'Non',
+      cancelButtonColor: "black",
+      customClass: {
+        confirmButton: 'custom-confirm-button-class',
+        cancelButton: 'custom-cancel-button-class'
+      },
+      reverseButtons: true // Reversing button order
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const formData1 = this.formData1.value;
+        const data = {
 
+          "subject": formData1.subject,
+          "message": formData1.message
+        };
+        this.inscriptionservice.sendemailconsultant(this.consultant_id, data).subscribe({
+          next: (res) => {
+            // Handle the response from the server
+            Swal.fire({
+              background: '#fefcf1',
+              title: 'Email envoyé',
+              text: 'L\'email a été envoyé avec succès !',
+              confirmButtonColor: "#91c593",
+
+            });
+            this.showPopup3 = false;
+          },
+          error: (e) => {
+            console.log(e);
+            // Handle errors
+            Swal.fire({
+              background: '#fefcf1',
+              title: 'Erreur d\'envoi',
+              text: "L'envoi de l'email a échoué. Veuillez réessayer.",
+              confirmButtonColor: "#91c593",
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+
+          title: 'Envoi annulé',
+          text: 'Aucun email n\'a été envoyé.',
+          background: '#fefcf1',
+          confirmButtonColor: "#91c593",
+          confirmButtonText: 'Ok',
+
+        });
+      }
+    });
+  }
 
 }

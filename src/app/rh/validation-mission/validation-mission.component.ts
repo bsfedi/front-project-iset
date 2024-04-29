@@ -38,6 +38,7 @@ export class ValidationMissionComponent {
   res: any
   demandeur: any
   user_id: any
+  paymenttype: any
   constructor(private inscriptionservice: InscriptionService, private consultantservice: StudentService, private userservice: UserService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
     // Ensure that the items array is correctly populated here if needed.
   }
@@ -81,6 +82,7 @@ export class ValidationMissionComponent {
 
           this.payment = res.preregister.validation.payment
           this.depot = res.preregister.validation.depot
+          this.paymenttype = res.preregister.validation.paymenttype
 
           this.contractValidation = res.contractValidation
           this.jobCotractEdition = res.jobCotractEdition
@@ -102,6 +104,12 @@ export class ValidationMissionComponent {
           }
           else if (this.depot == false) {
             this.depot = 'false'
+          }
+          if (this.paymenttype == 'total') {
+            this.paymenttype = 'total'
+          }
+          else if (this.paymenttype == 'tranche') {
+            this.paymenttype = 'tranche'
           }
 
 

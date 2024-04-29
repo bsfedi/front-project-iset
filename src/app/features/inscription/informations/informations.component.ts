@@ -46,6 +46,7 @@ export class InformationsComponent {
       sexe: ['', Validators.required],
       departement: ['', Validators.required],
       classe: ['', Validators.required],
+      situation: ['', Validators.required],
       cin_img: ['', Validators.required],
       transcripts: ['', Validators.required],
       baccalaureate: ['', Validators.required],
@@ -207,6 +208,7 @@ export class InformationsComponent {
     formData.append('father_phone', this.myForm.value.father_phone);
     formData.append('father_job', this.myForm.value.father_job);
     formData.append('mother_job', this.myForm.value.mother_job);
+    formData.append('situation', this.myForm.value.situation)
     // formData.append('baccalaureate', this.docs.baccalaureate.split('uploads/')[1]);
 
 
@@ -243,7 +245,8 @@ export class InformationsComponent {
             "brith_date": this.myForm.value.brith_date,
             "sexe": this.myForm.value.sexe,
             "departement": this.myForm.value.departement,
-            "classe": this.myForm.value.classe
+            "classe": this.myForm.value.classe,
+            "situation": this.myForm.value.situation
           },
           "student_family": {
             "father_name": this.myForm.value.father_name,

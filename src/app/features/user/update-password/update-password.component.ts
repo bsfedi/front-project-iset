@@ -3,6 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;
 @Component({
   selector: 'app-update-password',
@@ -12,14 +13,14 @@ const clientName = `${environment.default}`;
 export class UpdatePasswordComponent {
   newPassword: any
   user_id: any
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: StudentService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.user_id = params['user_id']; // Get user_id from route parameters
     });
   }
   updatePassword() {
 
-    const data = { "newPassword": this.newPassword };
+    const data = { "password": this.newPassword };
     this.userService.updatePassword(this.user_id, data).subscribe(
       response => {
         console.log('Password updated successfully');

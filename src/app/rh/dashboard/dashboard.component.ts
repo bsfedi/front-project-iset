@@ -175,7 +175,7 @@ export class DashboardComponent {
     }
   }
   gotovalidemission(id_mission: any, id: any) {
-    this.router.navigate([clientName + '/validationmission/' + id_mission + '/' + id])
+    this.router.navigate([clientName + '/validationmission/' + id_mission])
   }
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') || '';

@@ -639,7 +639,7 @@ export class allStudentsComponent {
     });
   }
   gotovalidemission(id_mission: any, id: any) {
-    this.router.navigate([clientName + '/validationmission/' + id_mission + '/' + id])
+    this.router.navigate([clientName + '/validationmission/' + id_mission])
   }
   gottoallStudents() {
     this.router.navigate([clientName + '/dashboard'])

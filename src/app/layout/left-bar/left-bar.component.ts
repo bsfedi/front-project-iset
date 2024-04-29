@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'; // Add this line
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;
 @Component({
   standalone: true,
@@ -12,7 +13,7 @@ const clientName = `${environment.default}`;
   imports: [CommonModule]
 })
 export class LeftBarComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private studentservice: StudentService) {
     document.addEventListener("DOMContentLoaded", function () {
 
 
@@ -136,8 +137,11 @@ export class LeftBarComponent {
   role: any
   showmenu_consultant = false
   show_student = false
+  currentDate: any;
+  res: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
+    const user_id = localStorage.getItem('user_id')
     // if (this.role == 'CONSULTANT') {
     //   this.showmenu_consultant = true
 
@@ -148,7 +152,18 @@ export class LeftBarComponent {
 
 
     }
+    this.studentservice.getuserbyid(user_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        this.res = res
 
+
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
   }
   clearLocalStorage() {
     Swal.fire({
@@ -179,6 +194,25 @@ export class LeftBarComponent {
 
       }
     });
+
+    this.currentDate = new Date();
+    console.log(this.currentDate);
+    this.isMonthInRange()
+  }
+  showinsc: any
+  isMonthInRange() {
+    // Get the current month (0-indexed)
+    const currentMonth = this.currentDate.getMonth();
+    console.log(currentMonth >= 7 && currentMonth <= 9);
+    if (currentMonth >= 7 && currentMonth <= 9) {
+      this.showinsc = true
+      console.log(this.showinsc);
+
+
+    }
+    // Check if the current month is within the specified range
+    // 7, 8, 9 corresponds to August, September, October
+
 
   }
 }

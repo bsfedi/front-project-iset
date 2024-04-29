@@ -58,8 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of getDisplayeddocspending(); let j = index" (click)="gotovalidation(item._id)"
-              style="cursor: pointer;">
+            <tr *ngFor="let item of getDisplayeddocspending(); let j = index" style="cursor: pointer;">
               <td style="max-width: 50px;">
                 <div *ngIf="item.status == 'validated'" style="
                 display: flex;
@@ -381,90 +380,7 @@
           </div>
         </div>
       </div>
-      <div class="popup" *ngIf="showPopup">
-        <div class="popup-content" style="  height: 22.4375rem;">
-          <div style="float: right" (click)="closePopup()">
-            <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
-          </div>
-          <div>
-            <h3>Déclarer une nouvelle demande</h3>
-            <select [(ngModel)]="selectedOption" (ngModelChange)="updateForms()">
-              <option value="attestation">Demande attestation de présence</option>
-              <option value="verification">Demande vérification de note</option>
-            </select>
-            <form action="/submit_form" method="post" style="display: flex" *ngIf="form1" [formGroup]="myForm">
-              <div class="form-section">
-                <div class="grid-container">
-                  <br>
 
-                  <div class="grid-item">
-
-                    <input type="number" id="TJM" formControlName="arabicAttestations"
-                      placeholder="Nombre d'attestation en arabe" name="Nouveau TJM" required />
-                  </div>
-                  <br>
-
-                  <div class="grid-item">
-
-                    <input type="number" id="TJM" formControlName="frenchAttestations"
-                      placeholder="Nombre d'attestation en francais" name="Nouveau TJM" required />
-                  </div>
-
-                  <div class="multiselect">
-                    <div class="selectBox" (click)="toggleCheckboxes()">
-                      <select>
-                        <option>choisir les enseignants</option>
-                      </select>
-                      <div class="overSelect"></div>
-                    </div>
-                    <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'" *ngFor="let en of ens">
-                      <label for="en._id">
-                        <input type="checkbox" (change)="toggleTeacher(en._id)" id="en._id" />{{en.first_name}}
-                        {{en.last_name}}</label>
-
-                    </div>
-                  </div>
-
-                </div>
-
-                <br />
-                <div class="buttons" (click)="demandeattestation()">
-                  <button type="submit" class="button">
-                    <div class="inscrire">Ajouter</div>
-                  </button>
-                </div>
-              </div>
-            </form>
-            <form action="/submit_form" method="post" style="display: flex" *ngIf="form2" [formGroup]="myForm2">
-              <div class="form-section">
-                <div class="grid-container">
-                  <div class="grid-item">
-                    <select formControlName="type">
-                      <option value="TP1">TP1</option>
-                      <option value="TP2">TP2</option>
-                      <option value="TC">TC</option>
-                      <option value="Examen">Examen</option>
-                    </select>
-                    <input type="text" formControlName="matiere" placeholder="Matière" required />
-                  </div>
-                  <div class="grid-item">
-                    <input type="number" formControlName="note" placeholder="Note obtenue" required />
-                  </div>
-                  <div class="grid-item">
-                    <input type="text" formControlName="commentaire" placeholder="Commentaire" required />
-                  </div>
-                </div>
-                <br />
-                <div class="buttons" (click)="demandeaverification()">
-                  <button type="submit" class="button">
-                    <div class="inscrire">Ajouter</div>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
 
       <br /><br />
       <!-- <div style="display: flex">
@@ -604,5 +520,88 @@
 
 
   </div>
+  <div class="popup" *ngIf="showPopup">
+    <div class="popup-content" style="  height: 22.4375rem;">
+      <div style="float: right" (click)="closePopup()">
+        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+      </div>
+      <div>
+        <h3>Déclarer une nouvelle demande</h3>
+        <select [(ngModel)]="selectedOption" (ngModelChange)="updateForms()">
+          <option value="attestation">Demande attestation de présence</option>
+          <option value="verification">Demande vérification de note</option>
+        </select>
+        <form action="/submit_form" method="post" style="display: flex" *ngIf="form1" [formGroup]="myForm">
+          <div class="form-section">
+            <div class="grid-container">
+              <br>
 
+              <div class="grid-item">
+
+                <input type="number" id="TJM" formControlName="arabicAttestations"
+                  placeholder="Nombre d'attestation en arabe" name="Nouveau TJM" required />
+              </div>
+              <br>
+
+              <div class="grid-item">
+
+                <input type="number" id="TJM" formControlName="frenchAttestations"
+                  placeholder="Nombre d'attestation en francais" name="Nouveau TJM" required />
+              </div>
+
+              <div class="multiselect">
+                <div>
+                  <select (click)="toggleCheckboxes()">
+                    <option [style.display]="expanded ? 'block' : 'none'"> choisir les enseignants</option>
+                  </select>
+                  <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'" *ngFor="let en of ens">
+                  <label for="en._id">
+                    <input type="checkbox" (change)="toggleTeacher(en._id)" id="en._id" />{{en.first_name}}
+                    {{en.last_name}}</label>
+
+                </div>
+              </div>
+
+            </div>
+
+            <br />
+            <div class="buttons" (click)="demandeattestation()">
+              <button type="submit" class="button">
+                <div class="inscrire">Ajouter</div>
+              </button>
+            </div>
+          </div>
+        </form>
+        <form action="/submit_form" method="post" style="display: flex" *ngIf="form2" [formGroup]="myForm2">
+          <div class="form-section">
+            <div class="grid-container">
+              <div class="grid-item">
+                <select formControlName="type">
+                  <option value="TP1">TP1</option>
+                  <option value="TP2">TP2</option>
+                  <option value="TC">TC</option>
+                  <option value="Examen">Examen</option>
+                </select>
+                <input type="text" formControlName="matiere" placeholder="Matière" required />
+              </div>
+              <div class="grid-item">
+                <input type="text" formControlName="note" placeholder="Note obtenue" required />
+              </div>
+              <div class="grid-item">
+                <input type="text" formControlName="commentaire" placeholder="Commentaire" required />
+              </div>
+            </div>
+            <br />
+            <div class="buttons" (click)="demandeaverification()">
+              <button type="submit" class="button">
+                <div class="inscrire">Ajouter</div>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>

@@ -29,7 +29,15 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'accept_note/' + register_id);
   }
-
+  forgot_password(data: any) {
+    return this.http.post(baseUrl + 'auth/forgot-password', data);
+  }
+  sendemailconsultant(user_id: any, data: any) {
+    return this.http.post(baseUrl + 'send_email/' + user_id, data);
+  }
+  updatePassword(id: any, data: any) {
+    return this.http.put(baseUrl + 'users/set_password/' + id, data);
+  }
   createfilesinscrption(data: any, register_id: any): Observable<any> {
 
     return this.http.post(baseUrl + 'docs/' + register_id, data);

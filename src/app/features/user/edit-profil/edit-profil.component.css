@@ -117,7 +117,7 @@ button {
     align-items: center;
     gap: 0.75rem;
     border-radius: 0.625rem;
-    background: black;
+    background: rgb(0, 17, 255);
 
 
 
@@ -194,7 +194,7 @@ input[type="password"] {
         align-items: center;
         gap: 0.75rem;
         border-radius: 0.625rem;
-        background: black;
+        background: rgb(0, 17, 255);
 
 
 

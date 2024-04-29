@@ -180,7 +180,7 @@
     </div>
     <div *ngIf="role ==='student'" (click)="gotomission()" class="bord-text"> Gérer mes demandes</div>
   </div>
-  <div class="custom-item" *ngIf="role ==='student'"
+  <div class="custom-item" *ngIf="role ==='student'  && showinsc"
     [ngClass]="{ 'board-item': isActiveRoute('student/inscriptions')  }">
     <div class="board-svg">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

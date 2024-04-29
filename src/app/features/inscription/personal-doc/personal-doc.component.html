@@ -148,7 +148,10 @@
           <div>
             <div class="custom-file-input" (change)="setFileInput('transcripts', $event)">
               <label class="file-label" for="transcripts" style="cursor: pointer"
-                onclick="document.getElementById('idCardUploadPermis').click()">Relevé de note</label>
+                onclick="document.getElementById('idCardUploadPermis').click()">
+                <div *ngIf="show_bac"> Relevé de note baccalauréet</div>
+                <div *ngIf="!show_bac"> 1ere année</div>
+              </label>
               <div class="vertical-line"></div>
               <input class="file-input" type="file" name="transcripts" formControlName="transcripts"
                 (change)="setFileInput('transcripts', $event)" id="transcripts"
@@ -210,7 +213,7 @@
           <div>
             <div class="custom-file-input" (change)="setFileInput('img_profil', $event)">
               <label class="file-label" for="img_profil" style="cursor: pointer"
-                onclick="document.getElementById('idCardUploadPermis').click()">Relevé de note</label>
+                onclick="document.getElementById('idCardUploadPermis').click()"> photo etudiant </label>
               <div class="vertical-line"></div>
               <input class="file-input" type="file" name="img_profil" formControlName="img_profil"
                 (change)="setFileInput('img_profil', $event)" id="img_profil"

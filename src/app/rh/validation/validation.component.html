@@ -31,7 +31,7 @@
                     </div>
 
                     <div style="margin-left: -100px;">
-                        <button type="submit" class="primry-button" (click)="gotoconsultantprofil()"> Envoyer un email
+                        <button type="submit" class="primry-button" (click)="openPopup3()"> Envoyer un email
                         </button>
                     </div>
 
@@ -175,7 +175,18 @@
                         </label>
                     </div>
                     <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="classeCause" [hidden]="classeValidation">
-                    <div class="label"> Pièce d'identité (CNI) :</div>
+                    <div class="label"> Situation:</div>
+                    <div class="Tableau">
+                        <input [value]="personalInfo?.situation" type="text" id="birthDate" name="birthDate" required
+                            placeholder="RIB" />
+                        <label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="situationValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="situationCause"
+                        [hidden]="situationValidation">
+                    <div class="label"> Relevé de note: :</div>
                     <div class="Tableau">
                         <div class="zoom">
                             <img [src]="docs?.transcripts" />
@@ -208,6 +219,18 @@
                     </div>
                     <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="note1Cause" [hidden]="note1Validation">
 
+                    <div class="label" *ngIf="docs.baccalaureate "> diplome bacalureat:</div>
+                    <div class="Tableau" *ngIf="docs.baccalaureate ">
+                        <div class="zoom">
+                            <img [src]="docs?.baccalaureate" />
+                        </div><label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="baccalaureateValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="baccalaureateCause"
+                        [hidden]="baccalaureateValidation">
+
 
                     <div class="label" *ngIf="docs.note2"> Relevé de note deuxieme année :</div>
                     <div class="Tableau" *ngIf="docs.note2">
@@ -224,7 +247,7 @@
                 </div>
 
             </div>
-            <div class="Information"> Informations du client </div>
+
             <div style="display: flex;">
                 <div>
                     <div class="label"> Père Prénom :</div>
@@ -349,5 +372,52 @@
         </div>
 
         <!-- <app-notificaion-rh></app-notificaion-rh> -->
+    </div>
+    <div class="popup" *ngIf="showPopup3">
+        <div class="popup-content" style="height: 19.4375rem;font-family: 'Poppins', sans-serif !important;">
+            <div style="float: right" (click)="closePopup3()">
+                <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+            </div>
+            <div>
+                <h3>Envoyer un mail </h3>
+                <form style="display: flex" [formGroup]="formData1">
+                    <div class="form-section">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <b style="margin: 5px;"> Sujet d"email </b>
+                                <input type="text" id="subject" style=" width: 26.04313rem;
+                                height: 3.61006rem;
+                                flex-shrink: 0;
+                              
+                                padding: 8px;
+                                margin-top: 10px;
+                              
+                                border-radius: 0.5rem;
+                                border: 1px solid #eae3d5;
+                              
+                                background: #fff;
+                                border-radius: 6px;
+                                box-sizing: border-box;" placeholder="subject" name="subject" required
+                                    formControlName="subject" />
+                            </div>
+                            <br>
+                            <div class="grid-item">
+                                <b style="margin: 8px 5px 5px 5px;"> Votre message </b>
+                                <textarea id="message" placeholder="message" name="message" required
+                                    style="max-height: 90px;max-width:  26.04313rem;"
+                                    formControlName="message"></textarea>
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="buttons">
+                            <button type="submit" class="button" (click)="sendmail()">
+                                <div class="inscrire">Envoyer</div>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>

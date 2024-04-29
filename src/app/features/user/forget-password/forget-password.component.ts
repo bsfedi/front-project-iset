@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;
 @Component({
   selector: 'app-forget-password',
@@ -12,7 +13,7 @@ const clientName = `${environment.default}`;
 export class ForgetPasswordComponent {
   email: any;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: StudentService, private router: Router) { }
 
   forgetPassword() {
     const data = { email: this.email };

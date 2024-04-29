@@ -3,11 +3,11 @@
 </head>
 <div class="container">
   <div class="left-panel">
-    <img src="/assets/pre-inscription.png" width="100%" height="100%" style="border-radius: 1.875rem" />
+    <img src="/assets/pre-inscription.png" width="100%" height="120%" style="border-radius: 1.875rem" />
     <div class="text-overlay">
       <h5>
-        Créez votre compte MyKrew pour suivre vos investissements, gérer vos
-        relations professionnelles et booster votre succès.
+        <!-- Créez votre compte MyKrew pour suivre vos investissements, gérer vos
+        relations professionnelles et booster votre succès. -->
       </h5>
     </div>
     <div class="logo-overlay">
@@ -24,8 +24,8 @@
       <div>
         <div class="Connectez"><b> Pré-inscription </b></div>
         <div class="under-connect">
-          Rejoignez MyKrew : Suivez vos investissements et élargissez votre
-          réseau professionnel en quelques clics.
+          <!-- Rejoignez MyKrew : Suivez vos investissements et élargissez votre
+          réseau professionnel en quelques clics. -->
         </div>
       </div>
       <div>Pré-inscription</div>
@@ -51,13 +51,27 @@
           </div>
           <div>
 
-            <select formControlName="level" id="level" class="form-control" required>
-              <option value="" disabled selected>Sélectionner le niveau</option>
-              <option value="1"> 1</option>
-              <option value="2"> 2</option>
-              <option value="3"> 3</option>
+            <select formControlName="situation" id="level" class="form-control" required>
+              <option value="" disabled selected>Sélectionner le Situation</option>
+              <option value="Suite à une mutation"> Suite à une mutation</option>
+              <option value="Etudiant de l’ISET"> Etudiant de l’ISET</option>
             </select>
           </div>
+
+          <div class="error" *ngIf="myForm.get('situation')?.invalid && myForm.get('situation')?.touched">
+            situation est obligatoire.
+          </div>
+
+          <div>
+
+            <select formControlName="level" id="level" class="form-control" required>
+              <option value="" disabled selected>Sélectionner le niveau</option>
+              <option value="1"> 1ère année</option>
+              <option value="2"> 2ème année</option>
+              <option value="3">3ème année</option>
+            </select>
+          </div>
+
           <div class="error" *ngIf="myForm.get('level')?.invalid && myForm.get('level')?.touched">
             Niveau est obligatoire.
           </div>
