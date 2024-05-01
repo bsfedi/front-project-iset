@@ -32,6 +32,7 @@
                 <option value="stage perfectionnement">stage perfectionnement</option>
                 <option value="stage PFE">stage PFE</option>
             </select>
+            <div *ngIf="selectedItems.length >1" (click)="allnotestage()"> <button> Enregistrer</button></div>
             <div>
                 <div *ngIf="show_filter_classe" class="first rechercher">
                     <svg style="margin-top: -2px;margin-left: -60px;" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -48,10 +49,12 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem"></th>
+                            <th> Statut</th>
                             <th> Etudiant </th>
                             <th>entreprise</th>
                             <th> encadrantinterne</th>
+                            <th> Classe</th>
                             <th>date debut</th>
                             <th>date fin</th>
                             <th> note</th>
@@ -68,7 +71,9 @@
                         <!-- Afficher ensuite les éléments avec d'autres statuts -->
 
                         <tr *ngFor="let item of getDisplayeddocs()">
-
+                            <td>
+                                <input type="checkbox" (change)="onCheckboxChange($event, item._id)">
+                            </td>
 
                             <td style="max-width: 120px;">
                                 <div style="
@@ -99,13 +104,26 @@
                                 {{item.encadrant_interne}}
                             </td>
                             <td>
+                                {{item.classe}}
+                            </td>
+                            <td>
                                 {{ item.date_debut.split(['T'])[0] }}
                             </td>
                             <td>
                                 {{item.date_fin.split(['T'])[0] }}
                             </td>
-                            <td>
+                            <td *ngIf="item.note">
                                 {{item.note }}
+                            </td>
+                            <td *ngIf="!item.note">
+
+
+                                <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
+                                    <div class="grid-item">
+                                        <input type="text" placeholder="note de stage" required style="width: 7rem;"
+                                            (input)="updateNote($event, item._id)" />
+                                    </div>
+                                </form>
                             </td>
                             <td>
                                 {{item.type }}

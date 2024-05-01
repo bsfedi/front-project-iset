@@ -7,14 +7,21 @@
     <div class="second-container">
       <div class="title">Tableau de bord </div>
 
+
       <div class="Tableau1 left-first">
 
         <div class="tjm_moyen">
           <div class="chaffaire">Demandes de presence</div>
           <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'enseignant'">
-            <b> Toutes les demandes : {{all_demande_presence}} </b> <br> <br>
-            <b> Traité: {{all_demande_presence}} </b> <br> <br>
-            <b> En attente: {{all_demande_presence_pending}} </b>
+            <b>
+              Toutes les demandes : {{all_demande_presence}}
+            </b> <br> <br>
+            <b>
+              Traité: {{all_demande_presence}}
+            </b> <br> <br>
+            <b>
+              En attente: {{all_demande_presence_pending}}
+            </b>
 
           </div>
           <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'student'">
@@ -24,9 +31,15 @@
 
           </div>
           <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'tuitionofficer'">
-            <b> Toutes les demandes : {{statsres.processed_count + statsres.unprocessed_count}} </b> <br> <br>
-            <b> Traité: {{statsres.processed_count}} </b> <br> <br>
-            <b> En attente: {{statsres.unprocessed_count}} </b>
+            <b style=" display: flex;">
+              <div id="cercle"></div> Toutes les demandes : {{statsres.processed_count + statsres.unprocessed_count}}
+            </b> <br> <br>
+            <b style=" display: flex;">
+              <div id="cercle"></div> Traité: {{statsres.processed_count}}
+            </b> <br> <br>
+            <b style=" display: flex;">
+              <div id="cercle"></div> En attente: {{statsres.unprocessed_count}}
+            </b>
 
           </div>
 
@@ -47,9 +60,15 @@
 
           </div>
           <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'tuitionofficer'">
-            <b> Toutes les demandes : {{statsres.preregistres_count }} </b> <br> <br>
-            <b> Traité: {{statsres.preregistres_traites_count}} </b> <br> <br>
-            <b> En attente: {{ statsres.preregistres_count - statsres.preregistres_traites_count}} </b>
+            <b style=" display: flex;">
+              <div id="cercle"></div> Toutes les demandes : {{statsres.preregistres_count }}
+            </b> <br> <br>
+            <b style=" display: flex;">
+              <div id="cercle"></div> Traité: {{statsres.preregistres_traites_count}}
+            </b> <br> <br>
+            <b style=" display: flex;">
+              <div id="cercle"></div>En attente: {{ statsres.preregistres_count - statsres.preregistres_traites_count}}
+            </b>
 
           </div>
         </div>

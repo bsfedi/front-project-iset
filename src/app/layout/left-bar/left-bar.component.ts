@@ -86,6 +86,11 @@ export class LeftBarComponent {
     this.router.navigate([clientName + '/student/requests'])
 
   }
+
+  gotoorientation() {
+    this.router.navigate([clientName + '/student/orientation'])
+
+  }
   gotovirment() {
     this.router.navigate([clientName + '/student/inscriptions'])
 

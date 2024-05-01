@@ -23,12 +23,17 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { EditProfilComponent } from 'src/app/features/user/edit-profil/edit-profil.component';
 import { StagesComponent } from './stages/stages.component';
+import { OrientationComponent } from './orientation/orientation.component';
 
 
 export const routes: Routes = [
   {
     path: 'pending',
     component: PendingPreinscriptionComponent,
+  },
+  {
+    path: 'student/orientation',
+    component: OrientationComponent
   },
 
   {
@@ -103,6 +108,7 @@ export const routes: Routes = [
     EditProfilComponent,
     UpdatePasswordComponent,
     StagesComponent,
+    OrientationComponent,
 
 
   ],

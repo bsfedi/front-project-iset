@@ -110,6 +110,7 @@ export class StagesComponent {
       tel_encadrent_externe: [''],
       encadrant_interne: [''],
       fonctionalie: [''],
+      classe: [''],
     });
     this.myForm = this.fb.group({
       arabicAttestations: ['', Validators.required], // Assuming this is for the Arabic attestations
@@ -406,6 +407,7 @@ border: 2px solid black;'>
   ens: any
   departement: any
   changewidth: any
+  classe: any
   ngOnInit(): void {
 
     if (this.myForm2.value.type == 'stage PFE') {
@@ -418,6 +420,7 @@ border: 2px solid black;'>
         // Handle the response from the server
         this.res = res.preregister
         this.departement = this.res.personalInfo.departement
+        this.classe = this.res.personalInfo.classe
         this.studentservice.enseignantsbydepartement(this.res.personalInfo.departement).subscribe({
           next: (res) => {
             this.ens = res
@@ -645,6 +648,8 @@ border: 2px solid black;'>
 
     this.myForm2.value.departement = this.departement
     this.myForm2.value.user_id = this.user_id
+    this.myForm2.value.classe = this.classe
+
     console.log(this.myForm2.value.type);
 
     if (this.myForm2.value.type != "stage PFE") {

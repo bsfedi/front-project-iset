@@ -711,10 +711,18 @@ input[type="password"] {
   width: 22.25rem;
   height: 16.6875rem;
   flex-shrink: 0;
+  box-shadow: 10px 5px 5px rgb(198, 187, 187);
   border-radius: 0.8125rem;
-  border: 1px solid #eae3d5;
-  background: #fefcf1;
+
   color: black;
+}
+
+#cercle {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  background: green;
 }
 
 .pourcentage {
@@ -739,7 +747,7 @@ input[type="password"] {
 
   margin-top: 15px;
   margin-left: 15px;
-  font-size: 1.6875rem;
+  font-size: 1rem;
 }
 
 .chaffaire {

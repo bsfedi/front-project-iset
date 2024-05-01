@@ -219,6 +219,21 @@ export class StudentService {
     return this.http.post(baseUrl + 'enseignant_demande', data);
   }
 
+  get_all_enseignant_demande(): Observable<any> {
+
+    return this.http.get(baseUrl + 'enseignant_demande');
+  }
+
+  agent_demande(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'agent_demande', data);
+  }
+  orientation(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'orientation', data);
+  }
+
+
   add_module(data: any): Observable<any> {
 
     return this.http.post(baseUrl + 'add_module', data);

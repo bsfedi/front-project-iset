@@ -1,0 +1,345 @@
+<div class="wrapper">
+    <div>
+        <app-left-bar></app-left-bar>
+    </div>
+    <div class="container">
+        <div class="title"> Orientation
+        </div>
+        <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
+            <div class="form-section">
+
+
+                <div class="grid-container">
+                    <table>
+                        <thead>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> choix</th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> parcours</th>
+                        </thead>
+                        <tbody *ngIf="departement === 'IT'">
+                            <tr>
+                                <td>1</td>
+                                <td> <select formControlName="choix1" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value=""> selectioner 1ere choix </option>
+                                        <option value="DSI">
+                                            DSI
+                                        </option>
+                                        <option value="SEM">
+                                            SEM
+                                        </option>
+                                        <option value="RSI">
+                                            RSI
+                                        </option>
+                                        <option value="MDW">
+                                            MDW
+                                        </option>
+                                    </select></td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td> <select formControlName="choix2" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value=""> selectioner 2eme choix </option>
+                                        <option value="DSI">
+                                            DSI
+                                        </option>
+                                        <option value="SEM">
+                                            SEM
+                                        </option>
+                                        <option value="RSI">
+                                            RSI
+                                        </option>
+                                        <option value="MDW">
+                                            MDW
+                                        </option>
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td> <select formControlName="choix3" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value=""> selectioner 3eme choix </option>
+                                        <option value="DSI">
+                                            DSI
+                                        </option>
+                                        <option value="SEM">
+                                            SEM
+                                        </option>
+                                        <option value="RSI">
+                                            RSI
+                                        </option>
+                                        <option value="MDW">
+                                            MDW
+                                        </option>
+                                    </select></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="departement === 'GC'">
+                            <tr>
+                                <td>1</td>
+                                <td> <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="BAT">
+                                            BAT
+                                        </option>
+                                        <option value="TP">
+                                            TP
+                                        </option>
+                                        <option value="TOPO">
+                                            TOPO
+                                        </option>
+                                        <option value="PC">
+                                            PC
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td> <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="BAT">
+                                            BAT
+                                        </option>
+                                        <option value="TP">
+                                            TP
+                                        </option>
+                                        <option value="TOPO">
+                                            TOPO
+                                        </option>
+                                        <option value="PC">
+                                            PC
+                                        </option>
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td> <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="BAT">
+                                            BAT
+                                        </option>
+                                        <option value="TP">
+                                            TP
+                                        </option>
+                                        <option value="TOPO">
+                                            TOPO
+                                        </option>
+                                        <option value="PC">
+                                            PC
+                                        </option>
+                                    </select></td>
+                            </tr>
+                        </tbody>
+
+                        <tbody *ngIf="departement === 'GE'">
+                            <tr>
+                                <td>1</td>
+                                <td> <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="All">
+                                            All
+                                        </option>
+                                        <option value="EI">
+                                            EI
+                                        </option>
+                                        <option value="ELnl">
+                                            ELnl
+                                        </option>
+
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td> <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="All">
+                                            All
+                                        </option>
+                                        <option value="EI">
+                                            EI
+                                        </option>
+                                        <option value="ELnl">
+                                            ELnl
+                                        </option>
+
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td> <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="All">
+                                            All
+                                        </option>
+                                        <option value="EI">
+                                            EI
+                                        </option>
+                                        <option value="ELnl">
+                                            ELnl
+                                        </option>
+
+                                    </select></td>
+                            </tr>
+                        </tbody>
+
+                        <tbody *ngIf="departement === 'GM'">
+                            <tr>
+                                <td>1</td>
+                                <td>
+
+                                    <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="MI">
+                                            MI
+                                        </option>
+                                        <option value="CFM">
+                                            CFM
+                                        </option>
+                                        <option value="Energétique">
+                                            Energétique
+                                        </option>
+
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="MI">
+                                            MI
+                                        </option>
+                                        <option value="CFM">
+                                            CFM
+                                        </option>
+                                        <option value="Energétique">
+                                            Energétique
+                                        </option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="MI">
+                                            MI
+                                        </option>
+                                        <option value="CFM">
+                                            CFM
+                                        </option>
+                                        <option value="Energétique">
+                                            Energétique
+                                        </option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="departement === 'SEG'">
+                            <tr>
+                                <td>1</td>
+                                <td>
+
+
+                                    <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="AAPME">
+                                            AAPME
+                                        </option>
+                                        <option value="AACF">
+                                            AACF
+                                        </option>
+                                        <option value="AAGP">
+                                            AAGP
+                                        </option>
+                                        <option value="AAGHT">
+                                            AAGHT
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td>
+
+                                    <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="AAPME">
+                                            AAPME
+                                        </option>
+                                        <option value="AACF">
+                                            AACF
+                                        </option>
+                                        <option value="AAGP">
+                                            AAGP
+                                        </option>
+                                        <option value="AAGHT">
+                                            AAGHT
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+
+                                    <select formControlName="durée" id="fullName" placeholder="Métier" name="fullName"
+                                        required>
+                                        <option value="AAPME">
+                                            AAPME
+                                        </option>
+                                        <option value="AACF">
+                                            AACF
+                                        </option>
+                                        <option value="AAGP">
+                                            AAGP
+                                        </option>
+                                        <option value="AAGHT">
+                                            AAGHT
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+
+                    <br>
+
+
+
+                    <div class="buttons" (click)="logform()">
+                        <button type="submit" class="button">
+                            <div class="inscrire">Ajouter</div>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <!-- <div class="right-item">
+
+        <app-notification></app-notification>
+    </div> -->
+
+</div>

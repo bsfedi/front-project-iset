@@ -51,7 +51,10 @@
                             <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
                             <th>type</th>
 
-
+                            <th> Date début congé</th>
+                            <th> Date fin congé</th>
+                            <th> Heure début congé</th>
+                            <th> Date fin congé</th>
                             <th style="border-radius: 0rem 0.6875rem 0rem 0rem">date </th>
 
 
@@ -88,20 +91,40 @@
                                 <div *ngIf="item.type == 'AT'">
                                     Attestation de travail
                                 </div>
-                                <div *ngIf="item.type != 'AT'">
+                                <div *ngIf="item.type == 'FP'">
                                     Fiche de paie
+                                </div>
+                                <div *ngIf="item.type == 'CONGE'">
+                                    Congé
                                 </div>
 
                             </td>
 
 
                             <td>
-                                <div *ngIf="item.month">
+                                <div>
                                     {{ item.month }}
 
                                 </div>
 
                             </td>
+                            <ng-container>
+                                <td>
+                                    {{item.date_debut}}
+                                </td>
+
+                                <td>
+                                    {{item.date_fin}}
+                                </td>
+                                <td>
+                                    {{item.heure_debut}}
+                                </td>
+                                <td>
+                                    {{item.heure_fin}}
+                                </td>
+
+                            </ng-container>
+
 
                         </tr>
                     </tbody>
@@ -500,7 +523,7 @@
   
         </div> -->
             <div class="popup" *ngIf="showPopup">
-                <div class="popup-content" style="  height: 14.4375rem;">
+                <div class="popup-content" style="  height: auto;">
                     <div style="float: right" (click)="closePopup()">
                         <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                     </div>
@@ -515,6 +538,7 @@
                                         <select formControlName="type">
                                             <option value="AT">Attestation de travail </option>
                                             <option value="FP">fiche de paie </option>
+                                            <option value="CONGE" *ngIf="role === 'tuitionofficer'"> Congé </option>
 
                                         </select>
 
@@ -522,14 +546,64 @@
                                     <div class="grid-item" *ngIf=" myForm2.get('type')?.value === 'FP'">
                                         <input type="month" formControlName="month" placeholder="month" required />
                                     </div>
+                                    <div>
+                                        <form action="/submit_form" *ngIf=" myForm2.get('type')?.value === 'CONGE'"
+                                            method="post" [formGroup]="myForm3">
+                                            <div class="grid-item">
+                                                <select formControlName="type_conge">
+                                                    <option value="congé anuuel">
+                                                        congé anuuel
+                                                    </option>
+                                                    <option value="compensation">
+                                                        compensation
+                                                    </option>
+                                                    <option value="accompagnement">
+                                                        accompagnement
+                                                    </option>
+                                                    <option value="congé de maladie">
+                                                        congé de maladie
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="grid-item"
+                                                *ngIf="myForm3.get('type_conge')?.value === 'congé anuuel' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
+                                                <input type="date" formControlName="date_debut" placeholder="month"
+                                                    required />
+                                            </div>
+                                            <div class="grid-item"
+                                                *ngIf="myForm3.get('type_conge')?.value === 'congé anuuel' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
+                                                <input type="date" formControlName="date_fin" placeholder="month"
+                                                    required />
+                                            </div>
+
+
+                                            <div class="grid-item"
+                                                *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' ">
+                                                <input type="time" formControlName="heure_debut" placeholder="month"
+                                                    required />
+                                            </div>
+                                            <div class="grid-item">
+                                                <input type="time"
+                                                    *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' "
+                                                    formControlName="heure_fin" placeholder="month" required />
+                                            </div>
+                                        </form>
+                                    </div>
 
                                 </div>
                                 <br />
-                                <div class="buttons">
+                                <div class="buttons" *ngIf=" myForm2.get('type')?.value != 'CONGE'">
                                     <button type="submit" class="button" (click)="demandeaverification()">
                                         <div class="inscrire">Ajouter</div>
                                     </button>
                                 </div>
+
+                                <div class="buttons" *ngIf=" myForm2.get('type')?.value === 'CONGE'">
+                                    <button type="submit" class="button" (click)="agent_demande()">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+
                             </div>
                         </form>
                     </div>

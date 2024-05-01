@@ -12,19 +12,33 @@ export class DemandesEnsrignantComponent {
   validated_mission: any
   user_id: any
   pending_missions: any
+  role: any
   myForm2: FormGroup;
+  myForm3: FormGroup;
   constructor(private fb: FormBuilder, private studentservice: StudentService) {
     this.myForm2 = this.fb.group({
       user_id: [''],
       type: ['', Validators.required],
       month: ['']
     });
+
+    this.myForm3 = this.fb.group({
+      user_id: [''],
+      type: ['CONGE'],
+      type_conge: [''],
+      date_debut: [''],
+      date_fin: [''],
+      heure_debut: [''],
+      heure_fin: [''],
+    });
+
   }
 
 
 
   ngOnInit(): void {
     this.user_id = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
     this.studentservice.enseignants_demande(this.user_id).subscribe({
       next: (res) => {
         this.validated_mission = res.at_demandes
@@ -94,6 +108,45 @@ export class DemandesEnsrignantComponent {
         }
       });
   }
+  agent_demande() {
+    this.myForm3.value.user_id = this.user_id
+
+    this.studentservice.agent_demande(this.myForm3.value)
+      .subscribe({
+        next: (res) => {
+          Swal.fire({
+
+            background: '#fefcf1',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "#91c593",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+          console.log(res);
+
+          // Handle the response from the server
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          console.error(e);
+        }
+      });
+  }
+
   getDisplayeddocspending(): any[] {
 
 

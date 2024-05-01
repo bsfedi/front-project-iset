@@ -382,7 +382,31 @@ export class GestionStagesComponent {
 
 
   }
+  selectedItems: any[] = [];
 
+  onCheckboxChange(event: any, item: any) {
+    if (event.target.checked) {
+      // If the item is checked, add it to the selectedItems array with an empty note
+      this.selectedItems.push({ _id: item, note: '' });
+    } else {
+      // Remove item if unchecked
+      const index = this.selectedItems.findIndex(selected => selected._id === item._id);
+      if (index !== -1) {
+        this.selectedItems.splice(index, 1);
+      }
+    }
+  }
+
+  updateNote(event: any, itemId: string) {
+    const index = this.selectedItems.findIndex(item => item._id === itemId);
+    console.log(this.selectedItems);
+    if (index !== -1) {
+      // Update the note property of the corresponding item
+      this.selectedItems[index].note = event.target.value;
+
+
+    }
+  }
   demandeattestation() {
     const formData12 = {
       "user_id": this.res.user_id,
@@ -513,7 +537,7 @@ export class GestionStagesComponent {
       this.show_filter_classe = true
       // Apply filter based on search term
       this.filteredItems = this.res.filter((item: any) =>
-        item.class.toLowerCase().includes(this.searchTerm2.toLowerCase())
+        item.classe.toLowerCase().includes(this.searchTerm2.toLowerCase())
       );
     }
   }
@@ -624,6 +648,22 @@ export class GestionStagesComponent {
         console.error(e);
       }
     });
+  }
+  allnotestage() {
+    for (let stage of this.selectedItems) {
+      this.studentservice.note_satge(stage._id, { "note": stage.note }).subscribe({
+        next: (res) => {
+          // Handle the response from the server
+          this.stage_by_id = res
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          console.error(e);
+        }
+      });
+    }
   }
   toggleMenu(i: number) {
     this.isMenuOpen[i] = !this.isMenuOpen[i];
