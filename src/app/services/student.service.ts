@@ -224,6 +224,12 @@ export class StudentService {
     return this.http.get(baseUrl + 'enseignant_demande');
   }
 
+  get_historique(date: any, calsse: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_historique/' + date + "/" + calsse);
+  }
+
+
   agent_demande(data: any): Observable<any> {
 
     return this.http.post(baseUrl + 'agent_demande', data);
@@ -357,6 +363,11 @@ export class StudentService {
   get_salles(): Observable<any> {
 
     return this.http.get(baseUrl + 'get_salles');
+  }
+
+  get_sallesinputHoraire(date: any, inputHoraire: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_salles/' + date + '/' + inputHoraire);
   }
 
   get_classes(): Observable<any> {

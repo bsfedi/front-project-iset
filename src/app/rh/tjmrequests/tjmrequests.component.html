@@ -268,7 +268,7 @@
                   </div>
                 </td>
                 <td>
-                  {{ item.status }}
+                  {{ item.data[0].status }}
                 </td>
 
                 <td style="cursor: pointer" class="dropdown">
@@ -283,7 +283,9 @@
                     <!-- Menu items go here -->
                     <div style="display: flex; cursor: pointer">
                       <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="openPopup2(item._id)" style="
+                      <div
+                        (click)="openPopup2(item._id,item.data[0].date,item.data[0].inputClass,item.data[0].inputHoraire,item.data[0].inputModule)"
+                        style="
                           margin-top: 7px;
                           margin-bottom: 10px;
                           margin-left: 5px;
@@ -318,11 +320,12 @@
             </tbody>
           </table>
           <div class="popup" *ngIf="showPopup1">
-            <div class="popup-content" style="height: 12rem;">
+            <div class="popup-content" style="height: 12rem;width: auto;">
               <div style="float: right" (click)="closePopup1()">
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
               </div>
               <h3>Motif rattrapage</h3>
+
               <div class="grid-item">
 
                 <div style="display: flex;">
@@ -341,37 +344,58 @@
 
           </div>
           <div class="popup" *ngIf="showPopup2">
-            <div class="popup-content" style="height: 14rem;">
+            <div class="popup-content" style="height: 14rem;width: auto;">
               <div style="float: right" (click)="closePopup2()">
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
               </div>
               <h3>Motif rattrapage</h3>
-              <div class="grid-item">
 
-                <div>
-                  <select [(ngModel)]="Salle">
-                    <option value=""> Selectioner salle </option>
-                    <option *ngFor="let salle of salles" [value]="salle.code"> {{salle.code}}</option>
-                  </select>
-                  <!-- <input type="text" placeholder="Salle" [(ngModel)]="Salle"> <br><br> -->
-                  <select [(ngModel)]="horaire">
-                    <option value=""> Selectioner un horaire </option>
-                    <option value="S1"> S1</option>
-                    <option value="S2"> S2</option>
-                    <option value="S3"> S3 </option>
-                    <option value="S4"> S4</option>
-                    <option value="S5"> S5</option>
-                  </select>
-                </div>
-
-
-              </div> <br>
               <div style="display: flex;">
 
-                <button type="submit" class="button" style="margin-left: 150px;" (click)="update_rattrapage()">
-                  <div class="inscrire">Accepter</div>
-                </button>
+                <div>
+                  <div class="grid-item">
+
+                    <div>
+                      <select [(ngModel)]="Salle">
+                        <option value=""> Selectioner salle </option>
+                        <option *ngFor="let salle of salles" [value]="salle.code"> {{salle.code}}</option>
+                      </select> <br>
+                      <!-- <input type="text" placeholder="Salle" [(ngModel)]="Salle"> <br><br> -->
+                      <select [(ngModel)]="horaire">
+                        <option value=""> Selectioner un horaire </option>
+                        <option value="S1"> S1</option>
+                        <option value="S2"> S2</option>
+                        <option value="S3"> S3 </option>
+                        <option value="S4"> S4</option>
+                        <option value="S5"> S5</option>
+                      </select>
+                    </div>
+
+
+                  </div> <br>
+                  <div style="display: flex;">
+
+                    <button type="submit" class="button" style="margin-left: 150px;" (click)="update_rattrapage()">
+                      <div class="inscrire">Accepter</div>
+                    </button>
+                  </div>
+
+                </div>
+                <div class="grid-item" style="margin: 5px; margin-left: 25px;">
+                  <b> Historique</b>
+                  <div *ngFor=" let rat of historiques.data">
+                    <div *ngIf="rat.inputClass">
+
+                      {{rat.inputClass}} - {{rat.inputModule}} -
+                      {{rat.inputHoraire}} -
+                      {{rat.date}}
+                    </div>
+
+                  </div>
+                </div>
               </div>
+
+
             </div>
 
           </div>
@@ -466,8 +490,8 @@
 
           </div>
         </div>
-
-        <app-notificaion-rh *ngIf="shownotiff"></app-notificaion-rh>
+        <!-- 
+        <app-notificaion-rh *ngIf="shownotiff"></app-notificaion-rh> -->
       </div>
     </div>
 

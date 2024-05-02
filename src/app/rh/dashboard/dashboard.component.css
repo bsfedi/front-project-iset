@@ -717,6 +717,37 @@ input[type="password"] {
   color: black;
 }
 
+
+.tjm_moyen1 {
+  margin: 5px;
+  padding: 10px;
+  margin-left: 15px;
+  width: 22.25rem;
+  background-color: rgb(174, 182, 226);
+  height: 6.6875rem;
+  flex-shrink: 0;
+  /* box-shadow: 10px 5px 5px rgb(127, 141, 216); */
+  border-radius: 0.8125rem;
+  font-size: 2rem;
+  color: rgb(9, 8, 91);
+  text-align: center;
+}
+
+.tjm_moyen2 {
+  margin: 5px;
+  padding: 10px;
+  margin-left: 15px;
+  width: 22.25rem;
+  background-color: rgb(212, 227, 212);
+  height: 6.6875rem;
+  font-size: 2rem;
+  flex-shrink: 0;
+  /* box-shadow: 10px 5px 5px rgb(127, 141, 216); */
+  border-radius: 0.8125rem;
+  text-align: center;
+  color: rgb(18, 84, 18);
+}
+
 #cercle {
   width: 10px;
   height: 10px;

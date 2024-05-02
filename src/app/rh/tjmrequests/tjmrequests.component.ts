@@ -111,23 +111,7 @@ export class tjmrequestsComponent {
     this.role = localStorage.getItem('role');
 
 
-    this.studentservice.get_salles().subscribe({
 
-
-      next: (res) => {
-        this.salles = res
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        this.tjmrequests = []
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
     this.studentservice.getdemandeallverification(this.user_id).subscribe({
 
 
@@ -329,7 +313,11 @@ export class tjmrequestsComponent {
     const data = {
       "status": "validated",
       "salle": this.Salle,
-      "horaire": this.horaire
+      "new_horaire": this.horaire,
+      "date": this.date,
+      "classe": this.classe,
+      "module": this.module,
+      "horaire": this.inputHoraire
     }
     this.studentservice.update_rattrapage(this.rattrapage_id, data).subscribe({
       next: (res) => {
@@ -408,9 +396,52 @@ export class tjmrequestsComponent {
     this.showPopup1 = false;
 
   }
-  openPopup2(rattrapage_id: any): void {
+  historiques: any
+  date: any
+  classe: any
+  inputHoraire: any
+  module: any
+  openPopup2(rattrapage_id: any, date: any, classe: any, inputHoraire: any, module: any): void {
     this.rattrapage_id = rattrapage_id
     this.showPopup2 = true;
+    this.date = date
+    this.classe = classe
+    this.inputHoraire = inputHoraire
+    this.module = module
+    this.studentservice.get_sallesinputHoraire(date, inputHoraire).subscribe({
+
+
+      next: (res) => {
+        this.salles = res
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.tjmrequests = []
+        console.error(e);
+        // Set loading to false in case of an error
+      }
+    });
+    this.studentservice.get_historique(date, classe).subscribe({
+
+
+      next: (res) => {
+
+        this.historiques = res
+        console.log(res);
+
+      },
+      error: (e) => {
+        // Handle errors
+
+        console.error(e);
+        // Set loading to false in case of an error
+      }
+    });
+
   }
   closePopup2(): void {
     this.showPopup2 = false;
