@@ -27,7 +27,8 @@ export class OrientationComponent {
       user_id: [''],
       choix1: [''],
       choix2: [''],
-      choix3: ['']
+      choix3: [''],
+      choix4: ['']
 
 
     });

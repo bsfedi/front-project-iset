@@ -320,7 +320,41 @@
                 <hr />
               </b>
             </div>
+            <div style="
+            color: #6e7787;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            margin-right: 30px;
+            line-height: 1.375rem; /* 157.143% *" (click)="showorientation()">
 
+              <div style="color: #6e7787;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+           
+            line-height: 1.375rem; /* 157.143% */" *ngIf="!orientation">
+                Orientation
+              </div>
+              <div style="
+            color: #171a1f;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.375rem; /* 157.143% */
+            margin-bottom: 0px;
+            
+          " *ngIf="orientation">
+                Orientation
+              </div>
+
+              <b *ngIf="orientation">
+                <hr />
+              </b>
+            </div>
           </div>
 
 
@@ -728,7 +762,77 @@
 
             </div>
           </div>
+          <div *ngIf="orientation">
+            <div *ngIf="data_orientation.status !='validated'"> Affecter l'etudiant <b> {{ personalInfo.first_name }}
+                {{ personalInfo.last_name }} </b> au parcours
 
+              <select id="fullName" (change)="affcterstudent($event)" placeholder="Métier" name="fullName" required
+                *ngIf="data_orientation.status !='validated'">
+
+                <option [value]="data_orientation.choix1">
+                  {{data_orientation.choix1}}
+                </option>
+                <option [value]="data_orientation.choix2">
+                  {{data_orientation.choix2}}
+                </option>
+                <option [value]="data_orientation.choix3">
+                  {{data_orientation.choix3}}
+                </option>
+                <option [value]="data_orientation.choix4" *ngIf="data_orientation.choix4">
+                  {{data_orientation.choix4}}
+                </option>
+              </select>
+
+            </div>
+            <div *ngIf="data_orientation.status ==='validated'">
+
+              l'etudiant <b> {{ personalInfo.first_name }}
+                {{ personalInfo.last_name }} </b> est affecté au parcours <b>{{data_orientation.resultat}} </b>
+
+            </div><br> <br>
+            <table>
+              <thead>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Choix </th>
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> parcours</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Choix 1
+                  </td>
+                  <td>
+                    {{data_orientation.choix1}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Choix 2
+                  </td>
+                  <td>
+                    {{data_orientation.choix2}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Choix 3
+                  </td>
+                  <td>
+                    {{data_orientation.choix3}}
+                  </td>
+                </tr>
+                <tr *ngIf="data_orientation.choix4">
+                  <td>
+                    Choix 4
+                  </td>
+                  <td>
+                    {{data_orientation.choix4}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <b></b> <br> <br>
+
+          </div>
 
         </div>
       </div>

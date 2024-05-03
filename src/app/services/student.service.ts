@@ -417,5 +417,14 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'validated_preregister');
   }
+  getorientation(user_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'orientation/' + user_id);
+  }
+  putorientation(user_id: any, parcours: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'orientation/' + user_id + '/' + parcours);
+  }
+
 
 }

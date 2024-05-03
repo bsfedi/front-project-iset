@@ -806,8 +806,8 @@ input[type="email"],
 input[type="tel"],
 input[type="password"],
 input[type="number"] {
-  width: 26.04313rem;
-  height: 3.61006rem;
+  width: 6.04313rem;
+  height: 2.61006rem;
   flex-shrink: 0;
 
   padding: 8px;

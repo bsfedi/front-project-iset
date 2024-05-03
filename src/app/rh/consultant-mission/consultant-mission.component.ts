@@ -101,6 +101,7 @@ export class ConsultantMissionComponent {
   user_email: any
   validated_mission: any
   student_id: any
+  data_orientation: any
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
   }
@@ -121,6 +122,11 @@ export class ConsultantMissionComponent {
           next: (res) => {
             this.sanctions = res
 
+          }
+        })
+        this.studentservice.getorientation(this.student_id).subscribe({
+          next: (res) => {
+            this.data_orientation = res
           }
         })
         this.studentservice.getuserbyid(this.student_id).subscribe({
@@ -382,6 +388,16 @@ export class ConsultantMissionComponent {
 
   }
 
+
+  affcterstudent(event: any) {
+    const selectedValue = event.target.value;
+    this.studentservice.putorientation(this.student_id, selectedValue).subscribe({
+      next: (res) => {
+
+
+      }
+    })
+  }
   getDisplayeddocs(): any[] {
 
 
@@ -628,6 +644,7 @@ export class ConsultantMissionComponent {
     this.show_mission = false
     this.show_cra = false
     this.show_historique = false
+    this.orientation = false
   }
 
   showhistorique() {
@@ -635,6 +652,7 @@ export class ConsultantMissionComponent {
     this.show_doc = false
     this.show_mission = false
     this.show_cra = false
+    this.orientation = false
   }
 
   showcras() {
@@ -642,6 +660,7 @@ export class ConsultantMissionComponent {
     this.show_mission = false
     this.show_cra = true
     this.show_historique = false
+    this.orientation = false
   }
 
   showmidssions() {
@@ -649,6 +668,15 @@ export class ConsultantMissionComponent {
     this.show_mission = true
     this.show_cra = false
     this.show_historique = false
+    this.orientation = false
+  }
+  orientation: any
+  showorientation() {
+    this.show_doc = false
+    this.show_mission = false
+    this.show_cra = false
+    this.show_historique = false
+    this.orientation = true
   }
   gotocra(_id: string) {
     this.router.navigate([clientName + '/cra-mission/' + _id])

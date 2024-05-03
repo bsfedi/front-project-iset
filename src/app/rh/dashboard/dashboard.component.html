@@ -20,11 +20,77 @@
           </div>
         </div>
       </div>
+      <div class="tjm_moyen3">
+        Choisissez une catégorie <br>
+        <select>
+          <option value=""> enseignant</option>
+          <option> Etudiant</option>
+          <option> Agent de scolarité</option>
+        </select>
 
+      </div>
       <div class="Tableau1 left-first">
+        <div class="tjm_moyen"> Les demandes par status <br>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
+            <div id="cercle"></div>
+            <div> Demande de congé</div>
+            <div style="margin-left: 100px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 23%</div>
 
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle1"></div>
+            <div>Attestation de travail</div>
+            <div style="margin-left: 90px;"> 15 </div>
+            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle2"></div>
+            <div> Demande de rattrapge</div>
+            <div style="margin-left: 80px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle3"></div>
+            <div> Fiche de paie</div>
+            <div style="margin-left: 148px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 21%</div>
+          </b>
+        </div>
+        <div class="tjm_moyen"> Les demandes par type <br>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
+            <div id="cercle"></div>
+            <div> Demande de congé</div>
+            <div style="margin-left: 100px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 23%</div>
 
-        <div class="tjm_moyen">
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle1"></div>
+            <div>Attestation de travail</div>
+            <div style="margin-left: 90px;"> 15 </div>
+            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle2"></div>
+            <div> Demande de rattrapge</div>
+            <div style="margin-left: 80px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle3"></div>
+            <div> Fiche de paie</div>
+            <div style="margin-left: 148px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 21%</div>
+          </b>
+        </div>
+        <!-- <div class="tjm_moyen">
           <div class="chaffaire">Demandes de presence</div>
           <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'enseignant'">
             <b>
@@ -85,7 +151,7 @@
             </b>
 
           </div>
-        </div>
+        </div> -->
       </div>
       <br />
       <div *ngIf="role == 'tuitionofficer'">
@@ -300,7 +366,7 @@
     <div>
       <div class="right-item" style="cursor: pointer;">
         <div style="display: flex">
-          <div class="profil1" (click)="gotoallnotification()" style="cursor: pointer;">
+          <!-- <div class="profil1" (click)="gotoallnotification()" style="cursor: pointer;">
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="31" viewBox="0 0 32 31" fill="none">
                 <path
@@ -332,7 +398,7 @@
               </div>
             </div>
 
-          </div>
+          </div> -->
           <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
             <img src="/assets/avatar-user.png" width="15%" height="10%" />
             <div class="nom-prenom">Prénom nom <br>

@@ -706,12 +706,13 @@ input[type="password"] {
 
 .tjm_moyen {
   margin: 5px;
+  margin-top: 10px;
   padding: 10px;
   margin-left: 15px;
-  width: 22.25rem;
+  width: 28.25rem;
   height: 16.6875rem;
   flex-shrink: 0;
-  box-shadow: 10px 5px 5px rgb(198, 187, 187);
+  box-shadow: 1px 1px 1px 1px rgb(198, 187, 187);
   border-radius: 0.8125rem;
 
   color: black;
@@ -722,7 +723,7 @@ input[type="password"] {
   margin: 5px;
   padding: 10px;
   margin-left: 15px;
-  width: 22.25rem;
+  width: 28.25rem;
   background-color: rgb(174, 182, 226);
   height: 6.6875rem;
   flex-shrink: 0;
@@ -737,7 +738,7 @@ input[type="password"] {
   margin: 5px;
   padding: 10px;
   margin-left: 15px;
-  width: 22.25rem;
+  width: 28.25rem;
   background-color: rgb(212, 227, 212);
   height: 6.6875rem;
   font-size: 2rem;
@@ -748,12 +749,72 @@ input[type="password"] {
   color: rgb(18, 84, 18);
 }
 
+select,
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="month"],
+input[type="time"],
+input[type="number"] {
+  width: 26.04313rem;
+  height: 2.61006rem;
+  flex-shrink: 0;
+
+  padding: 8px;
+  margin-top: 10px;
+
+  border-radius: 0.5rem;
+  border: 1px solid #1e1e1e;
+
+  background: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.tjm_moyen3 {
+  margin: 5px;
+  padding: 10px;
+  margin-left: 25px;
+  width: 59.425rem;
+  height: 6.6875rem;
+  flex-shrink: 0;
+  box-shadow: 1px 1px 1px 1px rgb(198, 187, 187);
+  border-radius: 0.8125rem;
+
+  color: black;
+}
+
+
 #cercle {
   width: 10px;
   height: 10px;
   border-radius: 20px;
   margin: 5px;
   background: green;
+}
+
+#cercle1 {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  background: rgb(103, 47, 194);
+}
+
+#cercle2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  background: rgb(192, 105, 156);
+}
+
+#cercle3 {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  margin: 5px;
+  background: rgb(53, 220, 223);
 }
 
 .pourcentage {

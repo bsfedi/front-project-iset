@@ -34,8 +34,8 @@
                         <input type="date" formControlName="date">
                     </div>
 
-                    <div *ngIf="myForm.get('type')?.value =='suiteabsence'">
-                        <div class="grid-item">
+                    <div *ngIf="myForm.get('type')?.value =='suiteabsence' ">
+                        <div class="grid-item" *ngIf=" ens.length>0">
                             <br> Date absence <br>
                             <select formControlName="date">
                                 <option *ngFor="let en of ens" [value]="en.date">{{en.date}}
@@ -44,9 +44,24 @@
 
 
                         </div>
+                        <div class="grid-item" *ngIf=" ens.length === 0">
+                            <b style="color: red;"> <br>Aucune date d'absance trouvée , veuillez renseigner une absence
+                            </b>
 
+                        </div>
                     </div>
-                    <div class="grid-item">
+                    <div class="grid-item" *ngIf="myForm.get('type')?.value =='anticipé'">
+                        <br> Nombre de séance <br><select formControlName="nb_senace">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="grid-item" *ngIf="myForm.get('type')?.value =='suiteabsence' && ens.length>0">
                         <br> Nombre de séance <br><select formControlName="nb_senace">
                             <option value="1">1</option>
                             <option value="2">2</option>
