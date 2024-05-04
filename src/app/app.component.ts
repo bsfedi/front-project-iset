@@ -2,6 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Socket } from 'ngx-socket-io';
+
 const clientName = `${environment.default}`;
 @Component({
   selector: 'app-root',
@@ -13,10 +15,15 @@ export class AppComponent {
 
   private logoutTimer: any;
   private readonly LOGOUT_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-
-  constructor(private datePipe: DatePipe, private router: Router) {
+  notification: string | undefined;
+  constructor(private datePipe: DatePipe, private router: Router, private socket: Socket) {
     this.startLogoutTimer();
+    this.socket.on('notification', (data: any) => {
+      this.notification = data.message;
+    });
   }
+
+
 
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') || '';

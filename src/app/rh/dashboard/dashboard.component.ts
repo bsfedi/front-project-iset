@@ -191,6 +191,8 @@ export class DashboardComponent {
   all_demande_verification_pending: any
   all_demande_verification: any
   statsres: any
+
+  fullname: any
   ngOnInit(): void {
     this.studentservice.getpendingregister().subscribe({
       next: (res) => {
@@ -207,6 +209,26 @@ export class DashboardComponent {
 
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
+
     if (this.role == "enseignant") {
       this.studentservice.stats_enseignant(this.ens_id).subscribe({
         next: (res) => {

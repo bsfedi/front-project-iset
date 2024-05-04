@@ -15,12 +15,12 @@
         </div>
         <div>
           <div class="tjm_moyen2">
-            Heure actuelle <br>
+            Heure connexion <br>
             26/04/2024 11:35
           </div>
         </div>
       </div>
-      <div class="tjm_moyen3">
+      <div class="tjm_moyen3" *ngIf="role == 'tuitionofficer'">
         Choisissez une catégorie <br>
         <select>
           <option value=""> enseignant</option>
@@ -29,7 +29,7 @@
         </select>
 
       </div>
-      <div class="Tableau1 left-first">
+      <div class="Tableau1 left-first" *ngIf="role == 'student'">
         <div class="tjm_moyen"> Les demandes par status <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
@@ -63,7 +63,7 @@
         <div class="tjm_moyen"> Les demandes par type <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
-            <div> Demande de congé</div>
+            <div>en attente</div>
             <div style="margin-left: 100px;"> 3 </div>
             <div style="margin-left: 100px;color: #858380;"> 23%</div>
 
@@ -71,24 +71,19 @@
           <hr>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle1"></div>
-            <div>Attestation de travail</div>
+            <div>en cours</div>
             <div style="margin-left: 90px;"> 15 </div>
             <div style="margin-left: 100px;color: #858380;"> 43%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
-            <div> Demande de rattrapge</div>
+            <div> validée</div>
             <div style="margin-left: 80px;"> 3 </div>
             <div style="margin-left: 100px;color: #858380;"> 13%</div>
           </b>
           <hr>
-          <b style=" display: flex; margin: 10px;">
-            <div id="cercle3"></div>
-            <div> Fiche de paie</div>
-            <div style="margin-left: 148px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 21%</div>
-          </b>
+
         </div>
         <!-- <div class="tjm_moyen">
           <div class="chaffaire">Demandes de presence</div>
@@ -153,6 +148,125 @@
           </div>
         </div> -->
       </div>
+
+
+      <div class="Tableau1 left-first" *ngIf="role == 'enseignant'">
+        <div class="tjm_moyen"> Les demandes par status <br>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
+            <div id="cercle"></div>
+            <div> Demande de congé</div>
+            <div style="margin-left: 100px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle1"></div>
+            <div>Attestation de travail</div>
+            <div style="margin-left: 90px;"> 15 </div>
+            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle2"></div>
+            <div> Demande de rattrapge</div>
+            <div style="margin-left: 80px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle3"></div>
+            <div> Fiche de paie</div>
+            <div style="margin-left: 148px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 21%</div>
+          </b>
+        </div>
+        <div class="tjm_moyen"> Les demandes par type <br>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
+            <div id="cercle"></div>
+            <div>en attente</div>
+            <div style="margin-left: 100px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle1"></div>
+            <div>en cours</div>
+            <div style="margin-left: 90px;"> 15 </div>
+            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle2"></div>
+            <div> validée</div>
+            <div style="margin-left: 80px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+          </b>
+          <hr>
+
+        </div>
+      </div>
+
+
+      <div class="Tableau1 left-first" *ngIf="role == 'tuitionofficer'">
+        <div class="tjm_moyen"> Les demandes par status <br>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
+            <div id="cercle"></div>
+            <div> Demande de congé</div>
+            <div style="margin-left: 100px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle1"></div>
+            <div>Attestation de travail</div>
+            <div style="margin-left: 90px;"> 15 </div>
+            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle2"></div>
+            <div> Demande de rattrapge</div>
+            <div style="margin-left: 80px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle3"></div>
+            <div> Fiche de paie</div>
+            <div style="margin-left: 148px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 21%</div>
+          </b>
+        </div>
+        <div class="tjm_moyen"> Les demandes par type <br>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
+            <div id="cercle"></div>
+            <div>en attente</div>
+            <div style="margin-left: 100px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle1"></div>
+            <div>en cours</div>
+            <div style="margin-left: 90px;"> 15 </div>
+            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle2"></div>
+            <div> validée</div>
+            <div style="margin-left: 80px;"> 3 </div>
+            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+          </b>
+          <hr>
+
+        </div>
+      </div>
+
       <br />
       <div *ngIf="role == 'tuitionofficer'">
         <h2> Nouvelles pré-inscription </h2>
@@ -401,7 +515,7 @@
           </div> -->
           <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
             <img src="/assets/avatar-user.png" width="15%" height="10%" />
-            <div class="nom-prenom">Prénom nom <br>
+            <div class="nom-prenom">{{fullname}}<br>
 
             </div>
 

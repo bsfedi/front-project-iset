@@ -261,7 +261,7 @@ td {
 
 
 .right-item {
-
+    margin-left: 40%;
     float: right;
     display: row;
 
@@ -609,4 +609,74 @@ input[type="search"] {
 
 #checkboxes label:hover {
     background-color: #1e90ff;
+}
+
+
+.right-item {
+    float: right;
+    display: row;
+    position: relative;
+}
+
+.profil {
+    width: auto;
+    height: 3.125rem;
+    margin-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    border: 1px solid rgb(247, 227, 227);
+
+    background: #fef9f1;
+    display: flex;
+    float: right;
+
+}
+
+.profil1 svg {
+    width: 32px;
+    height: 31px;
+}
+
+.profil1 {
+    width: 13rem;
+    height: 3.125rem;
+    margin-left: 10px;
+    border: 1px solid rgb(247, 227, 227);
+    border-radius: 15px;
+    background: #fef9f1;
+    display: flex;
+    float: right;
+}
+
+svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    padding: 10px;
+    padding-top: 10px;
+}
+
+.profil1 img {
+    border-radius: 100%;
+    width: 2.625rem;
+    height: 2.175rem;
+    margin-left: 15px;
+    margin-top: 8px;
+}
+
+
+.profil img {
+    border-radius: 100%;
+    width: 2.625rem;
+    height: 2.175rem;
+    margin-left: 15px;
+    margin-top: 8px;
+}
+
+.profil img {
+    border-radius: 100%;
+    width: 2.625rem;
+    height: 2.175rem;
+    margin-left: 15px;
+    margin-top: 8px;
 }

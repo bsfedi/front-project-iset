@@ -48,11 +48,34 @@ export class OrientationComponent {
   user_id: any
   register_id: any
   res: any
+  role: any
   departement: any
+  fullname: any
   ngOnInit(): void {
     this.enseignant_id = localStorage.getItem('user_id')
     this.user_id = localStorage.getItem('user_id')
     this.register_id = localStorage.getItem('register_id')
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentsrvice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentsrvice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
+
     this.studentsrvice.getinscrption(this.register_id).subscribe({
       next: (res) => {
         // Handle the response from the server

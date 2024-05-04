@@ -15,6 +15,7 @@ import { WebSocketService } from './services/web-socket.service';
 import { environment } from 'src/environments/environment';
 import { ProfilComponent } from './layout/profil/profil.component';
 import { EditProfilComponent } from './features/user/edit-profil/edit-profil.component';
+import { GestionAbsencesComponent } from './rh/gestion-absences/gestion-absences.component';
 const baseUrl = `${environment.baseUrl}`;
 
 const config: SocketIoConfig = { url: baseUrl, options: {} };
@@ -40,6 +41,6 @@ const config: SocketIoConfig = { url: baseUrl, options: {} };
 
   ],
   providers: [WebSocketService, DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, GestionAbsencesComponent]
 })
 export class AppModule { }

@@ -408,6 +408,8 @@ border: 2px solid black;'>
   departement: any
   changewidth: any
   classe: any
+  role: any;
+  fullname: any
   ngOnInit(): void {
 
     if (this.myForm2.value.type == 'stage PFE') {
@@ -433,6 +435,26 @@ border: 2px solid black;'>
         console.error(e);
       }
     });
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
     this.studentservice.get_stages(this.register_id).subscribe({
       next: (res) => {
         // Handle the response from the server

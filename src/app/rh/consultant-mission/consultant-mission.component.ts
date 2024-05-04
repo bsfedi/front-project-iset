@@ -105,7 +105,29 @@ export class ConsultantMissionComponent {
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
   }
+  role: any
+  fullname: any
   ngOnInit(): void {
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
     const user_id = localStorage.getItem('user_id');
     this.roleofcurrent_user = localStorage.getItem('role');
     this.route.params.subscribe((params) => {

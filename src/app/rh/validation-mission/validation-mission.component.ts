@@ -42,7 +42,29 @@ export class ValidationMissionComponent {
   constructor(private inscriptionservice: InscriptionService, private consultantservice: StudentService, private userservice: UserService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
     // Ensure that the items array is correctly populated here if needed.
   }
+  role: any
+  fullname: any
   ngOnInit(): void {
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.consultantservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.consultantservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
     this.route.params.subscribe((params) => {
       this.contract_id = params['id'];
       this.mission_id = params['id_mission']

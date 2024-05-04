@@ -130,7 +130,29 @@ export class ValidationComponent implements OnInit {
   }
   familyinfo: any
   docs: any
+  role: any
+  fullname: any
   ngOnInit(): void {
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.inscriptionservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.inscriptionservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
     this.new_notif = localStorage.getItem('new_notif');
     this.consultantService.getlastnotificationsrh().subscribe({
       next: (res1) => {

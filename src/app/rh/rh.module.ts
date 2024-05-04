@@ -30,6 +30,7 @@ import { GererDepartementComponent } from './gerer-departement/gerer-departement
 import { GererSallesComponent } from './gerer-salles/gerer-salles.component';
 import { GestionStagesComponent } from './gestion-stages/gestion-stages.component';
 import { DetailsStageComponent } from './details-stage/details-stage.component';
+import { GestionAbsencesComponent } from './gestion-absences/gestion-absences.component';
 
 export const routes: Routes = [
   {
@@ -96,6 +97,12 @@ export const routes: Routes = [
     component: DemandeRattrapageComponent
 
   },
+  {
+    path: 'gestionabsences',
+    component: GestionAbsencesComponent
+
+  },
+
   {
     path: 'salles-rattrapge',
     component: GererSallesComponent
@@ -172,6 +179,7 @@ export const routes: Routes = [
     GererSallesComponent,
     GestionStagesComponent,
     DetailsStageComponent,
+    GestionAbsencesComponent,
   ],
   imports: [
     CommonModule,

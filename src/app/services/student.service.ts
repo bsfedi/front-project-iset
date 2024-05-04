@@ -427,4 +427,44 @@ export class StudentService {
   }
 
 
+  addabsences(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'orientation', data);
+  }
+  get_students_module(module_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'students_module/' + module_id);
+  }
+
+
+  renseigner_absence(user_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'renseigner_absence/' + user_id, data);
+  }
+
+
+
+  get_modules_by_enseignant(enseignant_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_modules_by_enseignant/' + enseignant_id);
+  }
+
+  get_classe_by_module(module_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_classe_by_module/' + module_id);
+  }
+
+
+  get_classe_bymodule(module_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_classe_bymodule/' + module_id);
+  }
+  get_absences_by_classe(classe_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_absences_by_classe/' + classe_id);
+  }
+
+
+
+
 }

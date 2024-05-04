@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
+
 @Component({
-  selector: 'app-gerer-salles',
-  templateUrl: './gerer-salles.component.html',
-  styleUrls: ['./gerer-salles.component.css']
+  selector: 'app-gestion-absences',
+  templateUrl: './gestion-absences.component.html',
+  styleUrls: ['./gestion-absences.component.css']
 })
-export class GererSallesComponent {
-  validated_mission: any
+export class GestionAbsencesComponent {
+  validated_mission: [] = []
   user_id: any
   pending_missions: any
   myForm2: FormGroup;
@@ -20,10 +21,10 @@ export class GererSallesComponent {
       affectation: ['']
     });
   }
-
-
-
+  cellValue: string = '';
+  modules: any
   role: any
+
   fullname: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
@@ -47,7 +48,55 @@ export class GererSallesComponent {
       });
     }
     this.user_id = localStorage.getItem('user_id')
-    this.studentservice.validated_rattrapage().subscribe({
+    this.role = localStorage.getItem('role')
+    this.studentservice.get_modules_by_enseignant(this.user_id).subscribe({
+      next: (res) => {
+        this.modulesens = res
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.validated_mission = [];
+        console.error(e);
+
+        // Set loading to false in case of an error
+      },
+    });
+    this.studentservice.get_modules().subscribe({
+
+
+      next: (res) => {
+        this.modules = res
+      },
+      error: (e) => {
+        // Handle errors
+        this.modules = []
+        console.error(e);
+        // Set loading to false in case of an error
+      }
+    });
+
+
+  }
+  showPopup1: any
+
+  openPopup1(): void {
+
+    this.showPopup1 = true;
+  }
+  closePopup1(): void {
+    this.showPopup1 = false;
+
+  }
+  modulesens: any
+
+  getabsence(event: any) {
+    const id = event.target.value;
+
+    this.studentservice.get_students_module(id).subscribe({
       next: (res) => {
         this.validated_mission = res
         console.log(this.validated_mission);
@@ -63,9 +112,96 @@ export class GererSallesComponent {
         // Set loading to false in case of an error
       },
     });
-    this.studentservice.get_salles().subscribe({
+  }
+  show_classe: any
+  classes: any
+  getclasse_bymodule(event: any) {
+    {
+      const id = event.target.value;
+
+      this.studentservice.get_classe_by_module(id).subscribe({
+        next: (res) => {
+          this.classes = res
+
+
+          this.show_classe = true
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.classes = [];
+          console.error(e);
+
+          // Set loading to false in case of an error
+        },
+      });
+    }
+
+  }
+  show_absences: any
+  absences: any
+  get_absences_by_classe(event: any) {
+    {
+      const id = event.target.value;
+
+      this.studentservice.get_absences_by_classe(id).subscribe({
+        next: (res) => {
+          this.absences = res
+
+
+          this.show_absences = true
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.absences = [];
+          console.error(e);
+
+          // Set loading to false in case of an error
+        },
+      });
+    }
+
+  }
+
+  updateAbsence(user_id: any, fieldName: string, newValue: any) {
+    this.cellValue = newValue.target.innerText || '';
+    const data = { [fieldName]: this.cellValue };
+    this.renseigner_absence(user_id, data);
+  }
+
+  renseigner_absence(user_id: any, data: any) {
+    {
+
+
+      this.studentservice.renseigner_absence(user_id, data).subscribe({
+        next: (res) => {
+          this.absences = res
+
+
+          this.show_absences = true
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.absences = [];
+          console.error(e);
+
+          // Set loading to false in case of an error
+        },
+      });
+    }
+
+  }
+
+
+  getmodule(event: any) {
+    const id = event.target.value;
+
+    this.studentservice.get_modules_by_enseignant(id).subscribe({
       next: (res) => {
-        this.pending_missions = res
+        this.validated_mission = [];
+        this.modulesens = res
         console.log(this.validated_mission);
 
 
@@ -79,19 +215,7 @@ export class GererSallesComponent {
         // Set loading to false in case of an error
       },
     });
-
   }
-  showPopup1: any
-
-  openPopup1(): void {
-
-    this.showPopup1 = true;
-  }
-  closePopup1(): void {
-    this.showPopup1 = false;
-
-  }
-
   salle_by_id: any
   module_id: any
   rattrapge1: any
@@ -341,12 +465,12 @@ export class GererSallesComponent {
   getDisplayeddocspending(): any[] {
 
 
-    this.totalPages = Math.ceil(this.pending_missions.length / this.pageSizepending);
+    this.totalPages = Math.ceil(this.validated_mission.length / this.pageSizepending);
     const startIndex = (this.currentPagepending - 1) * this.pageSizepending;
-    const endIndex = Math.min(startIndex + this.pageSizepending, this.pending_missions.length);
+    const endIndex = Math.min(startIndex + this.pageSizepending, this.validated_mission.length);
 
 
-    return this.pending_missions.slice(startIndex, endIndex);
+    return this.validated_mission.slice(startIndex, endIndex);
 
 
 

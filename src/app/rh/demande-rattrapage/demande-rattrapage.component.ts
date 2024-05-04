@@ -101,7 +101,29 @@ export class DemandeRattrapageComponent {
 
   }
   enseignant_id: any
+  role: any
+  fullname: any
   ngOnInit(): void {
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
     this.enseignant_id = localStorage.getItem('user_id')
     this.studentservice.get_absence_by_enseignant_id(this.enseignant_id)
       .subscribe({

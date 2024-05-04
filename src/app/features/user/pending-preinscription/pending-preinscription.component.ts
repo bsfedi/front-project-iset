@@ -42,7 +42,7 @@ export class PendingPreinscriptionComponent {
         next: (res) => {
           // Handle the response from the server
           this.res = res.preregister
-          console.log(this.res.preregister);
+
 
 
           if (this.res.status == 'VALIDATED') {
