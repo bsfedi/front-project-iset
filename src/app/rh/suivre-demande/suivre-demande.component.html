@@ -63,7 +63,35 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {{ item.data[0].status }}
+                                            <div *ngIf="item.data[0].status ==='validated'" style="    display: flex;
+
+                                            height: 2rem;
+                                            padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                            justify-content: center;
+                                            align-items: center;
+                                            border-radius: 0.75rem;
+                                            background: #ccdfb7;
+                                            color: white ;
+                                            margin: 5px;
+                                            font-size: 14px;">
+                                                Validée
+
+                                            </div>
+                                            <div *ngIf="item.data[0].status ==='notvalidated'" style="    display: flex;
+
+                                            height: 2rem;
+                                            padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                            justify-content: center;
+                                            align-items: center;
+                                            border-radius: 0.75rem;
+                                            background: #f3c0c0;
+                                            color: rgb(101, 0, 0);
+                                            margin: 5px;
+                                            font-size: 14px;">
+                                                Non Validée
+
+                                            </div>
+
                                         </td>
 
                                         <td style="cursor: pointer" class="dropdown">

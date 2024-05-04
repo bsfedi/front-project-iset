@@ -576,7 +576,7 @@ export class ConsultantMissionComponent {
     this.showPopup1 = true;
   }
   gotomissions(_id: string) {
-    this.router.navigate([clientName + '/missions/' + _id])
+    this.router.navigate([clientName + '/students/' + _id])
   }
   openPopup3(): void {
     this.showPopup3 = true;
@@ -874,7 +874,7 @@ export class ConsultantMissionComponent {
   onFormSubmit() {
 
     Swal.fire({
-      title: 'Confirmer le virement',
+      title: 'Confirmer l"action',
       html: `
         <div>
           <div style="font-size:1.2rem;">Êtes-vous sûr de vouloir effectuer cet action ?</div> 
@@ -895,7 +895,7 @@ export class ConsultantMissionComponent {
     }).then((result) => {
       if (result.isConfirmed) {
 
-
+        this.showPopup1 = false
         this.myForm.value.user_id = this.student_id
         this.studentservice.new_sancttion(this.foremData.value, this.student_id).subscribe({
           next: (res) => {

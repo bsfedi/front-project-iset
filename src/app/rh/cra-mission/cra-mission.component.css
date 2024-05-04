@@ -12,9 +12,11 @@
   border-radius: 0.9375rem;
   border: 1px solid rgba(30, 30, 30, 0.92);
 }
+
 .wrapper {
   font-family: "Poppins", sans-serif !important;
 }
+
 .month-label {
   text-align: center;
   padding: 20px;
@@ -58,9 +60,11 @@
 .day.today {
   background-color: #def;
 }
+
 f
-  /* Clear day borders on the right for the last column */
-  .day:nth-child(7n) {
+
+/* Clear day borders on the right for the last column */
+.day:nth-child(7n) {
   border-right: none;
 }
 
@@ -71,7 +75,8 @@ f
 
 .day.selected {
   background: #c9e2c4;
-  color: white; /* Optional: Change text color for better visibility */
+  color: white;
+  /* Optional: Change text color for better visibility */
   cursor: pointer;
 }
 
@@ -82,6 +87,7 @@ f
 .button1 {
   margin-top: 55px;
 }
+
 button {
   color: white;
   display: flex;
@@ -91,7 +97,8 @@ button {
   align-items: center;
   gap: 0.75rem;
   border-radius: 0.625rem;
-  background: #1e1e1e;
+  background: rgb(0, 17, 255);
+  color: #FFF;
   margin-top: 2px;
   margin: 10px;
 }
@@ -101,10 +108,14 @@ button {
   color: #bebcbc;
   padding-top: 11px;
 }
+
 .selected-day {
-  background-color: #00ff00; /* Green background color */
-  color: #ffffff; /* White text color on selected days */
+  background-color: #00ff00;
+  /* Green background color */
+  color: #ffffff;
+  /* White text color on selected days */
 }
+
 input[type="search"] {
   border: none;
   width: 100%;
@@ -163,6 +174,7 @@ svg {
 hr {
   width: 150px;
 }
+
 .signature {
   width: 20.875rem;
   height: 9.5rem;
@@ -208,12 +220,14 @@ input[type="text"] {
   height: 2.5625rem;
   flex-shrink: 0;
 }
+
 .time {
   width: 2.4625rem;
   border-radius: 0.5rem;
   border: 1px solid #1e1e1e;
   height: 2.375rem;
 }
+
 .days-mission {
   margin: 10px;
 }

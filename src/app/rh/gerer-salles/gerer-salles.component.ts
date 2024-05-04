@@ -256,7 +256,7 @@ export class GererSallesComponent {
 
     this.studentservice.add_salle(this.myForm2.value).subscribe({
       next: (res) => {
-
+        this.showPopup1 = false
         Swal.fire({
 
           background: '#fefcf1',

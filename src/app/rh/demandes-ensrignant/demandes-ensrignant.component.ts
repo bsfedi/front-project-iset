@@ -98,6 +98,7 @@ export class DemandesEnsrignantComponent {
     this.studentservice.enseignant_demande(this.myForm2.value)
       .subscribe({
         next: (res) => {
+          this.showPopup = false
           Swal.fire({
 
             background: '#fefcf1',
@@ -136,6 +137,7 @@ export class DemandesEnsrignantComponent {
     this.studentservice.agent_demande(this.myForm3.value)
       .subscribe({
         next: (res) => {
+          this.showPopup = false
           Swal.fire({
 
             background: '#fefcf1',

@@ -432,7 +432,7 @@ export class ValidationComponent implements OnInit {
 
   // }
   gotoconsultantprofil() {
-    this.router.navigate([clientName + '/missions/' + this.consultant_id])
+    this.router.navigate([clientName + '/students/' + this.consultant_id])
 
   }
   gotoallnotification() {

@@ -513,7 +513,7 @@ export class allStudentsComponent {
     this.router.navigate([clientName + '/validation/' + _id])
   }
   gotomissions(_id: string) {
-    this.router.navigate([clientName + '/missions/' + _id])
+    this.router.navigate([clientName + '/students/' + _id])
   }
 
   gotocdashboad() {

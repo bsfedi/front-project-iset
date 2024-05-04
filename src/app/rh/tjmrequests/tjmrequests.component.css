@@ -95,8 +95,8 @@
   justify-content: center;
   align-items: center;
   border-radius: 0.625rem;
-  border: 2px solid #eae3d5;
-  background: #fff;
+  border: 2px solid #a1d5eb;
+  background: #a1d5eb;
   margin: 3.25px;
   padding: 3.25px 8px 3.25px 8px;
 }
@@ -122,7 +122,7 @@
   margin-left: 37px;
   border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
   width: 170px;
-  background: #eae3d5;
+  background: #a1d5eb;
 }
 
 .missionselectd {
@@ -142,7 +142,7 @@
   border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
   border: 2px solid #eae3d5;
 
-  background: #eae3d5;
+  background: #d5e0ea;
   margin: 3.25px;
   padding-left: 3px;
   width: 625.5px;
@@ -319,7 +319,8 @@ button {
   align-items: center;
   gap: 0.75rem;
   border-radius: 0.625rem;
-  background: #1e1e1e;
+  background: rgb(0, 17, 255);
+  color: #FFF;
   margin-top: 2px;
   margin: 10px;
 }

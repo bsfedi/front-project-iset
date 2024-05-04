@@ -716,10 +716,11 @@ export class MissionsComponent {
   pageSizepending = 5; // Number of items per page
   currentPagepending = 1; // Current page
   totalPagespending: any = 1;
+  totalPagestotalPages: any
   getDisplayeddocspending(): any[] {
 
 
-    this.totalPages = Math.ceil(this.pending_missions.length / this.pageSizepending);
+    this.totalPagespending = Math.ceil(this.pending_missions.length / this.pageSizepending);
     const startIndex = (this.currentPagepending - 1) * this.pageSizepending;
     const endIndex = Math.min(startIndex + this.pageSizepending, this.pending_missions.length);
 

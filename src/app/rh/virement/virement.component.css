@@ -59,6 +59,7 @@ input[type="search"] {
 
   font-size: 0.8rem;
 }
+
 .vertical-line {
   height: 58px;
   /* Adjust the height as needed */
@@ -97,7 +98,8 @@ button {
   align-items: center;
   gap: 0.75rem;
   border-radius: 0.625rem;
-  background: #1e1e1e;
+  background: rgb(0, 17, 255);
+  color: #FFF;
   margin-top: 2px;
   margin: 10px;
 }
@@ -110,6 +112,7 @@ button {
   background: #f7f5ef;
   overflow: hidden;
 }
+
 .transaction-header {
   background: #f7f5ef;
   padding: 10px;
@@ -119,7 +122,8 @@ button {
   justify-content: space-between;
   align-items: center;
 }
-.transaction-header > select {
+
+.transaction-header>select {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;

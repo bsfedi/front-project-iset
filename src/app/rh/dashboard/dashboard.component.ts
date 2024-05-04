@@ -309,7 +309,7 @@ export class DashboardComponent {
     this.router.navigate([clientName + '/validation/' + _id])
   }
   gotomissions(_id: string) {
-    this.router.navigate([clientName + '/missions/' + _id])
+    this.router.navigate([clientName + '/students/' + _id])
   }
   resetFilter() {
     this.selectedItem = 'reset';

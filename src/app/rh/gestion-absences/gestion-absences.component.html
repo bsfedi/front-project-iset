@@ -247,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="pagination">
+            <!-- <div class="pagination">
                 <div (click)="previousPagepending()" style="cursor: pointer;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chevron-double-left" viewBox="0 0 16 16">
@@ -270,7 +270,7 @@
                     </svg>
                 </div>
 
-            </div>
+            </div> -->
             <br /><br />
 
 
@@ -315,7 +315,7 @@
         <div class="second-container" *ngIf="role == 'enseignant'">
             <div style="display: flex">
 
-                <div class="title">Mes demandes</div>
+                <div class="title">Absences</div>
 
             </div>
             <p></p>
@@ -332,7 +332,7 @@
             <br />
 
             <div class="custom-container">
-                Absence
+
             </div>
             <br />
             <select (change)="getclasse_bymodule($event)">

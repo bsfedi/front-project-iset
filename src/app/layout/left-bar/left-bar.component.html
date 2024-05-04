@@ -1,6 +1,6 @@
 <div class="item first-item">
   <div class="menu-toggle" (click)="azeaze()">☰</div>
-  <div class="logo"><img src="/assets/Logo.svg" /></div>
+  <div class="logo"><img src="/assets/logo.png" width="120%" /></div>
 
   <!-- <div class="custom-item"
     [ngClass]="{ 'board-item': isActiveRoute('dashboard')  || isActiveRoute('student/requests') }">
@@ -343,7 +343,7 @@
   </div>
   <div class="custom-item"
     *ngIf=" role ==='admin' || role ==='directeurdepartement' ||  role ==='directeuretudes' || res.privilege ==='directeurdepartement' || res.privilege ==='directeuretudes'"
-    (click)="gotosallesrattrapge()">
+    (click)="gotosallesrattrapge()" [ngClass]="{ 'board-item': isActiveRoute('salles-rattrapge')  }">
     <div class="board-svg">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none">
         <path

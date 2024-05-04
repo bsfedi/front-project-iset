@@ -2,7 +2,7 @@
   width: 8.88481rem;
   height: 1.25rem;
   flex-shrink: 0;
-  padding: 50px;
+  padding: 50px 70px 50px 30px;
 }
 
 .title {
@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
-
+  padding: 50px;
   height: 100%;
   padding: 0;
   font-family: "Poppins", sans-serif !important;
@@ -52,6 +52,7 @@
 
 /* Default styles for larger screens */
 .first-item {
+  padding-right: 80px;
   position: fixed;
   background: #0f1d70;
   align-items: center;

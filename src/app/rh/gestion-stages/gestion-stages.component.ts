@@ -662,7 +662,7 @@ export class GestionStagesComponent {
       next: (res) => {
         // Handle the response from the server
         this.stage_by_id = res
-
+        this.showPopup = false
 
       },
       error: (e) => {

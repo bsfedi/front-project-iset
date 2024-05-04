@@ -66,7 +66,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'missions/:id',
+    path: 'students/:id',
     component: ConsultantMissionComponent,
   },
   {

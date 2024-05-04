@@ -50,7 +50,7 @@
                     <thead>
                         <tr>
                             <th style="border-radius: 0.6875rem 0rem 0rem 0rem"></th>
-                            <th> Statut</th>
+
                             <th> Etudiant </th>
                             <th>entreprise</th>
                             <th> encadrantinterne</th>
@@ -75,24 +75,7 @@
                                 <input type="checkbox" (change)="onCheckboxChange($event, item._id)">
                             </td>
 
-                            <td style="max-width: 120px;">
-                                <div style="
-                  display: flex;
-                  width: auto;
-                  height: 1.5rem;
-                  padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
-                  justify-content: center;
-                  align-items: center;
-  
-                  border-radius: 0.75rem;
-                  background: #eefdf3;
-                  margin: 5px;
-                  color: #187111;
-                  ">
-                                    prete
-                                </div>
 
-                            </td>
 
                             <td>
                                 {{item.user_id}}
@@ -407,7 +390,7 @@
 
     </div>
     <div class="popup" *ngIf="showPopup">
-        <div class="popup-content">
+        <div class="popup-content" style="height: auto;">
             <div style="float: right" (click)="closePopup()">
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
             </div>

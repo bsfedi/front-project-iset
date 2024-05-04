@@ -195,7 +195,8 @@ button {
   align-items: center;
   gap: 0.75rem;
   border-radius: 0.625rem;
-  background: #1e1e1e;
+  background: rgb(0, 17, 255);
+  color: #FFF;
   margin-top: 2px;
   margin: 10px;
 }

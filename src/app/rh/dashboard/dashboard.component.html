@@ -61,7 +61,7 @@
             <div style="width: 230px;">en cours</div>
             <!-- <div style="margin-left: 90px;"> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }}  </div> -->
             <div style="color: #858380;">
-              {{statsres.presence_status_percentages.validated_by_departement }}%</div>
+              {{statsres.presence_status_percentages.validated_by_departement || 0}}%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">

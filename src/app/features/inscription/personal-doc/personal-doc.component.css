@@ -87,7 +87,8 @@
 
 .button {
   border-radius: 0.875rem;
-  background: #1e1e1e;
+  background: rgb(0, 17, 255);
+  color: #FFF;
   width: 7.5rem;
   height: 3.0625rem;
   flex-shrink: 0;

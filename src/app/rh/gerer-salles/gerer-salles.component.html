@@ -312,7 +312,24 @@
                                 </div>
                             </td>
                             <td>
-                                {{ item.status }}
+                                <div *ngIf="item.status == 'validated'" style="
+                                display: flex;
+                                width: auto;
+                                height: 1.5rem;
+                                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                justify-content: center;
+                                align-items: center;
+                            
+                                border-radius: 0.75rem;
+                                background: #9ed9a0;
+                                margin: 5px;
+                                color: white;
+                            "> validée</div>
+                                <div *ngIf="item.status != 'validated'" class="waiting"> En attente</div>
+                                <!-- <div *ngIf="item.status != 'pending' || item.status != 'validated' " class="nonvalidée">
+                                    Invalidée
+                                </div> -->
+
                             </td>
                             <td>
                                 <div *ngIf="item.excuted">

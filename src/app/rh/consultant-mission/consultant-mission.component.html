@@ -388,8 +388,8 @@
                           <option *ngFor="let type of virementTypes" [value]="type">
                             {{ type }}
                           </option>
-                        </select>
-                        <input type="date" formControlName="date">
+                        </select> <br>
+                        <input type="date" formControlName="date"> <br>
                         <input type="text" id="montant" placeholder="motif" name="montant" required
                           formControlName="motif" />
                       </div>
@@ -539,7 +539,34 @@
 
                   <tr *ngFor="let item of getDisplayeddocs()">
 
-                    <td> {{ item.status }}</td>
+                    <td>
+                      <div *ngIf="item.status == 'pending'" style="
+                      display: flex;
+                      width: auto;
+                      height: 1.5rem;
+                      padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                      justify-content: center;
+                      align-items: center;
+      
+                      border-radius: 0.75rem;
+                      background: #edd8b1;
+                      margin: 5px;
+                      color: #dca42b;
+                      ">En attente</div>
+                      <div *ngIf="item.status == 'prete'" style="
+                      display: flex;
+                      width: auto;
+                      height: 1.5rem;
+                      padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                      justify-content: center;
+                      align-items: center;
+      
+                      border-radius: 0.75rem;
+                      background: #eefdf3;
+                      margin: 5px;
+                      color: #187111;
+                      ">Prete</div>
+                    </td>
 
                     <td>
                       {{ item.nb_arab }}
@@ -607,7 +634,8 @@
 
                   <tr *ngFor="let item of getDisplayeddocs()">
 
-                    <td> {{ item.status }}</td>
+                    <td>
+                      {{ item.status }}</td>
 
                     <td>
                       {{ item.nb_arab }}

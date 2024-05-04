@@ -182,7 +182,7 @@
                                                 validée
                                             </div>
                                             <div class="pending"
-                                                *ngIf="item.status === 'pending' &&  item.status === 'validated_by_enseignant' ">
+                                                *ngIf="item.status === 'pending' ||  item.status === 'validated_by_enseignant' ">
                                                 En attente
                                             </div>
                                         </td>
