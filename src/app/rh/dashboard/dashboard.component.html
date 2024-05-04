@@ -10,7 +10,7 @@
         <div>
           <div class="tjm_moyen1">
             Heure actuelle <br>
-            26/04/2024 11:35
+            {{ formattedDateTime() }}
           </div>
         </div>
         <div>
@@ -31,58 +31,68 @@
       </div>
       <div class="Tableau1 left-first" *ngIf="role == 'student'">
         <div class="tjm_moyen"> Les demandes par status <br>
-          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
-            <div id="cercle"></div>
-            <div> Demande de congé</div>
-            <div style="margin-left: 100px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 23%</div>
 
-          </b>
-          <hr>
-          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle1"></div>
-            <div>Attestation de travail</div>
-            <div style="margin-left: 90px;"> 15 </div>
-            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+            <div style="width:  230px;">Attestation de presence</div>
+            <div> {{statsres.all_demande_presence}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.presence_validation_percentage}} %</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
-            <div> Demande de rattrapge</div>
-            <div style="margin-left: 80px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+            <div style="width:  230px;"> Demande de verification</div>
+            <div> {{statsres.all_demande_verification}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.verification_validation_percentage}} %</div>
           </b>
-          <hr>
-          <b style=" display: flex; margin: 10px;">
-            <div id="cercle3"></div>
-            <div> Fiche de paie</div>
-            <div style="margin-left: 148px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 21%</div>
-          </b>
+
         </div>
-        <div class="tjm_moyen"> Les demandes par type <br>
+        <div class="tjm_moyen" style="height: auto;"> Les demandes par type <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
-            <div id="cercle"></div>
-            <div>en attente</div>
-            <div style="margin-left: 100px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+            <div id="cercle1"></div>
+            <div style="width: 230px;">en attente</div>
+
+            <div style="color: #858380;"> {{statsres.presence_status_percentages.pending }} %</div>
 
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle1"></div>
-            <div>en cours</div>
-            <div style="margin-left: 90px;"> 15 </div>
-            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+            <div style="width: 230px;">en cours</div>
+            <!-- <div style="margin-left: 90px;"> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }}  </div> -->
+            <div style="color: #858380;">
+              {{statsres.presence_status_percentages.validated_by_departement }}%</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;">
+            <div id="cercle1"></div>
+            <div style="width: 230px;"> validée</div>
+            <!-- <div> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }} </div> -->
+            <div style="color: #858380;"> {{statsres.presence_status_percentages.validated }} %</div>
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle2"></div>
+            <div style="width: 230px;">en attente</div>
+
+            <div style="color: #858380;"> {{statsres.verification_status_percentages.pending }} %</div>
+
+          </b>
+          <hr>
+          <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
+            <div id="cercle2"></div>
+            <div style="width: 230px;">en cours</div>
+            <!-- <div style="margin-left: 90px;"> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }}  </div> -->
+            <div style="color: #858380;">
+              {{statsres.verification_status_percentages.validated_by_enseignant }}%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
-            <div> validée</div>
-            <div style="margin-left: 80px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+            <div style="width: 230px;"> validée</div>
+            <!-- <div> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }} </div> -->
+            <div style="color: #858380;"> {{statsres.verification_status_percentages.validated }} %</div>
           </b>
-          <hr>
 
         </div>
         <!-- <div class="tjm_moyen">

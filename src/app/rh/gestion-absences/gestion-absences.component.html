@@ -120,58 +120,63 @@
                         </div>
                         <h3>Ajouer salle</h3>
 
-
-
-
-                        <form [formGroup]="myForm2">
-                            <div class="grid-item">
-
-                                <div style="display: flex;">
-                                    <select formControlName="utilisation">
-                                        <option value=""> Seletioner un niveau</option>
-                                        <option> Cours</option>
-                                        <option> Aterlier</option>
-
-                                    </select>
-
-                                </div>
-
-
+                        <div class="multiselect">
+                            <div>
+                                <select (click)="toggleCheckboxes()">
+                                    <option [style.display]="expanded ? 'block' : 'none'"> choisir les enseignants
+                                    </option>
+                                </select>
+                                <div class="overSelect"></div>
+                            </div>
+                            <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
+                                *ngFor="let en of enseignants">
+                                <label for="en._id">
+                                    <input type="checkbox" (change)="toggleTeacher(en._id)"
+                                        id="en._id" />{{en.first_name}}
+                                    {{en.last_name}}</label>
 
                             </div>
-                            <div class="grid-item">
+                        </div>
 
-                                <div style="display: flex;">
-                                    <input type="text" placeholder="code" formControlName="code">
-                                </div>
-                                <div style="display: flex;">
-                                    <input type="text" placeholder="batiment" formControlName="batiment">
-                                </div>
-                                <div style="display: flex;">
-                                    <select formControlName="affectation">
-                                        <option value=""> Seletioner un departement</option>
-                                        <option>
-                                            TI</option>
-                                        <option>
-                                            GE</option>
-                                        <option>
-                                            GM</option>
-                                        <option>
-                                            GC</option>
-                                        <option>
-                                            SEG</option>
-                                    </select>
 
-                                </div>
-
-                            </div> <br>
-                            <div style="display: flex;">
-
-                                <button type="submit" class="button" style="margin-left: 150px;" (click)="add_salle()">
-                                    <div class="inscrire">Ajouter</div>
-                                </button>
+                        <div class="multiselect">
+                            <div>
+                                <select (click)="toggleCheckboxes1()">
+                                    <option [style.display]="expanded1 ? 'block' : 'none'" *ngIf="!expanded1"> choisir
+                                        les
+                                        classe
+                                    </option>
+                                </select>
+                                <div class="overSelect"></div>
                             </div>
-                        </form>
+                            <div id="checkboxes" [style.display]="expanded1 ? 'block' : 'none'"
+                                *ngFor="let item of all_classes">
+                                <label for="item._id">
+                                    <input type="checkbox" (change)="toggleTeacher1(item._id)" id="item._id" />{{
+                                    item.code
+                                    }}</label>
+
+                            </div>
+                        </div>
+
+                        <div class="multiselect">
+                            <div>
+                                <select (click)="toggleCheckboxes2()">
+                                    <option [style.display]="expanded2 ? 'block' : 'none'"> Seletioner les module
+                                    </option>
+                                </select>
+                                <div class="overSelect"></div>
+                            </div>
+                            <div id="checkboxes" [style.display]="expanded2 ? 'block' : 'none'"
+                                *ngFor="let item of all_modules">
+                                <label for="item._id">
+                                    <input type="checkbox" (change)="toggleTeacher2(item._id)" id="item._id" />{{
+                                    item.code }}</label>
+
+                            </div>
+                        </div>
+
+                        <button class="button" (click)="addabsences()">Ajouter</button>
 
                     </div>
 
@@ -322,11 +327,8 @@
 
             <br />
 
-            <div>
-                <button class="button newmissionbutton" (click)="openPopup1()">
-                    Affecter modules
-                </button>
-            </div>
+
+
             <br />
 
             <div class="custom-container">

@@ -112,6 +112,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of getDisplayeddocs(); let j = index" style="cursor: pointer;">
+                                <!-- <td>
+                                    <input type="checkbox" (change)="onCheckboxChange($event, item._id)">
+                                </td> -->
                                 <td style="text-align: left;padding: 15px 15px ;">{{item.niveau }} </td>
 
 

@@ -463,8 +463,19 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_absences_by_classe/' + classe_id);
   }
+  get_classe_module_by_dep(depatement: any): Observable<any> {
 
+    return this.http.get(baseUrl + 'get_classe_module_by_dep/' + depatement);
+  }
 
+  absences(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'absence', data);
+  }
+
+  get_absences(student_id: any) {
+    return this.http.get(baseUrl + 'get_absences/' + student_id);
+  }
 
 
 }

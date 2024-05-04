@@ -7,7 +7,7 @@
     <div class="second-container">
       <div style="display: flex">
 
-        <div class="title">Mes Missions</div>
+        <div class="title">Mes Demandes</div>
 
       </div>
       <p></p>
@@ -158,6 +158,7 @@
 
 
               <td style="max-width: 120px;">
+
                 <div *ngIf="item.status == 'prete'" style="
                 display: flex;
                 width: auto;
@@ -489,7 +490,7 @@
 
   </div>
   <div class="popup" *ngIf="showPopup">
-    <div class="popup-content" style="  height: 22.4375rem;">
+    <div class="popup-content" style="  height: auto">
       <div style="float: right" (click)="closePopup()">
         <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
       </div>
@@ -520,7 +521,7 @@
               <div class="multiselect">
                 <div>
                   <select (click)="toggleCheckboxes()">
-                    <option [style.display]="expanded ? 'block' : 'none'"> choisir les enseignants</option>
+                    <option [style.display]="!expanded ? 'block' : 'none'"> choisir les enseignants</option>
                   </select>
                   <div class="overSelect"></div>
                 </div>

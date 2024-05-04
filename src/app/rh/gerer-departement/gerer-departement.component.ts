@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultantService } from 'src/app/services/consultant.service';
@@ -39,16 +40,19 @@ export class GererDepartementComponent {
   myForm3: FormGroup;
   constructor(private consultantservice: ConsultantService, private studentservice: StudentService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe, private userservice: UserService, private fb: FormBuilder,) {
     this.myForm1 = this.fb.group({
+      departement: [''],
       libelle: [''],
       code: [''],
 
     });
     this.myForm2 = this.fb.group({
+      departement: [''],
       niveau: [''],
       parcour: [''],
       code: [''],
     });
     this.myForm3 = this.fb.group({
+      departement: [''],
       niveau: [''],
       parcours: [''],
       code: [''],
@@ -59,7 +63,22 @@ export class GererDepartementComponent {
     });
   }
 
+  selectedItems: any[] = [];
 
+  onCheckboxChange(event: any, item: any) {
+    if (event.target.checked) {
+      // If the item is checked, add it to the selectedItems array with an empty note
+      this.selectedItems.push(item);
+      console.log(this.selectedItems);
+
+    } else {
+      // Remove item if unchecked
+      const index = this.selectedItems.findIndex(selected => selected._id === item._id);
+      if (index !== -1) {
+        this.selectedItems.splice(index, 1);
+      }
+    }
+  }
 
   shownotif() {
 
@@ -129,7 +148,7 @@ export class GererDepartementComponent {
   }
   role: any
   rattrapge_requests: any
-
+  departement: any
   fullname: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
@@ -146,6 +165,9 @@ export class GererDepartementComponent {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
           this.fullname = res.first_name + " " + res.last_name
+          this.departement = res.departement
+          console.log("departement", this.departement);
+
         }, error(e) {
           console.log(e);
 
@@ -670,7 +692,7 @@ export class GererDepartementComponent {
     });
   }
   add_module() {
-
+    this.myForm3.value.departement = this.departement
     this.studentservice.add_module(this.myForm3.value).subscribe({
       next: (res) => {
 
@@ -702,7 +724,7 @@ export class GererDepartementComponent {
     });
   }
   add_parcours() {
-
+    this.myForm1.value.departement = this.departement
     this.studentservice.add_parcours(this.myForm1.value).subscribe({
       next: (res) => {
 
@@ -734,7 +756,7 @@ export class GererDepartementComponent {
     });
   }
   add_classe() {
-
+    this.myForm2.value.departement = this.departement
     this.studentservice.add_classe(this.myForm2.value).subscribe({
       next: (res) => {
 

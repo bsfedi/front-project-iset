@@ -127,7 +127,10 @@ export class LeftBarComponent {
     this.router.navigate([clientName + '/gestionadministrative'])
 
   }
+  absences() {
+    this.router.navigate([clientName + '/absences'])
 
+  }
   gotogestioabsences() {
     this.router.navigate([clientName + '/gestionabsences'])
   }

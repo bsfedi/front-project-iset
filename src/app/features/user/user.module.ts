@@ -24,6 +24,7 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
 import { EditProfilComponent } from 'src/app/features/user/edit-profil/edit-profil.component';
 import { StagesComponent } from './stages/stages.component';
 import { OrientationComponent } from './orientation/orientation.component';
+import { AbsencesComponent } from './absences/absences.component';
 
 
 export const routes: Routes = [
@@ -81,6 +82,11 @@ export const routes: Routes = [
 
   },
   {
+    path: 'absences',
+    component: AbsencesComponent
+  }
+  ,
+  {
     path: 'CRA/:id',
     component: CRAComponent
   },
@@ -109,6 +115,7 @@ export const routes: Routes = [
     UpdatePasswordComponent,
     StagesComponent,
     OrientationComponent,
+    AbsencesComponent,
 
 
   ],

@@ -24,9 +24,52 @@ export class GestionAbsencesComponent {
   cellValue: string = '';
   modules: any
   role: any
-
+  enseignants: any
   fullname: any
+  departement: any
+  all_classes: any
+  all_modules: any
+  expanded: boolean = false;
+  expanded1: boolean = false;
+  expanded2: boolean = false;
+  selectedTeachers: string[] = [];
+  toggleTeacher(teacher: string): void {
+    const index = this.selectedTeachers.indexOf(teacher);
+    if (index === -1) {
+      this.selectedTeachers.push(teacher);
+    } else {
+      this.selectedTeachers.splice(index, 1);
+    }
+  }
+  toggleCheckboxes1() {
+    this.expanded1 = !this.expanded1;
+  }
+  selectedTeachers1: string[] = [];
+  toggleTeacher1(teacher: string): void {
+    const index = this.selectedTeachers1.indexOf(teacher);
+    if (index === -1) {
+      this.selectedTeachers1.push(teacher);
+    } else {
+      this.selectedTeachers1.splice(index, 1);
+    }
+  }
+  toggleCheckboxes2() {
+    this.expanded2 = !this.expanded2;
+  }
+  selectedTeachers2: string[] = [];
+  toggleTeacher2(teacher: string): void {
+    const index = this.selectedTeachers2.indexOf(teacher);
+    if (index === -1) {
+      this.selectedTeachers2.push(teacher);
+    } else {
+      this.selectedTeachers2.splice(index, 1);
+    }
+  }
+  toggleCheckboxes() {
+    this.expanded = !this.expanded;
+  }
   ngOnInit(): void {
+
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
@@ -41,6 +84,23 @@ export class GestionAbsencesComponent {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
           this.fullname = res.first_name + " " + res.last_name
+          this.departement = res.departement
+          this.studentservice.get_classe_module_by_dep(res.departement).subscribe({
+            next: (res) => {
+              this.all_classes = res.all_calsse
+              this.all_modules = res.all_modules
+            }, error(e) {
+              console.log(e);
+
+            }
+          });
+          this.studentservice.enseignantsbydepartement(res.departement).subscribe({
+            next: (res) => {
+              this.enseignants = res
+
+
+            }
+          })
         }, error(e) {
           console.log(e);
 
@@ -65,6 +125,7 @@ export class GestionAbsencesComponent {
         // Set loading to false in case of an error
       },
     });
+
     this.studentservice.get_modules().subscribe({
 
 
@@ -92,7 +153,29 @@ export class GestionAbsencesComponent {
 
   }
   modulesens: any
+  addabsences() {
+    const data = {
+      "classe": this.selectedTeachers1,
+      "module": this.selectedTeachers2,
+      "enseignant": this.selectedTeachers
+    }
+    this.studentservice.absences(data).subscribe({
+      next: (res) => {
+        this.validated_mission = res
+        console.log(this.validated_mission);
 
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.validated_mission = [];
+        console.error(e);
+
+        // Set loading to false in case of an error
+      },
+    });
+  }
   getabsence(event: any) {
     const id = event.target.value;
 

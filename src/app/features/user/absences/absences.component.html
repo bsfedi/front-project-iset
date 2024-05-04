@@ -1,0 +1,66 @@
+<div class="wrapper">
+    <div>
+        <app-left-bar></app-left-bar>
+    </div>
+    <div class="container">
+        <div class="title"> Liste des absences
+        </div>
+        <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
+            <div class="form-section">
+
+
+                <div class="grid-container">
+                    <table>
+                        <thead>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> module</th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem;width: 530px;"> Nombre total d'absence
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of res">
+                                <td> {{item.module_id }} </td>
+                                <td style="width: 130px;"> {{item.nb_absence}} </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+
+
+
+
+
+                    <br>
+
+
+
+                    <!-- <div class="buttons" (click)="logform()">
+                        <button type="submit" class="button">
+                            <div class="inscrire">Valider</div>
+                        </button>
+                    </div> -->
+
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="right-item">
+        <div style="display: flex;margin-bottom: 0px;">
+
+            <div class="profil" style="cursor: pointer;">
+                <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                <div class="nom-prenom">{{fullname}} <br>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- <app-notification></app-notification> -->
+    </div>
+
+</div>

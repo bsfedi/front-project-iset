@@ -245,17 +245,15 @@ svg {
 }
 
 .profil {
-  width: auto;
-  height: 3.125rem;
   margin-left: 10px;
-  padding-right: 10px;
+  height: 3.125rem;
+  width: 12rem;
   border-radius: 15px;
   border: 1px solid rgb(247, 227, 227);
-
-  background: #fef9f1;
+  color: white;
+  background: #829ed5;
   display: flex;
   float: right;
-  margin-right: 12px;
 }
 
 .profil1 svg {
@@ -286,13 +284,13 @@ svg {
   margin-top: 8px;
 }
 
-
 .profil img {
   border-radius: 100%;
-  width: 2.625rem;
-  height: 2.175rem;
+  width: 2.125rem;
+  height: 1.875rem;
   margin-left: 15px;
   margin-top: 8px;
+  background: #829ed5;
 }
 
 .historique {
@@ -313,7 +311,7 @@ svg {
 .nom-prenom {
   margin-top: 15px;
   margin-left: 8px;
-  color: #000;
+  color: white;
 
   font-size: 1rem;
   font-style: normal;

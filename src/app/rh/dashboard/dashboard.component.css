@@ -312,7 +312,8 @@ input[type="checkbox"] {
   width: 12rem;
   border-radius: 15px;
   border: 1px solid rgb(247, 227, 227);
-  background: #fef9f1;
+  color: white;
+  background: #829ed5;
   display: flex;
   float: right;
 }
@@ -323,6 +324,7 @@ input[type="checkbox"] {
   height: 1.875rem;
   margin-left: 15px;
   margin-top: 8px;
+  background: #829ed5;
 }
 
 .profil1 {
@@ -373,7 +375,7 @@ input[type="checkbox"] {
 .nom-prenom {
   margin-top: 15px;
   margin-left: 8px;
-  color: #000;
+  color: white;
 
   font-size: 1rem;
   font-style: normal;

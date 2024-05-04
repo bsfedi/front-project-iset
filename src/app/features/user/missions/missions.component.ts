@@ -593,6 +593,7 @@ export class MissionsComponent {
     this.studentservice.demandeattestation(formData12)
       .subscribe({
         next: (res) => {
+          this.showPopup = false
           Swal.fire({
 
             background: '#fefcf1',
@@ -613,7 +614,7 @@ export class MissionsComponent {
             },
             reverseButtons: true // Reversing button order
           })
-          console.log(res);
+
 
           // Handle the response from the server
 

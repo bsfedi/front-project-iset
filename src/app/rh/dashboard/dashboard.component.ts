@@ -18,9 +18,13 @@ import {
 } from "ng-apexcharts";
 import { ConsultantService } from 'src/app/services/consultant.service';
 import { DatePipe } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { UserService } from 'src/app/services/user.service';
 import { StudentService } from 'src/app/services/student.service';
+
+
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;
@@ -67,8 +71,10 @@ export class DashboardComponent {
   public chartOptions: Partial<ChartOptions>;
   res: any
   showfilterbar: any;
+  currentDate: Date = new Date();
   constructor(private studentservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
     this.chartOptions = {}
+
     this.consultantservice.getMonthlyStatsForAllUsers().subscribe({
       next: (res) => {
         this.stats = res
@@ -140,6 +146,10 @@ export class DashboardComponent {
 
       }
     });
+  }
+
+  formattedDateTime(): any {
+    return this.datePipe.transform(this.currentDate, 'dd/MM/yyyy HH:mm');
   }
   gotocdashboad() {
 
