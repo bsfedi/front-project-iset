@@ -678,6 +678,8 @@ border: 2px solid black;'>
       this.studentservice.addstage(this.myForm2.value)
         .subscribe({
           next: (res) => {
+            this.showPopup = false
+
             Swal.fire({
 
               background: '#fefcf1',
@@ -701,7 +703,7 @@ border: 2px solid black;'>
             console.log(res);
 
             // Handle the response from the server
-
+            window.location.reload();
 
           },
           error: (e) => {

@@ -212,6 +212,8 @@ export class MissionsComponent {
   ens: any
   role: any
   fullname: any
+  modules: any
+  res12: any
   ngOnInit(): void {
     this.user_id = localStorage.getItem('user_id')
     this.register_id = localStorage.getItem('register_id')
@@ -219,7 +221,13 @@ export class MissionsComponent {
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.res12 = res.preregister
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+          this.studentservice.get_module_bydep(res.preregister.personalInfo.departement).subscribe({
+            next: (res) => {
+              this.modules = res
+            }
+          })
         }, error(e) {
           console.log(e);
 
@@ -564,7 +572,13 @@ export class MissionsComponent {
 
     }
   }
-
+  getmodules(type: any) {
+    this.studentservice.get_module_bytype(type, this.res12.personalInfo.departement).subscribe({
+      next: (res) => {
+        this.modules = res
+      }
+    })
+  }
   toggleHide() {
     this.hideMissions = !this.hideMissions;
 

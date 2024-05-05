@@ -23,7 +23,7 @@
           </div>
 
           <div class="popup" *ngIf="showPopup">
-            <div class="popup-content">
+            <div class="popup-content" style="height: auto;">
               <div style="float: right" (click)="closePopup()">
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
               </div>
@@ -70,7 +70,8 @@
                     </div>
 
                     <div *ngIf="myForm.get('role')!.value === 'enseignant'">
-                      <input type="text" formControlName="code" class="form-control" placeholder="code" required />
+                      <input type="text" formControlName="code" class="form-control" placeholder="Identifiant unique "
+                        required />
                     </div>
                     <div class="error" *ngIf="myForm.get('code')?.invalid && myForm.get('code')?.touched">
                       code est obligatoire.
@@ -80,7 +81,7 @@
                         <option value="" disabled selected>Sélectionner le departement</option>
                         <option value="GM"> GM</option>
                         <option value="GE"> GE </option>
-                        <option value="TI"> TI</option>
+                        <option value="IT"> TI</option>
                         <option value="GC"> GC </option>
                         <option value="SEG"> SEG</option>
 
@@ -214,6 +215,7 @@
                     </div>
                   </div>
                 </form> <br>
+                <div *ngIf="show_message" style="color: red;">Adresse e-mail déjà utilisée </div>
                 <div class="buttons" *ngIf="form2">
                   <button type="submit" (click)="upload_users(selectedOption1)" class="button"
                     style="margin-left: 290px">
@@ -242,8 +244,8 @@
 
         <div>
           <div>
-            <div><b> Consultants </b></div>
-            <br />
+
+
           </div>
           <div>
             <div style="display: flex;">
@@ -315,7 +317,7 @@
                       <div *ngIf="rh.departement"> {{rh.departement}}</div>
                       <div *ngIf="rh.service"> {{rh.service}}</div>
                     </td>
-                    <td style="width:250px">
+                    <td style="max-width:auto">
                       <div *ngIf="rh.personalInfo">
                         {{ rh.email }}
                       </div>
@@ -323,10 +325,24 @@
                         {{ rh.email }}
                       </div>
                     </td>
-                    <td style="width: 70px;">
-                      <div style="
+                    <td style=" width: 70px;">
+                      <div *ngIf="rh.role === 'personneladministratif'" style="
                       display: flex;
-                      width: 140px;
+                      width: auto;
+                      
+                      height: 1.75rem;
+                      padding: 0.25rem 0.6875rem 0.25rem 0.5rem;
+                      justify-content: center;
+                      align-items: center;
+                      flex-shrink: 0;
+                      border-radius: 0.875rem;
+                      background: #b4ee8a;
+                    ">
+                        Pers. Admin
+                      </div>
+                      <div *ngIf="rh.role != 'personneladministratif'" style="
+                      display: flex;
+                      width: auto;
                       
                       height: 1.75rem;
                       padding: 0.25rem 0.6875rem 0.25rem 0.5rem;
@@ -338,7 +354,6 @@
                     ">
                         {{ rh.role }}
                       </div>
-
                     </td>
 
                     <td>{{ rh.phone }}</td>
@@ -400,7 +415,7 @@
                             margin-bottom: 10px;
                             margin-left: 5px;
                           ">
-                            attribué un rôle
+                            Attribuer un rôle
                           </div>
                         </div>
                       </div>
@@ -426,7 +441,7 @@
 
                         </div> <br>
                         <div class="buttons">
-                          <button type="submit" class="button" (click)="attributrole()" style="margin-left: 290px">
+                          <button type="submit" class="button" (click)="attributrole()" style="margin-left: 200px">
                             <div class="inscrire">Ajouter</div>
                           </button>
                         </div>
@@ -463,6 +478,17 @@
               </div>
 
             </div>
+
+            <!-- <div>
+              Show:
+              <select [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage()">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+              items per page
+            </div> -->
           </div>
         </div>
         <br />

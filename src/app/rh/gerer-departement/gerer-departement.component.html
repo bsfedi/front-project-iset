@@ -7,7 +7,7 @@
             <div class="second-container">
                 <!-- <h1></h1> -->
 
-                <div class="title">Les demandes </div>
+                <div class="title">Gestion Pédagogique </div>
                 <br />
                 <div>
 
@@ -260,9 +260,9 @@
                             <div style="float: right" (click)="closePopup1()">
                                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                             </div>
-                            <h3 *ngIf="tjm">Ajouer parcour</h3>
+                            <h3 *ngIf="tjm">Ajouter un parcours</h3>
                             <h3 *ngIf="parcours">parcours classe</h3>
-                            <h3 *ngIf="rattrapge">Ajouer module</h3>
+                            <h3 *ngIf="rattrapge">Ajouter module</h3>
                             <form *ngIf="tjm" [formGroup]="myForm1">
                                 <div class="grid-item">
 
@@ -408,7 +408,7 @@
 
                                     <button type="submit" class="button" style="margin-left: 150px;"
                                         (click)="update_parcours()">
-                                        <div class="inscrire">Ajouter</div>
+                                        <div class="inscrire">Modifier</div>
                                     </button>
                                 </div>
                             </form> <br>
@@ -445,7 +445,7 @@
 
                                     <button type="submit" class="button" style="margin-left: 150px;"
                                         (click)="update_classes()">
-                                        <div class="inscrire">Ajouter</div>
+                                        <div class="inscrire">Modifier</div>
                                     </button>
                                 </div>
                             </form>

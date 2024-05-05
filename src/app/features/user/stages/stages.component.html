@@ -7,7 +7,7 @@
         <div class="second-container">
             <div style="display: flex">
 
-                <div class="title">Mes Missions</div>
+                <div class="title">Mes stages</div>
 
             </div>
             <p></p>
@@ -450,34 +450,78 @@
                                         <option value="stage PFE">stage PFE</option>
 
                                     </select>
-                                    <input type="text" formControlName="entreprise" placeholder="entreprise" required />
+                                    <div *ngIf="res.personalInfo.level !=3 && myForm2.value.type =='stage PFE'  "><br>
+                                        <div style="font-size: 1.75rem;">
+                                            Ce type de demande est accessible uniquement pour <br> les étudiants en 3ème
+                                            année
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="grid-item">
-                                    <input type="date" formControlName="date_debut" placeholder="date début" required />
-                                </div>
-                                <div class="grid-item">
-                                    <input type="date" formControlName="date_fin" placeholder="date Fin" required />
-                                </div>
-                                <div class="grid-item">
-                                    <input type="text" formControlName="responsable" placeholder="responsable"
-                                        required />
-                                </div>
-                                <div class="grid-item">
-                                    <input type="text" formControlName="adresse" placeholder="adresse" required />
-                                </div>
-                                <div class="grid-item">
-                                    <input type="text" formControlName="fax" placeholder="fax" required />
-                                </div>
-                                <div class="grid-item">
-                                    <input type="text" formControlName="tel" placeholder="Téléphone" required />
-                                </div>
-                                <div class="grid-item">
-                                    <input type="text" formControlName="email_entreprise" placeholder="email entreprise"
-                                        required />
+                                <div *ngIf="res.personalInfo.level != 3 && myForm2.value.type !='stage PFE' ">
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="entreprise" placeholder="entreprise"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="date" formControlName="date_debut" placeholder="date début"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="date" formControlName="date_fin" placeholder="date Fin" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="responsable" placeholder="responsable"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="adresse" placeholder="adresse" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="fax" placeholder="fax" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="tel" placeholder="Téléphone" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="email_entreprise"
+                                            placeholder="email entreprise" required />
+                                    </div>
                                 </div>
 
+                                <div *ngIf="res.personalInfo.level ==3 && myForm2.value.type =='stage PFE'  ">
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="entreprise" placeholder="entreprise"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="date" formControlName="date_debut" placeholder="date début"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="date" formControlName="date_fin" placeholder="date Fin" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="responsable" placeholder="responsable"
+                                            required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="adresse" placeholder="adresse" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="fax" placeholder="fax" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="tel" placeholder="Téléphone" required />
+                                    </div>
+                                    <div class="grid-item">
+                                        <input type="text" formControlName="email_entreprise"
+                                            placeholder="email entreprise" required />
+                                    </div>
+                                </div>
                             </div>
-                            <div style="margin-left: -50px;" *ngIf="myForm2.value.type =='stage PFE'">
+                            <div style="margin-left: -50px;"
+                                *ngIf="myForm2.value.type =='stage PFE' && res.personalInfo.level === 3  ">
                                 <div class="grid-item">
                                     <input type="text" formControlName="project" placeholder="titre de projet"
                                         required />

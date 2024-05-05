@@ -575,6 +575,11 @@
                                                 <input type="date" formControlName="date_fin" placeholder="month"
                                                     required />
                                             </div>
+                                            <div class="grid-item"
+                                                *ngIf="myForm3.get('type_conge')?.value === 'congé anuuel' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
+                                                <input type="text" formControlName="Adresse" placeholder=" Adresse pendant le congé
+                                            " required />
+                                            </div>
 
 
                                             <div class="grid-item"

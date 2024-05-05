@@ -102,6 +102,8 @@ export class DemandeRattrapageComponent {
   }
   enseignant_id: any
   role: any
+  modulesens: any
+
   fullname: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
@@ -124,7 +126,25 @@ export class DemandeRattrapageComponent {
         }
       });
     }
+
     this.enseignant_id = localStorage.getItem('user_id')
+    this.studentservice.get_modules_by_enseignant(this.enseignant_id).subscribe({
+      next: (res) => {
+        this.modulesens = res
+
+
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.modulesens = [];
+        console.error(e);
+
+        // Set loading to false in case of an error
+      },
+    });
+
     this.studentservice.get_absence_by_enseignant_id(this.enseignant_id)
       .subscribe({
         next: (res) => {
@@ -141,6 +161,34 @@ export class DemandeRattrapageComponent {
       });
 
   }
+
+  show_classe: any
+  classes: any
+  getclasse_bymodule(event: any) {
+    {
+      const id = event.target.value;
+
+      this.studentservice.get_classe_by_module(id).subscribe({
+        next: (res) => {
+          this.classes = res
+
+
+          this.show_classe = true
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.classes = [];
+          console.error(e);
+
+          // Set loading to false in case of an error
+        },
+      });
+    }
+
+  }
+
+
   submitAll() {
     console.log(this.myForm1.value, this.myForm2.value, this.myForm3.value, this.myForm4.value, this.myForm5.value);
     const emptyForms = [];

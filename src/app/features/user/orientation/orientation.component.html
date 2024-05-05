@@ -5,6 +5,53 @@
     <div class="container">
         <div class="title"> Orientation
         </div>
+
+        <div *ngIf="show_data_orientation">
+
+            Décision orientation <b>{{data_orientation.resultat}} </b>
+            <br> <br>
+        </div>
+        <table *ngIf="show_data_orientation">
+            <thead>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Choix </th>
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> parcours</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Choix 1
+                    </td>
+                    <td>
+                        {{data_orientation.choix1}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Choix 2
+                    </td>
+                    <td>
+                        {{data_orientation.choix2}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Choix 3
+                    </td>
+                    <td>
+                        {{data_orientation.choix3}}
+                    </td>
+                </tr>
+                <tr *ngIf="data_orientation.choix4">
+                    <td>
+                        Choix 4
+                    </td>
+                    <td>
+                        {{data_orientation.choix4}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <b></b>
         <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
             <div class="form-section">
 

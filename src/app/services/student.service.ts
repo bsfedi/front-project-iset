@@ -476,6 +476,13 @@ export class StudentService {
   get_absences(student_id: any) {
     return this.http.get(baseUrl + 'get_absences/' + student_id);
   }
+  get_module_bydep(departement: any) {
+    return this.http.get(baseUrl + 'get_module_bydep/' + departement);
+  }
+
+  get_module_bytype(type: any, departement: any) {
+    return this.http.get(baseUrl + 'get_module_bytype/' + type + '/' + departement);
+  }
 
 
 }

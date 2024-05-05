@@ -51,6 +51,8 @@ export class OrientationComponent {
   role: any
   departement: any
   fullname: any
+  data_orientation: any
+  show_data_orientation: boolean = false
   ngOnInit(): void {
     this.enseignant_id = localStorage.getItem('user_id')
     this.user_id = localStorage.getItem('user_id')
@@ -60,6 +62,16 @@ export class OrientationComponent {
       this.studentsrvice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+
+          this.studentsrvice.getorientation(res.preregister._id).subscribe({
+            next: (res) => {
+              if (res != null) {
+                this.data_orientation = res
+                this.show_data_orientation = true
+              }
+
+            }
+          })
         }, error(e) {
           console.log(e);
 

@@ -35,15 +35,16 @@
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle1"></div>
             <div style="width:  230px;">Attestation de presence</div>
-            <div> {{statsres.all_demande_presence}} </div>
-            <div style="margin-left: 100px;color: #858380;"> {{statsres.presence_validation_percentage}} %</div>
+            <div> {{statsres.all_demande_presence || 0}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.presence_validation_percentage || 0}} %</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
             <div style="width:  230px;"> Demande de verification</div>
-            <div> {{statsres.all_demande_verification}} </div>
-            <div style="margin-left: 100px;color: #858380;"> {{statsres.verification_validation_percentage}} %</div>
+            <div> {{statsres.all_demande_verification || 0}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.verification_validation_percentage || 0}} %
+            </div>
           </b>
 
         </div>
@@ -52,7 +53,7 @@
             <div id="cercle1"></div>
             <div style="width: 230px;">en attente</div>
 
-            <div style="color: #858380;"> {{statsres.presence_status_percentages.pending }} %</div>
+            <div style="color: #858380;"> {{statsres.presence_status_percentages.pending || 0 }} %</div>
 
           </b>
           <hr>
@@ -68,14 +69,14 @@
             <div id="cercle1"></div>
             <div style="width: 230px;"> validée</div>
             <!-- <div> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }} </div> -->
-            <div style="color: #858380;"> {{statsres.presence_status_percentages.validated }} %</div>
+            <div style="color: #858380;"> {{statsres.presence_status_percentages.validated || 0}} %</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle2"></div>
             <div style="width: 230px;">en attente</div>
 
-            <div style="color: #858380;"> {{statsres.verification_status_percentages.pending }} %</div>
+            <div style="color: #858380;"> {{statsres.verification_status_percentages.pending || 0 }} %</div>
 
           </b>
           <hr>
@@ -84,14 +85,14 @@
             <div style="width: 230px;">en cours</div>
             <!-- <div style="margin-left: 90px;"> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }}  </div> -->
             <div style="color: #858380;">
-              {{statsres.verification_status_percentages.validated_by_enseignant }}%</div>
+              {{statsres.verification_status_percentages.validated_by_enseignant || 0 }}%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
             <div style="width: 230px;"> validée</div>
             <!-- <div> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }} </div> -->
-            <div style="color: #858380;"> {{statsres.verification_status_percentages.validated }} %</div>
+            <div style="color: #858380;"> {{statsres.verification_status_percentages.validated || 0 }} %</div>
           </b>
 
         </div>

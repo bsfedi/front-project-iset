@@ -12,7 +12,9 @@ const clientName = `${environment.default}`;
   styleUrls: ['./left-bar.component.css'],
   imports: [CommonModule]
 })
+
 export class LeftBarComponent {
+  level: any
   constructor(private router: Router, private route: ActivatedRoute, private studentservice: StudentService) {
     document.addEventListener("DOMContentLoaded", function () {
 
@@ -24,7 +26,26 @@ export class LeftBarComponent {
 
     });
 
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.level = res.preregister.personalInfo.level
+        }, error(e) {
+          console.log(e);
 
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.level = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
 
   }
   isActiveRoute(route: string): boolean {

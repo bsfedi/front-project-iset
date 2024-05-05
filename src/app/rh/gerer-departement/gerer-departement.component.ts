@@ -367,7 +367,8 @@ export class GererDepartementComponent {
   parcours1: any
 
   get_classe_by_id(classe_id: any) {
-    this.parcours_id = classe_id
+    this.classe_id = classe_id
+
     this.parcours1 = true
     this.showPopup2 = true;
     this.studentservice.get_classe_by_id(classe_id).subscribe({
@@ -431,7 +432,7 @@ export class GererDepartementComponent {
           },
           reverseButtons: true // Reversing button order
         })
-
+        window.location.reload()
 
       }, error(e) {
         console.log(e);
@@ -465,7 +466,7 @@ export class GererDepartementComponent {
           },
           reverseButtons: true // Reversing button order
         })
-
+        window.location.reload()
 
       }, error(e) {
         console.log(e);
@@ -499,7 +500,9 @@ export class GererDepartementComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
+
         })
+        window.location.reload()
 
 
       }, error(e) {
@@ -716,7 +719,7 @@ export class GererDepartementComponent {
           },
           reverseButtons: true // Reversing button order
         })
-
+        window.location.reload()
       }, error(e) {
         console.log(e);
 
@@ -748,6 +751,7 @@ export class GererDepartementComponent {
           },
           reverseButtons: true // Reversing button order
         })
+        window.location.reload()
 
       }, error(e) {
         console.log(e);
@@ -780,7 +784,7 @@ export class GererDepartementComponent {
           },
           reverseButtons: true // Reversing button order
         })
-
+        window.location.reload()
       }, error(e) {
         console.log(e);
 

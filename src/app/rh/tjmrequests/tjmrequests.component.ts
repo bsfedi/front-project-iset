@@ -41,6 +41,7 @@ export class tjmrequestsComponent {
   pageSize = 0; // Number of items per page
   currentPagemission = 1; // Current page
   currentPagetjm = 1; // Current page
+
   totalPages: any;
   getDisplayeddocs(): any[] {
     this.pageSize = 8
@@ -260,7 +261,7 @@ export class tjmrequestsComponent {
           background: '#fefcf1',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
+            <div style="font-size:1.2rem"> demande acceptée  avec succès! </div> 
               
             </div>
           `,

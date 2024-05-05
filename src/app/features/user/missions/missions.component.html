@@ -180,32 +180,30 @@
                 <div *ngIf="item.status == 'validated_by_enseignant'" style="
                 display: flex;
                 width: auto;
-                height: 2.5rem;
+                height: 1.5rem;
                 padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
                 justify-content: center;
                 align-items: center;
-                padding: 5px;
+
                 border-radius: 0.75rem;
-                background: #f7a690;
+                background: #eefdf3;
                 margin: 5px;
-                color: #d56515;
-              ">
-                  validé par les ensrignants
+                color: #187111;">
+                  Validée par les ensrignants
                 </div>
                 <div *ngIf="item.status == 'validated_by_departement'" style="
                 display: flex;
                 width: auto;
-                height: 2.5rem;
+                height: 1.5rem;
                 padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
                 justify-content: center;
                 align-items: center;
-                padding: 5px;
+
                 border-radius: 0.75rem;
-                background:  #f7a690;
+                background: #eefdf3;
                 margin: 5px;
-                color:  #d56515;
-              ">
-                  validé par les departement
+                color: #187111;">
+                  Validée par le département
                 </div>
 
                 <!-- <div>
@@ -547,13 +545,22 @@
           <div class="form-section">
             <div class="grid-container">
               <div class="grid-item">
-                <select formControlName="type">
-                  <option value="TP1">TP1</option>
-                  <option value="TP2">TP2</option>
-                  <option value="TC">TC</option>
-                  <option value="Examen">Examen</option>
+                <select formControlName="type" (change)="getmodules(myForm2.value.type)">
+                  <option value=""> Selectioner type</option>
+                  <option value="CI">CI</option>
+                  <option value="TP">TP</option>
+                  <!-- <option value="TC">TC</option>
+                  <option value="Examen">Examen</option> -->
                 </select>
-                <input type="text" formControlName="matiere" placeholder="Matière" required />
+
+                <select formControlName="matiere">
+                  <option value=""> Selectioner matiere</option>
+                  <option *ngFor="let item of modules" [value]="item.code
+                  ">{{item.code}}</option>
+
+
+                </select>
+
               </div>
               <div class="grid-item">
                 <input type="text" formControlName="note" placeholder="Note obtenue" required />

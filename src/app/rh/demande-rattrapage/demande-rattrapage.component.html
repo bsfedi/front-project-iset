@@ -3,11 +3,11 @@
         <app-left-bar></app-left-bar>
     </div>
     <div class="container">
-        <div class="title"> Déclarer une nouvelle mission
+        <div class="title"> Déclarer Rattrape
         </div>
         <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
             <div class="form-section">
-                <b> Information de la mission : <br></b>
+
 
                 <div class="grid-container">
 
@@ -78,17 +78,15 @@
                                 *ngIf="myForm.get('nb_senace')?.value == '1' || myForm.get('nb_senace')?.value == '2' || myForm.get('nb_senace')?.value == '3' || myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
                                 <br> séance 1 <br>
                                 <input type="date" formControlName="date"><br>
+                                <select formControlName="inputModule" (change)="getclasse_bymodule($event)">
+                                    <option *ngFor="let module of modulesens" [value]="module._id"> {{module.code}}
+                                    </option>
 
+                                </select> <br>
                                 <select formControlName="inputClass">
-                                    <option value="Class 1"> Class 1 </option>
-                                    <option value="Class 2"> Class 2 </option>
-                                    <option value="Class 3"> Class 3 </option>
+                                    <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
                                 </select> <br>
-                                <select formControlName="inputModule">
-                                    <option value="Module 1"> Module 1 </option>
-                                    <option value="Module 2"> Module 2 </option>
-                                    <option value="Module 2"> Module 3 </option>
-                                </select> <br>
+
                                 <select formControlName="inputHoraire">
                                     <option value="S1"> S1 </option>
                                     <option value="S2"> S2 </option>
@@ -108,15 +106,13 @@
                                 *ngIf="myForm.get('nb_senace')?.value == '2' || myForm.get('nb_senace')?.value == '3'  || myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
                                 <br> séance 2 <br>
                                 <input type="date" formControlName="date"><br>
-                                <select formControlName="inputClass">
-                                    <option value="Class 1"> Class 1 </option>
-                                    <option value="Class 2"> Class 2 </option>
-                                    <option value="Class 3"> Class 3 </option>
+                                <select formControlName="inputModule" (change)="getclasse_bymodule($event)">
+                                    <option *ngFor="let module of modulesens" [value]="module._id"> {{module.code}}
+                                    </option>
+
                                 </select> <br>
-                                <select formControlName="inputModule">
-                                    <option value="Module 1"> Module 1 </option>
-                                    <option value="Module 2"> Module 2 </option>
-                                    <option value="Module 2"> Module 3 </option>
+                                <select formControlName="inputClass">
+                                    <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
                                 </select> <br>
                                 <select formControlName="inputHoraire">
                                     <option value="S1"> S1 </option>
@@ -156,15 +152,13 @@
                                 *ngIf="myForm.get('nb_senace')?.value == '3' ||myForm.get('nb_senace')?.value == '4' || myForm.get('nb_senace')?.value == '5'">
                                 <br> séance 3 <br>
                                 <input type="date" formControlName="date3"><br>
-                                <select formControlName="inputClass">
-                                    <option value="Class 1"> Class 1 </option>
-                                    <option value="Class 2"> Class 2 </option>
-                                    <option value="Class 3"> Class 3 </option>
+                                <select formControlName="inputModule" (change)="getclasse_bymodule($event)">
+                                    <option *ngFor="let module of modulesens" [value]="module._id"> {{module.code}}
+                                    </option>
+
                                 </select> <br>
-                                <select formControlName="inputModule">
-                                    <option value="Module 1"> Module 1 </option>
-                                    <option value="Module 2"> Module 2 </option>
-                                    <option value="Module 2"> Module 3 </option>
+                                <select formControlName="inputClass">
+                                    <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
                                 </select> <br>
                                 <select formControlName="inputHoraire">
                                     <option value="S1"> S1 </option>
@@ -182,15 +176,13 @@
                                 <br> séance 4 <br>
                                 <input type="date" formControlName="date4"><br>
 
-                                <select formControlName="inputClass">
-                                    <option value="Class 1"> Class 1 </option>
-                                    <option value="Class 2"> Class 2 </option>
-                                    <option value="Class 3"> Class 3 </option>
+                                <select formControlName="inputModule" (change)="getclasse_bymodule($event)">
+                                    <option *ngFor="let module of modulesens" [value]="module._id"> {{module.code}}
+                                    </option>
+
                                 </select> <br>
-                                <select formControlName="inputModule">
-                                    <option value="Module 1"> Module 1 </option>
-                                    <option value="Module 2"> Module 2 </option>
-                                    <option value="Module 2"> Module 3 </option>
+                                <select formControlName="inputClass">
+                                    <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
                                 </select> <br>
                                 <select formControlName="inputHoraire">
                                     <option value="S1"> S1 </option>
@@ -208,15 +200,13 @@
                             <div *ngIf="myForm.get('nb_senace')?.value == '5' ">
                                 <br> séance 5<br>
                                 <input type="date" formControlName="date5"><br>
-                                <select formControlName="inputClass">
-                                    <option value="Class 1"> Class 1 </option>
-                                    <option value="Class 2"> Class 2 </option>
-                                    <option value="Class 3"> Class 3 </option>
+                                <select formControlName="inputModule" (change)="getclasse_bymodule($event)">
+                                    <option *ngFor="let module of modulesens" [value]="module._id"> {{module.code}}
+                                    </option>
+
                                 </select> <br>
-                                <select formControlName="inputModule">
-                                    <option value="Module 1"> Module 1 </option>
-                                    <option value="Module 2"> Module 2 </option>
-                                    <option value="Module 2"> Module 3 </option>
+                                <select formControlName="inputClass">
+                                    <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
                                 </select> <br>
                                 <select formControlName="inputHoraire">
                                     <option value="S1"> S1 </option>
