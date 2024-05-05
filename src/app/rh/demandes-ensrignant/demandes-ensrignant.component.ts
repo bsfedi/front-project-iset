@@ -36,7 +36,16 @@ export class DemandesEnsrignantComponent {
   }
 
 
+  putfiche(id: any) {
+    this.studentservice.putfiche(id).subscribe({
+      next: (res) => {
+        window.location.reload()
+      }, error(e) {
+        console.log(e);
 
+      }
+    });
+  }
 
   fullname: any
   ngOnInit(): void {
@@ -50,10 +59,57 @@ export class DemandesEnsrignantComponent {
 
         }
       });
-    } else {
+    } else if (this.role == 'RH') {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
           this.fullname = res.first_name + " " + res.last_name
+          this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+            next: (res) => {
+              this.studentservice.getfiche().subscribe({
+                next: (res) => {
+                  this.validated_mission = res
+
+
+                },
+                error: (e) => {
+                  // Handle errors
+                  this.validated_mission = [];
+                  console.error(e);
+
+                  // Set loading to false in case of an error
+                },
+              });
+            }, error(e) {
+              console.log(e);
+
+            }
+          });
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+
+
+    }
+    else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+          this.studentservice.enseignants_demande(this.user_id).subscribe({
+            next: (res) => {
+              this.validated_mission = res.at_demandes
+
+
+            },
+            error: (e) => {
+              // Handle errors
+              this.validated_mission = [];
+              console.error(e);
+
+              // Set loading to false in case of an error
+            },
+          });
         }, error(e) {
           console.log(e);
 
@@ -62,20 +118,9 @@ export class DemandesEnsrignantComponent {
     }
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-    this.studentservice.enseignants_demande(this.user_id).subscribe({
-      next: (res) => {
-        this.validated_mission = res.at_demandes
 
 
-      },
-      error: (e) => {
-        // Handle errors
-        this.validated_mission = [];
-        console.error(e);
 
-        // Set loading to false in case of an error
-      },
-    });
   }
   pageSizepending = 5; // Number of items per page
   currentPagepending = 1; // Current page
@@ -102,7 +147,7 @@ export class DemandesEnsrignantComponent {
           this.showPopup = false
           Swal.fire({
 
-            background: 'white',
+            background: '#fefcf1',
             html: `
               <div>
               <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
@@ -141,7 +186,7 @@ export class DemandesEnsrignantComponent {
           this.showPopup = false
           Swal.fire({
 
-            background: 'white',
+            background: '#fefcf1',
             html: `
               <div>
               <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 

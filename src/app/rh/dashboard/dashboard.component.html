@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="tjm_moyen3" *ngIf="role == 'tuitionofficer'">
+      <!-- <div class="tjm_moyen3" *ngIf="role == 'tuitionofficer'">
         Choisissez une catégorie <br>
         <select>
           <option value=""> enseignant</option>
@@ -28,7 +28,7 @@
           <option> Agent de scolarité</option>
         </select>
 
-      </div>
+      </div> -->
       <div class="Tableau1 left-first" *ngIf="role == 'student'">
         <div class="tjm_moyen"> Les demandes par status <br>
 
@@ -161,7 +161,7 @@
       </div>
 
 
-      <div class="Tableau1 left-first" *ngIf="role == 'enseignant'">
+      <!-- <div class="Tableau1 left-first" *ngIf="role == 'enseignant'">
         <div class="tjm_moyen"> Les demandes par status <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
@@ -217,61 +217,73 @@
           <hr>
 
         </div>
-      </div>
+      </div> -->
 
 
-      <div class="Tableau1 left-first" *ngIf="role == 'tuitionofficer'">
+      <div class="Tableau1 left-first">
         <div class="tjm_moyen"> Les demandes par status <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
-            <div> Demande de congé</div>
-            <div style="margin-left: 100px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+            <div style="width:  230px;"> Attestation de presence</div>
+            <div> {{statsres.demande_count}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.demande_percentage}}%</div>
 
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle1"></div>
-            <div>Attestation de travail</div>
-            <div style="margin-left: 90px;"> 15 </div>
-            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+            <div style="width:  230px;">Inscription</div>
+            <div> {{statsres.preregistres_count}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.preregistres_percentage}}%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
-            <div> Demande de rattrapge</div>
-            <div style="margin-left: 80px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+            <div style="width:  230px;"> Demande de rattrapge</div>
+            <div> {{statsres.rattrapage_count}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.rattrapage_percentage}}%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle3"></div>
-            <div> Fiche de paie</div>
-            <div style="margin-left: 148px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 21%</div>
+            <div style="width:  230px;"> Enseignant demande</div>
+            <div> {{statsres.enseignant_demande}} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{statsres.enseignant_demande_percentage}}%</div>
           </b>
         </div>
         <div class="tjm_moyen"> Les demandes par type <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
-            <div>en attente</div>
-            <div style="margin-left: 100px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 23%</div>
+            <div style="width:  230px;">en attente</div>
+            <div> {{ statsres.pending_preregistres_count + statsres.pending_demande_count
+              }} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{ ( (statsres.pending_preregistres_count +
+              statsres.pending_demande_count / statsres.total_count ) *100).toFixed(2) }}%
+            </div>
 
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle1"></div>
-            <div>en cours</div>
-            <div style="margin-left: 90px;"> 15 </div>
-            <div style="margin-left: 100px;color: #858380;"> 43%</div>
+            <div style="width:  230px;">Non validée</div>
+            <div> {{ statsres.total_count -(statsres.validated_preregistres_count +
+              statsres.validated_demande_count +statsres.pending_preregistres_count + statsres.pending_demande_count)
+              }}
+            </div>
+            <div style="margin-left: 100px;color: #858380;"> {{ (( (statsres.total_count
+              -(statsres.validated_preregistres_count +
+              statsres.validated_demande_count +statsres.pending_preregistres_count + statsres.pending_demande_count) )
+              /statsres.total_count) *100).toFixed(2)
+              }}%</div>
           </b>
           <hr>
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
-            <div> validée</div>
-            <div style="margin-left: 80px;"> 3 </div>
-            <div style="margin-left: 100px;color: #858380;"> 13%</div>
+            <div style="width:  230px;"> validée</div>
+            <div> {{ statsres.validated_preregistres_count + statsres.validated_demande_count
+              }} </div>
+            <div style="margin-left: 100px;color: #858380;"> {{ (((statsres.validated_preregistres_count +
+              statsres.validated_demande_count) / statsres.total_count ) *100).toFixed(2)}}%</div>
           </b>
           <hr>
 

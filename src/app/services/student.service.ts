@@ -492,4 +492,11 @@ export class StudentService {
     return this.http.get(baseUrl + 'orientations');
   }
 
+
+  getfiche() {
+    return this.http.get(baseUrl + 'get_demandes_fiche');
+  }
+  putfiche(ficher_id: any) {
+    return this.http.get(baseUrl + 'update_status_fiche/' + ficher_id);
+  }
 }

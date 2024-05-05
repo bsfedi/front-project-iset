@@ -265,18 +265,18 @@ export class DashboardComponent {
         }
       });
 
-    } else if (this.role == 'tuitionofficer') {
-
-      this.studentservice.stats_tuitionofficer().subscribe({
-        next: (res) => {
-
-          this.statsres = res
-        }, error(e) {
-          console.log(e);
-
-        }
-      });
     }
+
+    this.studentservice.stats_tuitionofficer().subscribe({
+      next: (res) => {
+
+        this.statsres = res
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
 
 
     this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({

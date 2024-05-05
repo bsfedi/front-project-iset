@@ -154,7 +154,7 @@
     </div>
   </div>
   <div class="custom-item"
-    *ngIf=" role ==='admin' ||role ==='student' || role ==='tuitionofficer' || role ==='enseignant' || role ==='directeurdepartement' || res.privilege ==='directeurdepartement'|| res.privilege ==='personneladministratif' || res.privilege ==='directeuretudes'"
+    *ngIf=" role ==='admin' || role ==='RH' ||role ==='student' || role ==='tuitionofficer' || role ==='enseignant' || role ==='directeurdepartement' || res.privilege ==='directeurdepartement'|| res.privilege ==='personneladministratif' || res.privilege ==='directeuretudes'"
     [ngClass]="{ 'board-item': isActiveRoute('dashboard')  }">
     <div class="board-svg">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none">
@@ -317,7 +317,7 @@
   </div>
   <!-- [ngClass]="{ 'board-item': isActiveRoute('enseignant')  }" -->
   <div class="custom-item" [ngClass]="{ 'board-item': isActiveRoute('demandes')  }"
-    *ngIf=" role ==='admin' || role ==='enseignant' ||  role ==='directeurdepartement'  ||  role ==='directeuretudes'  ||  role ==='tuitionofficer'|| res.privilege ==='directeurdepartement' || res.privilege ==='directeuretudes'">
+    *ngIf=" role ==='admin' || role ==='enseignant' ||  role ==='directeurdepartement'  ||  role ==='directeuretudes'  ||  role ==='tuitionofficer'|| res.privilege ==='directeurdepartement' || res.privilege ==='directeuretudes' || role ==='RH'">
     <div class="board-svg">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
         <path d="M18.3337 10H13.3337L11.667 12.5H8.33366L6.66699 10H1.66699" stroke="#FEFCF1" stroke-width="2"
