@@ -110,7 +110,7 @@ export class OrientationComponent {
         console.log(res);
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> demande ajouté  avec succès! </div> 
@@ -120,7 +120,7 @@ export class OrientationComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',

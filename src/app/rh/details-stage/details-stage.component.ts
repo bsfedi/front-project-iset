@@ -107,10 +107,10 @@ export class DetailsStageComponent {
     this.studentservice.update_satge(this.satge_id, data).subscribe({
       next: (res) => {
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
 
           text: 'La demande de stage validé avec sucess !',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
         });
       }
@@ -124,10 +124,10 @@ export class DetailsStageComponent {
     this.studentservice.update_satge(this.satge_id, data).subscribe({
       next: (res) => {
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
 
           text: 'La demande de stage a éte refusé !',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
         });
       }

@@ -504,8 +504,8 @@ export class ConsultantMissionComponent {
       iconColor: '#1E1E1E',
       showCancelButton: true,
       confirmButtonText: 'Oui',
-      background: '#fefcf1',
-      confirmButtonColor: "#91c593",
+      background: 'white',
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Non',
       cancelButtonColor: "black",
       customClass: {
@@ -525,10 +525,10 @@ export class ConsultantMissionComponent {
           next: (res) => {
             // Handle the response from the server
             Swal.fire({
-              background: '#fefcf1',
+              background: 'white',
               title: 'Email envoyé',
               text: 'L\'email a été envoyé avec succès !',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
 
             });
             this.showPopup3 = false;
@@ -537,10 +537,10 @@ export class ConsultantMissionComponent {
             console.log(e);
             // Handle errors
             Swal.fire({
-              background: '#fefcf1',
+              background: 'white',
               title: 'Erreur d\'envoi',
               text: "L'envoi de l'email a échoué. Veuillez réessayer.",
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
             });
           }
         });
@@ -549,8 +549,8 @@ export class ConsultantMissionComponent {
 
           title: 'Envoi annulé',
           text: 'Aucun email n\'a été envoyé.',
-          background: '#fefcf1',
-          confirmButtonColor: "#91c593",
+          background: 'white',
+          confirmButtonColor: "rgb(0, 17, 255)",
           confirmButtonText: 'Ok',
 
         });
@@ -841,10 +841,10 @@ export class ConsultantMissionComponent {
 
             Swal.fire({
 
-              background: '#fefcf1',
+              background: 'white',
               confirmButtonText: 'Ok',
 
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
               title: 'Document ajouté avec succès!',
               showConfirmButton: false,
               timer: 3000 // Adjusted timer to 3000 milliseconds (3 seconds)
@@ -883,8 +883,8 @@ export class ConsultantMissionComponent {
       iconColor: '#1E1E1E',
       showCancelButton: true,
       confirmButtonText: 'Oui',
-      background: '#fefcf1',
-      confirmButtonColor: "#91c593",
+      background: 'white',
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Non',
       cancelButtonColor: "black",
       customClass: {
@@ -911,7 +911,7 @@ export class ConsultantMissionComponent {
 
       } else {
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
           title: 'Virement annulé',
           text: 'Aucun virement n\'a été effectué.',
           confirmButtonText: 'Ok',

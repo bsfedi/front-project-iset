@@ -148,6 +148,11 @@ export class LeftBarComponent {
     this.router.navigate([clientName + '/gestionadministrative'])
 
   }
+  gestionorientation() {
+    this.router.navigate([clientName + '/gestion-orientation'])
+
+  }
+
   absences() {
     this.router.navigate([clientName + '/absences'])
 
@@ -207,10 +212,10 @@ export class LeftBarComponent {
         </div>
       `,
       iconColor: '#1E1E1E',
-      background: '#fefcf1',
+      background: 'white',
       showCancelButton: true,
       confirmButtonText: 'Oui',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Non',
       cancelButtonColor: "black",
       customClass: {

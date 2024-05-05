@@ -163,7 +163,7 @@ export class VirementsComponent {
       iconColor: '#1E1E1E',
       showCancelButton: true,
       confirmButtonText: 'Oui, mettez à jour !',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
 
       cancelButtonText: 'Annuler',
       customClass: {
@@ -232,7 +232,7 @@ export class VirementsComponent {
               icon: "success",
               title: 'Pré-inscription mise à jour avec succès !',
               confirmButtonText: 'OK',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
             });
             this.router.navigate([clientName + '/pending'])
           },

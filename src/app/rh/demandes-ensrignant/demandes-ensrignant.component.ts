@@ -102,7 +102,7 @@ export class DemandesEnsrignantComponent {
           this.showPopup = false
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
@@ -112,7 +112,7 @@ export class DemandesEnsrignantComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',
@@ -141,7 +141,7 @@ export class DemandesEnsrignantComponent {
           this.showPopup = false
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
@@ -151,7 +151,7 @@ export class DemandesEnsrignantComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',

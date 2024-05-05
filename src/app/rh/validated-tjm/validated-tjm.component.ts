@@ -258,11 +258,11 @@ export class ValidatedTjmComponent {
         // Handle success
         console.log(res);
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
           title: 'TJM Validé',
           text: 'Le Tarif Journalier Moyen a été validé avec succès !',
           confirmButtonText: 'OK',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
         });
         this.router.navigate([clientName + '/tjmrequests'])
       },
@@ -283,11 +283,11 @@ export class ValidatedTjmComponent {
         // Handle success
         console.log(res);
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
           title: 'TJM réfusé',
           text: "La demande de TJM a été refusé.",
           confirmButtonText: 'OK',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
         });
         this.router.navigate([clientName + '/tjmrequests'])

@@ -485,4 +485,11 @@ export class StudentService {
   }
 
 
+  orientation_by_dep(departement: any) {
+    return this.http.get(baseUrl + 'orientation_by_dep/' + departement);
+  }
+  orientations() {
+    return this.http.get(baseUrl + 'orientations');
+  }
+
 }

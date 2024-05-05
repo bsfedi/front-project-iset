@@ -83,10 +83,10 @@ export class EditProfilComponent {
         </div>
       `,
 
-      background: '#fefcf1',
+      background: 'white',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Annuler',
       cancelButtonColor: "black",
       customClass: {
@@ -111,8 +111,8 @@ export class EditProfilComponent {
             Swal.fire({
               title: 'Succès',
               text: 'Profil mise à jour avec succès !',
-              background: '#fefcf1',
-              confirmButtonColor: "#91c593",
+              background: 'white',
+              confirmButtonColor: "rgb(0, 17, 255)",
             });
           },
           error: (e) => {
@@ -121,8 +121,8 @@ export class EditProfilComponent {
             Swal.fire({
               title: 'Erreur',
               text: "Aucune modification n'a été apportée.",
-              background: '#fefcf1',
-              confirmButtonColor: "#91c593",
+              background: 'white',
+              confirmButtonColor: "rgb(0, 17, 255)",
             });
           }
         });
@@ -131,8 +131,8 @@ export class EditProfilComponent {
         Swal.fire({
           title: 'Annulé',
           text: "Aucune modification n'a été apportée.",
-          background: '#fefcf1',
-          confirmButtonColor: "#91c593",
+          background: 'white',
+          confirmButtonColor: "rgb(0, 17, 255)",
         });
       }
     });
@@ -148,10 +148,10 @@ export class EditProfilComponent {
         </div>
       `,
 
-      background: '#fefcf1',
+      background: 'white',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Annuler',
       cancelButtonColor: "black",
       customClass: {
@@ -167,8 +167,8 @@ export class EditProfilComponent {
           Swal.fire({
             title: 'Erreur',
             text: "Le nouveau mot de passe et la confirmation du mot de passe ne correspondent pas",
-            confirmButtonColor: "#91c593",
-            background: '#fefcf1',
+            confirmButtonColor: "rgb(0, 17, 255)",
+            background: 'white',
           });
         }
         else {
@@ -185,8 +185,8 @@ export class EditProfilComponent {
 
                 title: 'Succès',
                 text: 'Mot de passe mise à jour avec succès !',
-                background: '#fefcf1',
-                confirmButtonColor: "#91c593",
+                background: 'white',
+                confirmButtonColor: "rgb(0, 17, 255)",
               });
             },
             error: (e) => {
@@ -197,8 +197,8 @@ export class EditProfilComponent {
                 text: "Aucune modification n'a été apportée " + e.error.error
                 ,
 
-                background: '#fefcf1',
-                confirmButtonColor: "#91c593",
+                background: 'white',
+                confirmButtonColor: "rgb(0, 17, 255)",
               });
             }
           });
@@ -210,7 +210,7 @@ export class EditProfilComponent {
           title: 'Annulé',
           text: "Aucune modification n'a été apportée.",
           icon: 'info',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
         });
       }
     });

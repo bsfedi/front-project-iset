@@ -332,7 +332,7 @@ export class GestionAbsencesComponent {
 
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
           <div>
           <div style="font-size:1.2rem"> Parccours modifiée  avec succès! </div> 
@@ -342,7 +342,7 @@ export class GestionAbsencesComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -366,7 +366,7 @@ export class GestionAbsencesComponent {
 
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
           <div>
           <div style="font-size:1.2rem"> Parccours modifiée  avec succès! </div> 
@@ -376,7 +376,7 @@ export class GestionAbsencesComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -400,7 +400,7 @@ export class GestionAbsencesComponent {
 
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
           <div>
           <div style="font-size:1.2rem"> Parccours modifiée  avec succès! </div> 
@@ -410,7 +410,7 @@ export class GestionAbsencesComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -434,7 +434,7 @@ export class GestionAbsencesComponent {
 
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> parcour supprimée  avec succès! </div> 
@@ -444,7 +444,7 @@ export class GestionAbsencesComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -466,7 +466,7 @@ export class GestionAbsencesComponent {
 
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> module ajoutée  avec succès! </div> 
@@ -476,7 +476,7 @@ export class GestionAbsencesComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -515,7 +515,7 @@ export class GestionAbsencesComponent {
         next: (res) => {
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
@@ -525,7 +525,7 @@ export class GestionAbsencesComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',

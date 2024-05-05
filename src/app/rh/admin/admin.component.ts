@@ -204,7 +204,7 @@ export class AdminComponent {
         if (res) {
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> data uploaded avec succès! </div> 
@@ -214,7 +214,7 @@ export class AdminComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',
@@ -226,7 +226,7 @@ export class AdminComponent {
         if (res.error) {
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> ckeck the file please the header should be like this
@@ -237,7 +237,7 @@ export class AdminComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',
@@ -262,7 +262,7 @@ export class AdminComponent {
   deletenewuser(user_id: any) {
     Swal.fire({
       title: "Confirmez l'action",
-      background: '#fefcf1',
+      background: 'white',
       html: `
         <div>
         <div style="font-size:1.2rem"> Êtes-vous sûr de vouloir supprimer ce compte ?  </div> 
@@ -272,7 +272,7 @@ export class AdminComponent {
       iconColor: '#1E1E1E',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Annuler',
       cancelButtonColor: "black",
       customClass: {
@@ -288,7 +288,7 @@ export class AdminComponent {
             if (res) {
               Swal.fire({
 
-                background: '#fefcf1',
+                background: 'white',
                 html: `
                   <div>
                   <div style="font-size:1.2rem"> utilisateur supprimé avec succès! </div> 
@@ -298,7 +298,7 @@ export class AdminComponent {
 
 
                 confirmButtonText: 'Ok',
-                confirmButtonColor: "#91c593",
+                confirmButtonColor: "rgb(0, 17, 255)",
 
                 customClass: {
                   confirmButton: 'custom-confirm-button-class',
@@ -310,7 +310,7 @@ export class AdminComponent {
             if (res.error) {
               Swal.fire({
 
-                background: '#fefcf1',
+                background: 'white',
                 html: `
                   <div>
                   <div style="font-size:1.2rem"> Error
@@ -321,7 +321,7 @@ export class AdminComponent {
 
 
                 confirmButtonText: 'Ok',
-                confirmButtonColor: "#91c593",
+                confirmButtonColor: "rgb(0, 17, 255)",
 
                 customClass: {
                   confirmButton: 'custom-confirm-button-class',
@@ -359,7 +359,7 @@ export class AdminComponent {
           if (this.selectedOption3 == 'nonprivilege') {
             Swal.fire({
 
-              background: '#fefcf1',
+              background: 'white',
               html: `
                   <div>
                   <div style="font-size:1.2rem">  Privilège supprimé avec succès! </div> 
@@ -369,7 +369,7 @@ export class AdminComponent {
 
 
               confirmButtonText: 'Ok',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
 
               customClass: {
                 confirmButton: 'custom-confirm-button-class',
@@ -381,7 +381,7 @@ export class AdminComponent {
           else {
             Swal.fire({
 
-              background: '#fefcf1',
+              background: 'white',
               html: `
                   <div>
                   <div style="font-size:1.2rem"> privilege ajouté avec succès! </div> 
@@ -391,7 +391,7 @@ export class AdminComponent {
 
 
               confirmButtonText: 'Ok',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
 
               customClass: {
                 confirmButton: 'custom-confirm-button-class',
@@ -409,7 +409,7 @@ export class AdminComponent {
           this.showPopup1 = false;
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
                 <div>
                 <div style="font-size:1.2rem"> Vous ne
@@ -421,7 +421,7 @@ export class AdminComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',

@@ -92,7 +92,7 @@ export class EnseignantComponent {
         console.log(this.all_demandes);
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> demande accepté avec succès! </div> 
@@ -102,7 +102,7 @@ export class EnseignantComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -129,7 +129,7 @@ export class EnseignantComponent {
         console.log(this.all_demandes);
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> demande accepté avec succès! </div> 
@@ -139,7 +139,7 @@ export class EnseignantComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -167,7 +167,7 @@ export class EnseignantComponent {
         console.log(this.all_demandes);
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
@@ -177,7 +177,7 @@ export class EnseignantComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',
@@ -207,7 +207,7 @@ export class EnseignantComponent {
 
         Swal.fire({
 
-          background: '#fefcf1',
+          background: 'white',
           html: `
             <div>
             <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
@@ -217,7 +217,7 @@ export class EnseignantComponent {
 
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
 
           customClass: {
             confirmButton: 'custom-confirm-button-class',

@@ -28,9 +28,9 @@ export class ForgetPasswordComponent {
             </div>
           `,
           iconColor: '#1E1E1E',
-          background: '#fefcf1',
+          background: 'white',
           confirmButtonText: 'OK',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
           customClass: {
             confirmButton: 'custom-confirm-button-class',
             cancelButton: 'custom-cancel-button-class'

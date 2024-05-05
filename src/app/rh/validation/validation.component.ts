@@ -363,9 +363,9 @@ export class ValidationComponent implements OnInit {
       `,
       iconColor: '#CDC7B9',
       showCancelButton: true,
-      background: '#fefcf1',
+      background: 'white',
       confirmButtonText: 'Confirmer',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Annuler',
       cancelButtonColor: "black",
       customClass: {
@@ -381,11 +381,11 @@ export class ValidationComponent implements OnInit {
           next: (res) => {
             // Handle success
             Swal.fire({
-              background: '#fefcf1',
+              background: 'white',
 
               title: 'Pré-inscription mise à jour avec succès !',
               confirmButtonText: 'OK',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
               timer: 1500
             });
             this.router.navigate([clientName + '/dashboard'])
@@ -398,11 +398,11 @@ export class ValidationComponent implements OnInit {
         });
       } else {
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
           title: 'Annulé',
           text: "Aucune modification n'a été apportée.",
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
         })
         // // User clicked 'Cancel' or closed the popup
         // Swal.fire('Annulé',
@@ -464,8 +464,8 @@ export class ValidationComponent implements OnInit {
       iconColor: '#1E1E1E',
       showCancelButton: true,
       confirmButtonText: 'Oui',
-      background: '#fefcf1',
-      confirmButtonColor: "#91c593",
+      background: 'white',
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Non',
       cancelButtonColor: "black",
       customClass: {
@@ -485,10 +485,10 @@ export class ValidationComponent implements OnInit {
           next: (res) => {
             // Handle the response from the server
             Swal.fire({
-              background: '#fefcf1',
+              background: 'white',
               title: 'Email envoyé',
               text: 'L\'email a été envoyé avec succès !',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
 
             });
             this.showPopup3 = false;
@@ -497,10 +497,10 @@ export class ValidationComponent implements OnInit {
             console.log(e);
             // Handle errors
             Swal.fire({
-              background: '#fefcf1',
+              background: 'white',
               title: 'Erreur d\'envoi',
               text: "L'envoi de l'email a échoué. Veuillez réessayer.",
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
             });
           }
         });
@@ -509,8 +509,8 @@ export class ValidationComponent implements OnInit {
 
           title: 'Envoi annulé',
           text: 'Aucun email n\'a été envoyé.',
-          background: '#fefcf1',
-          confirmButtonColor: "#91c593",
+          background: 'white',
+          confirmButtonColor: "rgb(0, 17, 255)",
           confirmButtonText: 'Ok',
 
         });

@@ -338,7 +338,7 @@ export class MissionByIdComponent {
 
     Swal.fire({
       title: "Confirmez l'action",
-      background: '#fefcf1',
+      background: 'white',
       html: `
         <div>
         <div style="font-size:1.2rem"> Êtes-vous sûr de vouloir soumettre <br> vote réponse a la demande ?  </div> 
@@ -348,7 +348,7 @@ export class MissionByIdComponent {
       iconColor: '#1E1E1E',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Annuler',
       cancelButtonColor: "black",
       customClass: {
@@ -362,11 +362,11 @@ export class MissionByIdComponent {
         this.inscriptionservice.validatenewmission(this.mission_id, data, this.headers).subscribe({
           next: (res) => {
             Swal.fire({
-              background: '#fefcf1',
+              background: 'white',
 
               title: 'Mission mise à jour avec succès !',
               confirmButtonText: 'OK',
-              confirmButtonColor: "#91c593",
+              confirmButtonColor: "rgb(0, 17, 255)",
             });
             this.router.navigate([clientName + '/tjmrequests'])
           },
@@ -378,13 +378,13 @@ export class MissionByIdComponent {
         });
       } else {
         Swal.fire({
-          background: '#fefcf1',
+          background: 'white',
           title: 'Annulé',
           text: "Aucune modification n'a été apportée.",
           iconColor: '#1E1E1E',
 
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
         })
         // // User clicked 'Cancel' or closed the popup
         // Swal.fire('Annulé',

@@ -31,6 +31,7 @@ import { GererSallesComponent } from './gerer-salles/gerer-salles.component';
 import { GestionStagesComponent } from './gestion-stages/gestion-stages.component';
 import { DetailsStageComponent } from './details-stage/details-stage.component';
 import { GestionAbsencesComponent } from './gestion-absences/gestion-absences.component';
+import { GestionOrientationComponent } from './gestion-orientation/gestion-orientation.component';
 
 export const routes: Routes = [
   {
@@ -101,6 +102,10 @@ export const routes: Routes = [
     path: 'gestionabsences',
     component: GestionAbsencesComponent
 
+  },
+  {
+    path: 'gestion-orientation',
+    component: GestionOrientationComponent
   },
 
   {
@@ -180,6 +185,7 @@ export const routes: Routes = [
     GestionStagesComponent,
     DetailsStageComponent,
     GestionAbsencesComponent,
+    GestionOrientationComponent,
   ],
   imports: [
     CommonModule,

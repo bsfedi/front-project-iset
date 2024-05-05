@@ -453,7 +453,7 @@ export class GestionStagesComponent {
         next: (res) => {
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> demande ajouté avec succès! </div> 
@@ -463,7 +463,7 @@ export class GestionStagesComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',
@@ -495,7 +495,7 @@ export class GestionStagesComponent {
         next: (res) => {
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> stage ajouté avec succès! </div> 
@@ -505,7 +505,7 @@ export class GestionStagesComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',
@@ -727,7 +727,7 @@ export class GestionStagesComponent {
         next: (res) => {
           Swal.fire({
 
-            background: '#fefcf1',
+            background: 'white',
             html: `
               <div>
               <div style="font-size:1.2rem"> cra ajouté avec succès! </div> 
@@ -737,7 +737,7 @@ export class GestionStagesComponent {
 
 
             confirmButtonText: 'Ok',
-            confirmButtonColor: "#91c593",
+            confirmButtonColor: "rgb(0, 17, 255)",
 
             customClass: {
               confirmButton: 'custom-confirm-button-class',
@@ -785,8 +785,8 @@ export class GestionStagesComponent {
           next: (res) => {
 
             Swal.fire({
-              background: '#fefcf1',
-              confirmButtonColor: "#91c593",
+              background: 'white',
+              confirmButtonColor: "rgb(0, 17, 255)",
               icon: "success",
               title: 'TJM ajouté avec succès!',
               showConfirmButton: false,

@@ -195,10 +195,10 @@ export class ValidationMissionComponent {
         </div>
       `,
       iconColor: '#1E1E1E',
-      background: '#fefcf1',
+      background: 'white',
       showCancelButton: true,
       confirmButtonText: 'Oui',
-      confirmButtonColor: "#91c593",
+      confirmButtonColor: "rgb(0, 17, 255)",
       cancelButtonText: 'Non',
       cancelButtonColor: "black",
       customClass: {
@@ -219,11 +219,11 @@ export class ValidationMissionComponent {
         //     if (e.error.text == 'Mission Killed Successfully') {
         //       // Handle success
         //       Swal.fire({
-        //         background: '#fefcf1',
+        //         background: 'white',
         //         title: 'Mission terminé',
         //         text: "La mission est terminé avec succès",
         //         confirmButtonText: 'OK',
-        //         confirmButtonColor: "#91c593",
+        //         confirmButtonColor:  rgb(0, 17, 255),
 
         //       });
         //       // this.router.navigate([clientName +'/dashboard'])
@@ -241,10 +241,10 @@ export class ValidationMissionComponent {
       } else {
         Swal.fire({
           title: 'Annulé',
-          background: '#fefcf1',
+          background: 'white',
           text: "Aucune modification n'a été apportée.",
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#91c593",
+          confirmButtonColor: "rgb(0, 17, 255)",
         })
         // // User clicked 'Cancel' or closed the popup
         // Swal.fire('Annulé',

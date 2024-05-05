@@ -1,0 +1,180 @@
+<body>
+    <div class="wrapper">
+        <div>
+            <app-left-bar> </app-left-bar>
+        </div>
+        <div class="second-container">
+            <div class="title"> Etudiants - Orientation</div>
+            <!-- <div *ngIf="orientation">
+                <div *ngIf="data_orientation.status !='validated'"> Affecter l'etudiant <b> {{ personalInfo.first_name
+                        }}
+                        {{ personalInfo.last_name }} </b> au parcours
+
+                    <select id="fullName" (change)="affcterstudent($event)" placeholder="Métier" name="fullName"
+                        required *ngIf="data_orientation.status !='validated'">
+
+                        <option [value]="data_orientation.choix1">
+                            {{data_orientation.choix1}}
+                        </option>
+                        <option [value]="data_orientation.choix2">
+                            {{data_orientation.choix2}}
+                        </option>
+                        <option [value]="data_orientation.choix3">
+                            {{data_orientation.choix3}}
+                        </option>
+                        <option [value]="data_orientation.choix4" *ngIf="data_orientation.choix4">
+                            {{data_orientation.choix4}}
+                        </option>
+                    </select>
+
+                </div> -->
+            <!-- <div *ngIf="data_orientation.status ==='validated'">
+
+                    l'etudiant <b> {{ personalInfo.first_name }}
+                        {{ personalInfo.last_name }} </b> est affecté au parcours <b>{{data_orientation.resultat}} </b>
+
+                </div><br> <br> -->
+            <div *ngIf="role === 'directeurdepartement'">
+                <div *ngFor="let result of orientations.result_counts | keyvalue">
+                    <div style="font-size: 1.2rem;"> {{ result.key }} : <b> {{ result.value }} </b></div>
+                </div>
+                <table style="width: 80%; margin-top: 50px;">
+                    <thead>
+                        <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Etudiant </th>
+                        <th> choix </th>
+                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Affecter </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of orientations.orientations">
+                            <td>
+                                {{item.student}}
+                            </td>
+                            <td>
+                                <b> {{item.choix1}} - {{item.choix2}} - {{item.choix3}} <div *ngIf="item.choix4"> -
+                                        {{item.choix4}} </div>
+                                </b>
+                            </td>
+                            <td>
+                                <div *ngIf="item.resultat != '' ">
+                                    {{item.resultat}}
+                                </div>
+                                <div *ngIf="item.resultat ==''">
+                                    <select id="fullName" (change)="affcterstudent($event,item.user_id)"
+                                        placeholder="Métier" name="fullName" required>
+
+                                        <option [value]="item.choix1">
+                                            {{item.choix1}}
+                                        </option>
+                                        <option [value]="item.choix2">
+                                            {{item.choix2}}
+                                        </option>
+                                        <option [value]="item.choix3">
+                                            {{item.choix3}}
+                                        </option>
+                                        <option [value]="item.choix4" *ngIf="item.choix4">
+                                            {{item.choix4}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <b></b> <br> <br>
+            </div><br>
+            <div *ngIf="role != 'directeurdepartement'">
+
+                <div class="first rechercher">
+                    <svg style="margin-top: -2px;margin-left: -10px;" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M21.7555 20.6065L18.3182 17.2458L18.2376 17.1233C18.0878 16.9742 17.883 16.8902 17.6692 16.8902C17.4554 16.8902 17.2505 16.9742 17.1007 17.1233C14.1795 19.8033 9.67815 19.949 6.58201 17.4637C3.48586 14.9784 2.75567 10.6334 4.87568 7.31017C6.9957 3.98697 11.3081 2.71685 14.9528 4.34214C18.5976 5.96743 20.4438 9.98379 19.267 13.7276C19.1823 13.9981 19.2515 14.2922 19.4487 14.4992C19.6459 14.7062 19.9411 14.7946 20.223 14.7311C20.505 14.6676 20.7309 14.4619 20.8156 14.1914C22.2224 9.74864 20.0977 4.96755 15.8161 2.94106C11.5345 0.914562 6.38084 2.25082 3.68905 6.08542C0.99727 9.92001 1.57518 15.1021 5.04893 18.2795C8.52268 21.4569 13.8498 21.6759 17.5841 18.7949L20.6277 21.7705C20.942 22.0765 21.4502 22.0765 21.7645 21.7705C22.0785 21.4602 22.0785 20.9606 21.7645 20.6503L21.7555 20.6065Z"
+                            fill="#1E1E1E" />
+                    </svg>
+                    <input type="search" placeholder="Rechercher par le departement" [(ngModel)]="searchTerm"
+                        (input)="applyFilter()">
+                </div>
+                <button style="margin-left: 0px;margin-top: 30px;" (click)="generatePdf()"> PDF</button>
+                <table style="width: 100%; margin-top: 30px;">
+                    <thead>
+                        <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Etudiant </th>
+                        <th> choix </th>
+                        <th> Departement</th>
+                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Affecter </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getDisplayeddocs()">
+                            <td>
+                                {{item.student}}
+                            </td>
+                            <td>
+                                <b> {{item.choix1}} - {{item.choix2}} - {{item.choix3}} - {{item.choix4}}
+                                </b>
+                            </td>
+                            <td> {{item.departement}}</td>
+                            <td>
+                                <div *ngIf="item.resultat != '' ">
+                                    {{item.resultat}}
+                                </div>
+                                <div *ngIf="item.resultat ==''">
+                                    <select id="fullName" (change)="affcterstudent($event,item.user_id)"
+                                        placeholder="Métier" name="fullName" required>
+
+                                        <option [value]="item.choix1">
+                                            {{item.choix1}}
+                                        </option>
+                                        <option [value]="item.choix2">
+                                            {{item.choix2}}
+                                        </option>
+                                        <option [value]="item.choix3">
+                                            {{item.choix3}}
+                                        </option>
+                                        <option [value]="item.choix4" *ngIf="item.choix4">
+                                            {{item.choix4}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div (click)="previousPage()" style="cursor: pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                            <path fill-rule="evenodd"
+                                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                        </svg>
+                    </div>
+
+
+                    <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages }}</span>
+                    <div (click)="nextPage()" style="cursor: pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+                            <path fill-rule="evenodd"
+                                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+                        </svg>
+                    </div>
+
+                </div>
+                <b></b> <br> <br>
+            </div>
+
+        </div>
+
+        <div class="right-item" style="cursor: pointer; height: 5px;margin-left: -25px;">
+            <div class="profil">
+                <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                <div class="nom-prenom"> {{fullname}} </div>
+
+            </div>
+        </div>
+    </div>
+</body>
