@@ -265,17 +265,19 @@ export class DashboardComponent {
         }
       });
 
+    } else {
+      this.studentservice.stats_tuitionofficer().subscribe({
+        next: (res) => {
+          this.show = true
+          this.statsres = res
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
     }
 
-    this.studentservice.stats_tuitionofficer().subscribe({
-      next: (res) => {
-        this.show = true
-        this.statsres = res
-      }, error(e) {
-        console.log(e);
 
-      }
-    });
 
 
 
