@@ -28,6 +28,7 @@ export class AdminComponent {
   res: any
   form1: boolean = false;
   form2: boolean = false;
+  show: any
   selectedOption: any
   selectedOption1: string = '';
   constructor(private inscriptionservice: InscriptionService, private studentservice: StudentService, private consultantservice: ConsultantService, private router: Router, private userservice: UserService, private socketService: WebSocketService, private fb: FormBuilder) {
@@ -86,6 +87,7 @@ export class AdminComponent {
     this.studentservice.getallusers().subscribe({
       next: (res) => {
         this.all_rh = res
+        this.show = true
 
       }, error(e) {
         console.log(e);

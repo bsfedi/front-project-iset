@@ -201,7 +201,7 @@ export class DashboardComponent {
   all_demande_verification_pending: any
   all_demande_verification: any
   statsres: any
-
+  show: any
   fullname: any
   ngOnInit(): void {
     this.studentservice.getpendingregister().subscribe({
@@ -242,7 +242,7 @@ export class DashboardComponent {
     if (this.role == "enseignant") {
       this.studentservice.stats_enseignant(this.ens_id).subscribe({
         next: (res) => {
-
+          this.show = true
           this.all_demande_presence_validated = res.all_demande_presence_validated
           this.all_demande_presence_pending = res.all_demande_presence_pending
           this.all_demande_presence = res.all_demande_presence
@@ -257,7 +257,7 @@ export class DashboardComponent {
     } else if (this.role == "student") {
       this.studentservice.stats_student(this.ens_id).subscribe({
         next: (res) => {
-
+          this.show = true
           this.statsres = res
         }, error(e) {
           console.log(e);
@@ -269,7 +269,7 @@ export class DashboardComponent {
 
     this.studentservice.stats_tuitionofficer().subscribe({
       next: (res) => {
-
+        this.show = true
         this.statsres = res
       }, error(e) {
         console.log(e);

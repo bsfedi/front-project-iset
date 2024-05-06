@@ -25,11 +25,13 @@ export class GererSallesComponent {
 
   role: any
   fullname: any
+  show: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -39,6 +41,7 @@ export class GererSallesComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
         }, error(e) {
           console.log(e);

@@ -61,6 +61,7 @@ export class allStudentsComponent {
   getContaractByPrerigister: any
   stats: any
   cardstats: any
+  show: any
   process_statut: any
   @ViewChild("chart") chart: ChartComponent | any;
   searchTerm: any
@@ -139,11 +140,13 @@ export class allStudentsComponent {
   }
   role: any
   fullname: any
+  departement: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -153,7 +156,9 @@ export class allStudentsComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
+          this.departement = res.departement
         }, error(e) {
           console.log(e);
 
@@ -360,6 +365,8 @@ export class allStudentsComponent {
       // Apply filter based on search term
       this.filteredItems = this.items.filter((item: any) =>
         item.personalInfo.departement.toLowerCase().includes(this.searchTerm.toLowerCase())
+        || item.personalInfo.classe.toLowerCase().includes(this.searchTerm.toLowerCase())
+
       );
     }
   }

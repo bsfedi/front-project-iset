@@ -3,7 +3,8 @@
         <div>
             <app-left-bar> </app-left-bar>
         </div>
-        <div class="second-container">
+        <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+        <div class="second-container" *ngIf="show">
             <div class="title"> Etudiants - Orientation</div>
             <!-- <div *ngIf="orientation">
                 <div *ngIf="data_orientation.status !='validated'"> Affecter l'etudiant <b> {{ personalInfo.first_name
@@ -35,9 +36,15 @@
 
                 </div><br> <br> -->
             <div *ngIf="role === 'directeurdepartement'">
-                <div *ngFor="let result of orientations.result_counts | keyvalue">
-                    <div style="font-size: 1.2rem;"> {{ result.key }} : <b> {{ result.value }} </b></div>
+                <div style="display: flex;">
+                    <div *ngFor="let result of orientations.result_counts | keyvalue" style="font-size: 1.2rem;">
+                        <div class="tjm_moyen">
+                            <div class="chaffaire"> <b> {{ result.key }} </b></div>
+                            <div class="nb_money"><b>{{ result.value }}</b></div>
+                        </div>
+                    </div>
                 </div>
+
                 <table style="width: 80%; margin-top: 50px;">
                     <thead>
                         <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Etudiant </th>
@@ -101,7 +108,7 @@
                         <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Etudiant </th>
                         <th> choix </th>
                         <th> Departement</th>
-                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Affecter </th>
+                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Décision d’affectation </th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of getDisplayeddocs()">

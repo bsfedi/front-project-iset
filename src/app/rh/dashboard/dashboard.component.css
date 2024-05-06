@@ -712,7 +712,7 @@ input[type="password"] {
   margin-top: 10px;
   padding: 10px;
   margin-left: 15px;
-  width: 28.25rem;
+  width: 30.25rem;
   height: 16.6875rem;
   flex-shrink: 0;
   box-shadow: 1px 1px 1px 1px rgb(198, 187, 187);
@@ -726,7 +726,7 @@ input[type="password"] {
   margin: 5px;
   padding: 10px;
   margin-left: 15px;
-  width: 28.25rem;
+  width: 30.25rem;
   background-color: rgb(174, 182, 226);
   height: 5.6875rem;
   flex-shrink: 0;
@@ -741,7 +741,7 @@ input[type="password"] {
   margin: 5px;
   padding: 10px;
   margin-left: 15px;
-  width: 28.25rem;
+  width: 30.25rem;
   background-color: rgb(212, 227, 212);
   height: 5.6875rem;
   font-size: 2rem;

@@ -26,7 +26,7 @@ export class GestionOrientationComponent {
   orientations: any
   filteredItems: any[] = [];
   all_orientations: any
-
+  show: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
     this.role = localStorage.getItem('role');
@@ -34,6 +34,7 @@ export class GestionOrientationComponent {
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -45,6 +46,7 @@ export class GestionOrientationComponent {
         next: (res) => {
           this.studentservice.orientation_by_dep(res.departement).subscribe({
             next: (res) => {
+              this.show = true
               this.orientations = res
             }, error(e) {
               console.log(e);
@@ -86,7 +88,7 @@ export class GestionOrientationComponent {
     this.studentservice.putorientation(student_id, selectedValue).subscribe({
       next: (res) => {
 
-
+        window.location.reload()
       }
     })
   }

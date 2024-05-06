@@ -122,7 +122,8 @@
           </div>
 
           <div>
-            <select formControlName="departement" class="form-control" required>
+            <select formControlName="departement" class="form-control"
+              (change)="get_classes_bydep(myForm.value.departement)" required>
               <option value="" disabled selected>Choisir le departement</option>
               <option value="GM">GM</option>
               <option value="GE">GE</option>
@@ -136,10 +137,8 @@
           </div>
           <div>
             <select formControlName="classe" class="form-control" required>
-              <option value="" disabled selected>Choisir le class</option>
-              <option value="blalb">blab</option>
-              <option value="blalb">blalb</option>
-              <option value="blalb">blalb</option>
+              <option value="" disabled selected>Choisir le classe</option>
+              <option *ngFor="let item of classes"> {{item.code}} </option>
             </select>
           </div>
           <div class="error" *ngIf="myForm.get('classe')?.invalid && myForm.get('classe')?.touched">

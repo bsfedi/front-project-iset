@@ -68,12 +68,14 @@ export class GestionAbsencesComponent {
   toggleCheckboxes() {
     this.expanded = !this.expanded;
   }
+  show: any
   ngOnInit(): void {
 
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -83,6 +85,7 @@ export class GestionAbsencesComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
           this.departement = res.departement
           this.studentservice.get_classe_module_by_dep(res.departement).subscribe({
@@ -163,8 +166,28 @@ export class GestionAbsencesComponent {
       next: (res) => {
         this.validated_mission = res
         console.log(this.validated_mission);
+        Swal.fire({
+
+          background: 'white',
+          html: `
+          <div>
+          <div style="font-size:1.2rem">Affectation du module terminée avecs   succès! </div> 
+            
+          </div>
+        `,
 
 
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "rgb(0, 17, 255)",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+
+        })
+        window.location.reload()
 
       },
       error: (e) => {

@@ -3,20 +3,21 @@
     <div>
       <app-left-bar> </app-left-bar>
     </div>
-
-    <div class="second-container">
+    <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+    <div class="second-container" *ngIf="show">
       <div class="title">Tableau de bord </div>
       <div style="display: flex;margin-left: 15px;margin-bottom: 30px;" class="Tableau1">
+
+        <div>
+          <div class="tjm_moyen2">
+            Heure connexion <br>
+            06/05/2024 11:35
+          </div>
+        </div>
         <div>
           <div class="tjm_moyen1">
             Heure actuelle <br>
             {{ formattedDateTime() }}
-          </div>
-        </div>
-        <div>
-          <div class="tjm_moyen2">
-            Heure connexion <br>
-            26/04/2024 11:35
           </div>
         </div>
       </div>
@@ -220,7 +221,7 @@
       </div> -->
 
 
-      <div class="Tableau1 left-first">
+      <div class="Tableau1 left-first" *ngIf="role != 'student'">
         <div class="tjm_moyen"> Les demandes par status <br>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
@@ -536,7 +537,7 @@
             </div>
 
           </div> -->
-          <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
+          <div class="profil" style="cursor: pointer;">
             <img src="/assets/avatar-user.png" width="15%" height="10%" />
             <div class="nom-prenom">{{fullname}}<br>
 

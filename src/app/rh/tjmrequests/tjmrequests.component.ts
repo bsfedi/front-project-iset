@@ -24,6 +24,7 @@ export class tjmrequestsComponent {
   isMenuOpen1: boolean[] = []
   new_notif: any
   nblastnotifications: any
+  show: any
   lastnotifications: any
   notification: string[] = [];
   res: any
@@ -111,6 +112,7 @@ export class tjmrequestsComponent {
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -120,6 +122,7 @@ export class tjmrequestsComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
         }, error(e) {
           console.log(e);
@@ -285,31 +288,54 @@ export class tjmrequestsComponent {
 
   }
 
-  accept_note(demande_id: any) {
+  accept_note(demande_id: any, status: any) {
 
-    this.studentservice.accept_note(demande_id).subscribe({
+    this.studentservice.accept_note(demande_id, status).subscribe({
       next: (res) => {
+        if (status == 'True') {
+          Swal.fire({
 
-        Swal.fire({
-
-          background: 'white',
-          html: `
-            <div>
-            <div style="font-size:1.2rem"> verification de note validée  avec succès! </div> 
-              
-            </div>
-          `,
+            background: 'white',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> verification de note validée  avec succès! </div> 
+                
+              </div>
+            `,
 
 
-          confirmButtonText: 'Ok',
-          confirmButtonColor: "rgb(0, 17, 255)",
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "rgb(0, 17, 255)",
 
-          customClass: {
-            confirmButton: 'custom-confirm-button-class',
-            cancelButton: 'custom-cancel-button-class'
-          },
-          reverseButtons: true // Reversing button order
-        })
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
+        else {
+          Swal.fire({
+
+            background: 'white',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> verification de note refusé  avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "rgb(0, 17, 255)",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          })
+        }
 
       }, error(e) {
         console.log(e);

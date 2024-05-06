@@ -798,6 +798,33 @@ input[type="search"]:focus {
     margin-left: 10px;
 }
 
+.nb_money {
+    margin-top: 15px;
+    margin-left: 15px;
+    color: rgb(40, 68, 225);
+    font-size: 1.6875rem;
+}
+
+.chaffaire {
+    color: rgb(40, 68, 225);
+    margin-top: 5px;
+    margin-left: 15px;
+    font-size: 1.125rem;
+}
+
+.tjm_moyen {
+    margin: 5px;
+    padding: 10px;
+    margin-left: 15px;
+    width: 16.25rem;
+    height: 6.6875rem;
+    flex-shrink: 0;
+    border-radius: 0.8125rem;
+    border: 1px solid #eae3d5;
+    background: #ddf5fc;
+
+}
+
 .file-input {
     display: none;
 }

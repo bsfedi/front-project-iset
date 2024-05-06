@@ -80,12 +80,16 @@ export class InformationsComponent {
     return this.missionInfo.isSimulationValidated.value ? `https://my-krew-8nnq.onrender.com/uploads/${fileId}` : '';
   }
   identificationDocumentpdf: boolean = false
+  classes: any
   ngOnInit(): void {
     // Get the user ID from the route parameters
     this.route.params.subscribe((params) => {
       this.preinscription_id = params['id']
     });
     const token = localStorage.getItem('token');
+
+
+
 
     // Check if token is available
     if (token) {
@@ -103,6 +107,17 @@ export class InformationsComponent {
           this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
           this.docs.cin = baseUrl + "uploads/" + this.docs.cin
           this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+          this.inscriptionservice.get_classes_bydep(this.personalInfo.departement).subscribe({
+            next: (res) => {
+
+
+              this.classes = res
+            },
+            error: (e) => {
+              // Handle errors
+              console.error(e);
+            }
+          })
           if (this.docs.note1) {
             this.docs.note1 = baseUrl + "uploads/" + this.docs.note1
           }
@@ -111,6 +126,7 @@ export class InformationsComponent {
           }
           this.personalInfo.brith_date = this.personalInfo.brith_date.split('T')[0]
           this.hasCar = this.personalInfo.carInfo.hasCar.value;
+
 
           if (this.personalInfo.identificationDocument.value.endsWith('.pdf')) {
             console.log(this.personalInfo.identificationDocument.value);

@@ -20,6 +20,7 @@ export class DetailsStageComponent {
   stage_by_id: any
   showpdf: any
   urlSafe: any;
+  show: any
   constructor(private studentservice: StudentService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.formData1 = this.fb.group({
       commentaire: [''],

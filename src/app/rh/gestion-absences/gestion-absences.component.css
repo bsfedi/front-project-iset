@@ -427,7 +427,7 @@ input[type="email"],
 input[type="month"],
 input[type="password"],
 input[type="number"] {
-    width: 26.04313rem;
+    width: 20.04313rem;
     height: 2.61006rem;
     flex-shrink: 0;
 
@@ -1182,7 +1182,7 @@ svg {
 
 #checkboxes {
     display: none;
-    width: 26rem;
+    width: 20rem;
     border: 1px #dadada solid;
 }
 

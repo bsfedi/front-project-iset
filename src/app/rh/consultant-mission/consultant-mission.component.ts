@@ -40,6 +40,7 @@ export class ConsultantMissionComponent {
   nbdemande: any
   contractValidation: any
   roleofcurrent_user: any
+  show: any
   jobCotractEdition: any
   idcontractByPreregister: any
   getContaractByPrerigister: any
@@ -138,6 +139,7 @@ export class ConsultantMissionComponent {
 
     this.studentservice.getinscrption(this.preinscription_id).subscribe({
       next: (res) => {
+        this.show = true
         this.student_id = res.preregister.user_id
         // Handle the response from the server
         this.studentservice.sancttions(this.student_id).subscribe({

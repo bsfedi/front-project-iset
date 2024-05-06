@@ -20,6 +20,7 @@ export class AbsenceComponent {
   inputClass: any;
   inputModule: any;
   inputHoraire: any;
+  show: any
   expanded: boolean = false;
   selectedFile: File | null = null;
   isSimulationValidated: string | null = null;
@@ -99,6 +100,7 @@ export class AbsenceComponent {
     if (this.role == 'student') {
       this.studentsrvice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -108,6 +110,7 @@ export class AbsenceComponent {
     } else {
       this.studentsrvice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
         }, error(e) {
           console.log(e);

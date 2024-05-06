@@ -50,6 +50,20 @@ export class PreInscriptionComponent {
     return fileInput
 
   }
+  classes: any
+  get_classes_bydep(departement: any) {
+    this.inscriptionservice.get_classes_bydep(departement).subscribe({
+      next: (res) => {
+
+
+        this.classes = res
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    })
+  }
   logForm1() {
     if (this.myForm.valid) {
 

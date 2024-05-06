@@ -26,11 +26,13 @@ export class SuivreDemandeComponent {
   totalPages: any;
   role: any
   ens_id: any
+  show: any
   ngOnInit(): void {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
     this.studentservice.rattrapage(this.ens_id).subscribe({
       next: (res) => {
+        this.show = true
         this.all_demandes = res
         console.log(this.all_demandes);
 

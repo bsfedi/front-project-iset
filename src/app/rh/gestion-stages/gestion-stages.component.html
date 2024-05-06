@@ -3,8 +3,8 @@
         <div>
             <app-left-bar></app-left-bar>
         </div>
-
-        <div class="second-container">
+        <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+        <div class="second-container" *ngIf="show">
             <div style="display: flex">
 
                 <div class="title">Mes Missions</div>
@@ -376,7 +376,7 @@
         <div class="right-item">
             <div style="display: flex;margin-bottom: 0px;">
 
-                <div class="profil" (click)="gotomyprofile()" style="cursor: pointer;">
+                <div class="profil" style="cursor: pointer;">
                     <img src="/assets/avatar-user.png" width="15%" height="10%" />
                     <div class="nom-prenom">{{fullname}}
 

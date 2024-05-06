@@ -49,6 +49,7 @@ export class GestionStagesComponent {
   isMenuOpen: boolean[] = [];
   isMenuOpen1: boolean[] = []
   isMenuOpen2: boolean[] = []
+  show: any
   headers: any
   clientValidation: any
   contactClient: any
@@ -223,6 +224,7 @@ export class GestionStagesComponent {
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -232,6 +234,7 @@ export class GestionStagesComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
         }, error(e) {
           console.log(e);

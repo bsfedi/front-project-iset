@@ -3,11 +3,11 @@
         <div>
             <app-left-bar></app-left-bar>
         </div>
-
-        <div class="second-container" *ngIf="role == 'directeurdepartement'">
+        <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+        <div class="second-container" *ngIf="role == 'directeurdepartement' && show">
             <div style="display: flex">
 
-                <div class="title">Mes demandes</div>
+                <div class="title">Absences</div>
 
             </div>
             <p></p>
@@ -114,67 +114,78 @@
                     </tbody>
                 </table>
                 <div class="popup" *ngIf="showPopup1">
-                    <div class="popup-content" style="height: auto;">
+                    <div class="popup-content" style="height: auto;width: 50rem;">
                         <div style="float: right" (click)="closePopup1()">
                             <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                         </div>
                         <h3>Affecter module</h3>
+                        <div style="display: flex;">
 
-                        <div class="multiselect">
+
                             <div>
-                                <select (click)="toggleCheckboxes()">
-                                    <option [style.display]="expanded ? 'block' : 'none'"> choisir les enseignants
-                                    </option>
-                                </select>
-                                <div class="overSelect"></div>
-                            </div>
-                            <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
-                                *ngFor="let en of enseignants">
-                                <label for="en._id">
-                                    <input type="checkbox" (change)="toggleTeacher(en._id)"
-                                        id="en._id" />{{en.first_name}}
-                                    {{en.last_name}}</label>
+                                <div class="multiselect">
+                                    <div>
+                                        <select (click)="toggleCheckboxes()">
+                                            <option [style.display]="expanded ? 'block' : 'none'"> choisir les
+                                                enseignants
+                                            </option>
+                                        </select>
+                                        <div class="overSelect"></div>
+                                    </div>
+                                    <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
+                                        *ngFor="let en of enseignants">
+                                        <label for="en._id">
+                                            <input type="checkbox" (change)="toggleTeacher(en._id)"
+                                                id="en._id" />{{en.first_name}}
+                                            {{en.last_name}}</label>
 
+                                    </div>
+                                </div>
+
+                                <br><br>
+                                <div class="multiselect">
+                                    <div>
+                                        <select (click)="toggleCheckboxes1()">
+                                            <option [style.display]="expanded1 ? 'block' : 'none'" *ngIf="!expanded1">
+                                                choisir
+                                                les
+                                                classe
+                                            </option>
+                                        </select>
+                                        <div class="overSelect"></div>
+                                    </div>
+                                    <div id="checkboxes" [style.display]="expanded1 ? 'block' : 'none'"
+                                        *ngFor="let item of all_classes">
+                                        <label for="item._id">
+                                            <input type="checkbox" (change)="toggleTeacher1(item._id)"
+                                                id="item._id" />{{
+                                            item.code
+                                            }}</label>
+
+                                    </div>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div style="margin-left: 170px;" class="multiselect">
+                                <div>
+                                    <select (click)="toggleCheckboxes2()">
+                                        <option [style.display]="expanded2 ? 'block' : 'none'"> Seletioner les module
+                                        </option>
+                                    </select>
+                                    <div class="overSelect"></div>
+                                </div>
+                                <div id="checkboxes" [style.display]="expanded2 ? 'block' : 'none'"
+                                    *ngFor="let item of all_modules">
+                                    <label for="item._id">
+                                        <input type="checkbox" (change)="toggleTeacher2(item._id)" id="item._id" />{{
+                                        item.intitule
+                                        }}</label>
+
+                                </div>
                             </div>
                         </div>
 
-                        <br><br>
-                        <div class="multiselect">
-                            <div>
-                                <select (click)="toggleCheckboxes1()">
-                                    <option [style.display]="expanded1 ? 'block' : 'none'" *ngIf="!expanded1"> choisir
-                                        les
-                                        classe
-                                    </option>
-                                </select>
-                                <div class="overSelect"></div>
-                            </div>
-                            <div id="checkboxes" [style.display]="expanded1 ? 'block' : 'none'"
-                                *ngFor="let item of all_classes">
-                                <label for="item._id">
-                                    <input type="checkbox" (change)="toggleTeacher1(item._id)" id="item._id" />{{
-                                    item.code
-                                    }}</label>
 
-                            </div>
-                        </div>
-                        <br><br>
-                        <div class="multiselect">
-                            <div>
-                                <select (click)="toggleCheckboxes2()">
-                                    <option [style.display]="expanded2 ? 'block' : 'none'"> Seletioner les module
-                                    </option>
-                                </select>
-                                <div class="overSelect"></div>
-                            </div>
-                            <div id="checkboxes" [style.display]="expanded2 ? 'block' : 'none'"
-                                *ngFor="let item of all_modules">
-                                <label for="item._id">
-                                    <input type="checkbox" (change)="toggleTeacher2(item._id)" id="item._id" />{{
-                                    item.code }}</label>
-
-                            </div>
-                        </div>
                         <br><br>
                         <button class="button" (click)="addabsences()">Ajouter</button>
 
@@ -312,7 +323,7 @@
             </div>
         </div>
 
-        <div class="second-container" *ngIf="role == 'enseignant'">
+        <div class="second-container" *ngIf="role == 'enseignant'  && show">
             <div style="display: flex">
 
                 <div class="title">Absences</div>

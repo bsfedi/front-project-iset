@@ -150,11 +150,13 @@ export class GererDepartementComponent {
   rattrapge_requests: any
   departement: any
   fullname: any
+  show: any
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
         }, error(e) {
           console.log(e);
@@ -164,6 +166,7 @@ export class GererDepartementComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.first_name + " " + res.last_name
           this.departement = res.departement
           console.log("departement", this.departement);
@@ -308,39 +311,7 @@ export class GererDepartementComponent {
 
   }
 
-  accept_note(demande_id: any) {
 
-    this.studentservice.accept_note(demande_id).subscribe({
-      next: (res) => {
-
-        Swal.fire({
-
-          background: 'white',
-          html: `
-            <div>
-            <div style="font-size:1.2rem"> verification de note validée  avec succès! </div> 
-              
-            </div>
-          `,
-
-
-          confirmButtonText: 'Ok',
-          confirmButtonColor: "rgb(0, 17, 255)",
-
-          customClass: {
-            confirmButton: 'custom-confirm-button-class',
-            cancelButton: 'custom-cancel-button-class'
-          },
-          reverseButtons: true // Reversing button order
-        })
-
-      }, error(e) {
-        console.log(e);
-
-      }
-    });
-
-  }
   parcour_by_id: any
   parcours_id: any
   tjm1: any

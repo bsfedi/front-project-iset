@@ -197,6 +197,10 @@
                 <div style="margin-left:220px;">
                     <div class="label"> classe :</div>
                     <div class="Tableau">
+                        <select formControlName="classe" *ngIf="!personalInfo?.classeValidation">
+                            <option *ngFor="let item of classes" [value]="item.code"> {{item.code}} </option>
+                        </select>
+
                         <input formControlName="classe" [ngModel]="personalInfo?.classe"
                             [readonly]="personalInfo?.classeValidation" type="text" required placeholder="RIB" />
                         <label class="toggle-switch" *ngIf="!personalInfo?.classeValidation">

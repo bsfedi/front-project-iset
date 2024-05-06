@@ -2,16 +2,32 @@
     <div>
         <app-left-bar></app-left-bar>
     </div>
-    <div class="container">
+    <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+    <div class="container" *ngIf="show">
         <div class="title"> Orientation
         </div>
 
         <div *ngIf="show_data_orientation">
 
-            Décision orientation <b>{{data_orientation.resultat}} </b>
+            <b>Choix par ordre : </b> {{data_orientation.choix1}} - {{data_orientation.choix2}} -
+            {{data_orientation.choix3}}
+            -{{data_orientation.choix4}} <br> <br>
+            <div style="display: flex;">
+                <b> Etat :</b>
+                <div *ngIf="data_orientation.status =='pending'"> Entraitement</div>
+                <div *ngIf="data_orientation.status !='pending'"> Traitée</div> <br><br>
+            </div>
+
+            <b> Décision :</b> L’affectation donnée par le département <b>{{data_orientation.resultat}} </b>
             <br> <br>
         </div>
-        <table *ngIf="show_data_orientation">
+
+        <div *ngIf="!show_data_orientation">
+            Vous devez classer votre choix par ordre de
+            priorité. Une fois validé, vous ne pourrez plus modifier votre demande . <br> Veuillez respecter les
+            dates renseignées par votre département pour le remplissage de la fiche
+        </div>
+        <!-- <table *ngIf="show_data_orientation">
             <thead>
                 <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Choix </th>
                 <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> parcours</th>
@@ -50,9 +66,9 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <b></b>
-        <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
+        <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form" *ngIf="!show_data_orientation">
             <div class="form-section">
 
 
@@ -121,7 +137,7 @@
                             </tr>
                             <tr>
                                 <td> choix 4</td>
-                                <td> <select formControlName="choix3" id="fullName" placeholder="Métier" name="fullName"
+                                <td> <select formControlName="choix4" id="fullName" placeholder="Métier" name="fullName"
                                         required>
                                         <option value=""> selectioner 3eme choix </option>
                                         <option value="DSI">

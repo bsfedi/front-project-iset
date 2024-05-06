@@ -20,7 +20,7 @@ export class DemandeRattrapageComponent {
   myForm3: FormGroup;
   myForm4: FormGroup;
   myForm5: FormGroup;
-
+  show: any
   ens: any
   selectedOption: string = "";
 
@@ -133,7 +133,7 @@ export class DemandeRattrapageComponent {
         this.modulesens = res
 
 
-
+        this.show = true
 
       },
       error: (e) => {

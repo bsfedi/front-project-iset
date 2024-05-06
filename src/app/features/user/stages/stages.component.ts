@@ -64,6 +64,7 @@ export class StagesComponent {
   clientofcurrentmission: any
   tjmofcurrentmission: any
   datamissions: any[] = []
+  show: any
   categories: any[] = []
   formattedDate: any
   @ViewChild("chart") chart: ChartComponent | any;
@@ -153,7 +154,7 @@ export class StagesComponent {
   
           </head>
           <body>
-          <img src='/assets/logoiset.png' >
+          <b style="margin:10px 10px 30px 120px"> Institut Supérieur des Etudes Technologiques de Nabeul  </b>
           <div style="margin:10px 10px 30px 150px"> <b>Lettre d’affectation à un stage de fin de parcours </b><br>  </div> 
           Le directeur du département Technologies de l’Informatique à l’Institut Supérieur des Etudes  
           Technologiques de Nabeul atteste par la présente que :  <br> <br>
@@ -237,8 +238,8 @@ export class StagesComponent {
           </style>
         </head>
         <body>
-        <img src='/assets/logoiset.png' >
-          <div style="margin:10px 10px 30px 220px;font-size : 2.5rem">  <b> Demande de Stage </b><br>  </div> 
+         <b style="margin:10px 10px 30px 120px"> Institut Supérieur des Etudes Technologiques de Nabeul  </b>
+          <div style="margin:10px 10px 30px 150px;font-size : 2.5rem">  <b> Demande de Stage </b><br>  </div> 
           <div style="display:flex;">
           <div>
             <b>  </b>
@@ -421,6 +422,7 @@ border: 2px solid black;'>
       next: (res) => {
         // Handle the response from the server
         this.res = res.preregister
+        this.show = true
         this.departement = this.res.personalInfo.departement
         this.classe = this.res.personalInfo.classe
         this.studentservice.enseignantsbydepartement(this.res.personalInfo.departement).subscribe({

@@ -3,8 +3,8 @@
         <div>
             <app-left-bar></app-left-bar>
         </div>
-
-        <div class="second-container">
+        <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+        <div class="second-container" *ngIf="show">
             <div style="display: flex">
 
                 <div class="title">Mes demandes</div>
@@ -13,7 +13,7 @@
             <p></p>
 
 
-            <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
+            <!-- <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
 
                 <div class="sp-container">
                     <div class="sp-content">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
             <br>
             <br>
@@ -133,8 +133,13 @@
                     <thead>
                         <tr>
                             <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
+                            <th> Enseignant</th>
                             <th>type</th>
                             <th> date</th>
+                            <th> Date début congé</th>
+                            <th> Date fin congé</th>
+                            <th> Heure début congé</th>
+                            <th> Date fin congé</th>
                             <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> </th>
 
 
@@ -142,6 +147,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of getDisplayeddocs(); let j = index" style="cursor: pointer;">
+
                             <td style="width: 5px;">
                                 <div *ngIf="item.status == 'prete'" style="
                   display: flex;
@@ -166,7 +172,9 @@
                                 </div>
 
                             </td>
-
+                            <td>
+                                {{item.user_id}}
+                            </td>
                             <td>
                                 <div *ngIf="item.type == 'AT'">
                                     Attestation de travail
@@ -179,13 +187,32 @@
                                 </div>
 
                             </td>
-                            <td>
-                                <div>
-                                    {{ item.month }}
 
-                                </div>
 
-                            </td>
+                            <ng-container>
+                                <td>
+                                    <div>
+                                        {{ item.month }}
+
+                                    </div>
+
+                                </td>
+                                <td>
+                                    {{item.date_debut}}
+                                </td>
+
+                                <td>
+                                    {{item.date_fin}}
+                                </td>
+                                <td>
+                                    {{item.heure_debut}}
+                                </td>
+                                <td>
+                                    {{item.heure_fin}}
+                                </td>
+
+                            </ng-container>
+
                             <td style="cursor: pointer" class="dropdown">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

@@ -15,6 +15,7 @@ const clientName = `${environment.default}`;
 export class AbsencesComponent {
   myForm: FormGroup;
   ens = [1, 2, 3, 4]
+  show: any
   selectedOption: string = "";
   inputClass: any;
   inputModule: any;
@@ -59,6 +60,7 @@ export class AbsencesComponent {
     if (this.role == 'student') {
       this.studentsrvice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+          this.show = true
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
           console.log(this.fullname);
 

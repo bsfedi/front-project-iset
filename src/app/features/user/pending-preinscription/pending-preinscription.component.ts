@@ -114,8 +114,13 @@ export class PendingPreinscriptionComponent {
           </style>
         </head>
         <body>
-        <img src='/assets/logoiset.png' >
-          <div style="margin:10px 10px 30px 150px;font-size : 2rem">  <b> Attesation d'inscription </b><br>  </div> 
+       
+        <div style='text-align:center'>  Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+        Direction Générale des Etudes Technologiques <br> 
+        Institut Supérieur des Etudes Technologiques de Nabeul </div>
+          <div style="margin:10px 10px 30px 150px;font-size : 2rem">  <b> Attesation d'inscription </b><br> 
+   </div> 
+   <div style="margin:10px 10px 30px 190px;">        ANNE UNIVERSITAIRE : ${this.res.personalInfo.annee}    </div>
           <div style="display:flex;">
           <div>
             <b>  </b>
@@ -123,12 +128,12 @@ export class PendingPreinscriptionComponent {
             <div style='width: 38.875rem;
                   height: 20.0625rem;
                 flex-shrink: 0;
-                padding: 15px;
-                border-radius: 0.4375rem;
-                border: 2px solid black;'> 
-               
-             <b> Identification de l'etudiant (e) :  </b><br>  <br>
-             - Nom et prénom de l'etudiant (e) :  ${this.res.personalInfo.first_name}  ${this.res.personalInfo.last_name}  <br>  <br>
+                padding: 15px;'
+               > 
+          
+             <b> Informations Etudiant :     </b><br>  <br>
+             - Nom et Prénom : ${this.res.personalInfo.first_name}  ${this.res.personalInfo.last_name}  <br>  <br>
+             - Sexe :  ${this.res.personalInfo.sexe}  <br>  <br>
              - cin : ${this.res.personalInfo.cin}    <br>  <br>
              - Télephone :  ${this.res.personalInfo.phone} <br>  <br>
              - Date de naissance : ${this.res.personalInfo.brith_date} <br> <br>
@@ -139,25 +144,40 @@ export class PendingPreinscriptionComponent {
             </div> <br> 
             
 
-<div style='width: 38.875rem;
-height: 15.0625rem;
-flex-shrink: 0;
-padding: 15px;
-border-radius: 0.4375rem;
-border: 2px solid black;'>
-<b> Information familiale:  </b><br>  <br>
+            <div style='width: 38.875rem;
+            height: 15.0625rem;
+            flex-shrink: 0;
+            padding: 15px;'
+            >
+            <b> Information familiale:  </b><br>  <br>
 
-- Le nom du père : ${this.res.family_info.father_name}    <br>  <br>        - Téléphone du père:  ${this.res.family_info.father_phone}     <br>  <br>             - Profession de pére:  ${this.res.family_info.father_job} <br>  <br>
-- Nom de la mère : ${this.res.family_info.mother_name}      <br>  <br>      - Téléphone de la mère :  ${this.res.family_info.mother_phone}     <br>  <br>         - Profession de mére:  ${this.res.family_info.mother_job} <br>  <br>
-
+            - Nom et Prénom Père : ${this.res.family_info.father_name}    <br>  <br>        - Numéro de téléphone père   ${this.res.family_info.father_phone}     <br>  <br>             - Profession Père:  ${this.res.family_info.father_job} <br>  <br>
+            - Nom et Prénom Mère : ${this.res.family_info.mother_name}      <br>  <br>      - Numéro de téléphone Mère :  ${this.res.family_info.mother_phone}     <br>  <br>         - Profession Mère:  ${this.res.family_info.mother_job} <br>  <br>
 
 
 
-<b style="margin:20px 10px 30px 350px"> Directeur du département    </b> 
+
+
 
  
           </div>
+          <div style='width: 38.875rem;
+          height: 15.0625rem;
+          flex-shrink: 0;
+          padding: 15px;'
+          >
+          <b> Documents Joints : </b><br>  <br>
+          
+          <input type="checkbox" style="margin-right:30px"> Relevé du Baccalauréat   <br>  <br>   <input type="checkbox" style="margin-right:30px"> Relevé du Baccalauréat     <br>  <br>         <input type="checkbox" style="margin-right:30px"> Relevé du Baccalauréat <br>  <br>
 
+          
+          
+          
+          
+          <b style="margin:20px 10px 30px 350px"> Signature de l'étudiant   </b> 
+          
+           
+                    </div>
           </div>
         </body><br>
        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br>  <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br>  <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br>

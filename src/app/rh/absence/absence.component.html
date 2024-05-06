@@ -2,7 +2,8 @@
     <div>
         <app-left-bar></app-left-bar>
     </div>
-    <div class="container">
+    <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+    <div class="container" *ngIf="show">
         <div class="title"> Déclarer une nouvelle absence
         </div>
         <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">

@@ -24,12 +24,14 @@ export class EnseignantComponent {
   currentPageconsultant = 1; // Current page
   totalPages: any;
   role: any
+  show: any
   ens_id: any
   ngOnInit(): void {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
     this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
       next: (res: any) => {
+        this.show = true
         this.all_demandes = res;
       },
       error: (e: any) => { // corrected error function syntax
@@ -41,7 +43,7 @@ export class EnseignantComponent {
     this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({
       next: (res) => {
         this.all_demandes1 = res
-
+        this.show = true
 
 
       }, error(e) {
@@ -74,11 +76,14 @@ export class EnseignantComponent {
   }
   new_note: any
   newNote: string = '';
+  error_message: any
   justif() {
     const formData = new FormData();
     const cin = this.fileInputs.cin.files[0];
 
-
+    if (this.cin_img === null) {
+      this.error_message = "la pièce jointe est obligatoire"
+    }
     formData.append('justif', cin);
 
     const data = {
@@ -86,6 +91,7 @@ export class EnseignantComponent {
 
 
     }
+
     this.studentservice.justif(formData, this.newNote, this.demande_id).subscribe({
       next: (res: any) => {
         this.all_demandes = res

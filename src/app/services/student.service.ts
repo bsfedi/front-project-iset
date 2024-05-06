@@ -25,9 +25,9 @@ export class StudentService {
 
     return this.http.put(baseUrl + 'personalInfo/' + register_id, data);
   }
-  accept_note(register_id: any): Observable<any> {
+  accept_note(register_id: any, status: any): Observable<any> {
 
-    return this.http.get(baseUrl + 'accept_note/' + register_id);
+    return this.http.get(baseUrl + 'accept_note/' + register_id + '/' + status);
   }
   forgot_password(data: any) {
     return this.http.post(baseUrl + 'auth/forgot-password', data);
@@ -499,4 +499,8 @@ export class StudentService {
   putfiche(ficher_id: any) {
     return this.http.get(baseUrl + 'update_status_fiche/' + ficher_id);
   }
+  get_classes_bydep(departement: any) {
+    return this.http.get(baseUrl + 'get_classes/' + departement);
+  }
+
 }

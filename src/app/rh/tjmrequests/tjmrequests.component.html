@@ -3,7 +3,9 @@
     <div>
       <app-left-bar> </app-left-bar>
     </div>
-    <div>
+    <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+    <div *ngIf="show">
+
       <div class="second-container">
         <!-- <h1></h1> -->
 
@@ -69,7 +71,21 @@
                   margin: 5px;
                   color: #e7aa1e;
                 "> Nouvelle </div>
-                  <div *ngIf="item.status != 'pending'" style="
+                  <div *ngIf="item.status == 'notvalidated'" style="
+ display: flex;
+ width: auto;
+ height: 1.5rem;
+ padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+ justify-content: center;
+ align-items: center;
+
+ border-radius: 0.75rem;
+ background: #eeb4b1;
+ margin: 5px;
+ color: #e71e1e;
+"> Non validée </div>
+
+                  <div *ngIf="item.status == 'validated_by_enseignant'" style="
                       display: flex;
                       width: auto;
                       height: 1.5rem;
@@ -82,6 +98,19 @@
                       margin: 5px;
                       color: #187111;
                     "> validée par enseignant </div>
+                  <div *ngIf="item.status == 'validated'" style="
+                      display: flex;
+                      width: auto;
+                      height: 1.5rem;
+                      padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                      justify-content: center;
+                      align-items: center;
+      
+                      border-radius: 0.75rem;
+                      background: #d3f0dd;
+                      margin: 5px;
+                      color: #7ba316;
+                    "> validée</div>
                 </td>
                 <td style="text-align: left;padding: 15px 15px ;">
                   {{
@@ -118,11 +147,11 @@
                         fill="black" />
                     </svg>
                   </span>
-                  <div class="dropdown-content">
+                  <div class="dropdown-content" *ngIf="item.status == 'validated_by_enseignant'">
                     <!-- Menu items go here -->
                     <div style="display: flex; cursor: pointer">
                       <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="accept_note(item._id)" style="
+                      <div (click)="accept_note(item._id,'True')" style="
                           margin-top: 7px;
                           margin-bottom: 10px;
                           margin-left: 5px;
@@ -130,7 +159,16 @@
                         Accepter
                       </div>
                     </div>
-
+                    <div style="display: flex; cursor: pointer">
+                      <img src="/assets/Checkmark.svg" width="12%" />
+                      <div (click)="accept_note(item._id,'false')" aria-readonly="true" style="
+                          margin-top: 7px;
+                          margin-bottom: 10px;
+                          margin-left: 5px;
+                        ">
+                        Refuser
+                      </div>
+                    </div>
                     <div style="display: flex; cursor: pointer" *ngIf="item.newMissionStatus == 'WAITINGCONTRACT'">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24"
                         style="margin-left: -13px" fill="none">

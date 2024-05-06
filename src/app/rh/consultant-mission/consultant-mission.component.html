@@ -3,7 +3,8 @@
     <div>
       <app-left-bar> </app-left-bar>
     </div>
-    <div class="second-container">
+    <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+    <div class="second-container" *ngIf="show">
       <div class="title">Consultant - profil</div>
       <br />
       <div class="Tableau1">
@@ -867,7 +868,7 @@
     </div>
 
     <div class="right-item" style="cursor: pointer; height: 5px;margin-left: -25px;">
-      <div class="profil" (click)="gotomyprofile()">
+      <div class="profil">
         <img src="/assets/avatar-user.png" width="15%" height="10%" />
         <div class="nom-prenom"> {{fullname}} </div>
 

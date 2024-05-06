@@ -76,6 +76,7 @@ export class MissionsComponent {
   formData = new FormData();
   myForm1: FormGroup;
   tjm_moyen: any
+  show: any
   stats: any;
   cra: string | null = null;
   deposer: any;
@@ -247,6 +248,7 @@ export class MissionsComponent {
       next: (res) => {
         // Handle the response from the server
         this.res = res.preregister
+        this.show = true
         this.studentservice.enseignantsbydepartement(this.res.personalInfo.departement).subscribe({
           next: (res) => {
             this.ens = res
@@ -687,8 +689,8 @@ export class MissionsComponent {
           console.log(res);
 
           // Handle the response from the server
-
-
+          this.showPopup = false
+          window.location.reload()
         },
         error: (e) => {
           // Handle errors
