@@ -75,7 +75,7 @@ export class AbsenceComponent {
           },
           reverseButtons: true // Reversing button order
         })
-
+        window.location.reload()
       },
       error: (e) => {
         // Handle errors

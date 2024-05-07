@@ -52,6 +52,7 @@ export class GererSallesComponent {
     this.user_id = localStorage.getItem('user_id')
     this.studentservice.validated_rattrapage().subscribe({
       next: (res) => {
+        this.show = true
         this.validated_mission = res
         console.log(this.validated_mission);
 

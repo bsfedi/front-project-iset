@@ -4,7 +4,7 @@
             <app-left-bar></app-left-bar>
         </div>
         <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
-        <div class="second-container" *ngIf="!show">
+        <div class="second-container" *ngIf="show">
             <div style="display: flex">
 
                 <div class="title">Mes demandes</div>
@@ -273,6 +273,7 @@
             </div>
             <br />
             <div class="table-wrapper">
+
                 <table>
                     <thead>
                         <tr>

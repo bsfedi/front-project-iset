@@ -630,7 +630,7 @@ export class MissionsComponent {
             },
             reverseButtons: true // Reversing button order
           })
-
+          window.location.reload()
 
           // Handle the response from the server
 

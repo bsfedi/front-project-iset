@@ -902,7 +902,7 @@ export class ConsultantMissionComponent {
         this.studentservice.new_sancttion(this.foremData.value, this.student_id).subscribe({
           next: (res) => {
             console.log(res);
-
+            window.location.reload()
           },
           error: (e) => {
             // Handle errors

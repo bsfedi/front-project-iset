@@ -131,7 +131,7 @@ export class OrientationComponent {
           },
           reverseButtons: true // Reversing button order
         })
-
+        window.location.reload()
       },
       error: (e) => {
         // Handle errors

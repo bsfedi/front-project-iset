@@ -198,11 +198,13 @@
                     <div class="label"> classe :</div>
                     <div class="Tableau">
                         <select formControlName="classe" *ngIf="!personalInfo?.classeValidation">
-                            <option *ngFor="let item of classes" [value]="item.code"> {{item.code}} </option>
+                            <option *ngFor="let item of classes" [value]="item.code" [ngModel]="personalInfo?.classe">
+                                {{item.code}} </option>
                         </select>
 
                         <input formControlName="classe" [ngModel]="personalInfo?.classe"
-                            [readonly]="personalInfo?.classeValidation" type="text" required placeholder="RIB" />
+                            *ngIf="personalInfo?.classeValidation" [readonly]="personalInfo?.classeValidation"
+                            type="text" required placeholder="RIB" />
                         <label class="toggle-switch" *ngIf="!personalInfo?.classeValidation">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
