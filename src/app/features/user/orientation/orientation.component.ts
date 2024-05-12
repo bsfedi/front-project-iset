@@ -116,7 +116,7 @@ export class OrientationComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande ajouté  avec succès! </div> 
+            <div style="font-size:1.2rem"> Demande envoyée avec succès </div> 
               
             </div>
           `,

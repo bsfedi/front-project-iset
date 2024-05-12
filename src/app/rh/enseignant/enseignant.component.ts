@@ -26,9 +26,29 @@ export class EnseignantComponent {
   role: any
   show: any
   ens_id: any
+  fullname: any
   ngOnInit(): void {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
     this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
       next: (res: any) => {
         this.show = true
@@ -115,7 +135,12 @@ export class EnseignantComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
 
       }, error(e) {
         console.log(e);
@@ -152,7 +177,12 @@ export class EnseignantComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
 
       }, error(e) {
         console.log(e);
@@ -176,7 +206,7 @@ export class EnseignantComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
+            <div style="font-size:1.2rem"> demande refusée  avec succès! </div> 
               
             </div>
           `,
@@ -190,7 +220,12 @@ export class EnseignantComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
 
       }, error(e) {
         console.log(e);
@@ -210,36 +245,33 @@ export class EnseignantComponent {
   refuserverification(demande_id: any) {
     this.studentservice.notvalidate_verification(demande_id).subscribe({
       next: (res) => {
-
         Swal.fire({
-
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
-              
+              <div style="font-size:1.2rem">Demande refusée avec succès!</div>
             </div>
           `,
-
-
           confirmButtonText: 'Ok',
           confirmButtonColor: "rgb(0, 17, 255)",
-
           customClass: {
             confirmButton: 'custom-confirm-button-class',
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
-
-      }, error(e) {
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
+      },
+      error(e) {
         console.log(e);
-
       }
     });
-
-
   }
+
   showPopup: any
   openPopup(demande_id: any): void {
     this.demande_id = demande_id

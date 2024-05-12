@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { jsPDF } from "jspdf";
+declare let html2pdf: any
 const clientName = `${environment.default}`;
 @Component({
   selector: 'app-tjmrequests',
@@ -278,7 +280,12 @@ export class tjmrequestsComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
 
       }, error(e) {
         console.log(e);
@@ -312,7 +319,12 @@ export class tjmrequestsComponent {
               cancelButton: 'custom-cancel-button-class'
             },
             reverseButtons: true // Reversing button order
-          })
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
         }
         else {
           Swal.fire({
@@ -334,7 +346,12 @@ export class tjmrequestsComponent {
               cancelButton: 'custom-cancel-button-class'
             },
             reverseButtons: true // Reversing button order
-          })
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
         }
 
       }, error(e) {
@@ -390,7 +407,12 @@ export class tjmrequestsComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
 
       }, error(e) {
         console.log(e);
@@ -425,7 +447,12 @@ export class tjmrequestsComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
 
       }, error(e) {
         console.log(e);
@@ -535,6 +562,196 @@ export class tjmrequestsComponent {
       }
     });
   }
+  Attestation_de_presence() {
+    // Get the data for the table
+    const displayedDocs = this.pending_missions
+
+    // Generate the table rows dynamically
+    const tableRows = displayedDocs.map((item: any) => `
+        <tr>
+            <td>${item.first_name} ${item.first_name}</td>
+            <td>${item.datedepot.split(['T'])[0]}</td>
+
+            <td>
+              ${item.nb_arab}
+            </td>
+            <td>
+            ${item.nb_arab}
+          </td>
+        </tr>
+    `).join('');
+
+    // Create the HTML content
+    const htmlContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 90%;
+                margin-top: 30px;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+
+            </style>
+          </head>
+          <body>
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
+                    <th>Date demande</th>
+                    <th>attestation en arabe</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">attestation en francais</th>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+          </body>
+        </html>`;
+
+    // Generate PDF from HTML content
+    html2pdf(htmlContent, {
+      margin: 10,
+      filename: 'Attestation_de_presence.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).pdf.save('document.pdf');
+  }
+  verification_des_notes() {
+    // Get the data for the table
+    const displayedDocs = this.filteredItems
+
+    // Generate the table rows dynamically
+    const tableRows = displayedDocs.map((item: any) => `
+        <tr>
+            <td>${item.first_name} ${item.first_name}</td>
+            <td>${item.new_note}</td>
+
+            <td>
+              ${item.note}
+            </td>
+            <td>
+            ${item.enseignant}
+          </td>
+          <td>${item.matiere}</td>
+          <td>${item.classe}</td>
+          <td>${item.commantaire}
+          </td>
+        </tr>
+    `).join('');
+
+    // Create the HTML content
+    const htmlContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 98%;
+                margin-top: 30px;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+
+            </style>
+          </head>
+          <body>
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
+                    <th> Nouvelle note</th>
+                    <th>note</th>
+                    <th>enseignant</th>
+                    <th>matiere</th>
+                    <th>classe</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">commantaire</th>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+          </body>
+        </html>`;
+
+    // Generate PDF from HTML content
+    html2pdf(htmlContent, {
+      margin: 10,
+      filename: 'Vérification_des_notes.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).pdf.save('document.pdf');
+  }
+  Demande_Rattrapge() {
+    // Get the data for the table
+    const displayedDocs = this.rattrapge_requests;
+
+    // Generate the table rows dynamically
+    const tableRows = displayedDocs.map((item: any) => `
+        <tr>
+            <td>${item.id_demande}</td>
+            <td>${item.date_depot.split('T')[0]}</td>
+            <td>${item.enseignant_id}</td>
+            <td>
+                ${item.data.map((ee: any) => `<div *ngIf="ee.inputClass"><b>${ee.inputClass} - ${ee.inputModule} - ${ee.inputHoraire} - ${ee.date}</b></div>`).join('')}
+            </td>
+            <td>${item.data[0].status}</td>
+        </tr>
+    `).join('');
+
+    // Create the HTML content
+    const htmlContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 98%;
+                margin-top: 30px;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+            </style>
+          </head>
+          <body>
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">ID</th>
+                    <th>Date demande</th>
+                    <th>Enseignanat</th>
+                    <th>Module</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Etat</th>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+          </body>
+        </html>`;
+
+    // Generate PDF from HTML content
+    html2pdf(htmlContent, {
+      margin: 10,
+      filename: 'Demande_Rattrapge.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).pdf.save('document.pdf');
+  }
+
+
   onFormSubmit() {
 
     const formData = {

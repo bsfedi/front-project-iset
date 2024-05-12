@@ -4,27 +4,76 @@
     </div>
     <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
     <div class="container" *ngIf="show">
-        <div class="title"> Orientation
+        <div class="title" style="width: 13rem;"> ORIENTATION
         </div>
 
         <div *ngIf="show_data_orientation">
 
-            <b>Choix par ordre : </b> {{data_orientation.choix1}} - {{data_orientation.choix2}} -
-            {{data_orientation.choix3}}
-            -{{data_orientation.choix4}} <br> <br>
+            <b>Choix par ordre : </b> <br> <br>
+
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> parcours</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Rang</th>
+
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            {{data_orientation.choix1}}
+                        </td>
+                        <td> 1</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{data_orientation.choix2}}
+                        </td>
+                        <td>
+                            2
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            {{data_orientation.choix3}}
+                        </td>
+                        <td>
+                            3
+                        </td>
+                    </tr>
+                    <tr *ngIf="data_orientation.choix4">
+                        <td>
+                            {{data_orientation.choix4}}
+                        </td>
+                        <td>
+                            4
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br>
             <div style="display: flex;">
-                <b> Etat :</b>
-                <div *ngIf="data_orientation.status =='pending'"> Entraitement</div>
-                <div *ngIf="data_orientation.status !='pending'"> Traitée</div> <br><br>
+                <b style="margin-top: 5px;"> Etat :</b>
+                <div *ngIf="data_orientation.status =='pending'" style="background-color: aqua; padding: 5px;">
+                    Entraitement</div>
+                <div *ngIf="data_orientation.status !='pending'"
+                    style="background-color: aqua; padding: 5px; border-radius: 20%; margin-left: 15px;">
+                    Traitée
+                </div>
+            </div>
+            <br>
+            <div style="background-color: rgb(112, 147, 205); padding: 10px;border-radius: 5px; color: white;">
+                <b> Décision :</b> L’affectation donnée par le département <b>{{data_orientation.resultat}} </b>
             </div>
 
-            <b> Décision :</b> L’affectation donnée par le département <b>{{data_orientation.resultat}} </b>
             <br> <br>
         </div>
-
-        <div *ngIf="!show_data_orientation">
+        <!-- -->
+        <div style="background-color: #ffffcc !important; height: 70px;padding: 7px;" *ngIf="!show_data_orientation">
             Vous devez classer votre choix par ordre de
-            priorité. Une fois validé, vous ne pourrez plus modifier votre demande . <br> Veuillez respecter les
+            priorité. Une fois validé, vous ne pourrez plus modifier votre demande . <br> <br> Veuillez respecter les
             dates renseignées par votre département pour le remplissage de la fiche
         </div>
         <!-- <table *ngIf="show_data_orientation">
@@ -68,7 +117,8 @@
             </tbody>
         </table> -->
         <b></b>
-        <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form" *ngIf="!show_data_orientation">
+        <form action="/submit_form" method="post" [formGroup]="myForm" style="justify-content: center;"
+            *ngIf="!show_data_orientation" class="flex-form">
             <div class="form-section">
 
 
@@ -77,7 +127,7 @@
 
                         <tbody *ngIf="departement === 'IT'">
                             <tr>
-                                <td> choix 1</td>
+                                <td> <b> choix 1</b> </td>
                                 <td>
                                     <select formControlName="choix1" id="fullName" placeholder="Métier" name="fullName"
                                         required>
@@ -98,7 +148,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td> choix 2</td>
+                                <td> <b> choix 2</b> </td>
                                 <td> <select formControlName="choix2" id="fullName" placeholder="Métier" name="fullName"
                                         required>
                                         <option value=""> selectioner 2eme choix </option>
@@ -117,7 +167,7 @@
                                     </select></td>
                             </tr>
                             <tr>
-                                <td> choix 3</td>
+                                <td> <b> choix 3</b> </td>
                                 <td> <select formControlName="choix3" id="fullName" placeholder="Métier" name="fullName"
                                         required>
                                         <option value=""> selectioner 3eme choix </option>
@@ -136,7 +186,7 @@
                                     </select></td>
                             </tr>
                             <tr>
-                                <td> choix 4</td>
+                                <td> <b> choix 4</b> </td>
                                 <td> <select formControlName="choix4" id="fullName" placeholder="Métier" name="fullName"
                                         required>
                                         <option value=""> selectioner 3eme choix </option>

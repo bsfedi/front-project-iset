@@ -123,7 +123,7 @@ svg {
 }
 
 .second-container {
-  margin-left: 240px;
+  margin-left: 230px;
 
 }
 
@@ -713,7 +713,7 @@ input[type="password"] {
   padding: 10px;
   margin-left: 15px;
   width: 30.25rem;
-  height: 16.6875rem;
+  height: 30.6875rem;
   flex-shrink: 0;
   box-shadow: 1px 1px 1px 1px rgb(198, 187, 187);
   border-radius: 0.8125rem;
@@ -888,9 +888,7 @@ input[type="number"] {
   background: #eae3d5;
 }
 
-#chart {
-  margin-left: 20px
-}
+
 
 .newflex {
   display: flex;

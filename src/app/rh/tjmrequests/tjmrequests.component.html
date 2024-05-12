@@ -9,7 +9,7 @@
       <div class="second-container">
         <!-- <h1></h1> -->
 
-        <div class="title">Les demandes </div>
+        <div class="title" style="max-width: 12rem;"> DEMANDES </div>
         <br />
         <div>
 
@@ -30,6 +30,10 @@
           </div>
         </div>
         <div class="table-wrapper">
+          <button *ngIf="tjm" style="margin-left: 0px;margin-top: 20px; margin-bottom: 20px;"
+            (click)="verification_des_notes()">
+            PDF</button>
+
           <div *ngIf="tjm" class="first rechercher">
             <svg style="margin-top: -2px;margin-left: -60px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" fill="none">
@@ -184,6 +188,10 @@
               </tr>
             </tbody>
           </table>
+          <button *ngIf="mission" style="margin-left: 0px;margin-top: 20px; margin-bottom: 20px;"
+            (click)="Attestation_de_presence()">
+            PDF</button>
+
           <table *ngIf="mission">
             <thead>
               <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Status </th>
@@ -210,7 +218,7 @@
                   border-radius: 0.75rem;
                   background: #88dfa5;
                   margin: 5px;
-                  color: #888612;
+                  color: white;
                   "> validé par departement</div>
                   <div *ngIf="item.status =='validated_by_enseignant'" style="
                   display: flex;
@@ -302,6 +310,9 @@
               </tr>
             </tbody>
           </table>
+          <button *ngIf="rattrapge" style="margin-left: 0px;margin-top: 20px; margin-bottom: 20px;"
+            (click)="Demande_Rattrapge()">
+            PDF</button>
           <table *ngIf="rattrapge">
             <thead>
               <tr>

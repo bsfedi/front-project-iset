@@ -186,7 +186,7 @@ export class StagesComponent {
         html2pdf(htmlContent, {
           margin: 10,
 
-          filename: 'cra_' + formattedDate + '_' + "this.myinfo.firstName" + '.pdf',
+          filename: 'lettre d’affectation.pdf',
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2 },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
@@ -238,8 +238,19 @@ export class StagesComponent {
           </style>
         </head>
         <body>
-         <b style="margin:10px 10px 30px 120px"> Institut Supérieur des Etudes Technologiques de Nabeul  </b>
-          <div style="margin:10px 10px 30px 150px;font-size : 2.5rem">  <b> Demande de Stage </b><br>  </div> 
+         <b style="margin:10px 10px 30px 5px;font-size : 1.6rem;"> Institut Supérieur des Etudes Technologiques de Nabeul  </b>
+         
+          <div style="margin:20px 10px 30px 230px;font-size : 1.5rem">  <b> Demande de Stage </b><br>  </div> 
+          <br> 
+          Cher Monsieur, <br> <br>
+Nous tenons à vous remercier pour votre honorable participation dans le développement des Compétences professionnelles de nos étudiants(e), ainsi pour l'espit que vous déployez pour
+consolider leurs formations.
+Dans ce cadre, l'ISET de nabeul vous propose d'accorder pour l'étudiant(e) concerné(e)
+Un stage de formation de  ${res.stage.date_debut.split(['T'])[0]} au  ${res.stage.date_fin.split(['T'])[0]}  .
+<br> <br>
+En effet et en vue de nous permettre l'affectation de l'étudiant (e) concerné(e), nous vous prions
+de bien vouloir nous communiquer votre proposition dans les plus proches délais.
+Veuillez agréer, Monsieur, toute notre gratitude et tout notre respect.  <br>  <br>
           <div style="display:flex;">
           <div>
             <b>  </b>
@@ -255,17 +266,8 @@ export class StagesComponent {
              - Département : ${res.user.personalInfo.departement}  <br>  <br>
              - Type de stage :  ${res.stage.type} <br>  <br>
 
-            </div> <br> 
-            Cher Monsieur;
-Nous tenons à vous remercier pour votre honorable participation dans le développement des Compétences professionnelles de nos étudiants(e), ainsi pour l'espit que vous déployez pour
-consolider leurs formations.
-Dans ce cadre, l'ISET de nabeul vous propose d'accorder pour l'étudiant(e) concerné(e)
-Un stage de formation de  ${res.stage.date_debut.split(['T'])[0]} au  ${res.stage.date_fin.split(['T'])[0]}  .
-<br> <br>
-En effet et en vue de nous permettre l'affectation de l'étudiant (e) concerné(e), nous vous prions
-de bien vouloir nous communiquer votre proposition dans les plus proches délais.
-Veuillez agréer, Monsieur, toute notre gratitude et tout notre respect.  <br>  <br>
-
+            </div>
+ <br><br>
 <div style='width: 38.875rem;
 height: 15.0625rem;
 flex-shrink: 0;
@@ -282,7 +284,7 @@ border: 2px solid black;'>
 </div> <br><br><br>
 
 <b style="margin:10px 10px 30px 500px"> Directeur du département    </b> <br>
-<b style="margin:20px 10px 30px 550px"> ${res.chefdepartement.first_name}  ${res.chefdepartement.last_name}     </b><br>  <br>  <br> <br>  <br> <br>  <br> <br>  <br>
+<b style="margin:20px 10px 30px 550px"> ${res.chefdepartement.first_name}  ${res.chefdepartement.last_name}     </b><br>  <br>  <br> <br>  <br> 
 
  
           </div>
@@ -294,7 +296,7 @@ border: 2px solid black;'>
 
         html2pdf(htmlContent, {
           margin: 10,
-          filename: 'cra_' + formattedDate + '.pdf',
+          filename: 'demande de stage.pdf',
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2 },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },

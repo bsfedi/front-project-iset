@@ -14,7 +14,8 @@ import {
   ApexDataLabels,
   ApexYAxis,
   ApexLegend,
-  ApexFill
+  ApexFill,
+  ApexResponsive
 } from "ng-apexcharts";
 import { ConsultantService } from 'src/app/services/consultant.service';
 import { DatePipe } from '@angular/common';
@@ -31,12 +32,25 @@ export type ChartOptions = {
   chart: ApexChart | any;
   xaxis: ApexXAxis | any;
   dataLabels: ApexDataLabels | any;
+  responsive: ApexResponsive[] | any
   yaxis: ApexYAxis | any;
+  labels: any | any;
   colors: string[] | any;
   legend: ApexLegend | any;
   fill: ApexFill | any;
 };
-
+export type ChartOptions1 = {
+  series: ApexAxisChartSeries | any;
+  chart: ApexChart | any;
+  xaxis: ApexXAxis | any;
+  dataLabels: ApexDataLabels | any;
+  responsive: ApexResponsive[] | any
+  yaxis: ApexYAxis | any;
+  labels: any | any;
+  colors: string[] | any;
+  legend: ApexLegend | any;
+  fill: ApexFill | any;
+};
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -69,12 +83,21 @@ export class DashboardComponent {
   filteredItems: any[] = [];
   @ViewChild("chart") chart: ChartComponent | any;
   public chartOptions: Partial<ChartOptions>;
+  @ViewChild("chart1") chart1: ChartComponent | any;
+  public chartOptions1: Partial<ChartOptions1>;
   res: any
   showfilterbar: any;
   currentDate: Date = new Date();
-  constructor(private studentservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
-    this.chartOptions = {}
 
+  constructor(private studentservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
+
+
+
+
+
+
+    this.chartOptions = {}
+    this.chartOptions1 = {}
     this.consultantservice.getMonthlyStatsForAllUsers().subscribe({
       next: (res) => {
         this.stats = res
@@ -249,16 +272,62 @@ export class DashboardComponent {
           this.all_demande_verification_validated = res.all_demande_verification_validated
           this.all_demande_verification_pending = res.all_demande_verification_pending
           this.all_demande_verification = res.all_demande_verification
+
         }, error(e) {
           console.log(e);
 
         }
       });
-    } else if (this.role == "student") {
+    } else if (this.role === "student") {
       this.studentservice.stats_student(this.ens_id).subscribe({
         next: (res) => {
           this.show = true
           this.statsres = res
+          this.chartOptions = {
+            series: [res.all_demande_presence || 0, res.all_demande_verification || 0],
+            chart: {
+              width: 420,
+              type: "pie"
+            },
+            labels: ["Attestation de presence", "Demande de verification"],
+            colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"], // Specify colors for each label
+            responsive: [
+              {
+                breakpoint: 580,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: "bottom"
+                  }
+                }
+              }
+            ]
+          };
+          this.chartOptions1 = {
+            series: [res.presence_status_percentages.pending || 0, res.presence_status_percentages.validated_by_departement || 0, res.presence_status_percentages.validated || 0, res.verification_status_percentages.pending || 0, res.verification_status_percentages.validated_by_enseignant || 0, res.verification_status_percentages.validated || 0],
+            chart: {
+              width: 420,
+              height: 210,
+              type: "pie"
+            },
+            labels: ["Attestaion En attente", " Attestaion En cours", "Attestaion Validée", "Vérification En attente", " Vérification En cours", "Vérification Validée"],
+            colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"], // Specify colors for each label
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: "bottom"
+                  }
+                }
+              }
+            ]
+          };
         }, error(e) {
           console.log(e);
 
@@ -268,13 +337,60 @@ export class DashboardComponent {
     } else {
       this.studentservice.stats_tuitionofficer().subscribe({
         next: (res) => {
-          this.show = true
-          this.statsres = res
-        }, error(e) {
+          this.show = true;
+          this.statsres = res;
+          this.chartOptions = {
+            series: [res.demande_count || 0, res.preregistres_count || 0, res.rattrapage_count || 0, res.enseignant_demande || 0],
+            chart: {
+              width: 420,
+              type: "pie"
+            },
+            labels: ["Attestation de presence", "Inscription", "Demande de rattrapge", "Enseignant demande"],
+            colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"], // Specify colors for each label
+            responsive: [
+              {
+                breakpoint: 580,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: "bottom"
+                  }
+                }
+              }
+            ]
+          };
+          this.chartOptions1 = {
+            series: [res.pending_preregistres_count + res.pending_demande_count || 0, res.total_count - (res.validated_preregistres_count +
+              res.validated_demande_count + res.pending_preregistres_count + res.pending_demande_count) || 0, res.validated_preregistres_count + res.validated_demande_count],
+            chart: {
+              width: 420,
+              height: 210,
+              type: "pie"
+            },
+            labels: ["En attente", "Non validée", " Validée"],
+            colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"], // Specify colors for each label
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: "bottom"
+                  }
+                }
+              }
+            ]
+          };
+        },
+        error: (e) => {
           console.log(e);
-
         }
       });
+
     }
 
 

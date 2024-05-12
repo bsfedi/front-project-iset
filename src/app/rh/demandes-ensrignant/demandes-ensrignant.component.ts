@@ -15,10 +15,12 @@ export class DemandesEnsrignantComponent {
   role: any
   myForm2: FormGroup;
   myForm3: FormGroup;
+
   constructor(private fb: FormBuilder, private studentservice: StudentService) {
     this.myForm2 = this.fb.group({
       user_id: [''],
       type: ['', Validators.required],
+
       month: ['']
     });
 
@@ -35,7 +37,26 @@ export class DemandesEnsrignantComponent {
 
   }
 
+  expanded: boolean = false;
+  selectedTeachers: string[] = [];
 
+  toggleTeacher(teacher: string): void {
+    const index = this.selectedTeachers.indexOf(teacher);
+    if (index === -1) {
+      this.selectedTeachers.push(teacher);
+    } else {
+      this.selectedTeachers.splice(index, 1);
+    }
+  }
+
+  toggleCheckboxes(): void {
+    this.expanded = !this.expanded;
+  }
+
+  monthes = [
+    "janvier", "février", "mars", "avril", "mai", "juin",
+    "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+  ];
   putfiche(id: any) {
     this.studentservice.putfiche(id).subscribe({
       next: (res) => {
@@ -125,7 +146,7 @@ export class DemandesEnsrignantComponent {
 
 
   }
-  pageSizepending = 5; // Number of items per page
+  pageSizepending = 8; // Number of items per page
   currentPagepending = 1; // Current page
   totalPagespending: any = 1;
   nextPagepending() {
@@ -143,7 +164,11 @@ export class DemandesEnsrignantComponent {
 
   demandeaverification() {
     this.myForm2.value.user_id = this.user_id
-
+    if (this.myForm2.value.month === 'autre') {
+      this.myForm2.value.month = this.selectedTeachers
+    } else {
+      this.myForm2.value.month = [this.myForm2.value.month]
+    }
     this.studentservice.enseignant_demande(this.myForm2.value)
       .subscribe({
         next: (res) => {
@@ -167,7 +192,12 @@ export class DemandesEnsrignantComponent {
               cancelButton: 'custom-cancel-button-class'
             },
             reverseButtons: true // Reversing button order
-          })
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
           console.log(res);
 
           // Handle the response from the server
@@ -206,7 +236,12 @@ export class DemandesEnsrignantComponent {
               cancelButton: 'custom-cancel-button-class'
             },
             reverseButtons: true // Reversing button order
-          })
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
           console.log(res);
 
           // Handle the response from the server
@@ -241,7 +276,7 @@ export class DemandesEnsrignantComponent {
   click() {
     this.showPopup = true
   }
-  pageSize = 5; // Number of items per page
+  pageSize = 8; // Number of items per page
   currentPage = 1; // Current page
 
   totalPages: any;

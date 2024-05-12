@@ -115,12 +115,16 @@ export class PendingPreinscriptionComponent {
         </head>
         <body>
        
-        <div style='text-align:center'>  Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+        <div style='text-align:center; display:flex'> 
+        <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+        <div style="margin-top:30px">
+        Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
         Direction Générale des Etudes Technologiques <br> 
-        Institut Supérieur des Etudes Technologiques de Nabeul </div>
-          <div style="margin:10px 10px 30px 150px;font-size : 2rem">  <b> Attesation d'inscription </b><br> 
+        Institut Supérieur des Etudes Technologiques de Nabeul
+        </div> </div>
+          <div style="margin:10px 10px 10px 150px;font-size : 2rem">  <b> Attesation d'inscription </b><br> 
    </div> 
-   <div style="margin:10px 10px 30px 190px;">        ANNE UNIVERSITAIRE : ${this.res.personalInfo.annee}    </div>
+   <div style="margin:10px 10px 10px 190px;">        ANNE UNIVERSITAIRE : ${this.res.personalInfo.annee}    </div>
           <div style="display:flex;">
           <div>
             <b>  </b>
@@ -153,12 +157,6 @@ export class PendingPreinscriptionComponent {
 
             - Nom et Prénom Père : ${this.res.family_info.father_name}    <br>  <br>        - Numéro de téléphone père   ${this.res.family_info.father_phone}     <br>  <br>             - Profession Père:  ${this.res.family_info.father_job} <br>  <br>
             - Nom et Prénom Mère : ${this.res.family_info.mother_name}      <br>  <br>      - Numéro de téléphone Mère :  ${this.res.family_info.mother_phone}     <br>  <br>         - Profession Mère:  ${this.res.family_info.mother_job} <br>  <br>
-
-
-
-
-
-
  
           </div>
           <div style='width: 38.875rem;
@@ -174,17 +172,12 @@ export class PendingPreinscriptionComponent {
           
           
           
-          <b style="margin:20px 10px 30px 350px"> Signature de l'étudiant   </b> 
+          <b style="margin:20px 10px 0px 300px"> Signature de l'étudiant   </b> 
           
            
                     </div>
           </div>
-        </body><br>
-       <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br>  <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br>  <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br>
-         <br>
-         <br>
-         <br>
-         <br>
+        </body>
       </html>
     `;
 

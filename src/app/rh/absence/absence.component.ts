@@ -74,8 +74,12 @@ export class AbsenceComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
-        window.location.reload()
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
       },
       error: (e) => {
         // Handle errors

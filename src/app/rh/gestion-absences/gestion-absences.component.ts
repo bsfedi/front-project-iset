@@ -221,10 +221,12 @@ export class GestionAbsencesComponent {
   }
   show_classe: any
   classes: any
+  module_id1: any
   getclasse_bymodule(event: any) {
     {
-      const id = event.target.value;
 
+      const id = event.target.value;
+      this.module_id1 = id
       this.studentservice.get_classe_by_module(id).subscribe({
         next: (res) => {
           this.classes = res
@@ -250,7 +252,7 @@ export class GestionAbsencesComponent {
     {
       const id = event.target.value;
 
-      this.studentservice.get_absences_by_classe(id).subscribe({
+      this.studentservice.get_absences_by_classe(id, this.module_id1).subscribe({
         next: (res) => {
           this.absences = res
 

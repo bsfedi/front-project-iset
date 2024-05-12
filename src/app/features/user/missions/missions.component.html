@@ -7,12 +7,12 @@
     <div class="second-container" *ngIf="show">
       <div style="display: flex">
 
-        <div class="title">Mes Demandes</div>
+        <div class="title">MES DEMANDES </div>
 
       </div>
       <p></p>
 
-
+      <!-- 
       <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
 
         <div class="sp-container">
@@ -25,7 +25,7 @@
           </div>
         </div>
 
-      </div>
+      </div> -->
 
       <br>
       <br>
@@ -488,7 +488,7 @@
 
   </div>
   <div class="popup" *ngIf="showPopup">
-    <div class="popup-content" style="  height: auto">
+    <div class="popup-content" style="  height: 55%">
       <div style="float: right" (click)="closePopup()">
         <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
       </div>
@@ -555,7 +555,7 @@
 
                 <select formControlName="matiere">
                   <option value=""> Selectioner matiere</option>
-                  <option *ngFor="let item of modules" [value]="item.code
+                  <option *ngFor="let item of modules" [value]="item.intitule
                   ">{{item.intitule}}</option>
 
 

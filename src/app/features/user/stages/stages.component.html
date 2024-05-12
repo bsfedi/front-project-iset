@@ -7,13 +7,13 @@
         <div class="second-container" *ngIf="show">
             <div style="display: flex">
 
-                <div class="title">Mes stages</div>
+                <div class="title">MES STAGES </div>
 
             </div>
             <p></p>
 
 
-            <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
+            <!-- <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
 
                 <div class="sp-container">
                     <div class="sp-content">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
             <br>
             <br>
@@ -449,13 +449,13 @@
                                     </select>
                                     <div *ngIf="res.personalInfo.level !=3 && myForm2.value.type =='stage PFE'  "><br>
                                         <div style="font-size: 1.75rem;">
-                                            Ce type de demande est accessible uniquement pour <br> les étudiants en 3ème
+                                            Ce type de demande est accessible uniquement pour les étudiants en 3ème
                                             année
                                         </div>
                                     </div>
 
                                 </div>
-                                <div *ngIf="res.personalInfo.level != 3 && myForm2.value.type !='stage PFE' ">
+                                <div *ngIf=" myForm2.value.type !='stage PFE' ">
                                     <div class="grid-item">
                                         <input type="text" formControlName="entreprise" placeholder="entreprise"
                                             required />
@@ -517,7 +517,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div style="margin-left: -50px;"
+                            <div style="margin-left: 50px;"
                                 *ngIf="myForm2.value.type =='stage PFE' && res.personalInfo.level === 3  ">
                                 <div class="grid-item">
                                     <input type="text" formControlName="project" placeholder="titre de projet"
@@ -610,7 +610,8 @@
 
                         </div>
                         <br />
-                        <div class="buttons" (click)="demandeaverification()">
+                        <div class="buttons" (click)="demandeaverification()"
+                            *ngIf="res.personalInfo.level !=3 && myForm2.value.type =='stage PFE'  ">
                             <button type="submit" class="button">
                                 <div class="inscrire">Ajouter</div>
                             </button>

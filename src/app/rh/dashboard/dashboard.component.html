@@ -5,12 +5,12 @@
     </div>
     <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
     <div class="second-container" *ngIf="show">
-      <div class="title">Tableau de bord </div>
+      <div class="title" style="max-width: 17rem;"> TABLEAU DE BORD </div>
       <div style="display: flex;margin-left: 15px;margin-bottom: 30px;" class="Tableau1">
 
         <div>
           <div class="tjm_moyen2">
-            Heure connexion <br>
+            Heure de dernière connexion <br>
             06/05/2024 11:35
           </div>
         </div>
@@ -31,7 +31,11 @@
 
       </div> -->
       <div class="Tableau1 left-first" *ngIf="role == 'student'">
-        <div class="tjm_moyen"> Les demandes par status <br>
+        <div class="tjm_moyen"> Les demandes par type <br> <br>
+          <div id="chart">
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+              [responsive]="chartOptions.responsive"></apx-chart>
+          </div>
 
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle1"></div>
@@ -49,7 +53,11 @@
           </b>
 
         </div>
-        <div class="tjm_moyen" style="height: auto;"> Les demandes par type <br>
+        <div class="tjm_moyen" style="height: auto;"> Les demandes par status <br><br>
+          <div id="chart1">
+            <apx-chart style="height: 200px;" [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+              [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"></apx-chart>
+          </div>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle1"></div>
             <div style="width: 230px;">en attente</div>
@@ -222,7 +230,11 @@
 
 
       <div class="Tableau1 left-first" *ngIf="role != 'student'">
-        <div class="tjm_moyen"> Les demandes par status <br>
+        <div class="tjm_moyen"> Les demandes par type <br> <br>
+          <div id="chart">
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+              [responsive]="chartOptions.responsive"></apx-chart>
+          </div>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
             <div style="width:  230px;"> Attestation de presence</div>
@@ -250,9 +262,14 @@
             <div style="width:  230px;"> Enseignant demande</div>
             <div> {{statsres.enseignant_demande}} </div>
             <div style="margin-left: 100px;color: #858380;"> {{statsres.enseignant_demande_percentage}}%</div>
-          </b>
+          </b> <br>
+
         </div>
-        <div class="tjm_moyen"> Les demandes par type <br>
+        <div class="tjm_moyen"> Les demandes par status <br><br>
+          <div id="chart1">
+            <apx-chart style="height: 200px;" [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+              [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"></apx-chart>
+          </div>
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
             <div style="width:  230px;">en attente</div>

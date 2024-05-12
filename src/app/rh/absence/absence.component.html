@@ -4,7 +4,7 @@
     </div>
     <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
     <div class="container" *ngIf="show">
-        <div class="title"> Déclarer une nouvelle absence
+        <div class="title" style="max-width: 35rem;"> DECLARER UNE NOUVELLE ABSENCE
         </div>
         <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
             <div class="form-section">

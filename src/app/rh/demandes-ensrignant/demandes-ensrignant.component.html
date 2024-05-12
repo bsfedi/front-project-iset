@@ -7,7 +7,7 @@
         <div class="second-container" *ngIf="show">
             <div style="display: flex">
 
-                <div class="title">Mes demandes</div>
+                <div class="title">MES DEMANDES</div>
 
             </div>
             <p></p>
@@ -117,8 +117,9 @@
                                     {{item.heure_fin}}
                                 </td>
                                 <td>
-                                    <div>
-                                        {{ item.month }}
+
+                                    <div *ngFor="let m of item.month;let i =index">
+                                        {{ m }}
 
                                     </div>
 
@@ -191,11 +192,10 @@
 
                             <ng-container>
                                 <td>
-                                    <div>
-                                        {{ item.month }}
+                                    <div *ngFor="let m of item.month;let i =index">
+                                        {{ m }}
 
                                     </div>
-
                                 </td>
                                 <td>
                                     {{item.date_debut}}
@@ -660,7 +660,28 @@
 
                                     </div>
                                     <div class="grid-item" *ngIf=" myForm2.get('type')?.value === 'FP'">
-                                        <input type="month" formControlName="month" placeholder="month" required />
+
+                                        <select formControlName="month">
+                                            <option value="Fiche de paie des trois derniers mois"> Fiche de paie des
+                                                trois derniers mois</option>
+                                            <option value="autre">Autre</option>
+                                        </select>
+                                        <div class="multiselect" *ngIf=" myForm2.get('month')?.value === 'autre'">
+                                            <div>
+                                                <select (click)="toggleCheckboxes()">
+                                                    <option [style.display]="!expanded ? 'block' : 'none'"> choisir les
+                                                        mois</option>
+                                                </select>
+                                                <div class="overSelect"></div>
+                                            </div>
+                                            <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
+                                                *ngFor="let en of monthes">
+                                                <label for="en">
+                                                    <input type="checkbox" id="en"
+                                                        (change)="toggleTeacher(en)" />{{en}}</label>
+
+                                            </div>
+                                        </div>
                                     </div>
                                     <div>
                                         <form action="/submit_form" *ngIf=" myForm2.get('type')?.value === 'CONGE'"

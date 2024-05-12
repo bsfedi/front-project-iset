@@ -109,7 +109,7 @@ export class StudentService {
   }
   stats_enseignant(enseignant_id: any): Observable<any> {
 
-    return this.http.get(baseUrl + 'stats_enseignant/' + enseignant_id, enseignant_id);
+    return this.http.get(baseUrl + 'stats_enseignant/' + enseignant_id);
   }
 
   stats_student(student_id: any): Observable<any> {
@@ -459,9 +459,9 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_classe_bymodule/' + module_id);
   }
-  get_absences_by_classe(classe_id: any): Observable<any> {
+  get_absences_by_classe(classe_id: any, module_id: any): Observable<any> {
 
-    return this.http.get(baseUrl + 'get_absences_by_classe/' + classe_id);
+    return this.http.get(baseUrl + 'get_absences_by_classe/' + classe_id + "/" + module_id);
   }
   get_classe_module_by_dep(depatement: any): Observable<any> {
 

@@ -60,7 +60,7 @@ export class DemandeRattrapageComponent {
     this.myForm = this.fb.group({
       type: ['', Validators.required],
       date: ['', Validators.required],
-      nb_senace: [' ', Validators.required]
+      nb_senace: ['', Validators.required]
 
     });
     this.myForm1 = this.fb.group({

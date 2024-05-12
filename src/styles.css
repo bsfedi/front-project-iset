@@ -26,6 +26,14 @@ button {
   border-color: #EAE3D5;
 }
 
+.title {
+  background-color: rgb(223, 234, 242);
+  border-radius: 5rem;
+  min-width: 10rem;
+  max-width: 20rem;
+  padding: 5px;
+}
+
 .warning-msg {
   color: #9f6000;
   background-color: #feefb3;

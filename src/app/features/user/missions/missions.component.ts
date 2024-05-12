@@ -615,7 +615,7 @@ export class MissionsComponent {
             background: 'white',
             html: `
               <div>
-              <div style="font-size:1.2rem"> demande ajouté avec succès! </div> 
+              <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
                 
               </div>
             `,
@@ -671,7 +671,7 @@ export class MissionsComponent {
             background: 'white',
             html: `
               <div>
-              <div style="font-size:1.2rem"> demande ajouté avec succès! </div> 
+              <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
                 
               </div>
             `,
