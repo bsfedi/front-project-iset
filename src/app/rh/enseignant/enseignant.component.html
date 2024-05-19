@@ -42,22 +42,21 @@
                                     <!-- Afficher ensuite les éléments avec d'autres statuts -->
 
                                     <tr *ngFor="let item of getDisplayedconsultants()">
-                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
+                                        <td>
                                             <div class="waiting"> En attente</div>
                                         </td>
-                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement' ">
+                                        <td>
                                             {{ item.first_name }} {{item.last_name}}
                                         </td>
 
-                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
+                                        <td>
                                             {{ item.nb_arab }}
                                         </td>
-                                        <td *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
+                                        <td>
                                             {{ item.nb_fr }}
                                         </td>
 
-                                        <td style="cursor: pointer" class="dropdown"
-                                            *ngIf="item.status !='prete' &&  item.status !='validated_by_departement'">
+                                        <td style="cursor: pointer" class="dropdown">
                                             <div>
                                                 <div>
                                                     <div style="margin-left: 8px">
@@ -264,7 +263,7 @@
                             </table>
                         </div>
                         <div class="pagination">
-                            <div (click)="previousPage()" style="cursor: pointer;">
+                            <div (click)="previousPage1()" style="cursor: pointer;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -275,9 +274,9 @@
                             </div>
 
 
-                            <span style="margin-top: 10px;"> {{ currentPage }} sur {{ totalPages
+                            <span style="margin-top: 10px;"> {{ currentPageconsultant }} sur {{ totalPages1
                                 }}</span>
-                            <div (click)="nextPage()" style="cursor: pointer;">
+                            <div (click)="nextPage1()" style="cursor: pointer;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -358,9 +357,11 @@
 
                     </div>
 
+                    <br>
+                    <div style="color: red;"> {{error_message}}</div>
+                </div>
 
-                    <div> {{error_message}}</div>
-                </div> <br>
+                <br>
                 <div style="display: flex;" (click)="justif">
 
                     <button type="submit" class="button" (click)="justif()" style="margin-left: 290px">
@@ -404,7 +405,7 @@
         </div>
         <div>
             <div class="right-item" style="cursor: pointer;">
-                <div class="profil">
+                <div class="profil" (click)="gotomyprofile()">
                     <img src="/assets/avatar-user.png" width="15%" height="10%" />
                     <div style="" class="nom-prenom">{{fullname}}</div>
 

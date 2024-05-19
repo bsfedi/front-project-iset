@@ -47,7 +47,7 @@ export class tjmrequestsComponent {
 
   totalPages: any;
   getDisplayeddocs(): any[] {
-    this.pageSize = 8
+    this.pageSize = 10
 
     if (this.mission) {
 
@@ -588,7 +588,7 @@ export class tjmrequestsComponent {
             <style>
               table {
                 width: 90%;
-                margin-top: 30px;
+                margin-top: 20px;
                 border-collapse: collapse;
               }
               th, td {
@@ -600,6 +600,15 @@ export class tjmrequestsComponent {
             </style>
           </head>
           <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br> <br>
+
+          <b style='text-align:center;'> Liste des attestations  </b><br> <br>
             <table>
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
@@ -665,6 +674,15 @@ export class tjmrequestsComponent {
             </style>
           </head>
           <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br> <br>
+
+          <b style='text-align:center;'> Liste des verification des notes  </b><br> <br>
             <table>
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
@@ -726,6 +744,15 @@ export class tjmrequestsComponent {
             </style>
           </head>
           <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br> <br>
+
+          <b style='text-align:center;'> Liste des demandes Rattrapge  </b><br> <br>
             <table>
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">ID</th>

@@ -210,10 +210,19 @@
 
                 margin-left: 38px;
               ">
-              {{validation}}
+              <select style="width: 7rem;" [(ngModel)]="validation" (change)="validateJobCotractEdition(validation)">
+
+                <option value="tranche"> tranche</option>
+                <option value="total"> total</option>
+              </select>
+
             </div>
           </div>
+          <br>
+          <div>
 
+            <button (click)="generatePdf()"> Fiche Etudiant</button>
+          </div>
           <div
             class="border-radius: 1rem; background: #F7F5EF; box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.26); width: 27.375rem; height: 43.625rem; flex-shrink: 0;">
           </div>
@@ -868,7 +877,7 @@
     </div>
 
     <div class="right-item" style="cursor: pointer; height: 5px;margin-left: -25px;">
-      <div class="profil">
+      <div class="profil" (click)="gotomyprofile()">
         <img src="/assets/avatar-user.png" width="15%" height="10%" />
         <div class="nom-prenom"> {{fullname}} </div>
 

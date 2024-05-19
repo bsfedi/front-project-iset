@@ -6,7 +6,7 @@ import { SafeHtml } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
-
+const clientName = `${environment.default}`;
 const baseUrl = `${environment.baseUrl}`;
 @Component({
   selector: 'app-details-stage',
@@ -48,6 +48,9 @@ export class DetailsStageComponent {
   }
   role: any
   fullname: any
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {

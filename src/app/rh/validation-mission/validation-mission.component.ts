@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;
+const baseUrl = `${environment.baseUrl}`;
 @Component({
   selector: 'app-validation-mission',
   templateUrl: './validation-mission.component.html',
@@ -101,7 +102,7 @@ export class ValidationMissionComponent {
           console.log(res);
 
           this.getContaractByPrerigister = res
-
+          this.getContaractByPrerigister.preregister.docs.img_profil = baseUrl + "uploads/" + this.getContaractByPrerigister.preregister.docs.img_profil
           this.payment = res.preregister.validation.payment
           this.depot = res.preregister.validation.depot
           this.paymenttype = res.preregister.validation.paymenttype

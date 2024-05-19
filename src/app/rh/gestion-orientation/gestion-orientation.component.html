@@ -62,7 +62,7 @@
                                 </b>
                             </td>
                             <td>
-                                <div *ngIf="item.resultat != '' ">
+                                <div *ngIf="item.resultat != ''   ">
                                     {{item.resultat}}
                                 </div>
                                 <div *ngIf="item.resultat ==''">
@@ -124,24 +124,7 @@
                                 <div *ngIf="item.resultat != '' ">
                                     {{item.resultat}}
                                 </div>
-                                <div *ngIf="item.resultat ==''">
-                                    <select id="fullName" (change)="affcterstudent($event,item.user_id)"
-                                        placeholder="Métier" name="fullName" required>
 
-                                        <option [value]="item.choix1">
-                                            {{item.choix1}}
-                                        </option>
-                                        <option [value]="item.choix2">
-                                            {{item.choix2}}
-                                        </option>
-                                        <option [value]="item.choix3">
-                                            {{item.choix3}}
-                                        </option>
-                                        <option [value]="item.choix4" *ngIf="item.choix4">
-                                            {{item.choix4}}
-                                        </option>
-                                    </select>
-                                </div>
                             </td>
                         </tr>
 
@@ -177,7 +160,7 @@
         </div>
 
         <div class="right-item" style="cursor: pointer; height: 5px;margin-left: -25px;">
-            <div class="profil">
+            <div class="profil" (click)="gotomyprofile()">
                 <img src="/assets/avatar-user.png" width="15%" height="10%" />
                 <div class="nom-prenom"> {{fullname}} </div>
 

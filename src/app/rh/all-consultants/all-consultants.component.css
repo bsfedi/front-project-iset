@@ -788,12 +788,16 @@ input[type="password"] {
   justify-content: center;
   align-items: center;
   border-radius: 0.625rem;
-  border: 2px solid #eae3d5;
+  border: 2px solid #d5ddea;
   background: #fff;
   margin: 3.25px;
   padding: 3.25px 8px 3.25px 8px;
+}
 
 
+div.exportlist:hover {
+  color: white;
+  background-color: rgb(34, 18, 209);
 }
 
 .second {

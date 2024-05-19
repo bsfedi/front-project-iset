@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { StudentService } from 'src/app/services/student.service';
 
 
 const clientName = `${environment.default}`;
@@ -28,47 +29,44 @@ export class EditProfilComponent {
   newPassword: string = '';
   confirmPassword: string = '';
   role: any;
-  constructor(private inscriptionservice: InscriptionService, private userservice: UserService, private router: Router) {
+  ens_id: any
+  fullname: any
+  constructor(private studentservice: StudentService, private userservice: UserService, private router: Router) {
 
   }
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    this.user_id = localStorage.getItem('user_id')
-    this.role = localStorage.getItem('role')
-
-
-    // Check if token is available
-    if (token) {
-      // Include the token in the headers
-      this.headers = new HttpHeaders().set('Authorization', `${token}`);
-      this.userservice.getpersonalinfobyid(this.user_id).subscribe((user: any) => {
-        this.firstName = user.firstName ?? '';
-        this.lastName = user.lastName ?? '';
-        this.email = user.email ?? '';
-        this.phoneNumber = user.phoneNumber !== undefined ? user.phoneNumber : null;
-        this.location = user.location ?? '';
-        this.nationality = user.nationality ?? '';
-      });
-      this.userservice.getpersonalinfobyid(this.user_id).subscribe({
+    this.ens_id = localStorage.getItem('user_id');
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
-          // Handle the response from the server
-          this.res = res;
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+          this.firstName = res.preregister.personalInfo.first_name
+          this.lastName = res.preregister.personalInfo.last_name
+          this.email = res.preregister.personalInfo.email
+          this.phoneNumber = res.preregister.personalInfo.phone
+          this.location = res.preregister.personalInfo.adresse
+        }, error(e) {
+          console.log(e);
 
-          // Check each property for undefined and replace it with an empty string if necessary
-          for (let prop in this.res) {
-            if (this.res.hasOwnProperty(prop) && this.res[prop] === undefined) {
-              this.res[prop] = '';
-            }
-          }
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
         }
       });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.first_name + " " + res.last_name
+          this.firstName = res.first_name
+          this.lastName = res.last_name
+          this.email = res.email
+          this.phoneNumber = res.phone
+          this.location = res.grade
+        }, error(e) {
+          console.log(e);
 
+        }
+      });
     }
+
   }
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
@@ -173,12 +171,12 @@ export class EditProfilComponent {
         }
         else {
           const passwordData = {
-            password: this.currentPassword,
+            old_password: this.currentPassword,
             new_password: this.newPassword
           };
 
           // Call the service to update password
-          this.userservice.updatepassword(this.user_id, passwordData).subscribe({
+          this.studentservice.updatepassword(this.ens_id, passwordData).subscribe({
             next: (res) => {
               // Handle success
               Swal.fire({
@@ -187,6 +185,11 @@ export class EditProfilComponent {
                 text: 'Mot de passe mise à jour avec succès !',
                 background: 'white',
                 confirmButtonColor: "rgb(0, 17, 255)",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Reload the page
+                  location.reload();
+                }
               });
             },
             error: (e) => {

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
-
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+const clientName = `${environment.default}`;
 @Component({
   selector: 'app-gestion-absences',
   templateUrl: './gestion-absences.component.html',
@@ -13,7 +15,7 @@ export class GestionAbsencesComponent {
   user_id: any
   pending_missions: any
   myForm2: FormGroup;
-  constructor(private fb: FormBuilder, private studentservice: StudentService) {
+  constructor(private fb: FormBuilder, private router: Router, private studentservice: StudentService) {
     this.myForm2 = this.fb.group({
       code: [''],
       utilisation: ['', Validators.required],
@@ -33,6 +35,9 @@ export class GestionAbsencesComponent {
   expanded1: boolean = false;
   expanded2: boolean = false;
   selectedTeachers: string[] = [];
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
   toggleTeacher(teacher: string): void {
     const index = this.selectedTeachers.indexOf(teacher);
     if (index === -1) {

@@ -156,22 +156,22 @@
           </div>
         </div> -->
         <div class="first-left">
-          <div style="
-              color: #171a1f;
 
-              font-size: 1.25rem;
-              font-style: normal;
-              font-weight: 600;
-              line-height: 1.875rem;
-            ">
+          <div>
+
+            <div style="display: flex;">
+              <img [src]="getContaractByPrerigister.preregister.docs.img_profil"
+                style="border-radius:50% ; width: 20%;">
+
+              <div style="margin: 35px 25px 25px 70px; font-size: 2rem;">
+                {{getContaractByPrerigister.preregister.personalInfo?.first_name}}
+                {{getContaractByPrerigister.preregister.personalInfo?.last_name}}
+              </div>
+            </div>
 
           </div>
-          <div style="display: flex; margin-top: 20px">
-
-          </div>
-
           <div class="Tableau1" style="  margin-top: 20px">
-            <div style="width: 100px; margin-top: 10px">Etape 1</div>
+            <div style="width: 200px; margin-top: 10px">Etape 1</div>
             <div [ngClass]="{
                 pending1: payment == 'false',
                 validated1: payment == 'true',
@@ -195,7 +195,7 @@
 
           </div>
           <div class="Tableau1" style="  margin-top: 20px" *ngIf="payment == 'true'">
-            <div style="width: 100px; margin-top: 10px">methode de paiement </div>
+            <div style="width: 200px; margin-top: 10px">methode de paiement </div>
             <div class="pending1">
               Paiement
             </div>
@@ -208,7 +208,7 @@
             </div>
           </div>
           <div class="Tableau1" style=" margin-top: 20px">
-            <div style="width: 100px; margin-top: 10px">Etape 2</div>
+            <div style="width: 200px; margin-top: 10px">Etape 2</div>
             <div [ngClass]="{
                 pending1: depot == 'false',
                 validated1: depot == 'true',
@@ -357,7 +357,7 @@
       </div>
     </div>
     <div class="right-item">
-      <div class="profil" style="cursor: pointer;">
+      <div class="profil" style="cursor: pointer;" (click)="gotomyprofile()">
         <img src="/assets/avatar-user.png" width="15%" height="10%" />
         <div style="" class="nom-prenom">{{fullname}}</div>
 

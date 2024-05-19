@@ -105,6 +105,9 @@ export class OrientationComponent {
       }
     });
   }
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
   logform() {
     this.myForm.value.user_id = this.user_id
     this.studentsrvice.orientation(this.myForm.value).subscribe({

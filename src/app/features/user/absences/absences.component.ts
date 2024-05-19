@@ -36,7 +36,9 @@ export class AbsencesComponent {
   }
   enseignant_id: any
 
-
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
 
   isEndDateBeforeStartDate(): boolean {
     const endDate = this.myForm.value.endDate;

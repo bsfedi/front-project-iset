@@ -11,7 +11,8 @@
 }
 
 .first-left {
-  margin-left: 30px
+  margin-left: 30px;
+  margin: 150px 150px 150px 250px;
 }
 
 .title {
@@ -88,7 +89,7 @@ svg {
 
 .second-container {
   margin-left: 240px;
-
+  width: 60%;
   flex-shrink: 0;
 }
 
@@ -393,6 +394,7 @@ input[type="checkbox"] {
 .right-item {
   width: 30%;
   float: right;
+  justify-content: right;
   display: row;
 }
 

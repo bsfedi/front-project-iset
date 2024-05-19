@@ -32,7 +32,7 @@
             <br />
             <select (change)="getabsence($event)">
 
-                <option *ngFor="let item of modules" [value]="item._id">{{item.code}}</option>
+                <option *ngFor="let item of modules" [value]="item._id">{{item.intitule}}</option>
             </select> <br> <br> <br>
             <div class="table-wrapper">
                 <table>
@@ -42,8 +42,8 @@
 
 
                             <th> Classe </th>
-                            <th>Nombre total</th>
-                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> </th>
+                            <!-- <th></th> -->
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Nombre total</th>
 
 
                         </tr>
@@ -62,7 +62,7 @@
                                 {{ item.nb_absence }}
                             </td>
 
-                            <td style="cursor: pointer" class="dropdown">
+                            <!-- <td style="cursor: pointer" class="dropdown">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none">
@@ -72,7 +72,7 @@
                                     </svg>
                                 </span>
                                 <div class="dropdown-content">
-                                    <!-- Menu items go here -->
+                                  
                                     <div style="display: flex; cursor: pointer">
                                         <img src="/assets/Checkmark.svg" width="12%" />
                                         <div (click)="deletesalle(item._id)" style="
@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
 
-                            </td>
+                            </td> -->
 
 
                         </tr>
@@ -114,7 +114,7 @@
                     </tbody>
                 </table>
                 <div class="popup" *ngIf="showPopup1">
-                    <div class="popup-content" style="height: auto;width: 50rem;">
+                    <div class="popup-content" style="height: auto;width: 60rem;">
                         <div style="float: right" (click)="closePopup1()">
                             <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                         </div>
@@ -125,7 +125,7 @@
                             <div>
                                 <div class="multiselect">
                                     <div>
-                                        <select (click)="toggleCheckboxes()">
+                                        <select (click)="toggleCheckboxes()" style="width: 28rem;">
                                             <option [style.display]="expanded ? 'block' : 'none'"> choisir les
                                                 enseignants
                                             </option>
@@ -145,7 +145,7 @@
                                 <br><br>
                                 <div class="multiselect">
                                     <div>
-                                        <select (click)="toggleCheckboxes1()">
+                                        <select (click)="toggleCheckboxes1()" style="width: 28rem;">
                                             <option [style.display]="expanded1 ? 'block' : 'none'" *ngIf="!expanded1">
                                                 choisir
                                                 les
@@ -166,9 +166,9 @@
                                 </div>
                                 <br><br>
                             </div>
-                            <div style="margin-left: 170px;" class="multiselect">
+                            <div style="margin-left: 280px;" class="multiselect">
                                 <div>
-                                    <select (click)="toggleCheckboxes2()">
+                                    <select (click)="toggleCheckboxes2()" style="width: 28rem;">
                                         <option [style.display]="expanded2 ? 'block' : 'none'"> Seletioner les module
                                         </option>
                                     </select>
@@ -347,7 +347,7 @@
             </div>
             <br />
             <select (change)="getclasse_bymodule($event)">
-                <option *ngFor="let item of modulesens" [value]="item._id">{{item.code}}</option>
+                <option *ngFor="let item of modulesens" [value]="item._id">{{item.intitule}}</option>
             </select> <br>
             <select (change)="get_absences_by_classe($event)" *ngIf="show_classe">
                 <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
@@ -481,7 +481,7 @@
         <div class="right-item">
             <div style="display: flex;margin-bottom: 0px;">
 
-                <div class="profil" style="cursor: pointer;">
+                <div class="profil" style="cursor: pointer;" (click)="gotomyprofile()">
                     <img src="/assets/avatar-user.png" width="15%" height="10%" />
                     <div class="nom-prenom">{{fullname}} <br>
 

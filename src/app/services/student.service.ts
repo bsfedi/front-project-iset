@@ -69,6 +69,13 @@ export class StudentService {
     return this.http.get(baseUrl + 'get_absence_by_enseignant_id/' + enseignant_id);
   }
 
+  get_absence_enseignant_id(enseignant_id: any): Observable<any> {
+    return this.http.get(baseUrl + 'get_absence_enseignant_id/' + enseignant_id);
+  }
+
+  updatepassword(id: any, data: any) {
+    return this.http.put(baseUrl + 'users/update_password/' + id, data);
+  }
   add_rattrapage(data: any, enseignant_id: any): Observable<any> {
 
     return this.http.post(baseUrl + 'add_rattrapage/' + enseignant_id, data);

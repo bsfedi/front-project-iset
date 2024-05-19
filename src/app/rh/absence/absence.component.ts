@@ -15,7 +15,7 @@ const clientName = `${environment.default}`;
 })
 export class AbsenceComponent {
   myForm: FormGroup;
-  ens = [1, 2, 3, 4]
+  ens: any
   selectedOption: string = "";
   inputClass: any;
   inputModule: any;
@@ -60,7 +60,7 @@ export class AbsenceComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande ajouté  avec succès! </div> 
+            <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
               
             </div>
           `,
@@ -123,7 +123,20 @@ export class AbsenceComponent {
       });
     }
     this.enseignant_id = localStorage.getItem('user_id')
+    this.studentsrvice.get_absence_enseignant_id(this.enseignant_id)
+      .subscribe({
+        next: (res) => {
+          // Handle the response from the server
+          this.ens = res
+          // this.router.navigate([clientName +'/client']);
+          // this.router.navigate([clientName +'/informations/' + res._id]);
 
+        },
+        error: (e) => {
+          // Handle errors
+          console.error(e);
+        }
+      });
   }
 
   submit(): void {

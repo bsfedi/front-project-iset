@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-
+import { jsPDF } from "jspdf";
+declare let html2pdf: any
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultantService } from 'src/app/services/consultant.service';
 import { InscriptionService } from 'src/app/services/inscription.service';
@@ -411,7 +412,331 @@ export class ConsultantMissionComponent {
     }
 
   }
+  paymenttype: any
+  validateJobCotractEdition(type: any): void {
+    const data = {
+      "type": type
+    }
+    console.log(data);
 
+    this.studentservice.update_paymenttype_status(data, this.preinscription_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        console.log(res);
+        window.location.reload();
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+        // Set loading to false in case of an error
+
+      }
+    });
+  }
+  generatePdf() {
+    // Get the data for the table
+    const Sanctions = this.sanctions;
+
+    // Generate the table rows dynamically
+    const tableRows = Sanctions.map((item: any) => `
+        <tr>
+            <td>${item.type} </td>
+            <td> ${item.motif} </td>
+            <td><b>${item.date.split('T')[0]}</b></td>
+        </tr>
+    `).join('');
+
+
+    // Create the HTML content
+    const htmlContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 90%;
+                margin-top: 10px;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+
+            </style>
+          </head>
+          <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br>
+
+          <b style='text-align:center;'> Fiche Etudiant  </b><br> <br>
+
+          Informations personnelles
+          <div style="height: auto; flex-shrink: 0">
+          <div style="display: flex">
+            <img src="/assets/4035887-200.png"
+              style="width: 40px; border-radius: 20%; height: 45px;margin-top: 20px;" />
+            <div style="margin-top: 15px; margin-left: 15px">
+              <div style="
+                  color: #6e7787;
+
+                  font-size: 0.875rem;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: 1.375rem; /* 157.143% */
+                ">
+                étudiant
+              </div>
+              <div style="
+                  color: #171a1f;
+
+                  font-size: 1rem;
+                  font-style: normal;
+                  font-weight: 300;
+                  line-height: 2.25rem; /* 150% */
+                ">
+                ${this.personalInfo.first_name}
+                ${this.personalInfo.last_name}
+              </div>
+            </div>
+
+
+          </div>
+          <br />
+          <div style="display: flex">
+      
+
+          </div>
+          <br />
+          <div style="display: flex">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8.0002 10.8002C9.54659 10.8002 10.8002 9.54659 10.8002 8.0002C10.8002 6.4538 9.54659 5.2002 8.0002 5.2002C6.4538 5.2002 5.2002 6.4538 5.2002 8.0002C5.2002 9.54659 6.4538 10.8002 8.0002 10.8002Z"
+                  stroke="#565E6C" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M10.4 13.5006C9.2159 14.0173 7.89661 14.1381 6.63836 13.8449C5.3801 13.5517 4.25009 12.8602 3.4164 11.8732C2.5827 10.8863 2.08985 9.65654 2.01115 8.36697C1.93244 7.07741 2.27209 5.79688 2.97958 4.71584C3.68706 3.63481 4.72459 2.81101 5.93785 2.36697C7.15111 1.92293 8.47529 1.88237 9.71345 2.25133C10.9516 2.62028 12.0376 3.37903 12.8099 4.41474C13.5823 5.45045 13.9996 6.70779 14 7.99976V9.19976C14 9.6241 13.8314 10.0311 13.5314 10.3311C13.2313 10.6312 12.8244 10.7998 12.4 10.7998C11.9757 10.7998 11.5687 10.6312 11.2686 10.3311C10.9686 10.0311 10.8 9.6241 10.8 9.19976L10.8 5.19976"
+                  stroke="#565E6C" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div style="margin-left: 10px">
+            ${this.user_email}
+            </div>
+          </div>
+          <div style="display: flex">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M10.011 9.41126L9.03337 10.6337C7.51852 9.74363 6.2562 8.48131 5.36617 6.96646L6.58857 5.98886C6.73187 5.87419 6.83314 5.71528 6.87656 5.53697C6.91998 5.35865 6.9031 5.17097 6.82857 5.00326L5.71417 2.49366C5.63425 2.31383 5.49306 2.16822 5.31577 2.0828C5.13849 1.99737 4.93662 1.97769 4.74617 2.02726L2.62457 2.57686C2.42668 2.62875 2.25466 2.75133 2.14101 2.92143C2.02736 3.09154 1.97996 3.29738 2.00777 3.50006C2.38 6.15105 3.6052 8.60879 5.49812 10.5017C7.39104 12.3946 9.84878 13.6198 12.4998 13.9921C12.7024 14.02 12.9082 13.9727 13.0782 13.859C13.2482 13.7453 13.3706 13.5732 13.4222 13.3753L13.9726 11.2545C14.0221 11.064 14.0025 10.8621 13.917 10.6849C13.8316 10.5076 13.686 10.3664 13.5062 10.2865L10.9966 9.17206C10.8289 9.09772 10.6414 9.08086 10.4631 9.12412C10.2849 9.16738 10.1259 9.26833 10.011 9.41126Z"
+                  stroke="#565E6C" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div style="margin-left: 10px">
+            ${this.personalInfo.phone}
+            </div>
+          </div>
+          <div style="display: flex">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4.3999 7.6L4.3999 2L11.5999 2V6" stroke="#565E6C" stroke-width="0.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M6.8 9.2002L2 9.2002L2 14.0002H6.8L6.8 9.2002Z" stroke="#565E6C" stroke-width="0.8"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14.0002 7.6001L9.2002 7.6001L9.2002 14.0001H14.0002L14.0002 7.6001Z" stroke="#565E6C"
+                  stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3.6001 11.6001H5.2001" stroke="#565E6C" stroke-width="0.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M10.7998 10H12.3998" stroke="#565E6C" stroke-width="0.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M10.7998 11.6001H12.3998" stroke="#565E6C" stroke-width="0.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M6.7998 14H9.1998" stroke="#565E6C" stroke-width="0.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M6.7998 4.3999L9.1998 4.3999" stroke="#565E6C" stroke-width="0.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div style="margin-left: 10px">
+            ${this.personalInfo.adresse}
+            </div>
+          </div>
+
+          <div style="display: flex">
+            <div style="
+                margin: 10px;
+                color: #6e7787;
+
+                font-size: 0.875rem;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.375rem; /* 157.143% */
+              ">
+              Classe
+            </div>
+            <div style="
+                display: flex;
+                margin-top: 7px;
+                width: 3.625rem;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                border-radius: 0.25rem;
+                background: #f3f4f6;
+                margin-left: 40px;
+              ">
+              ${this.personalInfo.classe}
+            </div>
+          </div>
+          <div style="display: flex">
+            <div style="
+                margin: 10px;
+                color: #6e7787;
+
+                font-size: 0.875rem;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.375rem; /* 157.143% */
+              ">
+              code
+            </div>
+            <div style="
+                display: flex;
+                margin-top: 7px;
+                max-width: 6.625rem;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                border-radius: 0.25rem;
+
+                margin-left: 38px;
+              ">
+              ${this.personalInfo.code}
+            </div>
+          </div>
+          <div style="display: flex">
+            <div style="
+            margin: 10px;
+            color: #6e7787;
+
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.375rem; /* 157.143% */
+          ">CIN</div>
+            <div style="
+            display: flex;
+            margin-top: 7px;
+            max-width: 6.625rem;
+            height: 1.5rem;
+            padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            border-radius: 0.25rem;
+
+            margin-left: 38px;
+          ">
+            ${this.personalInfo.cin}
+            </div>
+          </div>
+          <div style="display: flex">
+            <div style="
+                margin: 10px;
+                color: #6e7787;
+
+                font-size: 0.875rem;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.375rem; /* 157.143% */
+              ">
+              Paiment
+            </div>
+            <div style="
+                display: flex;
+                margin-top: 7px;
+                max-width: 6.625rem;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                border-radius: 0.25rem;
+
+                margin-left: 38px;
+              ">
+              ${this.validation}
+            </div>
+          </div>
+          <br>
+
+          <div
+            class="border-radius: 1rem; background: #F7F5EF; box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.26); width: 27.375rem; height: 43.625rem; flex-shrink: 0;">
+          </div>
+          <br />
+        </div>
+
+
+            
+            Sanctions Administratives
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">type</th>
+                    <th>motif</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">date</th>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+
+
+            Orientation
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Choix</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">parcours</th>
+                  
+                </thead>
+                <tbody>
+                <tr>
+                <td>  Choix 1 </td>
+                <td>${this.data_orientation.choix1} </td>
+            </tr>
+            <tr>
+                <td>  Choix 2 </td>
+                <td>${this.data_orientation.choix2} </td>
+            </tr>
+            <tr>
+            <td>  Choix 3 </td>
+            <td>${this.data_orientation.choix3} </td>
+        </tr>
+        <tr>
+        <td>  Choix 4 </td>
+        <td>${this.data_orientation.choix4} </td>
+    </tr>
+                </tbody>
+            </table>
+          </body> <br><br>
+        </html>`;
+
+    // Generate PDF from HTML content
+    html2pdf(htmlContent, {
+      margin: 10,
+      filename: 'etudiants.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).pdf.save('document.pdf');
+  }
 
   affcterstudent(event: any) {
     const selectedValue = event.target.value;
@@ -746,22 +1071,7 @@ export class ConsultantMissionComponent {
       }
     });
   }
-  validateJobCotractEdition(id: any, jobCotractEdition: any): void {
-    const data = {
-      "validated": jobCotractEdition
-    }
-    this.consultantservice.validateJobCotractEdition(id, data, this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
 
-      }
-    });
-  }
   validateContractValidation(id: any, jobCotractEdition: any): void {
     const data = {
       "validated": jobCotractEdition

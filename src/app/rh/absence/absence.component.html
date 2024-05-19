@@ -8,7 +8,7 @@
         </div>
         <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
             <div class="form-section">
-                <b> Information de la mission : <br></b>
+                <b> Information sur l’absence : <br></b>
 
                 <div class="grid-container">
 
@@ -63,7 +63,7 @@
                     <div class="custom-file-input" (change)="setFileInput('isSimulationValidated', $event)"
                         onclick="document.getElementById('isSimulationValidated').click()">
                         <label class="file-label" for="Simulation" style="cursor: pointer;"
-                            *ngIf="!selectedFile">Joinder Justificatif (facultatif) </label>
+                            *ngIf="!selectedFile">Certificat médical scanné </label>
                         <label class="file-label" for="Simulation" style="cursor: pointer;"
                             *ngIf="selectedFile">{{selectedFile.name}}</label>
 
@@ -105,6 +105,42 @@
 
 
         </form>
+        <table>
+
+            <thead>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> date dépôt </th>
+                <th> durée</th>
+                <th> date absence</th>
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem">
+                    justificatif
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let en of ens">
+
+                    <td> {{en.date_depot}}</td>
+                    <td>
+                        <div *ngIf="en.duree">
+
+                            {{en.duree}}
+                        </div>
+                        <div *ngIf="!en.duree">
+
+                            1
+                        </div>
+                    </td>
+                    <td> {{en.date_depot}}</td>
+                    <td>
+                        <div *ngIf="en.justificatif != ''">
+                            Oui
+                        </div>
+                        <div *ngIf="en.justificatif === ''">
+                            Non
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- <div class="right-item">

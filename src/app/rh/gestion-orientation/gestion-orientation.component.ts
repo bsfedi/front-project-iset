@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { StudentService } from 'src/app/services/student.service';
 import { jsPDF } from "jspdf";
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+const clientName = `${environment.default}`;
 declare let html2pdf: any
 @Component({
   selector: 'app-gestion-orientation',
@@ -9,7 +12,7 @@ declare let html2pdf: any
 })
 export class GestionOrientationComponent {
   constructor(
-    private studentservice: StudentService,
+    private studentservice: StudentService, private router: Router
   ) {
 
   }
@@ -17,7 +20,7 @@ export class GestionOrientationComponent {
   fullname: any
   departement: any
   searchTerm: any
-  pageSize = 5; // Number of items per page
+  pageSize = 10; // Number of items per page
   currentPage = 1; // Current page
   totalPages: any;
   pageSize1 = 5; // Number of items per page
@@ -27,6 +30,9 @@ export class GestionOrientationComponent {
   filteredItems: any[] = [];
   all_orientations: any
   show: any
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
     this.role = localStorage.getItem('role');
@@ -127,14 +133,8 @@ export class GestionOrientationComponent {
             <td><b>${item.choix1} - ${item.choix2} - ${item.choix3} - ${item.choix4}</b></td>
             <td>${item.departement}</td>
             <td>
-                <div>${item.resultat !== '' ? item.resultat : `
-                    <select id="fullName" onchange="affcterstudent(event, ${item.user_id})" placeholder="Métier" name="fullName" required>
-                        <option value="${item.choix1}">${item.choix1}</option>
-                        <option value="${item.choix2}">${item.choix2}</option>
-                        <option value="${item.choix3}">${item.choix3}</option>
-                        ${item.choix4 ? `<option value="${item.choix4}">${item.choix4}</option>` : ''}
-                    </select>`}
-                </div>
+            ${item.resultat}
+               
             </td>
         </tr>
     `).join('');
@@ -158,6 +158,16 @@ export class GestionOrientationComponent {
             </style>
           </head>
           <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br>
+
+          <b style='text-align:center;'> Liste d'affectation des étudiants  </b>
+
             <table>
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
@@ -169,7 +179,7 @@ export class GestionOrientationComponent {
                     ${tableRows}
                 </tbody>
             </table>
-          </body>
+          </body> <br><br>
         </html>`;
 
     // Generate PDF from HTML content

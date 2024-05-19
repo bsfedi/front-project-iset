@@ -1181,15 +1181,18 @@ svg {
 
 
 #checkboxes {
+    font-family: 'Poppins', sans-serif !important;
     display: none;
-    width: 20rem;
+    width: 28rem;
     border: 1px #dadada solid;
 }
 
 #checkboxes label {
+    font-family: 'Poppins', sans-serif !important;
     display: block;
 }
 
 #checkboxes label:hover {
+    font-family: 'Poppins', sans-serif !important;
     background-color: #1e90ff;
 }

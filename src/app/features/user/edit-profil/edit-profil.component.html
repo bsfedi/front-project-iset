@@ -28,7 +28,7 @@
                             style="width: 40px; border-radius: 20%; height: 45px;margin-top: 20px;" />
                     </div>
                     <div style="margin: 15px; margin-top: 30px; font-size: 15px">
-                        <div> {{ res.firstName }} {{ res.lastName }} </div>
+                        <div> {{ fullname }} </div>
                     </div>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="361" height="" viewBox="0 0 361 2" fill="none">
@@ -60,10 +60,6 @@
                         <div>
                             <b style="margin-left: 12px;"> Adresse :</b><br>
                             <input type="text" [(ngModel)]="location" />
-                        </div>
-                        <div>
-                            <b style="margin-left: 12px;"> Nationalité :</b><br>
-                            <input type="text" [(ngModel)]="nationality" />
                         </div>
                     </div>
                     <div class="tableau">
@@ -99,7 +95,7 @@
 
                 <div class="profil" style="cursor: pointer;">
                     <img src="/assets/avatar-user.png" width="15%" height="10%" />
-                    <div class="nom-prenom">{{res.firstName}} {{res.lastName}} <br>
+                    <div class="nom-prenom">{{fullname}} <br>
 
                     </div>
 

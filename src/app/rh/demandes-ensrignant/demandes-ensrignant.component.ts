@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
-
+import { environment } from 'src/environments/environment';
+const clientName = `${environment.default}`;
 @Component({
   selector: 'app-demandes-ensrignant',
   templateUrl: './demandes-ensrignant.component.html',
@@ -16,7 +18,7 @@ export class DemandesEnsrignantComponent {
   myForm2: FormGroup;
   myForm3: FormGroup;
 
-  constructor(private fb: FormBuilder, private studentservice: StudentService) {
+  constructor(private fb: FormBuilder, private studentservice: StudentService, private router: Router) {
     this.myForm2 = this.fb.group({
       user_id: [''],
       type: ['', Validators.required],
@@ -160,7 +162,9 @@ export class DemandesEnsrignantComponent {
       this.currentPagepending--;
     }
   }
-
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
 
   demandeaverification() {
     this.myForm2.value.user_id = this.user_id

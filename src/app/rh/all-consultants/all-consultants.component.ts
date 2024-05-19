@@ -4,7 +4,8 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { InscriptionService } from 'src/app/services/inscription.service';
-
+import { jsPDF } from "jspdf";
+declare let html2pdf: any
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 const clientName = `${environment.default}`;
@@ -84,10 +85,10 @@ export class allStudentsComponent {
 
     this.shownotiff = !this.shownotiff
   }
-  pageSize = 5; // Number of items per page
+  pageSize = 10; // Number of items per page
   currentPage = 1; // Current page
   totalPages: any;
-  pageSize1 = 5; // Number of items per page
+  pageSize1 = 10; // Number of items per page
   currentPage1 = 1; // Current page
   totalPages1: any;
   getDisplayeddocs(): any[] {
@@ -103,19 +104,7 @@ export class allStudentsComponent {
 
 
   }
-  getDisplayeddocs1(): any[] {
 
-
-    this.totalPages1 = Math.ceil(this.filteredItems1.length / this.pageSize1);
-    const startIndex = (this.currentPage1 - 1) * this.pageSize1;
-    const endIndex = Math.min(startIndex + this.pageSize1, this.filteredItems1.length);
-
-
-    return this.filteredItems1.slice(startIndex, endIndex);
-
-
-
-  }
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -383,6 +372,78 @@ export class allStudentsComponent {
       );
     }
   }
+
+  generatePdf() {
+    // Get the data for the table
+    const displayedDocs = this.filteredItems;
+
+    // Generate the table rows dynamically
+    const tableRows = displayedDocs.map(item => `
+        <tr>
+            <td>${item.personalInfo.first_name} ${item.personalInfo.last_name}</td>
+            <td><b>${item.personalInfo.code}</b></td>
+            <td>${item.personalInfo.departement}</td>
+            <td>
+            ${item.personalInfo.classe}
+               
+            </td>
+        </tr>
+    `).join('');
+
+    // Create the HTML content
+    const htmlContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 90%;
+                margin-top: 30px;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+
+            </style>
+          </head>
+          <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br>
+
+          <b style='text-align:center;'> Liste des étudiants  </b>
+
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
+                    <th>code</th>
+                    <th>Departement</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">classe</th>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+          </body> <br><br>
+        </html>`;
+
+    // Generate PDF from HTML content
+    html2pdf(htmlContent, {
+      margin: 10,
+      filename: 'etudiants.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).pdf.save('document.pdf');
+  }
+
+
 
   toggleSortDirection(type: any) {
     this.selectedItem = type;

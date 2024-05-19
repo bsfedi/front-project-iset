@@ -5,6 +5,7 @@ import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 const baseUrl = `${environment.baseUrl}`;
+const clientName = `${environment.default}`;
 @Component({
   selector: 'app-enseignant',
   templateUrl: './enseignant.component.html',
@@ -13,9 +14,9 @@ const baseUrl = `${environment.baseUrl}`;
 export class EnseignantComponent {
   constructor(private studentservice: StudentService, private router: Router, private fb: FormBuilder) {
   }
-  all_demandes: any[] = [];
+  all_demandes: any = [];
 
-  all_demandes1: any
+  all_demandes1: any = [];
   fileInputs: any = {};
   cin_img: string | null = null;
   selectedFile: any | null = null;
@@ -27,6 +28,7 @@ export class EnseignantComponent {
   show: any
   ens_id: any
   fullname: any
+  alldem: any
   ngOnInit(): void {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
@@ -51,8 +53,25 @@ export class EnseignantComponent {
     }
     this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
       next: (res: any) => {
+
+        this.alldem = res;
+        for (let item of res) {
+
+          if (item['status'] != 'prete' && item['status'] != 'validated_by_departement') {
+            console.log(item);
+
+            this.all_demandes.push(item)
+            console.log(this.all_demandes);
+
+          }
+
+
+
+
+        }
         this.show = true
-        this.all_demandes = res;
+
+
       },
       error: (e: any) => { // corrected error function syntax
         this.all_demandes = [];
@@ -62,7 +81,21 @@ export class EnseignantComponent {
 
     this.studentservice.getverification_by_enseignant(this.ens_id).subscribe({
       next: (res) => {
-        this.all_demandes1 = res
+
+        for (let item of res) {
+
+          if (item['status'] != 'validated') {
+
+
+            this.all_demandes1.push(item)
+
+
+          }
+
+
+
+
+        }
         this.show = true
 
 
@@ -74,6 +107,7 @@ export class EnseignantComponent {
     });
 
   }
+  showerror: any
   setFileInput(field: string, event: any): void {
 
     this.fileInputs[field] = event.target;
@@ -87,7 +121,9 @@ export class EnseignantComponent {
         if (field == 'cin') {
 
           this.cin_img = e.target!.result as string;
-
+          this.showerror = false
+        } else {
+          this.showerror = true
         }
 
       };
@@ -97,14 +133,21 @@ export class EnseignantComponent {
   new_note: any
   newNote: string = '';
   error_message: any
+  gotomyprofile() {
+    this.router.navigate([clientName + '/edit-profil'])
+  }
   justif() {
     const formData = new FormData();
-    const cin = this.fileInputs.cin.files[0];
+
 
     if (this.cin_img === null) {
       this.error_message = "la pièce jointe est obligatoire"
     }
-    formData.append('justif', cin);
+    else {
+      const cin = this.fileInputs.cin.files[0];
+      formData.append('justif', cin);
+    }
+
 
     const data = {
       "justif": formData,
@@ -114,14 +157,13 @@ export class EnseignantComponent {
 
     this.studentservice.justif(formData, this.newNote, this.demande_id).subscribe({
       next: (res: any) => {
-        this.all_demandes = res
-        console.log(this.all_demandes);
+
         Swal.fire({
 
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande accepté avec succès! </div> 
+            <div style="font-size:1.2rem"> demande acceptée avec succès! </div> 
               
             </div>
           `,
@@ -156,8 +198,7 @@ export class EnseignantComponent {
     }
     this.studentservice.update_status_demande(data, this.demande_id, this.ens_id).subscribe({
       next: (res) => {
-        this.all_demandes = res
-        console.log(this.all_demandes);
+
         Swal.fire({
 
           background: 'white',
@@ -199,8 +240,7 @@ export class EnseignantComponent {
     }
     this.studentservice.update_status_demande(data, this.demande_id, this.ens_id).subscribe({
       next: (res) => {
-        this.all_demandes = res
-        console.log(this.all_demandes);
+
         Swal.fire({
 
           background: 'white',
@@ -235,6 +275,7 @@ export class EnseignantComponent {
 
   }
   getDisplayedconsultants(): any[] {
+    console.log(this.all_demandes.length);
 
     this.totalPages = Math.ceil(this.all_demandes.length / this.pageSize);
     const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -280,16 +321,32 @@ export class EnseignantComponent {
   closePopup() {
     this.showPopup = false;
   }
+  totalPages1: any
+  pageSize1 = 5
   getDisplayedconsultants1(): any[] {
 
-    this.totalPages = Math.ceil(this.all_demandes1.length / this.pageSize);
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(startIndex + this.pageSize, this.all_demandes1.length);
+    this.totalPages1 = Math.ceil(this.all_demandes1.length / this.pageSize1);
+    const startIndex = (this.currentPageconsultant - 1) * this.pageSize1;
+    const endIndex = Math.min(startIndex + this.pageSize1, this.all_demandes1.length);
 
     return this.all_demandes1.slice(startIndex, endIndex);
   }
+
+
+  nextPage1() {
+    if (this.currentPageconsultant < this.totalPages1) {
+      this.currentPageconsultant++;
+    }
+  }
+
+  previousPage1() {
+    if (this.currentPageconsultant > 1) {
+      this.currentPageconsultant--;
+    }
+  }
+
   nextPage() {
-    if (this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages1) {
       this.currentPage++;
     }
   }

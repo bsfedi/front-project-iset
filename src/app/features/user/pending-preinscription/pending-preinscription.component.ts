@@ -122,7 +122,7 @@ export class PendingPreinscriptionComponent {
         Direction Générale des Etudes Technologiques <br> 
         Institut Supérieur des Etudes Technologiques de Nabeul
         </div> </div>
-          <div style="margin:10px 10px 10px 150px;font-size : 2rem">  <b> Attesation d'inscription </b><br> 
+          <div style="margin:10px 10px 10px 150px;font-size : 2rem">  <b> Fiche d’inscription </b><br> 
    </div> 
    <div style="margin:10px 10px 10px 190px;">        ANNE UNIVERSITAIRE : ${this.res.personalInfo.annee}    </div>
           <div style="display:flex;">
@@ -136,15 +136,15 @@ export class PendingPreinscriptionComponent {
                > 
           
              <b> Informations Etudiant :     </b><br>  <br>
-             - Nom et Prénom : ${this.res.personalInfo.first_name}  ${this.res.personalInfo.last_name}  <br>  <br>
-             - Sexe :  ${this.res.personalInfo.sexe}  <br>  <br>
-             - cin : ${this.res.personalInfo.cin}    <br>  <br>
-             - Télephone :  ${this.res.personalInfo.phone} <br>  <br>
-             - Date de naissance : ${this.res.personalInfo.brith_date} <br> <br>
-             - Departement :  ${this.res.personalInfo.departement} <br> <br>
-             - Classe :  ${this.res.personalInfo.classe} <br> <br>
-             - Adresse :   ${this.res.personalInfo.adresse} <br> <br>
-             - Annee scolaire :   ${this.res.personalInfo.annee} <br> <br>
+             - <b> Nom et Prénom :  </b> ${this.res.personalInfo.first_name}  ${this.res.personalInfo.last_name}  <br>  <br>
+             - <b> Sexe :   </b> ${this.res.personalInfo.sexe}  <br>  <br>
+             - <b> cin :  </b> ${this.res.personalInfo.cin}    <br>  <br>
+             - <b> Télephone :   </b> ${this.res.personalInfo.phone} <br>  <br>
+             -  <b>Date de naissance :   </b>${this.res.personalInfo.brith_date} <br> <br>
+             - <b> Departement :   </b> ${this.res.personalInfo.departement} <br> <br>
+             - <b> Classe :    </b>${this.res.personalInfo.classe} <br> <br>
+             - <b> Adresse :    </b> ${this.res.personalInfo.adresse} <br> <br>
+             - <b> Annee scolaire :     </b> ${this.res.personalInfo.annee} <br> <br>
             </div> <br> 
             
 
