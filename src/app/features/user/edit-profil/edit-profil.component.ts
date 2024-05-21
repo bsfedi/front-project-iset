@@ -59,7 +59,7 @@ export class EditProfilComponent {
           this.lastName = res.last_name
           this.email = res.email
           this.phoneNumber = res.phone
-          this.location = res.grade
+          this.location = res.adresse
         }, error(e) {
           console.log(e);
 
