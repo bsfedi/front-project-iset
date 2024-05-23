@@ -73,6 +73,10 @@ export class StudentService {
     return this.http.get(baseUrl + 'get_absence_enseignant_id/' + enseignant_id);
   }
 
+
+  updateuser(id: any, data: any) {
+    return this.http.put(baseUrl + 'user/' + id, data);
+  }
   updatepassword(id: any, data: any) {
     return this.http.put(baseUrl + 'users/update_password/' + id, data);
   }
@@ -499,7 +503,10 @@ export class StudentService {
     return this.http.get(baseUrl + 'orientations');
   }
 
+  get_all_modules() {
+    return this.http.get(baseUrl + 'get_all_modules');
 
+  }
   getfiche() {
     return this.http.get(baseUrl + 'get_demandes_fiche');
   }

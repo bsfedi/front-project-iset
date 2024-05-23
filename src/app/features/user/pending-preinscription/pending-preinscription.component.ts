@@ -122,9 +122,9 @@ export class PendingPreinscriptionComponent {
         Direction Générale des Etudes Technologiques <br> 
         Institut Supérieur des Etudes Technologiques de Nabeul
         </div> </div>
-          <div style="margin:10px 10px 10px 150px;font-size : 2rem">  <b> Fiche d’inscription </b><br> 
+          <div style="margin:10px 10px 10px 230px;font-size : 2rem">  <b> Fiche d’inscription </b><br> 
    </div> 
-   <div style="margin:10px 10px 10px 190px;">        ANNE UNIVERSITAIRE : ${this.res.personalInfo.annee}    </div>
+   <div style="margin:10px 10px 10px 240px;">        ANNEE UNIVERSITAIRE : ${this.res.personalInfo.annee}    </div>
           <div style="display:flex;">
           <div>
             <b>  </b>
@@ -144,7 +144,7 @@ export class PendingPreinscriptionComponent {
              - <b> Departement :   </b> ${this.res.personalInfo.departement} <br> <br>
              - <b> Classe :    </b>${this.res.personalInfo.classe} <br> <br>
              - <b> Adresse :    </b> ${this.res.personalInfo.adresse} <br> <br>
-             - <b> Annee scolaire :     </b> ${this.res.personalInfo.annee} <br> <br>
+             - <b>Année universitaire :     </b> ${this.res.personalInfo.annee} <br> <br>
             </div> <br> 
             
 
@@ -155,12 +155,12 @@ export class PendingPreinscriptionComponent {
             >
             <b> Information familiale:  </b><br>  <br>
 
-            - Nom et Prénom Père : ${this.res.family_info.father_name}    <br>  <br>        - Numéro de téléphone père   ${this.res.family_info.father_phone}     <br>  <br>             - Profession Père:  ${this.res.family_info.father_job} <br>  <br>
-            - Nom et Prénom Mère : ${this.res.family_info.mother_name}      <br>  <br>      - Numéro de téléphone Mère :  ${this.res.family_info.mother_phone}     <br>  <br>         - Profession Mère:  ${this.res.family_info.mother_job} <br>  <br>
+             <b> - Nom et Prénom Père : </b>  ${this.res.family_info.father_name}     <br>  <br>        <b>  - Numéro de téléphone père  :   </b>  ${this.res.family_info.father_phone}     <br>  <br>           <b>    - Profession Père:  </b>  ${this.res.family_info.father_job} <br>  <br>
+             <b> - Nom et Prénom Mère : </b>  ${this.res.family_info.mother_name}      <br>  <br>      <b>  - Numéro de téléphone Mère :   </b>  ${this.res.family_info.mother_phone}     <br>  <br>         <b>  - Profession Mère:  </b>  ${this.res.family_info.mother_job} <br>  <br>
  
           </div>
           <div style='width: 38.875rem;
-          height: 15.0625rem;
+          height: 12.9625rem;
           flex-shrink: 0;
           padding: 15px;'
           >
@@ -172,7 +172,7 @@ export class PendingPreinscriptionComponent {
           
           
           
-          <b style="margin:20px 10px 0px 300px"> Signature de l'étudiant   </b> 
+          <b style="margin:20px 10px 0px 420px"> Signature de l'étudiant   </b> 
           
            
                     </div>

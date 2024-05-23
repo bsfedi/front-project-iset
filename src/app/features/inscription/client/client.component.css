@@ -6,7 +6,7 @@
 
 .left-panel {
     padding: 3px;
-    flex: 1;
+    flex: 0.85;
     position: relative;
     height: 96vh;
 }

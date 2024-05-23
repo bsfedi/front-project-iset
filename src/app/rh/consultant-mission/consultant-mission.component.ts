@@ -474,7 +474,7 @@ export class ConsultantMissionComponent {
           Institut Supérieur des Etudes Technologiques de Nabeul
           </div> </div> <br>
 
-          <b style='text-align:center;'> Fiche Etudiant  </b><br> <br>
+          <b style='text-align:center;margin-left : 280px; font-size : 1.5rem'> Fiche Etudiant  </b><br> <br>
 
           Informations personnelles
           <div style="height: auto; flex-shrink: 0">
@@ -697,7 +697,7 @@ export class ConsultantMissionComponent {
                     ${tableRows}
                 </tbody>
             </table>
-
+<br>
 
             Orientation
             <table>

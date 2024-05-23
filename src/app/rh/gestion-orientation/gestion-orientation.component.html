@@ -45,16 +45,25 @@
                     </div>
                 </div>
 
-                <table style="width: 80%; margin-top: 50px;">
+                <table style="width: 100%; margin-top: 20px;">
                     <thead>
                         <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Etudiant </th>
+
+                        <th> CIN</th>
+                        <th>Classe</th>
                         <th> choix </th>
-                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Affecter </th>
+                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Affectation</th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of orientations.orientations">
                             <td>
-                                {{item.student}}
+                                {{item.student.first_name}} {{item.student.last_name}}
+                            </td>
+                            <td>
+                                {{item.student.cin}}
+                            </td>
+                            <td>
+                                {{item.student.classe}}
                             </td>
                             <td>
                                 <b> {{item.choix1}} - {{item.choix2}} - {{item.choix3}} <div *ngIf="item.choix4"> -

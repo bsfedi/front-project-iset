@@ -907,6 +907,18 @@ div.exportlist:hover {
   margin-left: 20px;
 }
 
+@media screen and (min-width: 1550px) and (max-width: 2100px) {
+  .left-first {
+    margin-left: 220px;
+  }
+
+
+  .tjm_moyen2 {
+    margin-left: 220px;
+  }
+
+}
+
 @media screen and (min-width: 375px) and (max-width: 700px) {
   .newflex {
     display: grid;

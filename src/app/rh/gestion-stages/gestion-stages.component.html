@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dropdown-content">
+                                <div class="dropdown-content" (click)="click(item._id)">
                                     <div class="dropdown-menu">
                                         <div style="display: flex; cursor: pointer">
                                             <img src="/assets/Checkmark.svg" width="12%" />
@@ -395,7 +395,7 @@
                 <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
             </div>
             <div>
-                <h3>Note de stage</h3>
+                <h3>Modifier note</h3>
 
                 <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
                     <div class="grid-item">
@@ -404,7 +404,7 @@
                 </form>
                 <div class="buttons">
                     <button type="submit" class="button" (click)="notestage()">
-                        <div class="inscrire">Ajouter</div>
+                        <div class="inscrire">Modifier</div>
                     </button>
                 </div>
             </div>

@@ -234,6 +234,34 @@
             </div>
           </div>
 
+          <div style="background-color: rgb(209, 208, 208); margin-top: 50px;padding: 20px;border-radius:1rem;">
+            <div style="display: flex; margin-bottom: 30px;">
+              <div style="margin-right: 50px;">
+                <b> Nom et Prénom : </b> {{getContaractByPrerigister.preregister.personalInfo?.first_name}}
+                {{getContaractByPrerigister.preregister.personalInfo?.last_name}}
+              </div>
+
+              <div>
+                <b> Code Inscription : </b>
+                {{getContaractByPrerigister.preregister.personalInfo?.code}}
+              </div>
+
+            </div>
+            <div style="display: flex; margin-bottom: 10px;">
+              <div style="margin-right: 70px;">
+                <b> Classe: </b> {{getContaractByPrerigister.preregister.personalInfo?.classe}}
+              </div>
+              <div style="margin-right: 70px;">
+                <b>Département : </b>
+                {{getContaractByPrerigister.preregister.personalInfo?.departement}}
+              </div>
+              <div>
+                <b> Date Inscription : </b>
+                {{getContaractByPrerigister.preregister.depot.split('T')[0]}}
+              </div>
+            </div>
+
+          </div>
           <!-- <div class="Tableau1" style=" margin-top: 20px">
             <div style="width: 100px; margin-top: 10px">Etape 3</div>
             <div [ngClass]="{

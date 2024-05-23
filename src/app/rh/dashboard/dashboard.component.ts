@@ -576,8 +576,9 @@ export class DashboardComponent {
     } else {
       // Apply filter based on search term
       this.filteredItems = this.items.filter((item: any) =>
-        item.personalInfo.firstName.value.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        item.personalInfo.lastName.value.toLowerCase().includes(this.searchTerm.toLowerCase())
+        item.personalInfo.first_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.personalInfo.departement.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.personalInfo.last_name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
   }

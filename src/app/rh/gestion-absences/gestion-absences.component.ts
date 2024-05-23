@@ -39,6 +39,10 @@ export class GestionAbsencesComponent {
     this.router.navigate([clientName + '/edit-profil'])
   }
   toggleTeacher(teacher: string): void {
+    console.log("eeeeeeeeeeeeee");
+
+    console.log(teacher);
+
     const index = this.selectedTeachers.indexOf(teacher);
     if (index === -1) {
       this.selectedTeachers.push(teacher);
@@ -54,6 +58,8 @@ export class GestionAbsencesComponent {
     const index = this.selectedTeachers1.indexOf(teacher);
     if (index === -1) {
       this.selectedTeachers1.push(teacher);
+
+
     } else {
       this.selectedTeachers1.splice(index, 1);
     }
@@ -74,6 +80,7 @@ export class GestionAbsencesComponent {
     this.expanded = !this.expanded;
   }
   show: any
+  all_moduless: any
   ngOnInit(): void {
 
     this.role = localStorage.getItem('role');
@@ -102,6 +109,14 @@ export class GestionAbsencesComponent {
 
             }
           });
+          this.studentservice.get_all_modules().subscribe({
+            next: (res) => {
+              this.all_moduless = res
+
+
+            }
+          })
+
           this.studentservice.enseignantsbydepartement(res.departement).subscribe({
             next: (res) => {
               this.enseignants = res

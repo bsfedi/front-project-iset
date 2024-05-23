@@ -95,15 +95,14 @@ export class EditProfilComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         const updatedUserInfo = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          phoneNumber: this.phoneNumber,
-          location: this.location,
-          nationality: this.nationality
+          first_name: this.firstName,
+          last_name: this.lastName,
+          phone: this.phoneNumber,
+          adresse: this.location,
+
         };
         // User clicked 'Yes', call the endpoint
-        this.userservice.updateUser(this.user_id, updatedUserInfo).subscribe({
+        this.studentservice.updateuser(this.ens_id, updatedUserInfo).subscribe({
           next: (res) => {
             // Handle success
             Swal.fire({
@@ -111,6 +110,14 @@ export class EditProfilComponent {
               text: 'Profil mise à jour avec succès !',
               background: 'white',
               confirmButtonColor: "rgb(0, 17, 255)",
+            }).then((result) => {
+              if (result.isConfirmed) {
+
+                localStorage.clear();
+
+                // User clicked 'Yes', call the endpoint
+
+              }
             });
           },
           error: (e) => {
