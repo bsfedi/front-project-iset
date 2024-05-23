@@ -140,41 +140,87 @@ export class tjmrequestsComponent {
 
 
 
-    this.studentservice.getdemandeallverification(this.user_id).subscribe({
 
 
-      next: (res) => {
-        this.tjmrequests = res
-        this.filteredItems = this.tjmrequests
-        this.studentservice.enseignantsbydepartement(this.tjmrequests[0]["departement"]).subscribe({
-          next: (res) => {
-            this.ens = res
-
-          }
-        })
 
 
-      },
-      error: (e) => {
-        // Handle errors
-        this.tjmrequests = []
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
-    this.studentservice.rattrapage_by_department(this.user_id).subscribe({
+    if (this.role === 'directeuretudes') {
+      this.studentservice.verifications().subscribe({
 
 
-      next: (res) => {
-        this.rattrapge_requests = res
-      },
-      error: (e) => {
-        // Handle errors
-        this.tjmrequests = []
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
+        next: (res) => {
+          this.tjmrequests = res
+          this.filteredItems = this.tjmrequests
+          this.studentservice.enseignants().subscribe({
+            next: (res) => {
+              this.ens = res
+
+            }
+          })
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.tjmrequests = []
+          console.error(e);
+          // Set loading to false in case of an error
+        }
+      });
+    } else {
+      this.studentservice.getdemandeallverification(this.user_id).subscribe({
+
+
+        next: (res) => {
+          this.tjmrequests = res
+          this.filteredItems = this.tjmrequests
+          this.studentservice.enseignantsbydepartement(this.tjmrequests[0]["departement"]).subscribe({
+            next: (res) => {
+              this.ens = res
+
+            }
+          })
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.tjmrequests = []
+          console.error(e);
+          // Set loading to false in case of an error
+        }
+      });
+    }
+    if (this.role === 'directeuretudes') {
+      this.studentservice.rattrapages().subscribe({
+
+
+        next: (res) => {
+          this.rattrapge_requests = res
+        },
+        error: (e) => {
+          // Handle errors
+          this.tjmrequests = []
+          console.error(e);
+          // Set loading to false in case of an error
+        }
+      });
+    } else {
+      this.studentservice.rattrapage_by_department(this.user_id).subscribe({
+
+
+        next: (res) => {
+          this.rattrapge_requests = res
+        },
+        error: (e) => {
+          // Handle errors
+          this.tjmrequests = []
+          console.error(e);
+          // Set loading to false in case of an error
+        }
+      });
+    }
+
 
     // Check if token is available
     if (token) {
@@ -221,20 +267,40 @@ export class tjmrequestsComponent {
 
     this.token = localStorage.getItem('token');
     this.headers = new HttpHeaders().set('Authorization', `${this.token}`);
+    if (this.role === 'directeuretudes') {
+      this.studentservice.presences().subscribe({
 
-    this.studentservice.getdemandeallpresence(this.user_id).subscribe(
-      (response) => {
-        this.pending_missions = response
-        console.log(this.tjmrequests);
 
-        // Add any additional handling or notifications if needed
-      },
-      (error) => {
-        this.pending_missions = []
-        console.error('Error getting virement:', error);
-        // Handle the error or display an error message
-      }
-    );
+        next: (res) => {
+          this.pending_missions = res
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.pending_missions = []
+          console.error('Error getting virement:', e);
+          // Set loading to false in case of an error
+        }
+      });
+
+    }
+    else {
+      this.studentservice.getdemandeallpresence(this.user_id).subscribe(
+        (response) => {
+          this.pending_missions = response
+          console.log(this.tjmrequests);
+
+          // Add any additional handling or notifications if needed
+        },
+        (error) => {
+          this.pending_missions = []
+          console.error('Error getting virement:', error);
+          // Handle the error or display an error message
+        }
+      );
+    }
+
   }
   filteredItems: any[] = [];
   searchTerm: any

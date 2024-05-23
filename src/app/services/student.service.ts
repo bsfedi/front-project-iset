@@ -91,6 +91,11 @@ export class StudentService {
   rattrapage_by_department(user_id: any): Observable<any> {
     return this.http.get(baseUrl + 'rattrapage_by_department/' + user_id);
   }
+  rattrapages(): Observable<any> {
+    return this.http.get(baseUrl + 'rattrapages');
+  }
+
+
   update_rattrapage(rattrapage_id: any, data: any): Observable<any> {
     return this.http.put(baseUrl + 'rattrapage/' + rattrapage_id, data);
   }
@@ -179,6 +184,12 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'enseignants/' + departement);
   }
+
+  enseignants(): Observable<any> {
+
+    return this.http.get(baseUrl + 'enseignants');
+  }
+
 
   deleteuser(user_id: any): Observable<any> {
     return this.http.delete(baseUrl + 'user/' + user_id);
@@ -363,9 +374,19 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'verification_by_department/' + user_id);
   }
+  verifications(): Observable<any> {
+
+    return this.http.get(baseUrl + 'verifications');
+  }
+
   getdemandeallpresence(user_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'presence_by_department/' + user_id);
+  }
+
+  presences(): Observable<any> {
+
+    return this.http.get(baseUrl + 'presences');
   }
   get_parcours(): Observable<any> {
 
