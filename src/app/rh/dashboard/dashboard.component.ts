@@ -98,77 +98,7 @@ export class DashboardComponent {
 
     this.chartOptions = {}
     this.chartOptions1 = {}
-    this.consultantservice.getMonthlyStatsForAllUsers().subscribe({
-      next: (res) => {
-        this.stats = res
-        console.log(this.stats.series[0].data);
 
-        this.chartOptions = {
-          series: [
-            {
-
-              data: this.stats.series[0].data
-            },
-
-          ],
-
-          chart: {
-            height: 200,
-            type: "area",
-
-            toolbar: {
-              show: true, // Show or hide the toolbar
-              tools: {
-                download: true, // Show or hide the download option in the toolbar
-                selection: true, // Show or hide the selection tool in the toolbar
-                zoom: false, // Show or hide the zoom tool in the toolbar
-                zoomin: true, // Show or hide the zoom in button in the toolbar
-                zoomout: true, // Show or hide the zoom out button in the toolbar
-                pan: false, // Show or hide the pan tool in the toolbar
-                reset: true, // Show or hide the reset zoom button in the toolbar
-                customIcons: [] // Custom icons for the toolbar, e.g., [{icon: 'image-url', click: function() { // Custom action }}]
-              },
-              autoSelected: 'zoom' // Automatically select the tool on chart render, options: 'zoom', 'pan', 'selection', null
-            },
-            animations: {
-              enabled: true, // Enable or disable animations
-              easing: 'easeout', // Easing function for animations, options: 'linear', 'easein', 'easeout', 'easeinout', etc.
-              speed: 800, // Animation speed in milliseconds
-              animateGradually: {
-                enabled: true, // Enable or disable gradual animation for chart updates
-                delay: 150 // Delay in milliseconds between each data point animation
-              },
-              dynamicAnimation: {
-                enabled: true, // Enable or disable dynamic animation for chart updates
-                speed: 300 // Animation speed in milliseconds for dynamic animations
-              }
-            },
-
-          },
-          dataLabels: {
-            enabled: false
-          },
-          colors: ["#EAE3D5"],
-          xaxis: {
-            type: "category",
-            categories: this.stats.categories,
-          },
-
-
-
-        };
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
   }
 
   formattedDateTime(): any {
@@ -387,7 +317,53 @@ export class DashboardComponent {
           };
         },
         error: (e) => {
-          console.log(e);
+          this.show = true;
+
+          this.chartOptions = {
+            series: [0, 0, 0, 0],
+            chart: {
+              width: 420,
+              type: "pie"
+            },
+            labels: ["Attestation de presence", "Inscription", "Demande de rattrapge", "Enseignant demande"],
+            colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"], // Specify colors for each label
+            responsive: [
+              {
+                breakpoint: 580,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: "bottom"
+                  }
+                }
+              }
+            ]
+          };
+          this.chartOptions1 = {
+            series: [0, 0, 0, 0],
+            chart: {
+              width: 420,
+              height: 210,
+              type: "pie"
+            },
+            labels: ["En attente", "Non validée", " Validée"],
+            colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"], // Specify colors for each label
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 250
+                  },
+                  legend: {
+                    position: "bottom"
+                  }
+                }
+              }
+            ]
+          };
         }
       });
 
