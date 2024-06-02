@@ -56,6 +56,7 @@ export class InformationsComponent {
       father_phone: ['', [Validators.required, Validators.email]],
       father_job: ['', Validators.required],
       mother_job: ['', Validators.required],
+      status: ['', Validators.required],
 
     });
   }
@@ -105,6 +106,7 @@ export class InformationsComponent {
           this.familyinfo = res.preregister.family_info;
           this.docs = res.preregister.docs
           this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
+          this.docs.img_docsupp = baseUrl + "uploads/" + this.docs.img_docsupp
           this.docs.cin = baseUrl + "uploads/" + this.docs.cin
           this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
           this.inscriptionservice.get_classes_bydep(this.personalInfo.departement).subscribe({

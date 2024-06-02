@@ -108,9 +108,49 @@ export class OrientationComponent {
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
   }
+  edit = false
+  editorientation() {
+    this.edit = !this.edit
+  }
   logform() {
     this.myForm.value.user_id = this.user_id
     this.studentsrvice.orientation(this.myForm.value).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        console.log(res);
+        Swal.fire({
+
+          background: 'white',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> Demande envoyée avec succès </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "rgb(0, 17, 255)",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        })
+        window.location.reload()
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
+
+
+  }
+  update(id: any) {
+    this.myForm.value.user_id = this.user_id
+    this.studentsrvice.updateorientation(id, this.myForm.value).subscribe({
       next: (res) => {
         // Handle the response from the server
         console.log(res);

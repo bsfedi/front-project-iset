@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { UserService } from 'src/app/services/user.service';
 import { StudentService } from 'src/app/services/student.service';
+import Swal from 'sweetalert2';
 
 
 
@@ -88,10 +89,14 @@ export class DashboardComponent {
   res: any
   showfilterbar: any;
   currentDate: Date = new Date();
-
+  myForm2: FormGroup;
   constructor(private studentservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
 
+    this.myForm2 = this.fb.group({
+      titre: [''],
+      contenu: [''],
 
+    });
 
 
 
@@ -156,6 +161,88 @@ export class DashboardComponent {
   statsres: any
   show: any
   fullname: any
+  attestations: any
+  annonces: any
+  accept(demande_id: any) {
+    const data = {
+      "role": this.role,
+      "validated": true
+
+    }
+    this.studentservice.update_new_status_demande(demande_id).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: 'white',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> demande modifée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "rgb(0, 17, 255)",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
+  deleteannonce(annonce_id: any) {
+
+    this.studentservice.deleteannonce(annonce_id).subscribe({
+      next: (res) => {
+
+        Swal.fire({
+
+          background: 'white',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> Annonce supprimée  avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "rgb(0, 17, 255)",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
+  }
   ngOnInit(): void {
     this.studentservice.getpendingregister().subscribe({
       next: (res) => {
@@ -169,6 +256,28 @@ export class DashboardComponent {
 
       }
     });
+    this.studentservice.annonces().subscribe({
+      next: (res) => {
+
+        this.annonces = res
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+    this.studentservice.attestations().subscribe({
+      next: (res) => {
+        this.attestations = res
+
+
+
+
+      }, error(e) {
+        console.log(e);
+
+      }
+    });
+
 
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
@@ -389,6 +498,49 @@ export class DashboardComponent {
 
   getdemandes() {
 
+  }
+  add_annonce() {
+
+
+    this.studentservice.add_annonce(this.myForm2.value)
+      .subscribe({
+        next: (res) => {
+          Swal.fire({
+
+            background: 'white',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> Annonce ajoutée avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "rgb(0, 17, 255)",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
+          console.log(res);
+
+          // Handle the response from the server
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          console.error(e);
+        }
+      });
   }
   click() {
     this.router.navigate([clientName + '/all-preinscription']);

@@ -90,7 +90,7 @@
  color: #e71e1e;
 "> Non validée </div>
 
-                  <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                  <div *ngIf="item.status == 'validated_by_departement'" style="
                       display: flex;
                       width: auto;
                       height: 1.5rem;
@@ -102,7 +102,20 @@
                       background: #eefdf3;
                       margin: 5px;
                       color: #187111;
-                    "> validée par enseignant </div>
+                    "> validée par département </div>
+                  <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                                      display: flex;
+                                      width: auto;
+                                      height: 1.5rem;
+                                      padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                      justify-content: center;
+                                      align-items: center;
+                      
+                                      border-radius: 0.75rem;
+                                      background: #eefdf3;
+                                      margin: 5px;
+                                      color: #187111;
+                                    "> validée par enseignant </div>
                   <div *ngIf="item.status == 'validated'" style="
                       display: flex;
                       width: auto;
@@ -152,7 +165,8 @@
                         fill="black" />
                     </svg>
                   </span>
-                  <div class="dropdown-content" *ngIf="item.status == 'validated_by_enseignant'">
+                  <div class="dropdown-content"
+                    *ngIf="item.status == 'validated_by_enseignant' || item.status == 'validated_by_departement' ">
                     <!-- Menu items go here -->
                     <div style="display: flex; cursor: pointer">
                       <img src="/assets/Checkmark.svg" width="12%" />

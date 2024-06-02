@@ -51,7 +51,7 @@
                             <th> Date fin congé</th>
                             <th> Heure début congé</th>
 
-                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Date fin congé </th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Heure fin congé </th>
 
 
                         </tr>
@@ -144,6 +144,7 @@
                                 <div *ngIf="item.type == 'FP'">
                                     Fiche de paie
                                 </div>
+
                                 <div *ngIf="item.type == 'CONGE'">
                                     Congé
                                 </div>
@@ -252,7 +253,8 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let item of getDisplayeddocs(); let j = index">
-                            <tr *ngIf="item.type == 'AT' || item.type == 'FP'" style="cursor: pointer;">
+                            <tr *ngIf="item.type == 'AT' || item.type == 'FP' || item.type == 'RA'"
+                                style="cursor: pointer;">
                                 <td style="max-width: 150px;">
                                     <div *ngIf="item.status == 'prete'" style="
                                   display: flex;
@@ -275,9 +277,12 @@
                                         Non validée
                                     </div>
                                 </td>
-                                <td *ngIf="item.type == 'AT' || item.type == 'FP'">
+                                <td *ngIf="item.type == 'AT' || item.type == 'FP' || item.type == 'RA'">
                                     <div *ngIf="item.type == 'AT'">
                                         Attestation de travail
+                                    </div>
+                                    <div *ngIf="item.type == 'RA'">
+                                        Déclaration revenus annuels
                                     </div>
                                     <div *ngIf="item.type == 'FP'">
                                         Fiche de paie
@@ -286,7 +291,7 @@
 
                                 </td>
 
-                                <ng-container *ngIf="item.type == 'AT' ||  item.type == 'FP'">
+                                <ng-container *ngIf="item.type == 'AT' ||  item.type == 'FP' || item.type == 'RA'">
 
                                     <td>
 
@@ -354,6 +359,9 @@
                                 </div>
                                 <div *ngIf="item.type == 'FP'">
                                     Fiche de paie
+                                </div>
+                                <div *ngIf="item.type == 'RA'">
+                                    Déclaration revenus annuels
                                 </div>
                                 <div *ngIf="item.type == 'CONGE'">
                                     Congé
@@ -799,7 +807,8 @@
                                     <div class="grid-item">
                                         <select formControlName="type">
                                             <option value="AT">Attestation de travail </option>
-                                            <option value="FP">fiche de paie </option>
+                                            <option value="FP">Fiche de paie </option>
+                                            <option value="RA"> Déclaration revenus annuels</option>
                                             <option value="CONGE" *ngIf="role === 'tuitionofficer'"> Congé </option>
 
                                         </select>
@@ -834,17 +843,20 @@
                                             method="post" [formGroup]="myForm3">
                                             <div class="grid-item">
                                                 <select formControlName="type_conge">
-                                                    <option value="congé anuuel">
-                                                        congé anuuel
+                                                    <option value="Congé Ordinaire">
+                                                        Congé Ordinaire
                                                     </option>
                                                     <option value="compensation">
-                                                        compensation
+                                                        Compensation
                                                     </option>
                                                     <option value="accompagnement">
-                                                        accompagnement
+                                                        Accompagnement
                                                     </option>
                                                     <option value="congé de maladie">
-                                                        congé de maladie
+                                                        Congé de maladie
+                                                    </option>
+                                                    <option value="Autorisation de Sortie">
+                                                        Autorisation de Sortie
                                                     </option>
                                                 </select>
                                             </div>
@@ -866,13 +878,13 @@
 
 
                                             <div class="grid-item"
-                                                *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' ">
+                                                *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' ||   myForm3.get('type_conge')?.value === 'Autorisation de Sortie' ">
                                                 <input type="time" formControlName="heure_debut" placeholder="month"
                                                     required />
                                             </div>
                                             <div class="grid-item">
                                                 <input type="time"
-                                                    *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' "
+                                                    *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' ||   myForm3.get('type_conge')?.value === 'Autorisation de Sortie' "
                                                     formControlName="heure_fin" placeholder="month" required />
                                             </div>
                                         </form>

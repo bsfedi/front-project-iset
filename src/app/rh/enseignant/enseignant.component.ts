@@ -15,7 +15,7 @@ export class EnseignantComponent {
   constructor(private studentservice: StudentService, private router: Router, private fb: FormBuilder) {
   }
   all_demandes: any = [];
-
+  getverification_absence = []
   all_demandes1: any = [];
   fileInputs: any = {};
   cin_img: string | null = null;
@@ -30,6 +30,20 @@ export class EnseignantComponent {
   fullname: any
   alldem: any
   ngOnInit(): void {
+    this.studentservice.verification_absences().subscribe({
+      next: (res) => {
+        this.getverification_absence = res;
+
+
+      },
+      error: (e) => {
+        // Handle errors
+        this.getverification_absence = [];
+        console.error(e);
+
+        // Set loading to false in case of an error
+      },
+    });
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
@@ -105,6 +119,19 @@ export class EnseignantComponent {
 
       }
     });
+
+  }
+  getDisplayegetverification_absence(): any[] {
+
+
+    this.totalPages = Math.ceil(this.getverification_absence.length / this.pageSize);
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = Math.min(startIndex + this.pageSize, this.getverification_absence.length);
+
+
+    return this.getverification_absence.slice(startIndex, endIndex);
+
+
 
   }
   showerror: any

@@ -84,6 +84,7 @@ export class MissionsComponent {
   selectedOption: any;
   form1: boolean = false;
   form2: boolean = false;
+  form3: boolean = false
   show_chart: boolean = false
   selectedTeachers: string[] = [];
   constructor(private consultantservice: ConsultantService, private fb: FormBuilder, private studentservice: StudentService, private userservice: UserService, private socketService: WebSocketService, private router: Router, private datePipe: DatePipe) {
@@ -131,9 +132,15 @@ export class MissionsComponent {
     if (this.selectedOption === 'attestation') {
       this.form1 = true;
       this.form2 = false;
+      this.form3 = false
     } else if (this.selectedOption === 'verification') {
       this.form1 = false;
+      this.form3 = false
       this.form2 = true;
+    } else {
+      this.form1 = false;
+      this.form2 = false;
+      this.form3 = true
     }
   }
   gotomyprofile() {
@@ -215,6 +222,9 @@ export class MissionsComponent {
   fullname: any
   modules: any
   res12: any
+  show_message_attes: any
+  modules_by_niveau: any
+  getverification_absence = []
   ngOnInit(): void {
     this.user_id = localStorage.getItem('user_id')
     this.register_id = localStorage.getItem('register_id')
@@ -223,6 +233,18 @@ export class MissionsComponent {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
           this.res12 = res.preregister
+          this.studentservice.modules_by_niveau(this.res12.personalInfo.departement, this.res12.personalInfo.level).subscribe({
+            next: (res) => {
+              this.modules_by_niveau = res
+            }, error(e) {
+              console.log(e);
+
+            }
+          });
+
+          if (res.preregister.personalInfo.status == 'derogataire') {
+            this.show_message_attes = true
+          }
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
           this.studentservice.get_module_bydep(res.preregister.personalInfo.departement).subscribe({
             next: (res) => {
@@ -543,6 +565,21 @@ export class MissionsComponent {
         },
       });
 
+      this.studentservice.getverification_absence(this.user_id).subscribe({
+        next: (res) => {
+          this.getverification_absence = res;
+
+
+        },
+        error: (e) => {
+          // Handle errors
+          this.getverification_absence = [];
+          console.error(e);
+
+          // Set loading to false in case of an error
+        },
+      });
+
       // this.consultantservice.getNotValidatedMissions(this.headers).subscribe({
       //   next: (res) => {
       //     if (res.length != 0) {
@@ -702,6 +739,58 @@ export class MissionsComponent {
   currentPage = 1; // Current page
 
   totalPages: any;
+  verification_absence() {
+    console.log(this.fileInputs);
+
+    const formData = new FormData();
+    if (this.fileInputs.isSimulationValidated
+    ) {
+      const isSimulationValidatedeee = this.fileInputs?.isSimulationValidated.files[0];
+      formData.append('justificatif', isSimulationValidatedeee);
+    }
+
+    formData.append('matiere', this.myForm2.value.matiere);
+    formData.append('nb_absence', this.myForm2.value.note);
+    formData.append('commentaire', this.myForm2.value.commentaire);
+
+    this.studentservice.verification_absence(formData, this.user_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        console.log(res);
+        Swal.fire({
+
+          background: 'white',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> demande ajoutée avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "rgb(0, 17, 255)",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
+
+
+  }
   getDisplayeddocs(): any[] {
 
 
@@ -716,6 +805,19 @@ export class MissionsComponent {
 
   }
 
+  getDisplayegetverification_absence(): any[] {
+
+
+    this.totalPages = Math.ceil(this.getverification_absence.length / this.pageSize);
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = Math.min(startIndex + this.pageSize, this.getverification_absence.length);
+
+
+    return this.getverification_absence.slice(startIndex, endIndex);
+
+
+
+  }
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;

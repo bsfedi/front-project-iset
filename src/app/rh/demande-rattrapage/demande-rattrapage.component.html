@@ -83,11 +83,13 @@
                                 <br> séance 1 <br>
                                 <input type="date" formControlName="date"><br>
                                 <select formControlName="inputModule" (change)="getclasse_bymodule($event)">
+                                    <option value=""> Choisir module</option>
                                     <option *ngFor="let module of modulesens" [value]="module._id"> {{module.code}}
                                     </option>
 
                                 </select> <br>
                                 <select formControlName="inputClass">
+                                    <option value=""> Choisir classe</option>
                                     <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
                                 </select> <br>
 

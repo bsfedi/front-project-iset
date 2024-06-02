@@ -40,7 +40,8 @@ export class PreInscriptionComponent {
       annee: ['', Validators.required],
       departement: ['', Validators.required],
       classe: ['', Validators.required],
-      situation: ['']
+      situation: [''],
+      status: [''],
     });
 
   }

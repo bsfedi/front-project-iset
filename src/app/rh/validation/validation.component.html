@@ -244,6 +244,19 @@
                     <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="note2Cause" [hidden]="note2Validation">
 
 
+                    <div class="label" *ngIf="docs.img_docsupp"> Document Supplémentaire :</div>
+                    <div class="Tableau" *ngIf="docs.img_docsupp">
+                        <div class="zoom">
+                            <img [src]="docs?.img_docsupp" />
+                        </div><label class="toggle-switch">
+                            <input type="checkbox" [(ngModel)]="docsuppValidation">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <input type="text" placeholder="COMMENTAIRE" [(ngModel)]="docsuppCause"
+                        [hidden]="docsuppValidation">
+
+
                 </div>
 
             </div>

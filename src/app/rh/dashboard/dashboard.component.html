@@ -69,7 +69,7 @@
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle1"></div>
             <div style="width: 230px;">en cours</div>
-            <!-- <div style="margin-left: 90px;"> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }}  </div> -->
+
             <div style="color: #858380;">
               {{statsres.presence_status_percentages.validated_by_departement || 0}}%</div>
           </b>
@@ -77,7 +77,7 @@
           <b style=" display: flex; margin: 10px;">
             <div id="cercle1"></div>
             <div style="width: 230px;"> validée</div>
-            <!-- <div> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }} </div> -->
+
             <div style="color: #858380;"> {{statsres.presence_status_percentages.validated || 0}} %</div>
           </b>
           <hr>
@@ -92,7 +92,7 @@
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;">
             <div id="cercle2"></div>
             <div style="width: 230px;">en cours</div>
-            <!-- <div style="margin-left: 90px;"> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }}  </div> -->
+
             <div style="color: #858380;">
               {{statsres.verification_status_percentages.validated_by_enseignant || 0 }}%</div>
           </b>
@@ -100,73 +100,12 @@
           <b style=" display: flex; margin: 10px;">
             <div id="cercle2"></div>
             <div style="width: 230px;"> validée</div>
-            <!-- <div> {{statsres.all_demande_presence_validated + statsres.all_demande_verification_validated }} </div> -->
+
             <div style="color: #858380;"> {{statsres.verification_status_percentages.validated || 0 }} %</div>
           </b>
 
         </div>
-        <!-- <div class="tjm_moyen">
-          <div class="chaffaire">Demandes de presence</div>
-          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'enseignant'">
-            <b>
-              Toutes les demandes : {{all_demande_presence}}
-            </b> <br> <br>
-            <b>
-              Traité: {{all_demande_presence}}
-            </b> <br> <br>
-            <b>
-              En attente: {{all_demande_presence_pending}}
-            </b>
 
-          </div>
-          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'student'">
-            <b> Toutes les demandes : {{statsres.all_demande_presence}} </b> <br> <br>
-            <b> Traité: {{statsres.all_demande_presence_validated}} </b> <br> <br>
-            <b> En attente: {{statsres.all_demande_presence - statsres.all_demande_presence_validated}} </b>
-
-          </div>
-          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'tuitionofficer'">
-            <b style=" display: flex;">
-              <div id="cercle"></div> Toutes les demandes : {{statsres.processed_count + statsres.unprocessed_count}}
-            </b> <br> <br>
-            <b style=" display: flex;">
-              <div id="cercle"></div> Traité: {{statsres.processed_count}}
-            </b> <br> <br>
-            <b style=" display: flex;">
-              <div id="cercle"></div> En attente: {{statsres.unprocessed_count}}
-            </b>
-
-          </div>
-
-        </div>
-        <div class="tjm_moyen">
-          <div class="chaffaire"> Demande de verification
-          </div>
-          <div class="nb_money" *ngIf="role == 'enseignant'">
-            <b> Toutes les demandes : {{all_demande_verification}} </b> <br><br>
-            <b> Traité: {{all_demande_verification_validated}} </b> <br> <br>
-            <b> En attente: {{all_demande_verification_pending}} </b>
-
-          </div>
-          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'student'">
-            <b> Toutes les demandes : {{statsres.all_demande_verification}} </b> <br> <br>
-            <b> Traité: {{statsres.all_demande_verification_validated}} </b> <br> <br>
-            <b> En attente: {{statsres.all_demande_verification - statsres.all_demande_verification_validated}} </b>
-
-          </div>
-          <div class="nb_money" style=" justify-content: center;" *ngIf="role == 'tuitionofficer'">
-            <b style=" display: flex;">
-              <div id="cercle"></div> Toutes les demandes : {{statsres.preregistres_count }}
-            </b> <br> <br>
-            <b style=" display: flex;">
-              <div id="cercle"></div> Traité: {{statsres.preregistres_traites_count}}
-            </b> <br> <br>
-            <b style=" display: flex;">
-              <div id="cercle"></div>En attente: {{ statsres.preregistres_count - statsres.preregistres_traites_count}}
-            </b>
-
-          </div>
-        </div> -->
       </div>
 
       <div class="Tableau1 left-first" *ngIf="role != 'student'">
@@ -249,6 +188,64 @@
       </div>
 
       <br />
+      <div *ngIf="role == 'directeurdepartement'">
+        <h2> Annonces</h2>
+        <button style="width: 150px;" (click)="openPopup()"> Ajouter une annonce</button> <br>
+        <div class="popup" *ngIf="showPopup">
+          <div class="popup-content" style="  height: auto;">
+            <div style="float: right" (click)="closePopup()">
+              <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+            </div>
+            <div>
+              <h3>Ajouter une nouvelle annonce</h3>
+              <form action="/submit_form" method="post" style="display: flex;" [formGroup]="myForm2">
+                <div class="form-section">
+                  <div class="grid-container">
+                    <div class="grid-item">
+                      <input type="text" formControlName="titre" placeholder="titre" required />
+                    </div>
+                    <div class="grid-item">
+                      <textarea type="text" formControlName="contenu" placeholder="contenu" required
+                        style="max-height: 90px;max-width:  26.04313rem;"> </textarea>
+                    </div>
+
+                  </div>
+                  <br />
+                  <div class="buttons">
+                    <button type="submit" class="button" (click)="add_annonce()">
+                      <div class="inscrire">Ajouter</div>
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <th style="border-radius: 0.6875rem 0rem 0rem 0rem;"> Titre</th>
+              <th> contenu</th>
+              <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let an of annonces">
+                <td> {{an.titre}}</td>
+                <td> {{an.contenu}}</td>
+                <td style="cursor: pointer;" (click)="deleteannonce(an._id)"> <svg xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                  </svg></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
       <div *ngIf="role == 'tuitionofficer'">
         <h2> Nouvelles pré-inscription </h2>
         <div class="newflex" style="display: flex; justify-content: space-between;">
@@ -395,6 +392,129 @@
           </div>
 
         </div>
+        <h2> Attestation de presence </h2>
+
+
+        <table>
+          <thead>
+            <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> Status </th>
+            <th> Etudiant</th>
+            <th> Date demande</th>
+            <th>attestation en arabe</th>
+            <th>attestation en francais</th>
+            <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of attestations; let i = index" (click)="toggleMenu(i)" style="cursor: pointer">
+              <ng-container *ngIf="item.status != 'prete'">
+                <td>
+
+                  <div *ngIf="item.status =='validated_by_departement'" style="
+                display: flex;
+                width: auto;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 0.75rem;
+                background: #88dfa5;
+                margin: 5px;
+                color: white;
+                "> validé par departement</div>
+                  <div *ngIf="item.status =='validated_by_enseignant'" style="
+                display: flex;
+                width: auto;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 0.75rem;
+                background: #edda6e;
+                margin: 5px;
+                color: #4e7111;
+                "> validé par les enseignanats</div>
+                  <div *ngIf="item.status =='pending'" style="
+                display: flex;
+                width: auto;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 0.75rem;
+                background: #edd8b1;
+                margin: 5px;
+                color: #dca42b;
+                "> En attenete</div>
+                  <div *ngIf="item.status =='prete'" style="
+                display: flex;
+                width: auto;
+                height: 1.5rem;
+                padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 0.75rem;
+                background: #eefdf3;
+                margin: 5px;
+                color: #187111;
+                "> Prete</div>
+
+                </td>
+                <td style="min-width: 120px; max-width: 120px;">
+                  {{ item.first_name }} {{ item.last_name }}
+                </td>
+                <td>
+                  {{item.datedepot.split(['T'])[0]}}
+                </td>
+                <td style="min-width: 80px; max-width: 80px;">
+                  {{ item.nb_arab }}
+
+                </td>
+                <td>
+                  {{ item.nb_fr }}
+
+                </td>
+                <td style="cursor: pointer" class="dropdown">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
+                        fill="black" />
+                    </svg>
+                  </span>
+                  <div class="dropdown-content">
+                    <!-- Menu items go here -->
+                    <div style="display: flex; cursor: pointer">
+                      <img src="/assets/Checkmark.svg" width="12%" />
+                      <div (click)="accept(item._id)" style="
+                        margin-top: 7px;
+                        margin-bottom: 10px;
+                        margin-left: 5px;
+                      ">
+                        Accepter
+                      </div>
+                    </div>
+
+                    <div style="display: flex; cursor: pointer" *ngIf="item.newMissionStatus == 'WAITINGCONTRACT'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24"
+                        style="margin-left: -13px" fill="none">
+                        <path
+                          d="M9 4H19V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H9M12 15L15 12M15 12L12 9M15 12H5"
+                          stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+            </tr>
+          </tbody>
+        </table>
+
       </div>
 
     </div>
@@ -411,7 +531,7 @@
           </div>
         </div>
         <div>
-          <!-- <app-notificaion-rh></app-notificaion-rh> -->
+          <app-notificaion-rh></app-notificaion-rh>
         </div>
 
 

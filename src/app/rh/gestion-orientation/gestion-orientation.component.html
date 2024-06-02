@@ -52,7 +52,8 @@
                         <th> CIN</th>
                         <th>Classe</th>
                         <th> choix </th>
-                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Affectation</th>
+                        <th>Affectation</th>
+                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> dernière modification</th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of orientations.orientations">
@@ -71,13 +72,13 @@
                                 </b>
                             </td>
                             <td>
-                                <div *ngIf="item.resultat != ''   ">
-                                    {{item.resultat}}
-                                </div>
-                                <div *ngIf="item.resultat ==''">
+
+                                <div>
                                     <select id="fullName" (change)="affcterstudent($event,item.user_id)"
                                         placeholder="Métier" name="fullName" required>
-
+                                        <option *ngIf="item.resultat != ''   " [value]="item.resultat" selected>
+                                            {{item.resultat}}
+                                        </option>
                                         <option [value]="item.choix1">
                                             {{item.choix1}}
                                         </option>
@@ -92,6 +93,9 @@
                                         </option>
                                     </select>
                                 </div>
+                            </td>
+                            <td>
+                                {{item.last_update.split('T')[0]}} {{item.last_update.split('T')[1].split('.')[0]}}
                             </td>
                         </tr>
 

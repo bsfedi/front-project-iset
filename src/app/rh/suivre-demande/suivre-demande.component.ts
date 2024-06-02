@@ -5,7 +5,8 @@ import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 const baseUrl = `${environment.baseUrl}`;
-
+import { jsPDF } from "jspdf";
+declare let html2pdf: any
 @Component({
   selector: 'app-suivre-demande',
   templateUrl: './suivre-demande.component.html',
@@ -74,6 +75,75 @@ export class SuivreDemandeComponent {
       };
       reader.readAsDataURL(this.selectedFile);
     }
+  }
+  generatepdf() {
+    // Get the data for the table
+    const displayedDocs = this.getDisplayedconsultants();
+
+    // Generate the table rows dynamically
+    const tableRows = displayedDocs.map((item: any) => `
+        <tr>
+            <td>${item.id_demande}</td>
+            <td>${item.date_depot.split('T')[0]}</td>
+        
+            <td>
+                ${item.data.map((ee: any) => `<div *ngIf="ee.inputClass"><b>${ee.inputClass} - ${ee.inputModule} - ${ee.inputHoraire} - ${ee.date}</b></div>`).join('')}
+            </td>
+            <td>${item.data[0].status}</td>
+        </tr>
+    `).join('');
+
+    // Create the HTML content
+    const htmlContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 98%;
+                margin-top: 30px;
+                margin-bottom:30px;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+            </style>
+          </head>
+          <body>
+          <div  style='text-align:center;display:flex'> 
+          <img src="/assets/logoisetnabeul.jpg" style="width:20%;hiegth:20%">
+          <div style="margin-top:30px">
+          Ministère de l’Enseignement Supérieur et de la Recherche Scientifique <br> 
+          Direction Générale des Etudes Technologiques <br> 
+          Institut Supérieur des Etudes Technologiques de Nabeul
+          </div> </div> <br> <br>
+
+          <b style='text-align:center;'> Liste des demandes Rattrapge  </b><br> <br>
+            <table>
+                <thead>
+                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">ID</th>
+                    <th>Date demande</th>
+              
+                    <th>Module</th>
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Etat</th>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+          </body>
+        </html>`;
+
+    // Generate PDF from HTML content
+    html2pdf(htmlContent, {
+      margin: 10,
+      filename: 'Demande_Rattrapge.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).pdf.save('document.pdf');
   }
   new_note: any
   newNote: string = '';

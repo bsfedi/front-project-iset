@@ -563,6 +563,32 @@
                       margin: 5px;
                       color: #dca42b;
                       ">En attente</div>
+                      <div *ngIf="item.status =='validated_by_departement'" style="
+                                        display: flex;
+                                        width: auto;
+                                        height: 1.5rem;
+                                        padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                        justify-content: center;
+                                        align-items: center;
+                        
+                                        border-radius: 0.75rem;
+                                        background: #88dfa5;
+                                        margin: 5px;
+                                        color: white;
+                                        "> validé par departement</div>
+                      <div *ngIf="item.status =='validated_by_enseignant'" style="
+                                        display: flex;
+                                        width: auto;
+                                        height: 1.5rem;
+                                        padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                        justify-content: center;
+                                        align-items: center;
+                        
+                                        border-radius: 0.75rem;
+                                        background: #edda6e;
+                                        margin: 5px;
+                                        color: #4e7111;
+                                        "> validé par les enseignanats</div>
                       <div *ngIf="item.status == 'prete'" style="
                       display: flex;
                       width: auto;

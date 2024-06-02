@@ -113,7 +113,7 @@ export class EditProfilComponent {
             }).then((result) => {
               if (result.isConfirmed) {
 
-                localStorage.clear();
+
 
                 // User clicked 'Yes', call the endpoint
 

@@ -25,9 +25,9 @@ export class StudentService {
 
     return this.http.put(baseUrl + 'personalInfo/' + register_id, data);
   }
-  accept_note(register_id: any, status: any): Observable<any> {
+  accept_note(role: any, register_id: any, status: any): Observable<any> {
 
-    return this.http.get(baseUrl + 'accept_note/' + register_id + '/' + status);
+    return this.http.get(baseUrl + 'accept_note/' + role + '/' + register_id + '/' + status);
   }
   forgot_password(data: any) {
     return this.http.post(baseUrl + 'auth/forgot-password', data);
@@ -136,7 +136,10 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_stages/' + student_id);
   }
+  attestations(): Observable<any> {
 
+    return this.http.get(baseUrl + 'attestation');
+  }
 
 
   getallusers(): Observable<any> {
@@ -169,6 +172,21 @@ export class StudentService {
     return this.http.post(baseUrl + 'add_absence/' + enseignant_id, data);
 
   }
+
+  verification_absence(data: any, enseignant_id: any) {
+    return this.http.post(baseUrl + 'verification_absence/' + enseignant_id, data);
+
+  }
+
+  verification_absences(): Observable<any> {
+
+    return this.http.get(baseUrl + 'verification_absences');
+  }
+  getverification_absence(user_id: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'verification_absence/' + user_id);
+  }
+
 
   update_status_demande_bychef(demande_id: any): Observable<any> {
 
@@ -259,6 +277,10 @@ export class StudentService {
   orientation(data: any): Observable<any> {
 
     return this.http.post(baseUrl + 'orientation', data);
+  }
+  updateorientation(orientation_id: any, data: any): Observable<any> {
+
+    return this.http.put(baseUrl + 'orientation/' + orientation_id, data);
   }
 
 
@@ -504,6 +526,10 @@ export class StudentService {
 
     return this.http.post(baseUrl + 'absence', data);
   }
+  modules_by_niveau(departement: any, niveau: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'modules_by_niveau/' + departement + "/" + niveau);
+  }
 
   get_absences(student_id: any) {
     return this.http.get(baseUrl + 'get_absences/' + student_id);
@@ -537,5 +563,14 @@ export class StudentService {
   get_classes_bydep(departement: any) {
     return this.http.get(baseUrl + 'get_classes/' + departement);
   }
+  add_annonce(data: any): Observable<any> {
 
+    return this.http.post(baseUrl + 'add_annonce', data);
+  }
+  annonces() {
+    return this.http.get(baseUrl + 'annonces');
+  }
+  deleteannonce(annonce_id: any) {
+    return this.http.delete(baseUrl + 'annonce/' + annonce_id);
+  }
 }

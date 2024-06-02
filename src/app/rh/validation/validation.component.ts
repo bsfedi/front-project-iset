@@ -36,6 +36,8 @@ export class ValidationComponent implements OnInit {
   first_nameValidation: boolean = true
   first_nameCause: string = '';
   last_nameValidation: boolean = true
+  docsuppValidation: boolean = true
+  docsuppCause: string = ''
   last_nameCause: string = ''
   cinValidation: boolean = true
   cinCause: string = ""
@@ -249,10 +251,12 @@ export class ValidationComponent implements OnInit {
           this.docs.cin = baseUrl + "uploads/" + this.docs.cin
           this.docs.img_profil = baseUrl + "uploads/" + this.docs.img_profil
           this.docs.transcripts = baseUrl + "uploads/" + this.docs.transcripts
+          this.docs.img_docsupp = baseUrl + "uploads/" + this.docs.img_docsupp
           if (this.docs.baccalaureate) {
             this.docs.baccalaureate = baseUrl + "uploads/" + this.docs.baccalaureate
 
           }
+
           if (this.docs.note1) {
             this.docs.note1 = baseUrl + "uploads/" + this.docs.note1
           }
@@ -307,6 +311,8 @@ export class ValidationComponent implements OnInit {
       "first_nameValidation": this.first_nameValidation,
       "first_nameCause": this.first_nameCause,
       "last_nameValidation": this.last_nameValidation,
+      "docsuppValidation": this.docsuppValidation,
+      "docsuppCause": this.docsuppCause,
       "last_nameCause": this.last_nameCause,
       "cinValidation": this.cinValidation,
       "cinCause": this.cinCause,

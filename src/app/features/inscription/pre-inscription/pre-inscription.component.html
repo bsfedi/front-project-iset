@@ -80,6 +80,19 @@
           <div class="error" *ngIf="myForm.get('level')?.invalid && myForm.get('level')?.touched">
             Niveau est obligatoire.
           </div>
+          <div>
+
+            <select formControlName="status" id="status" class="form-control" required>
+              <option value="" disabled selected>Sélectionner status</option>
+              <option value="nouveau"> Nouveau</option>
+              <option value="redoublant"> Redoublant</option>
+              <option value="derogataire">Dérogataire</option>
+            </select>
+          </div>
+
+          <div class="error" *ngIf="myForm.get('level')?.invalid && myForm.get('level')?.touched">
+            Niveau est obligatoire.
+          </div>
 
           <!-- <div>
             <input type="text" formControlName="code" class="form-control" placeholder="Code" required />
@@ -131,7 +144,7 @@
               <option value="" disabled selected>Choisir le departement</option>
               <option value="GM">GM</option>
               <option value="GE">GE</option>
-              <option value="IT">IT</option>
+              <option value="TI">IT</option>
               <option value="GC">GC</option>
               <option value="SEG">SEG</option>
             </select>

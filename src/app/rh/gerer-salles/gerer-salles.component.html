@@ -268,11 +268,11 @@
 
             </div>
             <br /><br />
-            <div class="custom-container">
+            <div class="custom-container" *ngIf="role === 'directeuretudes'">
                 Demandes rattrapge
             </div>
             <br />
-            <div class="table-wrapper">
+            <div class="table-wrapper" *ngIf="role === 'directeuretudes'">
 
                 <table>
                     <thead>
@@ -313,7 +313,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div *ngIf="item.status == 'validated'" style="
+                                <div *ngIf="item.data[0].status == 'validated'" style="
                                 display: flex;
                                 width: auto;
                                 height: 1.5rem;
@@ -323,10 +323,10 @@
                             
                                 border-radius: 0.75rem;
                                 background: #9ed9a0;
-                                margin: 5px;
+                                margin: 5px; 
                                 color: white;
                             "> validée</div>
-                                <div *ngIf="item.status != 'validated'" class="waiting"> En attente</div>
+                                <div *ngIf="item.data[0].status != 'validated'" class="waiting"> En attente</div>
                                 <!-- <div *ngIf="item.status != 'pending' || item.status != 'validated' " class="nonvalidée">
                                     Invalidée
                                 </div> -->
@@ -396,7 +396,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination">
+            <div class="pagination" *ngIf="role === 'directeuretudes'">
                 <div (click)="previousPagepending()" style="cursor: pointer;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chevron-double-left" viewBox="0 0 16 16">

@@ -363,7 +363,7 @@ export class tjmrequestsComponent {
 
   accept_note(demande_id: any, status: any) {
 
-    this.studentservice.accept_note(demande_id, status).subscribe({
+    this.studentservice.accept_note(this.role, demande_id, status).subscribe({
       next: (res) => {
         if (status == 'True') {
           Swal.fire({

@@ -117,11 +117,13 @@ export class PersonalDocComponent {
         const cin = this.fileInputs.cin.files[0];
         const transcripts = this.fileInputs.transcripts.files[0];
         const img_profil = this.fileInputs.img_profil.files[0];
-
+        const img_docsupp = this.fileInputs.img_docsupp.files[0] || ''
         formData.append('cin', cin);
 
         formData.append('transcripts', transcripts)
         formData.append('img_profil', img_profil)
+
+        formData.append('img_docsupp', img_docsupp)
 
         if (this.show_bac === true) {
           const bac = this.fileInputs.bac.files[0] || ''
@@ -134,6 +136,7 @@ export class PersonalDocComponent {
           formData.append('baccalaureate', ''); // Append an empty string
 
         }
+
         this.inscriptionservice.createfilesinscrption(formData, this.register_id)
           .subscribe({
             next: (res) => {
@@ -158,6 +161,7 @@ export class PersonalDocComponent {
   fileInputs: any = {};
   fileName: string = '';
   img_profil: any
+  img_docsupp: any
   setFileInput(field: string, event: any): void {
 
     this.fileInputs[field] = event.target;
@@ -179,6 +183,9 @@ export class PersonalDocComponent {
         else if (field == 'img_profil') {
           this.img_profil = e.target!.result as string;
 
+        }
+        else if (field == 'img_docsupp') {
+          this.img_docsupp = e.target!.result as string;
         }
         else {
           this.bac_img = e.target!.result as string;
