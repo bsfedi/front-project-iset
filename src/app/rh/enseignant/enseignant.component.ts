@@ -217,6 +217,8 @@ export class EnseignantComponent {
       }
     });
   }
+
+
   validated() {
     const data = {
       "role": this.role,
@@ -257,6 +259,82 @@ export class EnseignantComponent {
 
       }
     });
+
+  }
+
+  update_verification_absence(item_id: any, status: any, new_absence: any) {
+    if (new_absence == 'e') {
+      this.studentservice.update_verification_absence(item_id, status, new_absence).subscribe({
+        next: (res) => {
+
+          Swal.fire({
+
+            background: 'white',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> demande accepté avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "rgb(0, 17, 255)",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
+
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.update_verification_absence(item_id, status, this.newNote).subscribe({
+        next: (res) => {
+
+          Swal.fire({
+
+            background: 'white',
+            html: `
+              <div>
+              <div style="font-size:1.2rem"> demande accepté avec succès! </div> 
+                
+              </div>
+            `,
+
+
+            confirmButtonText: 'Ok',
+            confirmButtonColor: "rgb(0, 17, 255)",
+
+            customClass: {
+              confirmButton: 'custom-confirm-button-class',
+              cancelButton: 'custom-cancel-button-class'
+            },
+            reverseButtons: true // Reversing button order
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              location.reload();
+            }
+          });
+
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
+
 
   }
   refus() {
@@ -348,6 +426,15 @@ export class EnseignantComponent {
   closePopup() {
     this.showPopup = false;
   }
+  showPopup2: any
+  openPopup2(demande_id: any): void {
+    this.demande_id = demande_id
+    this.showPopup2 = true;
+  }
+  closePopup2() {
+    this.showPopup = false;
+  }
+
   totalPages1: any
   pageSize1 = 5
   getDisplayedconsultants1(): any[] {

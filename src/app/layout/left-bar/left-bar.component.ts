@@ -88,6 +88,9 @@ export class LeftBarComponent {
   gotoenseignant() {
     this.router.navigate([clientName + '/enseignant'])
   }
+  gotosupport() {
+    this.router.navigate([clientName + '/support-cours'])
+  }
   gotogestion() {
     this.router.navigate([clientName + '/gestion'])
   }

@@ -425,7 +425,7 @@
                 <div *ngIf="item.status == 'pending'" class="waiting">
                   en attente
                 </div>
-                <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                <div *ngIf="item.status == 'notvalidated'" style="
                 display: flex;
                 width: auto;
                 height: 1.5rem;
@@ -434,12 +434,12 @@
                 align-items: center;
 
                 border-radius: 0.75rem;
-                background: #eefdf3;
+                background: #fdeeee;
                 margin: 5px;
-                color: #187111;">
-                  Validée par les ensrignants
+                color: #cb5e5e;">
+                  Non validée
                 </div>
-                <div *ngIf="item.status == 'validated_by_departement'" style="
+                <div *ngIf="item.status == 'validated'" style="
                 display: flex;
                 width: auto;
                 height: 1.5rem;
@@ -451,7 +451,7 @@
                 background: #eefdf3;
                 margin: 5px;
                 color: #187111;">
-                  Validée par le département
+                  Validée
                 </div>
 
                 <!-- <div>
@@ -470,7 +470,7 @@
                 {{ item.commentaire }}
               </td>
               <td>
-                {{ item.new_nb_absence }}
+                {{ item.new_absence }}
               </td>
 
             </tr>

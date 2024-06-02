@@ -420,9 +420,11 @@
             </div>
             <br />
             <select (change)="getclasse_bymodule($event)">
+                <option value=""> Choisir un module</option>
                 <option *ngFor="let item of modulesens" [value]="item._id">{{item.intitule}}</option>
             </select> <br>
             <select (change)="get_absences_by_classe($event)" *ngIf="show_classe">
+                <option value=""> Choisir un classe</option>
                 <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
             </select>
             <br> <br> <br>
@@ -567,5 +569,7 @@
 
 
     </div>
+
+
 
 </body>

@@ -289,9 +289,9 @@
                         </div>
                     </div>
                 </div>
-                <br />
+                <br /> <br /> <br />
                 <div class="custom-container">
-                    Demandes des verification absence ({{ getverification_absence.length }})
+                    <b> Demandes des verification absence ({{ getverification_absence.length }}) </b>
                 </div>
                 <br />
                 <div class="table-wrapper">
@@ -337,7 +337,7 @@
                                     <div *ngIf="item.status == 'pending'" class="waiting">
                                         en attente
                                     </div>
-                                    <div *ngIf="item.status == 'validated_by_enseignant'" style="
+                                    <div *ngIf="item.status == 'notvalidated'" style="
                             display: flex;
                             width: auto;
                             height: 1.5rem;
@@ -346,12 +346,12 @@
                             align-items: center;
             
                             border-radius: 0.75rem;
-                            background: #eefdf3;
+                            background: #fdeeee;
                             margin: 5px;
-                            color: #187111;">
-                                        Validée par les ensrignants
+                            color: #cb5e5e;">
+                                        Non validée
                                     </div>
-                                    <div *ngIf="item.status == 'validated_by_departement'" style="
+                                    <div *ngIf="item.status == 'validated'" style="
                             display: flex;
                             width: auto;
                             height: 1.5rem;
@@ -363,7 +363,7 @@
                             background: #eefdf3;
                             margin: 5px;
                             color: #187111;">
-                                        Validée par le département
+                                        Validée
                                     </div>
 
                                     <!-- <div>
@@ -382,7 +382,7 @@
                                     {{ item.commentaire }}
                                 </td>
                                 <td>
-                                    {{ item.new_nb_absence }}
+                                    {{ item.new_absence }}
                                 </td>
                                 <td style="cursor: pointer" class="dropdown">
                                     <div>
@@ -414,7 +414,7 @@
                                             </div> -->
                                             <div style="display: flex; cursor: pointer">
                                                 <img src="/assets/Checkmark.svg" width="12%" />
-                                                <div (click)="openPopup(item._id)" style="
+                                                <div (click)="openPopup2(item._id)" style="
                                             margin-top: 7px;
                                             margin-bottom: 10px;
                                             margin-left: 5px;
@@ -424,7 +424,7 @@
                                             </div>
                                             <div style="display: flex; cursor: pointer">
                                                 <img src="/assets/Checkmark.svg" width="12%" />
-                                                <div (click)="refuserverification(item._id)" style="
+                                                <div (click)="update_verification_absence(item._id,'False','e')" style="
                                             margin-top: 7px;
                                             margin-bottom: 10px;
                                             margin-left: 5px;
@@ -552,6 +552,31 @@
                     </button>
                     <button type="submit" class="button" (click)="refus()">
                         <div class="inscrire">Non</div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="popup" *ngIf="showPopup2">
+            <div class="popup-content" style="height: 16rem;">
+                <div style="float: right" (click)="closePopup2()">
+                    <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                </div>
+                <h3>Nouvelle note</h3>
+                <div class="grid-item">
+                    <input type="text" name="note" [(ngModel)]="newNote" placeholder="nouvelle note" required>
+
+
+
+
+                </div>
+
+                <br>
+                <div style="display: flex;" (click)="justif">
+
+                    <button type="submit" class="button" (click)="update_verification_absence(demande_id,'True','aa')"
+                        style="margin-left: 290px">
+                        <div class="inscrire">Valider</div>
                     </button>
                 </div>
             </div>

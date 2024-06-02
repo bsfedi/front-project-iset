@@ -177,10 +177,29 @@ export class StudentService {
     return this.http.post(baseUrl + 'verification_absence/' + enseignant_id, data);
 
   }
+  add_document(data: any) {
+    return this.http.post(baseUrl + 'add_document', data);
+
+  }
 
   verification_absences(): Observable<any> {
 
     return this.http.get(baseUrl + 'verification_absences');
+  }
+  get_documents(uploaded_by: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_documents/' + uploaded_by);
+  }
+
+  get_documents_by_classe(classe: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_documents_by_classe/' + classe);
+  }
+
+
+  update_verification_absence(item_id: any, status: any, new_absence: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'verification_absence/' + item_id + "/" + status + "/" + new_absence);
   }
   getverification_absence(user_id: any): Observable<any> {
 

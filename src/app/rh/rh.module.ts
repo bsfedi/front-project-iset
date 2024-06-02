@@ -32,6 +32,7 @@ import { GestionStagesComponent } from './gestion-stages/gestion-stages.componen
 import { DetailsStageComponent } from './details-stage/details-stage.component';
 import { GestionAbsencesComponent } from './gestion-absences/gestion-absences.component';
 import { GestionOrientationComponent } from './gestion-orientation/gestion-orientation.component';
+import { SupportCoursComponent } from './support-cours/support-cours.component';
 
 export const routes: Routes = [
   {
@@ -106,6 +107,11 @@ export const routes: Routes = [
   {
     path: 'gestion-orientation',
     component: GestionOrientationComponent
+  },
+  {
+
+    path: 'support-cours',
+    component: SupportCoursComponent
   },
 
   {
@@ -186,6 +192,7 @@ export const routes: Routes = [
     DetailsStageComponent,
     GestionAbsencesComponent,
     GestionOrientationComponent,
+    SupportCoursComponent,
   ],
   imports: [
     CommonModule,
