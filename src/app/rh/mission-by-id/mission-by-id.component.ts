@@ -269,19 +269,8 @@ export class MissionByIdComponent {
         }
       });
 
-      this.socketService.connect()
-      // Listen for custom 'rhNotification' event in WebSocketService
-      this.socketService.onRhNotification().subscribe((event: any) => {
-        console.log(event);
 
-        if (event.notification.toWho == "RH") {
-          this.lastnotifications.push(event.notification.typeOfNotification)
-          this.notification.push(event.notification.typeOfNotification)
-          localStorage.setItem('new_notif', 'true');
-        }
 
-        // Handle your rhNotification event here
-      });
     }
   }
   update_register() {

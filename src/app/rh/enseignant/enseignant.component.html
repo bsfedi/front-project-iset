@@ -558,13 +558,14 @@
 
         </div>
         <div class="popup" *ngIf="showPopup2">
-            <div class="popup-content" style="height: 16rem;">
+            <div class="popup-content" style="height: 10rem;">
                 <div style="float: right" (click)="closePopup2()">
                     <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                 </div>
-                <h3>Nouvelle note</h3>
+                <h3>Nouveau nombre d'absences</h3>
                 <div class="grid-item">
-                    <input type="text" name="note" [(ngModel)]="newNote" placeholder="nouvelle note" required>
+                    <input type="text" name="note" [(ngModel)]="newNote" placeholder="nouveau nombre d'absences"
+                        required>
 
 
 

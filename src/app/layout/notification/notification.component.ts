@@ -74,28 +74,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
 
     // Connect to Socket.IO server
-    this.socketService.connect();
+    ;
 
-    // Listen for incoming messages
-    this.socketService.onMessage().subscribe((message: any) => {
-      console.log('Received message:', message);
-      // Handle your Socket.IO messages here
-    });
 
-    // Listen for custom 'rhNotification' event in WebSocketService
-    this.socketService.onRhNotification().subscribe((event: any) => {
-      localStorage.setItem('new_notif', 'true');
-      console.log('Received rhNotification event:', event);
-      if (event.notification.toWho == "CONSULTANT") {
-
-        if (event.notification.typeOfNotification == 'VIREMENT') {
-          this.lastnotificationsvir.push(event.notification)
-        }
-
-      }
-
-      // Handle your rhNotification event here
-    });
   }
 
   ngOnDestroy(): void {
@@ -109,6 +90,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   sendMessage(): void {
     // Send a sample message to the Socket.IO server
-    this.socketService.sendMessage({ content: 'Hello, Socket.IO!' });
+
   }
 }

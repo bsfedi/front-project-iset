@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="table-wrapper">
-                    <button style="float: right;" *ngIf="tjm" (click)="openPopup1()"> Ajouter parcour</button>
+                    <button style="float: right;" *ngIf="tjm" (click)="openPopup1()"> Ajouter parcours</button>
                     <button style="float: right;" *ngIf="parcours" (click)="openPopup1()"> Ajouter classe</button>
                     <button style="float: right;" *ngIf="rattrapge" (click)="openPopup1()"> Ajouter module</button>
                     <table *ngIf="tjm">
@@ -280,6 +280,17 @@
                                     </div>
 
 
+                                </div>
+                                <div class="grid-item" *ngIf="tjm && role =='directeuretudes'">
+                                    <select formControlName="departement" class="form-control" required>
+                                        <option value="" disabled selected>Choisir le departement</option>
+                                        <option value="GM">GM</option>
+                                        <option value="GE">GE</option>
+                                        <option value="TI">IT</option>
+                                        <option value="GC">GC</option>
+                                        <option value="SEG">SEG</option>
+                                    </select>
+
                                 </div> <br>
                                 <div style="display: flex;">
 
@@ -436,7 +447,7 @@
                                 <div class="grid-item">
 
                                     <div style="display: flex;">
-                                        <input type="text" placeholder="code" formControlName="code"
+                                        <input type="text" placeholder="code" formControlName="code" readonly
                                             [ngModel]="classe_by_id.code">
                                     </div>
 

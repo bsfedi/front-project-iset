@@ -29,9 +29,9 @@
                                         <th> Date demande</th>
 
                                         <th>Module</th>
-                                        <th>Etat</th>
 
-                                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
+
+                                        <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Etat</th>
 
 
                                     </tr>
@@ -52,7 +52,8 @@
 
                                         <td>
                                             <div *ngFor="let ee of item.data">
-                                                <div *ngIf="ee.inputClass"> <b> {{ee.inputClass}} - {{ee.inputModule}} -
+                                                <div *ngIf="ee.inputClass"> <b> {{ee.inputClass.code}} -
+                                                        {{ee.inputModule.code}} -
                                                         {{ee.inputHoraire}} -
                                                         {{ee.date}} </b>
 
@@ -61,6 +62,21 @@
                                             </div>
                                         </td>
                                         <td>
+                                            <div *ngIf="item.data[0].status !='validated' && item.data[0].status !='notvalidated'"
+                                                style="    display: flex;
+
+                                            height: 2rem;
+                                            padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
+                                            justify-content: center;
+                                            align-items: center;
+                                            border-radius: 0.75rem;
+                                            background: #4274e2;
+                                            color: rgb(195, 234, 238) ;
+                                            margin: 5px;
+                                            font-size: 14px;">
+                                                En attente
+
+                                            </div>
                                             <div *ngIf="item.data[0].status ==='validated'" style="    display: flex;
 
                                             height: 2rem;
@@ -92,7 +108,7 @@
 
                                         </td>
 
-                                        <td style="cursor: pointer" class="dropdown">
+                                        <!-- <td style="cursor: pointer" class="dropdown">
                                             <div>
                                                 <div>
                                                     <div style="margin-left: 8px">
@@ -109,7 +125,7 @@
                                             </div>
                                             <div class="dropdown-content">
                                                 <div class="dropdown-menu">
-                                                    <!-- <div style="display: flex; cursor: pointer">
+                                                  <div style="display: flex; cursor: pointer">
                                                         <img src="/assets/Checkmark.svg" width="12%" />
                                                         <div (click)="validated(item._id)" style="
                                                     margin-top: 7px;
@@ -129,8 +145,8 @@
                                                   ">
                                                             Non
                                                         </div>
-                                                    </div> -->
-                                                    <div style="display: flex; cursor: pointer">
+                                                    </div> 
+                                                   <div style="display: flex; cursor: pointer">
                                                         <img src="/assets/Checkmark.svg" width="12%" />
                                                         <div (click)="openPopup1(item.user_id,item._id)" style="
                                                     margin-top: 7px;
@@ -140,11 +156,11 @@
                                                             Voir details
 
                                                         </div>
-                                                    </div>
+                                                    </div> 
                                                 </div>
 
                                             </div>
-                                        </td>
+                                        </td> -->
 
                                     </tr>
 

@@ -85,26 +85,7 @@ export class AllnotificationsComponent {
 
       }
     });
-    // Connect to Socket.IO server
-    this.socketService.connect();
 
-    // Listen for incoming messages
-    this.socketService.onMessage().subscribe((message: any) => {
-      console.log('Received message:', message);
-      // Handle your Socket.IO messages here
-    });
-
-    // Listen for custom 'rhNotification' event in WebSocketService
-    this.socketService.onRhNotification().subscribe((event: any) => {
-      console.log('Received rhNotification event:', event);
-      if (event.notification.toWho == "CONSULTANT") {
-        this.lastnotifications.push(event.notification)
-
-
-      }
-
-      // Handle your rhNotification event here
-    });
 
   }
   nextPage() {
@@ -143,10 +124,7 @@ export class AllnotificationsComponent {
     this.socketService.disconnect();
   }
 
-  sendMessage(): void {
-    // Send a sample message to the Socket.IO server
-    this.socketService.sendMessage({ content: 'Hello, Socket.IO!' });
-  }
+
   gotovalidation(notification_id: any, _id: string) {
     this.markNotificationAsSeen(notification_id)
     this.router.navigate([clientName + '/mission/' + _id])

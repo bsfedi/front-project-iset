@@ -61,16 +61,46 @@ export class NotificaionRhComponent {
     this.markNotificationAsSeen(notification_id)
     this.route.navigate([clientName + '/validation/' + _id])
   }
+  ens_id: any
+  role: any
+  fullname: any
+  departement: any
   ngOnInit(): void {
-    this.studentservice.annonces().subscribe({
-      next: (res) => {
+    this.ens_id = localStorage.getItem('user_id');
+    this.role = localStorage.getItem('role');
+    if (this.role == 'student') {
+      this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
+        next: (res) => {
+          this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+          this.departement = res.preregister.personalInfo.departement
+          this.studentservice.annonces(this.departement).subscribe({
+            next: (res) => {
 
-        this.items = res
-      }, error(e) {
-        console.log(e);
+              this.items = res
+            }, error(e) {
+              console.log(e);
 
-      }
-    });
+            }
+          });
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    } else {
+      this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
+        next: (res) => {
+          console.log(res.departement);
+
+          this.fullname = res.first_name + " " + res.last_name
+          this.departement = res.departement
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
+
 
   }
   gottoallStudents() {

@@ -16,36 +16,17 @@
                 <div class="doc">
                     <div style="display: flex">
                         <div class="cercle">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
-                                <g clip-path="url(#clip0_1577_2830)">
-                                    <path
-                                        d="M3.2002 3.2002L13.4859 3.2002L13.4859 15.2002L11.7716 14.0573L10.0573 15.2002L8.34305 14.0573L6.62877 15.2002L4.91448 14.0573L3.2002 15.2002L3.2002 3.2002Z"
-                                        stroke="#A67DB8" stroke-miterlimit="10" stroke-linecap="square" />
-                                    <path d="M5.48535 11.2002H8.34249" stroke="#A67DB8" stroke-miterlimit="10"
-                                        stroke-linecap="square" />
-                                    <path d="M10.6279 11.2002H11.1994" stroke="#A67DB8" stroke-miterlimit="10"
-                                        stroke-linecap="square" />
-                                    <path
-                                        d="M8.34222 8.91392C9.28899 8.91392 10.0565 8.14641 10.0565 7.19964C10.0565 6.25286 9.28899 5.48535 8.34222 5.48535C7.39544 5.48535 6.62793 6.25286 6.62793 7.19964C6.62793 8.14641 7.39544 8.91392 8.34222 8.91392Z"
-                                        stroke="#A67DB8" stroke-miterlimit="10" stroke-linecap="square" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_1577_2830">
-                                        <rect width="16" height="16" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
+
                         </div>
                         <div style="
                   margin-top: 10px;
                   margin-left: 0px;
                   color: #323842;
-  
+                max-width: 250px;
                   font-weight: 700;
                   line-height: 1.375rem; /* 157.143% */
                 ">
-                            {{ item_doc.titre }}
+                            {{ item_doc.titre }} / {{item_doc.classe_id}}
                         </div>
                     </div>
                     <div *ngIf="item_doc.pdf" id="pdfContainer{{ i }}" class="pdfContainer"
@@ -54,7 +35,7 @@
                     <img *ngIf="!item_doc.pdf" [src]="item_doc.document" width="80%" height="50%"
                         (click)="downloadDocument(item_doc.document, item_doc.documentName)" />
                     <b style="margin-left: 80px;"> {{ item_doc.added_at.split('T')[0] }}</b>
-                    <div style="display: flex;margin-left: 50px;">
+                    <div style="display: flex;margin-left: 0px;">
                         <div class="telecharger" (click)="downloadFile(item_doc.document,item_doc.documentName)">
                             Télécharger
                             <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" viewBox="0 0 7 7" fill="none">
@@ -66,17 +47,18 @@
                                     fill="#379AE6" />
                             </svg>
                         </div>
-                        <!-- <div class="Remplacer" (click)="openfileInputdibInput()">
-                Remplacer
-                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
-                  <path
-                    d="M1.08519 4.14705C1.22762 4.67863 1.54149 5.14836 1.9781 5.48338C2.41471 5.81841 2.94966 6 3.5 6C4.05034 6 4.58529 5.81841 5.0219 5.48338C5.45851 5.14836 5.77238 4.67863 5.91481 4.14705"
-                    stroke="#BF6F25" stroke-width="0.7" />
-                  <path
-                    d="M3.5 1L3.26747 0.738407L3.5 0.531716L3.73253 0.738407L3.5 1ZM3.85 4C3.85 4.1933 3.6933 4.35 3.5 4.35C3.3067 4.35 3.15 4.1933 3.15 4L3.85 4ZM1.76747 2.07174L3.26747 0.738407L3.73253 1.26159L2.23253 2.59493L1.76747 2.07174ZM3.73253 0.738407L5.23253 2.07174L4.76747 2.59493L3.26747 1.26159L3.73253 0.738407ZM3.85 1L3.85 4L3.15 4L3.15 1L3.85 1Z"
-                    fill="#BF6F25" />
-                </svg>
-              </div> -->
+                        <div class="Remplacer" (click)="delete_document(item_doc._id)" style="cursor: pointer;">
+                            Supprimer
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path stroke="#BF6F25"
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+
+
+                        </div>
                         <input type="file" style="display: none" (change)="setFileInput('ribDocument', $event)"
                             #fileInputdib />
                     </div>
@@ -108,7 +90,7 @@
             <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
         </div>
         <div>
-            <h3>Déclarer une nouvelle demande</h3>
+            <h3>Ajouter support de cours</h3>
 
             <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
                 <div class="form-section">
@@ -129,7 +111,7 @@
                         <div class="custom-file-input" (change)="setFileInput('isSimulationValidated', $event)"
                             onclick="document.getElementById('isSimulationValidated').click()">
                             <label class="file-label" for="Simulation" style="cursor: pointer;" *ngIf="!selectedFile">
-                                document justificatif </label>
+                                Support de cours </label>
                             <label class="file-label" for="Simulation" style="cursor: pointer;"
                                 *ngIf="selectedFile">{{selectedFile.name}}</label>
 

@@ -138,14 +138,14 @@
                 <td>{{ item.new_note }} </td>
                 <td>{{ item.note }} </td>
                 <td>
-                  <div *ngIf="item.enseignant ">
-                    {{item.enseignant}}
-                  </div>
-                  <div *ngIf="!item.enseignant ">
+
+                  <div>
                     <select #selectElement (change)="affecter_damande1(item._id, selectElement.value)"
                       style="width: 10rem;">
                       <option value=""> Seletioner un enseignant</option>
-                      <option *ngFor="let en of ens" [value]="en._id">{{en.first_name}} {{en.last_name}}</option>
+                      <option *ngIf="item.enseignant " selected> {{item.enseignant}} </option>
+                      <option *ngFor="let en of ens" [value]="en._id"> {{en.first_name}}
+                        {{en.last_name}}</option>
                     </select>
 
 
@@ -359,7 +359,7 @@
                 </td>
                 <td>
                   <div *ngFor="let ee of item.data">
-                    <div *ngIf="ee.inputClass"> <b> {{ee.inputClass}} - {{ee.inputModule}} -
+                    <div *ngIf="ee.inputClass"> <b> {{ee.inputClass.code}} - {{ee.inputModule.code}} -
                         {{ee.inputHoraire}} -
                         {{ee.date}} </b>
 
@@ -368,7 +368,10 @@
                   </div>
                 </td>
                 <td>
-                  {{ item.data[0].status }}
+                  <div *ngIf="item.data[0].status == 'validated'"> Acceptée </div>
+                  <div *ngIf="item.data[0].status == 'invalidated'"> Refusée </div>
+
+
                 </td>
 
                 <td style="cursor: pointer" class="dropdown">
@@ -384,7 +387,7 @@
                     <div style="display: flex; cursor: pointer">
                       <img src="/assets/Checkmark.svg" width="12%" />
                       <div
-                        (click)="openPopup2(item._id,item.data[0].date,item.data[0].inputClass,item.data[0].inputHoraire,item.data[0].inputModule)"
+                        (click)="openPopup2(item._id,item.data[0].date,item.data[0].inputClass.inputClass,item.data[0].inputHoraire,item.data[0].inputModule.inputModule)"
                         style="
                           margin-top: 7px;
                           margin-bottom: 10px;
@@ -395,7 +398,9 @@
                     </div>
                     <div style="display: flex; cursor: pointer">
                       <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="openPopup1(item._id)" style="
+                      <div
+                        (click)="openPopup1(item._id,item.data[0].date,item.data[0].inputClass.inputClass,item.data[0].inputHoraire,item.data[0].inputModule.inputModule)"
+                        style="
                           margin-top: 7px;
                           margin-bottom: 10px;
                           margin-left: 5px;

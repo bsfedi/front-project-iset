@@ -459,7 +459,7 @@ export class tjmrequestsComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
+            <div style="font-size:1.2rem"> demande acceptée  avec succès! </div> 
               
             </div>
           `,
@@ -488,6 +488,12 @@ export class tjmrequestsComponent {
   }
   refuse_rattrapage() {
     const data = {
+      "salle": this.Salle,
+      "new_horaire": this.horaire,
+      "date": this.date,
+      "classe": this.classe,
+      "module": this.module,
+      "horaire": this.inputHoraire,
       "status": "invalidated",
       "motif": this.motif
     }
@@ -499,7 +505,7 @@ export class tjmrequestsComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> demande refusé  avec succès! </div> 
+            <div style="font-size:1.2rem"> demande refusée  avec succès! </div> 
               
             </div>
           `,
@@ -530,7 +536,13 @@ export class tjmrequestsComponent {
   showPopup1: any
   showPopup2: any
   rattrapage_id: any
-  openPopup1(rattrapage_id: any): void {
+  openPopup1(rattrapage_id: any, date: any, classe: any, inputHoraire: any, module: any): void {
+    this.rattrapage_id = rattrapage_id
+
+    this.date = date
+    this.classe = classe
+    this.inputHoraire = inputHoraire
+    this.module = module
     this.rattrapage_id = rattrapage_id
     this.showPopup1 = true;
   }
@@ -705,19 +717,13 @@ export class tjmrequestsComponent {
     // Generate the table rows dynamically
     const tableRows = displayedDocs.map((item: any) => `
         <tr>
-            <td>${item.first_name} ${item.first_name}</td>
-            <td>${item.new_note}</td>
-
-            <td>
-              ${item.note}
-            </td>
-            <td>
-            ${item.enseignant}
-          </td>
-          <td>${item.matiere}</td>
-          <td>${item.classe}</td>
-          <td>${item.commantaire}
-          </td>
+        <td>${item.first_name} ${item.last_name}</td>
+        <td>${item.status === 'validated' ? 'Acceptée' : 'Refusée'}</td>
+        <td>${item.new_note}</td>
+        <td>${item.note}</td>
+        <td>${item.matiere}</td>
+        <td>${item.classe}</td>
+        
         </tr>
     `).join('');
 
@@ -748,22 +754,23 @@ export class tjmrequestsComponent {
           Institut Supérieur des Etudes Technologiques de Nabeul
           </div> </div> <br> <br>
 
-          <b style='text-align:center;'> Liste des verification des notes  </b><br> <br>
+          <b style='text-align:center;margin-left:230px'> Liste des verification des notes  </b><br> <br>
             <table>
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
+                    <th> Décision </th>
                     <th> Nouvelle note</th>
                     <th>note</th>
-                    <th>enseignant</th>
+                  
                     <th>matiere</th>
-                    <th>classe</th>
-                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">commantaire</th>
+                   
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">classe</th>
                 </thead>
                 <tbody>
                     ${tableRows}
                 </tbody>
             </table>
-          </body>
+          </body> <br><br>
         </html>`;
 
     // Generate PDF from HTML content

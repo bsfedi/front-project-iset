@@ -221,7 +221,12 @@ export class DemandeRattrapageComponent {
               cancelButton: 'custom-cancel-button-class'
             },
             reverseButtons: true // Reversing button order
-          })
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Reload the page
+              this.router.navigate([clientName + '/suivirattrapage'])
+            }
+          });
 
         },
         error: (e) => {

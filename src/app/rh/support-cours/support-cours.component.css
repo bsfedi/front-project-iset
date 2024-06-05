@@ -773,7 +773,7 @@ input[type="number"] {
     flex-shrink: 0;
     border-radius: 0.75rem;
     margin-top: 14px;
-    margin-left: 0px;
+    margin-left: -5px;
     background: rgba(252, 233, 164, 0.35);
     color: #bf6f25;
 }

@@ -408,7 +408,7 @@
                             activer le compte
                           </div>
                         </div>
-                        <div style="display: flex; cursor: pointer" (click)="openPopup1(rh._id)">
+                        <div style="display: flex; cursor: pointer" (click)="openPopup1(rh._id,false)">
                           <img src="/assets/Checkmark.svg" width="12%" />
                           <div style="
                             margin-top: 7px;
@@ -418,16 +418,26 @@
                             Attribuer un rôle
                           </div>
                         </div>
+                        <div style="display: flex; cursor: pointer" (click)="openPopup1(rh._id,true)">
+                          <img src="/assets/Checkmark.svg" width="12%" />
+                          <div style="
+                            margin-top: 7px;
+                            margin-bottom: 10px;
+                            margin-left: 5px;
+                          ">
+                            Profil
+                          </div>
+                        </div>
                       </div>
                     </td>
 
                     <div class="popup" *ngIf="showPopup1">
-                      <div class="popup-content" style="height: 10rem;">
+                      <div class="popup-content" style="height: 10rem;" *ngIf="!show_profil">
                         <div style="float: right" (click)="closePopup1()">
                           <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                         </div>
-                        <h3>Ajouter un privilege</h3>
-                        <div class="grid-item">
+                        <h3 *ngIf="!show_profil">Ajouter un privilege</h3>
+                        <div class="grid-item" *ngIf="!show_profil">
 
                           <select [(ngModel)]="selectedOption3">
                             <option value="nonprivilege"> Supprimer privilege </option>
@@ -441,9 +451,34 @@
 
                         </div> <br>
                         <div class="buttons">
-                          <button type="submit" class="button" (click)="attributrole()" style="margin-left: 200px">
+                          <button type="submit" class="button" (click)="attributrole()" style="margin-left: 150px">
                             <div class="inscrire">Ajouter</div>
                           </button>
+                        </div>
+
+                      </div>
+                      <div class="popup-content" style="height: 20rem;" *ngIf="show_profil">
+                        <div style="float: right" (click)="closePopup1()">
+                          <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                        </div>
+                        <h3 *ngIf="show_profil">Profil</h3>
+                        <div style="display: flex;" *ngIf="show_profil">
+                          <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                          <div style="margin-left: 25px; margin-top: 15px;font-size: 1rem;">
+                            <b> {{profil.role}} <br>
+                              {{profil.first_name}} {{profil.last_name}}</b>
+                          </div> <br>
+                        </div> <br>
+                        <div *ngIf="show_profil" style="  justify-content: none;text-align: left;">
+                          <b> Informations du compte </b> <br> <br>
+                          <div style="justify-content: none;text-align: left;">
+                            Email : {{profil.email}} <br>
+                            Télephone : {{profil.phone}} <br>
+                            Adresse : {{profil.phone}} <br>
+                            Departement : {{profil.departement}} <br>
+                            privilege : {{profil.privilege}}
+                          </div>
+
                         </div>
                       </div>
 

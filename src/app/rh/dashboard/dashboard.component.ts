@@ -94,6 +94,7 @@ export class DashboardComponent {
 
     this.myForm2 = this.fb.group({
       titre: [''],
+      departement: [''],
       contenu: [''],
 
     });
@@ -163,6 +164,7 @@ export class DashboardComponent {
   fullname: any
   attestations: any
   annonces: any
+  departement: any
   accept(demande_id: any) {
     const data = {
       "role": this.role,
@@ -256,15 +258,7 @@ export class DashboardComponent {
 
       }
     });
-    this.studentservice.annonces().subscribe({
-      next: (res) => {
 
-        this.annonces = res
-      }, error(e) {
-        console.log(e);
-
-      }
-    });
     this.studentservice.attestations().subscribe({
       next: (res) => {
         this.attestations = res
@@ -285,6 +279,7 @@ export class DashboardComponent {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
           this.fullname = res.preregister.personalInfo.first_name + " " + res.preregister.personalInfo.last_name
+          this.departement = res.preregister.personalInfo.departement
         }, error(e) {
           console.log(e);
 
@@ -294,6 +289,17 @@ export class DashboardComponent {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
           this.fullname = res.first_name + " " + res.last_name
+          this.departement = res.departement
+          this.studentservice.annonces(this.departement).subscribe({
+            next: (res) => {
+              console.log(this.departement);
+
+              this.annonces = res
+            }, error(e) {
+              console.log(e);
+
+            }
+          });
         }, error(e) {
           console.log(e);
 
@@ -501,7 +507,7 @@ export class DashboardComponent {
   }
   add_annonce() {
 
-
+    this.myForm2.value.departement = this.departement
     this.studentservice.add_annonce(this.myForm2.value)
       .subscribe({
         next: (res) => {

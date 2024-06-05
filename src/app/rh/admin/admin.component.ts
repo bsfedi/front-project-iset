@@ -526,10 +526,21 @@ export class AdminComponent {
     this.showPopup = false;
 
   }
-
-  openPopup1(id: any): void {
+  show_profil: any
+  profil: any
+  openPopup1(id: any, show_profil: any): void {
     this.user_id = id
-    console.log(this.user_id);
+    this.show_profil = show_profil
+    if (this.show_profil) {
+      this.studentservice.getuserbyid(this.user_id).subscribe({
+        next: (res) => {
+          this.profil = res
+        }, error(e) {
+          console.log(e);
+
+        }
+      });
+    }
 
     this.showPopup1 = true;
   }

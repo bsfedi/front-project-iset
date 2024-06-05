@@ -169,7 +169,35 @@ export class GererDepartementComponent {
           this.show = true
           this.fullname = res.first_name + " " + res.last_name
           this.departement = res.departement
-          console.log("departement", this.departement);
+          if (res.role == 'directeuretudes') {
+            this.studentservice.get_parcours().subscribe(
+              (response) => {
+                this.pending_parcourss = response
+
+
+                // Add any additional handling or notifications if needed
+              },
+              (error) => {
+                this.pending_parcourss = []
+                console.error('Error getting virement:', error);
+                // Handle the error or display an error message
+              }
+            );
+          } else {
+            this.studentservice.get_parcours_departement(res.departement).subscribe(
+              (response) => {
+                this.pending_parcourss = response
+
+
+                // Add any additional handling or notifications if needed
+              },
+              (error) => {
+                this.pending_parcourss = []
+                console.error('Error getting virement:', error);
+                // Handle the error or display an error message
+              }
+            );
+          }
 
         }, error(e) {
           console.log(e);
@@ -258,19 +286,7 @@ export class GererDepartementComponent {
     this.token = localStorage.getItem('token');
     this.headers = new HttpHeaders().set('Authorization', `${this.token}`);
 
-    this.studentservice.get_parcours().subscribe(
-      (response) => {
-        this.pending_parcourss = response
 
-
-        // Add any additional handling or notifications if needed
-      },
-      (error) => {
-        this.pending_parcourss = []
-        console.error('Error getting virement:', error);
-        // Handle the error or display an error message
-      }
-    );
   }
 
   accept(demande_id: any) {
@@ -698,7 +714,10 @@ export class GererDepartementComponent {
     });
   }
   add_parcours() {
-    this.myForm1.value.departement = this.departement
+    if (this.role != 'directeuretudes') {
+      this.myForm1.value.departement = this.departement
+    }
+
     this.studentservice.add_parcours(this.myForm1.value).subscribe({
       next: (res) => {
 

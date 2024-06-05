@@ -88,6 +88,10 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'rattrapage/' + enseignant_id);
   }
+  delete_document(document_id: any): Observable<any> {
+
+    return this.http.delete(baseUrl + 'delete_document/' + document_id);
+  }
   rattrapage_by_department(user_id: any): Observable<any> {
     return this.http.get(baseUrl + 'rattrapage_by_department/' + user_id);
   }
@@ -433,6 +437,11 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_parcours');
   }
+  get_parcours_departement(departement: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_parcours/' + departement);
+  }
+
   get_salles(): Observable<any> {
 
     return this.http.get(baseUrl + 'get_salles');
@@ -586,8 +595,8 @@ export class StudentService {
 
     return this.http.post(baseUrl + 'add_annonce', data);
   }
-  annonces() {
-    return this.http.get(baseUrl + 'annonces');
+  annonces(departement: any) {
+    return this.http.get(baseUrl + 'annonces/' + departement);
   }
   deleteannonce(annonce_id: any) {
     return this.http.delete(baseUrl + 'annonce/' + annonce_id);

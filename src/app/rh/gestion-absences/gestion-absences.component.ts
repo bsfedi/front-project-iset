@@ -15,12 +15,19 @@ export class GestionAbsencesComponent {
   user_id: any
   pending_missions: any
   myForm2: FormGroup;
+  myForm3: FormGroup;
   constructor(private fb: FormBuilder, private router: Router, private studentservice: StudentService) {
     this.myForm2 = this.fb.group({
       code: [''],
       utilisation: ['', Validators.required],
       batiment: [''],
       affectation: ['']
+    });
+    this.myForm3 = this.fb.group({
+      classe: [''],
+      enseignant: ['', Validators.required],
+      module: [''],
+
     });
   }
   cellValue: string = '';
@@ -182,7 +189,7 @@ export class GestionAbsencesComponent {
       "module": this.selectedTeachers2,
       "enseignant": this.selectedTeachers
     }
-    this.studentservice.absences(data).subscribe({
+    this.studentservice.absences(this.myForm3.value).subscribe({
       next: (res) => {
         this.validated_mission = res
         console.log(this.validated_mission);

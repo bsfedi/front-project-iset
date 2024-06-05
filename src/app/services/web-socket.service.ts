@@ -1,28 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  constructor(private socket: Socket) {}
-  connect(): void {
-    this.socket.connect();
+  private socket: any;
+  private subject: Subject<string>;
+
+  constructor() {
+    this.subject = new Subject<string>();
   }
 
-  sendMessage(message: any): void {
-    this.socket.emit('message', message);
+  public connect(url: string): void {
+    this.socket = new WebSocket(url);
+
+    this.socket.onmessage = (event: any) => {
+      this.subject.next(event.data);
+    };
+
+    this.socket.onerror = (error: any) => {
+      this.subject.error(error);
+    };
+
+    this.socket.onclose = () => {
+      this.subject.complete();
+    };
   }
 
-  onMessage(): any {
-    return this.socket.fromEvent('message');
+  public sendMessage(message: string): void {
+    this.socket.send(message);
   }
 
-  disconnect(): void {
-    this.socket.disconnect();
+  public getMessages(): Observable<string> {
+    return this.subject.asObservable();
   }
-  onRhNotification(): Observable<any> {
-    return this.socket.fromEvent('rhNotification');
+
+  public disconnect(): void {
+    this.socket.close();
   }
 }

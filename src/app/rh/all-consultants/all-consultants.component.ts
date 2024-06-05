@@ -158,21 +158,9 @@ export class allStudentsComponent {
     const user_id = localStorage.getItem('user_id')
     this.new_notif = localStorage.getItem('new_notif');
 
-    this.socketService.connect()
+
     // Listen for custom 'rhNotification' event in WebSocketService
-    this.socketService.onRhNotification().subscribe((event: any) => {
-      console.log(event);
 
-      if (event.notification.toWho == "RH") {
-        this.lastnotifications.push(event.notification.typeOfNotification)
-
-        this.nblastnotifications = this.lastnotifications.length
-        this.notification.push(event.notification.typeOfNotification)
-        localStorage.setItem('new_notif', 'true');
-      }
-
-      // Handle your rhNotification event here
-    });
     // Check if token is available
     if (token) {
       this.consultantservice.getRhNotificationsnotseen().subscribe({

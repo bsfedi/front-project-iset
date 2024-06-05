@@ -272,7 +272,7 @@ export class GererSallesComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> module ajoutée  avec succès! </div> 
+            <div style="font-size:1.2rem"> Salle ajoutée avec succès ! </div> 
               
             </div>
           `,
@@ -286,7 +286,12 @@ export class GererSallesComponent {
             cancelButton: 'custom-cancel-button-class'
           },
           reverseButtons: true // Reversing button order
-        })
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            window.location.reload()
+          }
+        });
 
       }, error(e) {
         console.log(e);

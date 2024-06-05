@@ -406,7 +406,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of attestations; let i = index" (click)="toggleMenu(i)" style="cursor: pointer">
-              <ng-container *ngIf="item.status != 'prete'">
+              <ng-container *ngIf="item.status == 'validated_by_departement'">
                 <td>
 
                   <div *ngIf="item.status =='validated_by_departement'" style="
@@ -494,7 +494,7 @@
                         margin-bottom: 10px;
                         margin-left: 5px;
                       ">
-                        Accepter
+                        Valider/prête
                       </div>
                     </div>
 
@@ -513,7 +513,7 @@
 
             </tr>
           </tbody>
-        </table>
+        </table> <br><br><br>
 
       </div>
 
@@ -531,7 +531,7 @@
           </div>
         </div>
         <div>
-          <app-notificaion-rh></app-notificaion-rh>
+          <app-notificaion-rh *ngIf="role == 'student'"></app-notificaion-rh>
         </div>
 
 

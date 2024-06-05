@@ -107,7 +107,7 @@
                     </tbody>
                 </table>
                 <div class="popup" *ngIf="showPopup1">
-                    <div class="popup-content" style="height: auto;width: 60rem;">
+                    <div class="popup-content" style="height: auto;width: 20rem;">
                         <div style="float: right" (click)="closePopup1()">
                             <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
                         </div>
@@ -116,6 +116,32 @@
 
 
                             <div>
+                                <form [formGroup]="myForm3">
+                                    <select formControlName="enseignant">
+                                        <option value=""> choisir un
+                                            enseignant </option>
+                                        <option *ngFor="let en of enseignants" [value]="en._id"> {{en.first_name}}
+                                            {{en.last_name}} </option>
+                                    </select>
+                                    <select formControlName="classe">
+                                        <option value=""> choisir un
+                                            classe </option>
+                                        <option *ngFor="let item of all_classes" [value]="item._id"> {{ item.code}}
+                                        </option>
+                                    </select>
+                                    <select formControlName="module">
+                                        <option value=""> choisir un
+                                            module </option>
+                                        <option *ngFor="let item of all_modules" [value]="item._id"> {{
+                                            item.intitule
+                                            }}
+                                        </option>
+                                    </select>
+                                </form>
+
+
+
+                                <!-- 
                                 <div class="multiselect">
                                     <div>
                                         <select (click)="toggleCheckboxes()" style="width: 28rem;">
@@ -157,25 +183,26 @@
 
                                     </div>
                                 </div>
-                                <br><br>
-                            </div>
-                            <div style="margin-left: 280px;" class="multiselect">
-                                <div>
-                                    <select (click)="toggleCheckboxes2()" style="width: 28rem;">
-                                        <option [style.display]="expanded2 ? 'block' : 'none'"> Seletioner les module
-                                        </option>
-                                    </select>
-                                    <div class="overSelect"></div>
-                                </div>
-                                <div id="checkboxes" [style.display]="expanded2 ? 'block' : 'none'"
-                                    *ngFor="let item of all_modules">
-                                    <label for="item._id">
-                                        <input type="checkbox" (change)="toggleTeacher2(item._id)" id="item._id" />{{
-                                        item.intitule
-                                        }}</label>
+                                <div style="margin-left: 280px;" class="multiselect">
+                                    <div>
+                                        <select (click)="toggleCheckboxes2()" style="width: 28rem;">
+                                            <option [style.display]="expanded2 ? 'block' : 'none'"> Seletioner les module
+                                            </option>
+                                        </select>
+                                        <div class="overSelect"></div>
+                                    </div>
+                                    <div id="checkboxes" [style.display]="expanded2 ? 'block' : 'none'"
+                                        *ngFor="let item of all_modules">
+                                        <label for="item._id">
+                                            <input type="checkbox" (change)="toggleTeacher2(item._id)" id="item._id" />{{
+                                            item.intitule
+                                            }}</label>
+    
+                                    </div>
+                                </div> -->
 
-                                </div>
                             </div>
+
                         </div>
 
 
@@ -404,16 +431,6 @@
             </div>
             <p></p>
 
-
-
-
-
-
-            <br />
-
-
-
-            <br />
 
             <div class="custom-container">
 

@@ -96,7 +96,7 @@ export class SupportCoursComponent {
     const user_id = localStorage.getItem('user_id')
     this.user_id = user_id
     this.new_notif = localStorage.getItem('new_notif');
-    this.socketService.connect()
+
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
@@ -213,18 +213,7 @@ export class SupportCoursComponent {
       });
     }
     // Listen for custom 'rhNotification' event in WebSocketService
-    this.socketService.onRhNotification().subscribe((event: any) => {
-      console.log(event);
 
-      if (event.notification.toWho == "RH") {
-        this.lastnotifications.push(event.notification.typeOfNotification)
-        this.nblastnotifications = this.lastnotifications.length
-        this.notification.push(event.notification.typeOfNotification)
-        localStorage.setItem('new_notif', 'true');
-      }
-
-      // Handle your rhNotification event here
-    });
     this.consultantservice.getallnotification(user_id).subscribe({
       next: (res1) => {
         this.res1 = res1
@@ -251,6 +240,44 @@ export class SupportCoursComponent {
 
 
   }
+  delete_document(document_id: any) {
+    this.studentservice.delete_document(document_id).subscribe({
+      next: (res) => {
+        // Handle the response from the server
+        console.log(res);
+        Swal.fire({
+
+          background: 'white',
+          html: `
+            <div>
+            <div style="font-size:1.2rem"> Support de cours supprimé avec succès! </div> 
+              
+            </div>
+          `,
+
+
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "rgb(0, 17, 255)",
+
+          customClass: {
+            confirmButton: 'custom-confirm-button-class',
+            cancelButton: 'custom-cancel-button-class'
+          },
+          reverseButtons: true // Reversing button order
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
+          }
+        });
+      },
+      error: (e) => {
+        // Handle errors
+        console.error(e);
+      }
+    });
+
+  }
 
   verification_absence() {
     console.log(this.fileInputs);
@@ -275,7 +302,7 @@ export class SupportCoursComponent {
           background: 'white',
           html: `
             <div>
-            <div style="font-size:1.2rem"> document ajoutée avec succès! </div> 
+            <div style="font-size:1.2rem"> Support de cours ajouté avec succès! </div> 
               
             </div>
           `,

@@ -213,6 +213,7 @@ export class InformationsComponent {
     formData.append('level', this.myForm.value.level);
     formData.append('code', this.myForm.value.code);
     formData.append('adresse', this.myForm.value.adresse);
+    formData.append('status', this.myForm.value.status);
     formData.append('phone', this.myForm.value.phone);
     formData.append('brith_date', this.myForm.value.brith_date);
     // formData.append('cin_img', this.docs.cin_img.split('uploads/')[1]);
@@ -257,6 +258,7 @@ export class InformationsComponent {
             "level": this.myForm.value.level,
             "baccalaureate": this.personalInfo.baccalaureate,
             "annee": this.personalInfo.annee,
+            "status": this.personalInfo.status,
             "code": this.personalInfo.code,
             "adresse": this.myForm.value.adresse,
             "phone": this.myForm.value.phone,
