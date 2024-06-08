@@ -13,7 +13,7 @@ const clientName = `${environment.default}`;
 })
 export class AppComponent {
   title = 'mykrew';
-  private url: string = 'ws://34.121.4.38:5001/';
+  private url: string = 'https://websocket-service-dot-chat-ia-403210.ew.r.appspot.com';
   public message: string = '';
   public messages: string[] = [];
   private subscription: any;
@@ -64,7 +64,14 @@ export class AppComponent {
   ngOnInit(): void {
     this.webSocketService.connect(this.url);
     this.subscription = this.webSocketService.getMessages().subscribe(
-      (msg) => this.messages.push(msg),
+      (msg) => {
+        try {
+          const parsedMessage = JSON.parse(msg);
+          console.log(parsedMessage.message);  // Accessing the 'message' property
+        } catch (error) {
+          console.error('Error parsing message:', error);
+        }
+      },
       (err) => console.error(err),
       () => console.warn('Completed')
     );

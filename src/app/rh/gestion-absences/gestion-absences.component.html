@@ -24,9 +24,10 @@
             </div>
             <br />
             <select (change)="getabsence($event)">
-
+                <option value=""> choisir un module</option>
                 <option *ngFor="let item of modules" [value]="item._id">{{item.intitule}}</option>
             </select> <br> <br> <br>
+
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -424,6 +425,7 @@
         </div>
 
         <div class="second-container" *ngIf="role == 'enseignant'  && show">
+
             <div style="display: flex">
 
                 <div class="title">ABSENCES</div>
@@ -440,16 +442,69 @@
                 <option value=""> Choisir un module</option>
                 <option *ngFor="let item of modulesens" [value]="item._id">{{item.intitule}}</option>
             </select> <br>
-            <select (change)="get_absences_by_classe($event)" *ngIf="show_classe">
+            <select (change)="get_students_by_classe($event)" *ngIf="show_classe">
                 <option value=""> Choisir un classe</option>
                 <option *ngFor="let item of classes" [value]="item._id">{{item.code}}</option>
             </select>
-            <br> <br> <br>
-            <b *ngIf="show_absences"> Renseigner 1 ou 0 ( 1=absent ) ; (vide = 0 )</b> <br> <br>
+
+
+            <h3 *ngIf="show_absences"> Renseigner absence </h3>
+            <!--  -->
+            <form [formGroup]="myform4" style="justify-content: center;text-align: center;display: grid"
+                *ngIf="show_absences">
+                <div class="grid-item">
+
+                    <div style="display: flex;">
+                        <input type="date" placeholder="code" formControlName="date">
+                    </div>
+                    <div style="display: flex;">
+                        <div style="display: flex;">
+                            <div class="multiselect">
+                                <div>
+                                    <select (click)="toggleCheckboxes()">
+                                        <option [style.display]="!expanded ? 'block' : 'none'"> choisir les étudiants
+                                        </option>
+                                    </select>
+                                    <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
+                                        *ngFor="let student of students">
+                                        <label for="student.user_id" (change)="toggleTeacher(student.user_id)">
+                                            <input type="checkbox"
+                                                id="student.user_id" />{{student.personalInfo.first_name}}
+                                            {{student.personalInfo.first_name}}</label>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <select formControlName="nb_seance">
+                            <option value=""> Seletioner nombre de séances</option>
+                            <option>
+                                1</option>
+                            <option>
+                                2</option>
+                            <option>
+                                3</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+                <button (click)="renseigner_absence()"
+                    style="justify-content: center;text-align: center;display: grid;margin-left: 95px;margin-top: 15px;">
+                    Enregistrer</button>
+            </form>
+
             <table *ngIf="show_absences">
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
-                    <th>S1</th>
+                    <th *ngFor="let item of absences[0].data"> {{item.date}} </th>
+                    <!-- <th>S1</th>
                     <th>S2</th>
                     <th>S3</th>
                     <th>S4</th>
@@ -460,50 +515,29 @@
                     <th>S9</th>
                     <th>S10</th>
                     <th>S11</th>
-                    <th>S12</th>
-                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Réclamation</th>
+                    <th>S12</th> -->
+                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Total</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of absences">
                         <td>
                             {{ item.etudiant.personalInfo.first_name }} {{ item.etudiant.personalInfo.last_name }}
                         </td>
-                        <ng-container
-                            *ngFor="let key of ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12']">
-                            <td contenteditable="true" (input)="updateAbsence(item._id, key, $event)">
-                                <div style=" border: 0.2px solid black;"> {{ item[key] }} </div>
+                        <ng-container *ngFor="let key of item.data;let i =index">
+                            <td>
+                                <div> {{ key.nb_absence }} </div>
                             </td>
                         </ng-container>
-                        <td contenteditable="true"
-                            (input)="updateAbsence(item.etudiant.user_id, 'reclamation', cellValue)">
-                            {{ item.reclamation }}
+                        <td>
+                            {{ item.total_absences }}
                         </td>
                     </tr>
 
-                    <!-- <tr *ngFor="let item of absences">
 
-
-                        <td contenteditable="true">
-                            {{item.etudiant.personalInfo.first_name}} {{item.etudiant.personalInfo.last_name}}
-                        </td>
-                        <td contenteditable="true" (input)="updateCellValue($event)">{{item.S1}}</td>
-                        <td contenteditable="true">{{item.S2}}</td>
-                        <td contenteditable="true">{{item.S3}}</td>
-                        <td contenteditable="true">{{item.S4}}</td>
-                        <td contenteditable="true">{{item.S5}}</td>
-                        <td contenteditable="true">{{item.S6}}</td>
-                        <td contenteditable="true">{{item.S7}}</td>
-                        <td contenteditable="true">{{item.S8}}</td>
-                        <td contenteditable="true">{{item.S9}}</td>
-                        <td contenteditable="true">{{item.S10}}</td>
-                        <td contenteditable="true">{{item.S11}}</td>
-                        <td contenteditable="true">{{item.S12}}</td>
-                        <td contenteditable="true">{{item.reclamation}}</td>
-                    </tr> -->
                 </tbody>
             </table>
 
-            <div class="pagination" *ngIf="show_absences">
+            <!-- <div class="pagination" *ngIf="show_absences">
                 <div (click)="previousPagepending()" style="cursor: pointer;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chevron-double-left" viewBox="0 0 16 16">
@@ -526,7 +560,7 @@
                     </svg>
                 </div>
 
-            </div>
+            </div> -->
             <br /><br />
 
 

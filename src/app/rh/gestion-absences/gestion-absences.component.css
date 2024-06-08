@@ -51,7 +51,7 @@
 
 #checkboxes {
     display: none;
-    width: 26rem;
+    width: 20rem;
     border: 1px #dadada solid;
 }
 
@@ -1183,8 +1183,9 @@ svg {
 #checkboxes {
     font-family: 'Poppins', sans-serif !important;
     display: none;
-    width: 28rem;
+    width: 20rem;
     border: 1px #dadada solid;
+    border-radius: 2rem;
 }
 
 #checkboxes label {
@@ -1195,4 +1196,5 @@ svg {
 #checkboxes label:hover {
     font-family: 'Poppins', sans-serif !important;
     background-color: #1e90ff;
+    border-radius: 2rem;
 }

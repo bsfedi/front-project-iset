@@ -84,6 +84,11 @@ export class StudentService {
 
     return this.http.post(baseUrl + 'add_rattrapage/' + enseignant_id, data);
   }
+  get_students_by_classe(classe: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_students_by_classe/' + classe);
+  }
+
   rattrapage(enseignant_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'rattrapage/' + enseignant_id);
@@ -519,9 +524,9 @@ export class StudentService {
   }
 
 
-  renseigner_absence(user_id: any, data: any): Observable<any> {
+  renseigner_absence(user_id: any, module_id: any, classe_id: any, data: any): Observable<any> {
 
-    return this.http.put(baseUrl + 'renseigner_absence/' + user_id, data);
+    return this.http.put(baseUrl + 'renseigner_absence/' + user_id + "/" + module_id + "/" + classe_id, data);
   }
 
 

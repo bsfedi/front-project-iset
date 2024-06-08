@@ -16,6 +16,7 @@ export class GestionAbsencesComponent {
   pending_missions: any
   myForm2: FormGroup;
   myForm3: FormGroup;
+  myform4: FormGroup;
   constructor(private fb: FormBuilder, private router: Router, private studentservice: StudentService) {
     this.myForm2 = this.fb.group({
       code: [''],
@@ -27,6 +28,12 @@ export class GestionAbsencesComponent {
       classe: [''],
       enseignant: ['', Validators.required],
       module: [''],
+
+    });
+    this.myform4 = this.fb.group({
+      date: [''],
+      nb_seance: ['', Validators.required],
+
 
     });
   }
@@ -46,9 +53,9 @@ export class GestionAbsencesComponent {
     this.router.navigate([clientName + '/edit-profil'])
   }
   toggleTeacher(teacher: string): void {
-    console.log("eeeeeeeeeeeeee");
 
-    console.log(teacher);
+
+
 
     const index = this.selectedTeachers.indexOf(teacher);
     if (index === -1) {
@@ -279,6 +286,51 @@ export class GestionAbsencesComponent {
     {
       const id = event.target.value;
 
+
+    }
+
+  }
+  students: any
+  classe_info: any
+
+  get_students_by_classe(event: any) {
+    {
+      console.log(event, event.target.value);
+
+      const id = event.target.value;
+
+
+      this.studentservice.get_classe_by_id(id).subscribe({
+        next: (res) => {
+          this.classe_info = res
+          this.studentservice.get_students_by_classe(this.classe_info.code).subscribe({
+            next: (res) => {
+              this.students = res
+
+              this.show_absences = true
+
+
+            },
+            error: (e) => {
+              // Handle errors
+              this.absences = [];
+              console.error(e);
+
+              // Set loading to false in case of an error
+            },
+          });
+
+          this.show_absences = true
+
+        },
+        error: (e) => {
+          // Handle errors
+
+          console.error(e);
+
+          // Set loading to false in case of an error
+        },
+      });
       this.studentservice.get_absences_by_classe(id, this.module_id1).subscribe({
         next: (res) => {
           this.absences = res
@@ -295,36 +347,39 @@ export class GestionAbsencesComponent {
           // Set loading to false in case of an error
         },
       });
+
     }
 
   }
 
-  updateAbsence(user_id: any, fieldName: string, newValue: any) {
-    this.cellValue = newValue.target.innerText || '';
-    const data = { [fieldName]: this.cellValue };
-    this.renseigner_absence(user_id, data);
-  }
 
-  renseigner_absence(user_id: any, data: any) {
+
+  renseigner_absence() {
     {
+      const data = {
+        "date": this.myform4.value.date,
+        "nb_absence": this.myform4.value.nb_seance
+      }
+      for (let student of this.selectedTeachers) {
+        this.studentservice.renseigner_absence(student, this.module_id1, this.classe_info._id, data).subscribe({
+          next: (res) => {
+            this.absences = res
 
 
-      this.studentservice.renseigner_absence(user_id, data).subscribe({
-        next: (res) => {
-          this.absences = res
+            this.show_absences = true
+
+          },
+          error: (e) => {
+            // Handle errors
+            this.absences = [];
+            console.error(e);
+
+            // Set loading to false in case of an error
+          },
+        });
+      }
 
 
-          this.show_absences = true
-
-        },
-        error: (e) => {
-          // Handle errors
-          this.absences = [];
-          console.error(e);
-
-          // Set loading to false in case of an error
-        },
-      });
     }
 
   }

@@ -9,23 +9,33 @@
         <form action="/submit_form" method="post" [formGroup]="myForm" class="flex-form">
             <div class="form-section">
 
-
-                <div class="grid-container">
+                <div class="grid-container" *ngFor="let item of res">
+                    <b style="font-size: 1.25rem;"> {{ item.module_id}}</b> <br><br>
                     <table>
                         <thead>
-                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem"> module</th>
-                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem;width: 530px;"> Nombre total d'absence
-                            </th>
+                            <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Module</th>
+                            <th *ngFor="let ee of item.data"> {{ee.date}} </th>
+                            <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Total</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of res">
-                                <td> {{item.module_id }} </td>
-                                <td style="width: 130px;"> {{item.nb_absence}} </td>
+                            <tr>
+                                <td>
+                                    {{ item.module_id}}
+                                </td>
+                                <ng-container *ngFor="let key of item.data;let i =index">
+                                    <td>
+                                        <div> {{ key.nb_absence }} </div>
+                                    </td>
+                                </ng-container>
+                                <td>
+                                    {{ item.total_absences }}
+                                </td>
                             </tr>
 
-                        </tbody>
 
+                        </tbody>
                     </table>
+
 
 
 
