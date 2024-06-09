@@ -450,8 +450,7 @@
 
             <h3 *ngIf="show_absences"> Renseigner absence </h3>
             <!--  -->
-            <form [formGroup]="myform4" style="justify-content: center;text-align: center;display: grid"
-                *ngIf="show_absences">
+            <form [formGroup]="myform4" style="justify-content: center;display: grid" *ngIf="show_absences">
                 <div class="grid-item">
 
                     <div style="display: flex;">
@@ -499,23 +498,13 @@
                     style="justify-content: center;text-align: center;display: grid;margin-left: 95px;margin-top: 15px;">
                     Enregistrer</button>
             </form>
-
+            <button style="margin-left: 0px;margin-top: 30px;" (click)="generatePdf()" *ngIf="show_absences">
+                PDF</button>
             <table *ngIf="show_absences">
                 <thead>
                     <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
                     <th *ngFor="let item of absences[0].data"> {{item.date}} </th>
-                    <!-- <th>S1</th>
-                    <th>S2</th>
-                    <th>S3</th>
-                    <th>S4</th>
-                    <th>S5</th>
-                    <th>S6</th>
-                    <th>S7</th>
-                    <th>S8</th>
-                    <th>S9</th>
-                    <th>S10</th>
-                    <th>S11</th>
-                    <th>S12</th> -->
+
                     <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Total</th>
                 </thead>
                 <tbody>
@@ -525,7 +514,8 @@
                         </td>
                         <ng-container *ngFor="let key of item.data;let i =index">
                             <td>
-                                <div> {{ key.nb_absence }} </div>
+                                <div *ngIf="key.nb_absence !=''"> {{ key.nb_absence }} </div>
+                                <div *ngIf="key.nb_absence == ''"> 0</div>
                             </td>
                         </ng-container>
                         <td>

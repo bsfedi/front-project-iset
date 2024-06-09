@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 const clientName = `${environment.default}`;
+declare let html2pdf: any
 @Component({
   selector: 'app-gestion-absences',
   templateUrl: './gestion-absences.component.html',
@@ -353,37 +354,147 @@ export class GestionAbsencesComponent {
   }
 
 
-
+  data: any
   renseigner_absence() {
     {
-      const data = {
-        "date": this.myform4.value.date,
-        "nb_absence": this.myform4.value.nb_seance
+
+      for (let s of this.students) {
+        for (let student of this.selectedTeachers) {
+          console.log(student, s.user_id, s['user_id']);
+
+          if (s.user_id == student) {
+            this.data = {
+              "date": this.myform4.value.date,
+              "nb_absence": this.myform4.value.nb_seance
+            }
+            this.studentservice.renseigner_absence(student, this.module_id1, this.classe_info._id, this.data).subscribe({
+              next: (res) => {
+                this.absences = res
+
+                window.location.reload()
+                this.show_absences = true
+
+              },
+              error: (e) => {
+                // Handle errors
+                this.absences = [];
+                console.error(e);
+
+                // Set loading to false in case of an error
+              },
+            });
+          } else {
+            this.data = {
+              "date": this.myform4.value.date,
+              "nb_absence": 0
+            }
+            this.studentservice.renseigner_absence(s.user_id, this.module_id1, this.classe_info._id, this.data).subscribe({
+              next: (res) => {
+                this.absences = res
+                window.location.reload()
+
+                this.show_absences = true
+
+              },
+              error: (e) => {
+                // Handle errors
+                this.absences = [];
+                console.error(e);
+
+                // Set loading to false in case of an error
+              },
+            });
+          }
+
+        }
       }
-      for (let student of this.selectedTeachers) {
-        this.studentservice.renseigner_absence(student, this.module_id1, this.classe_info._id, data).subscribe({
-          next: (res) => {
-            this.absences = res
 
-
-            this.show_absences = true
-
-          },
-          error: (e) => {
-            // Handle errors
-            this.absences = [];
-            console.error(e);
-
-            // Set loading to false in case of an error
-          },
-        });
-      }
 
 
     }
 
   }
+  generatePdf() {
+    // Get the data for the table
+    const displayedDocs = this.absences;
+    const displayth = this.absences[0].data;
 
+    // Generate the table headers dynamically
+    const tableHeaders = displayth.map((item: any) => `
+      <th>${item.date}</th>
+    `).join('');
+
+    // Generate the table rows dynamically
+    const tableRows = displayedDocs.map((item: any) => {
+      const dataCells = item.data.map((key: any) => `
+        <td>
+          <div>${key.nb_absence !== '' ? key.nb_absence : 0}</div>
+        </td>
+      `).join('');
+
+      return `
+        <tr>
+          <td>${item.etudiant.personalInfo.first_name} ${item.etudiant.personalInfo.last_name}</td>
+          ${dataCells}
+          <td>${item.total_absences}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // Create the HTML content
+    const htmlContent = `
+      <html>
+        <head>
+          <style>
+            table {
+              width: 95%;
+              margin-top: 30px;
+              border-collapse: collapse;
+            }
+            th, td {
+              border: 1px solid black;
+              padding: 8px;
+              text-align: left;
+            }
+          </style>
+        </head>
+        <body>
+          <div style="text-align:center;display:flex">
+            <img src="/assets/logoisetnabeul.jpg" style="width:20%;height:20%">
+            <div style="margin-top:30px">
+              Ministère de l’Enseignement Supérieur et de la Recherche Scientifique<br>
+              Direction Générale des Etudes Technologiques<br>
+              Institut Supérieur des Etudes Technologiques de Nabeul
+            </div>
+          </div>
+          <br>
+          <b style="text-align:center;margin-left:200px">Liste des absences ${this.classe_info.code} </b>
+          <table>
+            <thead>
+              <tr>
+                <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Etudiant</th>
+                ${tableHeaders}
+                <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+          <br><br>
+        </body>
+      </html>
+    `;
+
+    // Generate PDF from HTML content
+    html2pdf().from(htmlContent).set({
+      margin: 10,
+      filename: 'orientation.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).save('orientation.pdf');
+  }
 
   getmodule(event: any) {
     const id = event.target.value;
