@@ -601,6 +601,11 @@ input[type="search"] {
     bottom: 0;
 }
 
+input.largerCheckbox {
+    width: 20px;
+    height: 16px;
+}
+
 #checkboxes {
     display: none;
     border: 1px #dadada solid;
