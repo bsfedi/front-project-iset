@@ -73,10 +73,12 @@ export class SigninComponent {
           this.showsucessmessage = true;
 
           // Save the token in local storage
-          localStorage.setItem('token', res.token);
           localStorage.setItem('user_id', res.user_id);
-          localStorage.setItem('role', res.role);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', res.user);
           localStorage.setItem('register_id', res.register_id);
+          localStorage.setItem('role', res.role);
+
 
           if (res.role == 'student') {
             const headers = new HttpHeaders().set('Authorization', `${res.token}`);

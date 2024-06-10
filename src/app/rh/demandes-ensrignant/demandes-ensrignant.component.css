@@ -1147,7 +1147,10 @@ svg {
     font-weight: bold;
 }
 
-
+input.largerCheckbox {
+    width: 20px;
+    height: 16px;
+}
 
 #checkboxes {
     display: none;

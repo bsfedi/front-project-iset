@@ -28,7 +28,12 @@
                                     </td>
                                 </ng-container>
                                 <td>
-                                    {{ item.total_absences }}
+                                    <div *ngIf="item.total_absences<4">
+                                        <b> {{ item.total_absences }} </b>
+                                    </div>
+                                    <div *ngIf="item.total_absences>=4" style="color: red;">
+                                        <b> {{ item.total_absences }} </b>
+                                    </div>
                                 </td>
                             </tr>
 

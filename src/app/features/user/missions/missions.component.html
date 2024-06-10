@@ -627,7 +627,8 @@
                 </div>
                 <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'" *ngFor="let en of ens">
                   <label for="en._id">
-                    <input type="checkbox" (change)="toggleTeacher(en._id)" id="en._id" />{{en.first_name}}
+                    <input type="checkbox" class="largerCheckbox" (change)="toggleTeacher(en._id)"
+                      id="en._id" />{{en.first_name}}
                     {{en.last_name}}</label>
 
                 </div>

@@ -12,14 +12,10 @@
 
           </div>
           <div class="first-flex">
-            <div class="write">
+            <div class="">
               Gérez les membres de votre équipe et les autorisations de leur compte
             </div>
-            <div>
-              <button class="button1" (click)="openPopup()">
-                + Ajouter un membre
-              </button>
-            </div>
+
           </div>
 
           <div class="popup" *ngIf="showPopup">
@@ -152,16 +148,16 @@
 
 
                 </div>
-                <form style="display: flex" [formGroup]="myForm" *ngIf="selectedOption1">
+                <form style="display: flex" *ngIf="form2">
                   <div>
 
 
 
-                    <div class="grid-item">
+                    <div class="grid-item" *ngIf="selectedOption1">
                       <div class="custom-file-input" (change)="setFileInput('cin', $event)" style="cursor: pointer">
                         <label class="file-label" for="fileInput" style="cursor: pointer">
 
-                          Pièce d’identité (CNI)
+                          Fichier
                         </label>
 
                         <div class="vertical-line"></div>
@@ -268,6 +264,13 @@
                 </svg>
                 <input type="search" placeholder="Rechercher par le nom" [(ngModel)]="searchTerm1"
                   (input)="applyFilter1()">
+              </div>
+              <div>
+                <div>
+                  <button class="  button1" (click)="openPopup()">
+                    + Ajouter un membre
+                  </button>
+                </div>
               </div>
             </div>
             <br>

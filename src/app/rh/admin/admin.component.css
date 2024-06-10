@@ -130,7 +130,8 @@ svg {
   display: flex;
   border: 2px solid #eae3d5;
   width: auto;
-  margin-left: 405px;
+  margin-left: 215px;
+  height: 3rem;
   padding: 0.5rem;
   justify-content: center;
   align-items: center;
@@ -335,9 +336,6 @@ button {
 
 }
 
-.write {
-  width: 350px;
-}
 
 .table-wrapper {
   overflow-x: auto;
@@ -369,7 +367,7 @@ button {
     display: flex;
     border: 2px solid #eae3d5;
     width: auto;
-    margin-left: 205px;
+    margin-left: 0px;
     padding: 0.5rem;
     justify-content: center;
     align-items: center;

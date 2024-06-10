@@ -467,9 +467,12 @@
                                     <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'"
                                         *ngFor="let student of students">
                                         <label for="student.user_id" (change)="toggleTeacher(student.user_id)">
-                                            <input type="checkbox"
-                                                id="student.user_id" />{{student.personalInfo.first_name}}
-                                            {{student.personalInfo.first_name}}</label>
+                                            <input type="checkbox" class="largerCheckbox" id="student.user_id" />
+
+                                            {{student.personalInfo.first_name}}
+                                            {{student.personalInfo.first_name}}
+
+                                        </label>
 
                                     </div>
                                 </div>
