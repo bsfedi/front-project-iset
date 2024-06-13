@@ -292,7 +292,7 @@ export class GestionStagesComponent {
       next: (res) => {
         // Handle the response from the server
         this.res = res
-        this.filteredItems = this.res;
+
         console.log('inffffffffoooooo', this.res);
 
 

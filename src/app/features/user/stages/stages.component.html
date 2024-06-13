@@ -209,6 +209,17 @@
                                 margin-bottom: 10px;
                                 margin-left: 5px;
                               ">
+                                                Attestation de stage
+                                            </div>
+                                        </div>
+
+                                        <div style="display: flex; cursor: pointer">
+                                            <img src="/assets/Checkmark.svg" width="12%" />
+                                            <div (click)="generatePdf1(item._id)" style="
+                                margin-top: 7px;
+                                margin-bottom: 10px;
+                                margin-left: 5px;
+                              ">
                                                 Demande de stage
                                             </div>
                                         </div>
@@ -486,7 +497,7 @@
                                         <input type="text" formControlName="email_entreprise"
                                             placeholder="email entreprise" required />
                                     </div>
-                                    <div class="grid-item">
+                                    <!-- <div class="grid-item">
                                         <div class="custom-file-input" (change)="setFileInput('cin', $event)"
                                             style="cursor: pointer">
                                             <label class="file-label" for="fileInput" style="cursor: pointer">
@@ -546,7 +557,7 @@
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="buttons" (click)="demandeaverification()">
                                         <button type="submit" class="button">
                                             <div class="inscrire">Ajouter</div>
