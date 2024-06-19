@@ -91,6 +91,14 @@ export class LeftBarComponent {
   gotosupport() {
     this.router.navigate([clientName + '/support-cours'])
   }
+  gotofiche_des_voeux() {
+    this.router.navigate([clientName + '/fiche_des_voeux'])
+
+  }
+  gotosecretaire() {
+    this.router.navigate([clientName + '/secretaire'])
+
+  }
   gotogestion() {
     this.router.navigate([clientName + '/gestion'])
   }

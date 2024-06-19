@@ -49,6 +49,10 @@
 
                             <th> Date début congé</th>
                             <th> Date fin congé</th>
+                            <th> Adresse</th>
+                            <th>
+                                type
+                            </th>
                             <th> Heure début congé</th>
 
                             <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> Heure fin congé </th>
@@ -84,6 +88,8 @@
 
                                 <td>{{ item.date_debut }}</td>
                                 <td>{{ item.date_fin }}</td>
+                                <td> {{item.Adresse}}</td>
+                                <td> {{item.type_conge}} </td>
                                 <td>{{ item.heure_debut }}</td>
                                 <td>{{ item.heure_fin }}</td>
                             </tr>
@@ -861,30 +867,30 @@
                                                 </select>
                                             </div>
                                             <div class="grid-item"
-                                                *ngIf="myForm3.get('type_conge')?.value === 'congé anuuel' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
+                                                *ngIf="myForm3.get('type_conge')?.value === 'compensation' || myForm3.get('type_conge')?.value === 'Congé Ordinaire' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
                                                 <input type="date" formControlName="date_debut" placeholder="month"
                                                     required />
                                             </div>
                                             <div class="grid-item"
-                                                *ngIf="myForm3.get('type_conge')?.value === 'congé anuuel' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
+                                                *ngIf="myForm3.get('type_conge')?.value === 'compensation' || myForm3.get('type_conge')?.value === 'Congé Ordinaire' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
                                                 <input type="date" formControlName="date_fin" placeholder="month"
                                                     required />
                                             </div>
                                             <div class="grid-item"
-                                                *ngIf="myForm3.get('type_conge')?.value === 'congé anuuel' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
+                                                *ngIf="myForm3.get('type_conge')?.value === 'Congé Ordinaire' ||  myForm3.get('type_conge')?.value === 'congé de maladie' ">
                                                 <input type="text" formControlName="Adresse" placeholder=" Adresse pendant le congé
                                             " required />
                                             </div>
 
 
                                             <div class="grid-item"
-                                                *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' ||   myForm3.get('type_conge')?.value === 'Autorisation de Sortie' ">
+                                                *ngIf=" myForm3.get('type_conge')?.value === 'accompagnement' ||   myForm3.get('type_conge')?.value === 'Autorisation de Sortie' ">
                                                 <input type="time" formControlName="heure_debut" placeholder="month"
                                                     required />
                                             </div>
                                             <div class="grid-item">
                                                 <input type="time"
-                                                    *ngIf="myForm3.get('type_conge')?.value === 'compensation' ||  myForm3.get('type_conge')?.value === 'accompagnement' ||   myForm3.get('type_conge')?.value === 'Autorisation de Sortie' "
+                                                    *ngIf=" myForm3.get('type_conge')?.value === 'accompagnement' ||   myForm3.get('type_conge')?.value === 'Autorisation de Sortie' "
                                                     formControlName="heure_fin" placeholder="month" required />
                                             </div>
                                         </form>

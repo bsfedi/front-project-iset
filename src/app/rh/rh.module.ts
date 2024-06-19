@@ -33,6 +33,8 @@ import { DetailsStageComponent } from './details-stage/details-stage.component';
 import { GestionAbsencesComponent } from './gestion-absences/gestion-absences.component';
 import { GestionOrientationComponent } from './gestion-orientation/gestion-orientation.component';
 import { SupportCoursComponent } from './support-cours/support-cours.component';
+import { FicheDesVoeuxComponent } from './fiche-des-voeux/fiche-des-voeux.component';
+import { SecretaireComponent } from './secretaire/secretaire.component';
 
 export const routes: Routes = [
   {
@@ -107,6 +109,14 @@ export const routes: Routes = [
   {
     path: 'gestion-orientation',
     component: GestionOrientationComponent
+  },
+  {
+    path: 'secretaire',
+    component: SecretaireComponent
+  },
+  {
+    path: 'fiche_des_voeux',
+    component: FicheDesVoeuxComponent
   },
   {
 
@@ -193,6 +203,8 @@ export const routes: Routes = [
     GestionAbsencesComponent,
     GestionOrientationComponent,
     SupportCoursComponent,
+    FicheDesVoeuxComponent,
+    SecretaireComponent,
   ],
   imports: [
     CommonModule,

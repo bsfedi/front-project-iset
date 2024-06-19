@@ -96,6 +96,7 @@ export class DashboardComponent {
       titre: [''],
       departement: [''],
       contenu: [''],
+      ens: ['']
 
     });
 
@@ -164,6 +165,7 @@ export class DashboardComponent {
   fullname: any
   attestations: any
   annonces: any
+  annonces_ens: any
   departement: any
   accept(demande_id: any) {
     const data = {
@@ -300,6 +302,9 @@ export class DashboardComponent {
 
             }
           });
+
+
+
         }, error(e) {
           console.log(e);
 
@@ -508,6 +513,9 @@ export class DashboardComponent {
   add_annonce() {
 
     this.myForm2.value.departement = this.departement
+    if (this.role == 'admin' || this.role == 'directeuretudes') {
+      this.myForm2.value.ens = "all"
+    }
     this.studentservice.add_annonce(this.myForm2.value)
       .subscribe({
         next: (res) => {

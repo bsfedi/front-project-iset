@@ -5,7 +5,7 @@
         <div class="title" style="max-width: 15rem;">
             Mes documents
         </div>
-        <button (click)="openPopup()" *ngIf="role == 'enseignant'"> Ajouter un document</button>
+        <button (click)="openPopup()" *ngIf="role == 'enseignant' || role == 'admin' "> Ajouter un document</button>
 
 
         <div *ngIf="!card" class="docs" [ngClass]="{

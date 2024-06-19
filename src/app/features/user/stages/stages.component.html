@@ -615,8 +615,10 @@
                                         placeholder="Téléphone encadrant externe" required />
                                 </div>
                                 <div class="grid-item">
-                                    <input type="text" formControlName="encadrant_interne"
-                                        placeholder="Encadrant interne" required />
+                                    <select formControlName="encadrant_interne">
+                                        <option *ngFor="let en of ens"> {{en.first_name}} {{en.last_name}} </option>
+                                    </select>
+
                                 </div>
 
                                 <div class="grid-item">
@@ -687,7 +689,7 @@
                                 </div>
                                 <br>
                                 <div class="buttons" (click)="demandeaverification()"
-                                    *ngIf="res.personalInfo.level !=3 && myForm2.value.type =='stage PFE'  ">
+                                    *ngIf="res.personalInfo.level ==3 && myForm2.value.type =='stage PFE'  ">
                                     <button type="submit" class="button">
                                         <div class="inscrire">Ajouter</div>
                                     </button>

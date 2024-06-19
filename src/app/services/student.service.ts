@@ -195,6 +195,13 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'verification_absences');
   }
+  verification_absences_departement(departement: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'verification_absences/' + departement);
+  }
+
+
+
   get_documents(uploaded_by: any): Observable<any> {
 
     return this.http.get(baseUrl + 'get_documents/' + uploaded_by);
@@ -465,6 +472,25 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_stages_by_departement/' + departement);
   }
+
+  get_stagess() {
+    return this.http.get(baseUrl + 'get_stages_by_departement');
+  }
+
+
+  get_stages_by_departement_inperf(departement: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_stages_by_departement_inperf/' + departement);
+  }
+
+  get_stages_by_departement_inperff() {
+    return this.http.get(baseUrl + 'get_stages_by_departement_inperf');
+  }
+
+
+
+
+
   get_stage_by_id(stage_id: any): Observable<any> {
 
     return this.http.get(baseUrl + 'get_stage_by_id/' + stage_id);
@@ -480,6 +506,12 @@ export class StudentService {
 
     return this.http.get(baseUrl + 'get_modules');
   }
+  get_modules_departement(departement: any): Observable<any> {
+
+    return this.http.get(baseUrl + 'get_modules/' + departement);
+  }
+
+
 
   affecter_damande(demande_id: any, enseignant_id: any): Observable<any> {
 
@@ -603,7 +635,35 @@ export class StudentService {
   annonces(departement: any) {
     return this.http.get(baseUrl + 'annonces/' + departement);
   }
+
+
+  annonces_ens(departement: any) {
+    return this.http.get(baseUrl + 'annonces_ens/' + departement);
+  }
+
   deleteannonce(annonce_id: any) {
     return this.http.delete(baseUrl + 'annonce/' + annonce_id);
   }
+
+  fiche_de_voeux(data: any): Observable<any> {
+
+    return this.http.post(baseUrl + 'fiche_de_voeux', data);
+  }
+  get_fiche_de_voeux(user_id: any) {
+    return this.http.get(baseUrl + 'fiche_de_voeux/' + user_id);
+  }
+  all_fiches() {
+    return this.http.get(baseUrl + 'fiche_de_voeux');
+  }
+
+  all_verifications() {
+    return this.http.get(baseUrl + 'all_verifications');
+  }
+
+  all_conge() {
+    return this.http.get(baseUrl + 'all_conge');
+  }
+
+
+
 }

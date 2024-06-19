@@ -7,7 +7,7 @@
         <div class="second-container" *ngIf="show">
             <div style="display: flex">
 
-                <div class="title"> MES DEMANDES</div>
+                <div class="title"> Gérer salles / rattrapges</div>
 
             </div>
             <p></p>
@@ -20,7 +20,7 @@
             <br />
 
             <div>
-                <button class="button newmissionbutton" (click)="openPopup1()">
+                <button class="button newmissionbutton" (click)="openPopup1()" *ngIf="role === 'directeuretudes'">
                     Ajouter Salle de Classe
                 </button>
             </div>

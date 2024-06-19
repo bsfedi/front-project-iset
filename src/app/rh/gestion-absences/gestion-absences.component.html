@@ -4,7 +4,8 @@
             <app-left-bar></app-left-bar>
         </div>
         <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
-        <div class="second-container" *ngIf="role == 'directeurdepartement' ||  role == 'directeuretudes'  && show">
+        <div class="second-container"
+            *ngIf="role == 'directeurdepartement' ||  role == 'directeuretudes' ||  role == 'admin'  && show">
             <div style="display: flex">
 
                 <div class="title">ABSENCES</div>

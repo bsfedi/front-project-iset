@@ -65,6 +65,7 @@ export class NotificaionRhComponent {
   role: any
   fullname: any
   departement: any
+  annonces_ens: any
   ngOnInit(): void {
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
@@ -94,6 +95,16 @@ export class NotificaionRhComponent {
 
           this.fullname = res.first_name + " " + res.last_name
           this.departement = res.departement
+          this.studentservice.annonces_ens(this.departement).subscribe({
+            next: (res) => {
+              console.log(this.departement);
+
+              this.items = res
+            }, error(e) {
+              console.log(e);
+
+            }
+          });
         }, error(e) {
           console.log(e);
 

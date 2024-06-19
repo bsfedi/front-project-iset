@@ -117,7 +117,7 @@
           <b style=" display: flex; margin: 10px;margin-bottom: 15px;margin-top: 35px;">
             <div id="cercle"></div>
             <div style="width:  230px;"> Attestation de presence</div>
-            <div> {{statsres.demande_count}} </div>
+            <div> {{statsres.demande_count || 0}} </div>
             <div style="margin-left: 100px;color: #858380;"> {{statsres.demande_percentage}}%</div>
 
           </b>
@@ -188,7 +188,7 @@
       </div>
 
       <br />
-      <div *ngIf="role == 'directeurdepartement'">
+      <div *ngIf="role == 'directeurdepartement' || role == 'admin' || role == 'directeuretudes'">
         <h2> Annonces</h2>
         <button style="width: 150px;" (click)="openPopup()"> Ajouter une annonce</button> <br>
         <div class="popup" *ngIf="showPopup">
@@ -203,6 +203,13 @@
                   <div class="grid-container">
                     <div class="grid-item">
                       <input type="text" formControlName="titre" placeholder="titre" required />
+                    </div>
+                    <div>
+                      <select formControlName="ens" *ngIf="role == 'directeurdepartement'">
+                        <option> Choisir Etudiants/Enseignants </option>
+                        <option value="false"> Etudiants </option>
+                        <option value="true"> Enseignants </option>
+                      </select>
                     </div>
                     <div class="grid-item">
                       <textarea type="text" formControlName="contenu" placeholder="contenu" required
@@ -229,12 +236,17 @@
             <thead>
               <th style="border-radius: 0.6875rem 0rem 0rem 0rem;"> Titre</th>
               <th> contenu</th>
+              <th></th>
               <th style="border-radius: 0rem 0.6875rem 0rem 0rem"> </th>
             </thead>
             <tbody>
               <tr *ngFor="let an of annonces">
                 <td> {{an.titre}}</td>
                 <td> {{an.contenu}}</td>
+                <td>
+                  <div *ngIf="an.ens == 'true'"> Enseignants </div>
+                  <div *ngIf="an.ens == 'false'"> Etudiants </div>
+                </td>
                 <td style="cursor: pointer;" (click)="deleteannonce(an._id)"> <svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
                     <path
@@ -246,7 +258,7 @@
         </div>
 
       </div>
-      <div *ngIf="role == 'tuitionofficer'">
+      <div *ngIf="role == 'tuitionofficer' || role == 'admin'">
         <h2> Nouvelles pré-inscription </h2>
         <div class="newflex" style="display: flex; justify-content: space-between;">
           <div class="newflex">
@@ -531,7 +543,7 @@
           </div>
         </div>
         <div>
-          <app-notificaion-rh *ngIf="role == 'student'"></app-notificaion-rh>
+          <app-notificaion-rh *ngIf="role == 'student' || role == 'enseignant' "></app-notificaion-rh>
         </div>
 
 

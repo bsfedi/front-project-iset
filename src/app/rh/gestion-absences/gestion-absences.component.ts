@@ -421,7 +421,7 @@ export class GestionAbsencesComponent {
 
     // Generate the table headers dynamically
     const tableHeaders = displayth.map((item: any) => `
-      <th>${item.date}</th>
+      <th style="width:auto">${item.date}</th>
     `).join('');
 
     // Generate the table rows dynamically
@@ -453,7 +453,7 @@ export class GestionAbsencesComponent {
             }
             th, td {
               border: 1px solid black;
-              padding: 8px;
+             
               text-align: left;
             }
           </style>
@@ -489,11 +489,11 @@ export class GestionAbsencesComponent {
     // Generate PDF from HTML content
     html2pdf().from(htmlContent).set({
       margin: 10,
-      filename: 'orientation.pdf',
+      filename: 'absences.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    }).save('orientation.pdf');
+    }).save('absences.pdf');
   }
 
   getmodule(event: any) {

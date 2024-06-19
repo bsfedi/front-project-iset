@@ -169,7 +169,7 @@ export class GererDepartementComponent {
           this.show = true
           this.fullname = res.first_name + " " + res.last_name
           this.departement = res.departement
-          if (res.role == 'directeuretudes') {
+          if (res.role == 'directeuretudes' || res.privilege == 'directeuretudes' || res.role == 'admin') {
             this.studentservice.get_parcours().subscribe(
               (response) => {
                 this.pending_parcourss = response
@@ -183,6 +183,35 @@ export class GererDepartementComponent {
                 // Handle the error or display an error message
               }
             );
+            this.studentservice.get_classes().subscribe({
+
+
+              next: (res) => {
+                this.tjmrequests = res
+
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                this.tjmrequests = []
+                console.error(e);
+                // Set loading to false in case of an error
+              }
+            });
+            this.studentservice.get_modules().subscribe({
+
+
+              next: (res) => {
+                this.rattrapge_requests = res
+              },
+              error: (e) => {
+                // Handle errors
+                this.tjmrequests = []
+                console.error(e);
+                // Set loading to false in case of an error
+              }
+            });
           } else {
             this.studentservice.get_parcours_departement(res.departement).subscribe(
               (response) => {
@@ -197,6 +226,36 @@ export class GererDepartementComponent {
                 // Handle the error or display an error message
               }
             );
+            this.studentservice.get_classes_bydep(res.departement).subscribe({
+
+
+              next: (res) => {
+                this.tjmrequests = res
+
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                this.tjmrequests = []
+                console.error(e);
+                // Set loading to false in case of an error
+              }
+            });
+            this.studentservice.get_modules_departement(res.departement).subscribe({
+
+
+              next: (res) => {
+                this.rattrapge_requests = res
+              },
+              error: (e) => {
+                // Handle errors
+                this.tjmrequests = []
+                console.error(e);
+                // Set loading to false in case of an error
+              }
+            });
+
           }
 
         }, error(e) {
@@ -210,35 +269,8 @@ export class GererDepartementComponent {
     this.user_id = localStorage.getItem('user_id')
     this.new_notif = localStorage.getItem('new_notif');
     this.role = localStorage.getItem('role');
-    this.studentservice.get_classes().subscribe({
 
 
-      next: (res) => {
-        this.tjmrequests = res
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        this.tjmrequests = []
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
-    this.studentservice.get_modules().subscribe({
-
-
-      next: (res) => {
-        this.rattrapge_requests = res
-      },
-      error: (e) => {
-        // Handle errors
-        this.tjmrequests = []
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
 
     // Check if token is available
     if (token) {

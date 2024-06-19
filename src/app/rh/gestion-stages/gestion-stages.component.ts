@@ -216,7 +216,8 @@ export class GestionStagesComponent {
   ens: any
   departement: any
   changewidth: any
-
+  filteredItems1: any
+  res2: any
   role: any
   fullname: any
   ngOnInit(): void {
@@ -236,6 +237,66 @@ export class GestionStagesComponent {
         next: (res) => {
           this.show = true
           this.fullname = res.first_name + " " + res.last_name
+          if (res.role == 'directeuretudes' || res.privilege == 'directeuretudes' || res.role == 'admin') {
+            this.studentservice.get_stagess().subscribe({
+              next: (res) => {
+                // Handle the response from the server
+                this.res = res
+                this.filteredItems = this.res
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                console.error(e);
+              }
+            });
+            this.studentservice.get_stages_by_departement_inperff().subscribe({
+              next: (res) => {
+                // Handle the response from the server
+                this.res2 = res
+                this.filteredItems1 = this.res2
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                console.error(e);
+              }
+            });
+
+
+          }
+          else {
+            this.studentservice.get_stages_by_departement(res.departement).subscribe({
+              next: (res) => {
+                // Handle the response from the server
+                this.res = res
+                this.filteredItems = this.res
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                console.error(e);
+              }
+            });
+            this.studentservice.get_stages_by_departement_inperf(res.departement).subscribe({
+              next: (res) => {
+                // Handle the response from the server
+                this.res2 = res
+                this.filteredItems1 = this.res2
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                console.error(e);
+              }
+            });
+
+
+          }
         }, error(e) {
           console.log(e);
 
@@ -250,19 +311,7 @@ export class GestionStagesComponent {
 
     this.register_id = localStorage.getItem('register_id')
 
-    this.studentservice.get_stages_by_departement(this.user_id).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res
-        this.filteredItems = this.res
 
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-      }
-    });
 
     const token = localStorage.getItem('token');
 

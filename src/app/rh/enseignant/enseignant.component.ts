@@ -29,21 +29,9 @@ export class EnseignantComponent {
   ens_id: any
   fullname: any
   alldem: any
+  departement: any
   ngOnInit(): void {
-    this.studentservice.verification_absences().subscribe({
-      next: (res) => {
-        this.getverification_absence = res;
 
-
-      },
-      error: (e) => {
-        // Handle errors
-        this.getverification_absence = [];
-        console.error(e);
-
-        // Set loading to false in case of an error
-      },
-    });
     this.ens_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
@@ -55,16 +43,52 @@ export class EnseignantComponent {
 
         }
       });
-    } else {
+    }
+
+    else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
           this.fullname = res.first_name + " " + res.last_name
+          this.departement = res.departement
+          if (this.role == 'directeuretudes' || res.privilege == 'directeuretudes' || res.role == 'admin') {
+            this.studentservice.verification_absences().subscribe({
+              next: (res) => {
+                this.getverification_absence = res;
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                this.getverification_absence = [];
+                console.error(e);
+
+                // Set loading to false in case of an error
+              },
+            });
+          } else {
+            this.studentservice.verification_absences_departement(this.departement).subscribe({
+              next: (res) => {
+                this.getverification_absence = res;
+
+
+              },
+              error: (e) => {
+                // Handle errors
+                this.getverification_absence = [];
+                console.error(e);
+
+                // Set loading to false in case of an error
+              },
+            });
+
+          }
         }, error(e) {
           console.log(e);
 
         }
       });
     }
+
     this.studentservice.getdemadndesenseignant(this.ens_id).subscribe({
       next: (res: any) => {
 

@@ -737,7 +737,7 @@ export class MissionsComponent {
       const isSimulationValidatedeee = this.fileInputs?.isSimulationValidated.files[0];
       formData.append('justificatif', isSimulationValidatedeee);
     }
-
+    formData.append('departement', this.res.personalInfo.departement);
     formData.append('matiere', this.myForm2.value.matiere);
     formData.append('nb_absence', this.myForm2.value.note);
     formData.append('commentaire', this.myForm2.value.commentaire);

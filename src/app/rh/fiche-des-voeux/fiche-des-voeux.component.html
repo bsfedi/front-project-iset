@@ -1,0 +1,274 @@
+<body>
+    <div class="container">
+        <div>
+            <app-left-bar></app-left-bar>
+        </div>
+        <div class="loader" *ngIf="!show"> <img src="/assets/logo2.png" width="120%" /> </div>
+        <div class="second-container" *ngIf="show">
+            <div style="display: flex">
+
+                <div class="title"> FICHE DE VŒUX</div>
+
+            </div>
+
+
+            <div>
+                <button class="button newmissionbutton" (click)="openPopup1()" *ngIf="role === 'directeuretudes'">
+                    Ajouter Salle de Classe
+                </button>
+            </div>
+            <br />
+
+
+            <br />
+            <div *ngIf="role == 'enseignant'">
+                <div class="custom-container">
+
+                    Matières
+
+                </div>
+                <div style="display: flex;" *ngIf="fiche_de_voeux.modules.length == 0  ">
+                    <button type="button" (click)="addModule()">Add Module</button>
+
+                </div>
+                <div class="table-wrapper" *ngIf="fiche_de_voeux.modules.length == 0 && role == 'enseignant'">
+                    <form [formGroup]="wishForm" (ngSubmit)="onSubmit()">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Priorité</th>
+                                    <th>Matière</th>
+                                    <th>Classe</th>
+                                    <th>CI</th>
+                                    <th>TP</th>
+                                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="modules">
+                                <tr *ngFor="let module of modules.controls; let i = index" [formGroupName]="i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td><input type="text" formControlName="module" placeholder="Enter value"></td>
+                                    <td><input type="text" formControlName="Classe" placeholder="Enter value"></td>
+                                    <td><input type="number" formControlName="ChargeCI" placeholder="Enter value"></td>
+                                    <td><input type="number" formControlName="ChargeTP" placeholder="Enter value"></td>
+                                    <td>
+                                        <svg (click)="removeModule(i)" xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                        </svg>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div>
+                <div class="table-wrapper" *ngIf="fiche_de_voeux.modules.length != 0 && role == 'enseignant'">
+                    <form [formGroup]="wishForm" (ngSubmit)="onSubmit()">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Priorité</th>
+                                    <th>Matière</th>
+                                    <th>Classe</th>
+                                    <th>CI</th>
+                                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">TP</th>
+                                    <!-- <th>Actions</th> -->
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="modules">
+                                <tr *ngFor="let module of fiche_de_voeux.modules; let i = index" [formGroupName]="i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{module.module}}</td>
+                                    <td> {{module.Classe}} </td>
+                                    <td>{{module.ChargeCI}}</td>
+                                    <td>{{module.ChargeTP}}</td>
+                                    <!-- <td>
+                                        <svg (click)="removeModule(i)" xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                        </svg>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div> <br>
+
+                <div class="custom-container">
+
+                    Jours souhaités
+
+                </div>
+
+                <form [formGroup]="scheduleForm" *ngIf="role == 'enseignant'">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Jours Choisis</th>
+                                <th *ngFor="let session of sessions">{{ session }}<br>
+                                    <span *ngIf="session === 'S1'">(08:30–10:00)</span>
+                                    <span *ngIf="session === 'S2'">(10:15–11:45)</span>
+                                    <span *ngIf="session === 'S3'">(13:00–14:30)</span>
+                                    <span *ngIf="session === 'S4'">(14:45–16:15)</span>
+                                    <span *ngIf="session === 'S5'">(16:30–18:00)</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="schedule">
+                            <tr *ngFor="let dayGroup of scheduleArray.controls; let i = index" [formGroupName]="i">
+                                <td>{{ days[i] }}</td>
+                                <td *ngFor="let session of sessions; let j = index">
+                                    <input type="checkbox" [formControlName]="j" (change)="onCheckboxChange()">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+
+
+                <form [formGroup]="scheduleForm" *ngIf="fiche_de_voeux.modules.length == 15 && role == 'enseignant'">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Jours Choisis</th>
+                                <th *ngFor="let session of sessions">{{ session }}<br><span
+                                        *ngIf="session === 'S1'">(08:30–10:00)</span><span
+                                        *ngIf="session === 'S2'">(10:15–11:45)</span><span
+                                        *ngIf="session === 'S3'">(13:00–14:30)</span><span
+                                        *ngIf="session === 'S4'">(14:45–16:15)</span><span
+                                        *ngIf="session === 'S5'">(16:30–18:00)</span></th>
+
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="schedule">
+                            <tr *ngFor="let dayGroup of fiche_de_voeux.data; let i = index" [formGroupName]="i">
+                                <td>{{
+                                    dayGroup.day }}</td>
+                                <td *ngFor="let session of sessions; let j = index">
+                                    <input type="checkbox" [formControlName]="j">
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </form>
+            </div>
+            <button type="submit" (click)="onSubmit()" style="float: right;"
+                *ngIf="role == 'enseignant'">Ajouter</button>
+
+            <div class="table-wrapper" *ngIf=" fiche_de_voeux.length>0 && role == 'directeurdepartement'">
+                <div class="custom-container">
+
+                    fiches des vœux
+
+                </div><br>
+
+                <form>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Nom</th>
+                                <th>Prenom</th>
+
+                                <th> Grade</th>
+                                <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
+                                <!-- <th>Actions</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let module of fiche_de_voeux; let i = index">
+
+                                <td>{{module.nom}}</td>
+                                <td> {{module.prenom}} </td>
+                                <td>{{module.grade}}</td>
+                                <td (click)="generatePdf(module.user_id)">
+                                    <div
+                                        style="background-color: blue; margin: 5px;color: white;padding: 5px;border-radius: 2rem;cursor: pointer;">
+                                        PDF
+                                    </div>
+                                </td>
+
+                                <!-- <td>
+                                    <svg (click)="removeModule(i)" xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                    </svg>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </form>
+            </div>
+
+            <br /><br />
+
+            <br />
+
+
+            <br /><br />
+            <!-- <div class="popup" *ngIf="showPopup">
+                <div class="popup-content" style="  height: 14.4375rem;">
+                    <div style="float: right" (click)="closePopup()">
+                        <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
+                    </div>
+                    <div>
+                        <h3>Déclarer une nouvelle demande</h3>
+
+
+                        <form action="/submit_form" method="post" style="display: flex" [formGroup]="myForm2">
+                            <div class="form-section">
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <select formControlName="type">
+                                            <option value="AT">Attestation de travail </option>
+                                            <option value="FP">fiche de paie </option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="grid-item" *ngIf=" myForm2.get('type')?.value === 'FP'">
+                                        <input type="month" formControlName="month" placeholder="month" required />
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="buttons">
+                                    <button type="submit" class="button" (click)="demandeaverification()">
+                                        <div class="inscrire">Ajouter</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+
+
+        <div class="right-item">
+            <div style="display: flex;margin-bottom: 0px;">
+
+                <div class="profil" style="cursor: pointer;" (click)="gotomyprofile()">
+                    <img src="/assets/avatar-user.png" width="15%" height="10%" />
+                    <div class="nom-prenom">{{fullname}} <br>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>

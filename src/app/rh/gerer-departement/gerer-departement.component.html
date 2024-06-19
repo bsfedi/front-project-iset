@@ -13,19 +13,18 @@
                 <div>
 
                 </div>
-                <div class="first" [ngClass]="{ 'tjmselected': tjm , 'missionselectd': !parcours}">
+                <div class="first" [ngClass]="{ 'tjmselected': tjm }">
                     <div style="margin-right: 5px; cursor: pointer;" (click)="showtjm()">
                         Gérer Parcours
                     </div>
                     <div>
-                        <div class="second" [ngClass]="{ 'missionselectd': !parcours }" (click)="showparcours()"
-                            *ngIf="role == 'directeuretudes'">
+                        <div class="second" [ngClass]="{ 'missionselectd': !parcours }" (click)="showparcours()">
                             Gérer classes
                         </div>
                     </div>
                     <div>
-                        <div class="second" [ngClass]="{ 'missionselectd': !rattrapge }" (click)="showrattrapge()"
-                            *ngIf="role == 'directeuretudes'">
+                        <!-- *ngIf="role == 'directeuretudes'" -->
+                        <div class="second" [ngClass]="{ 'missionselectd': !rattrapge }" (click)="showrattrapge()">
                             Gérer Modules
                         </div>
                     </div>
