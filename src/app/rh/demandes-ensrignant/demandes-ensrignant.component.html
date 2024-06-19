@@ -815,7 +815,9 @@
                                             <option value="AT">Attestation de travail </option>
                                             <option value="FP">Fiche de paie </option>
                                             <option value="RA"> Déclaration revenus annuels</option>
-                                            <option value="CONGE" *ngIf="role === 'tuitionofficer'"> Congé </option>
+                                            <option value="CONGE"
+                                                *ngIf="role === 'tuitionofficer' ||  role === 'technicien'"> Congé
+                                            </option>
 
                                         </select>
 

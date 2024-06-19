@@ -163,8 +163,12 @@ export class SigninComponent {
             this.router.navigate([clientName + '/enseignant']);
 
           }
-          else if (res.role == "ADMIN") {
+          else if (res.role == "ADMIN" || res.role == "admin") {
             this.router.navigate([clientName + '/members']);
+
+          }
+          else if (res.role == "technicien") {
+            this.router.navigate([clientName + '/demandes']);
 
           }
           else if (res.role == "directeurdepartement" || res.role == "directeuretudes") {

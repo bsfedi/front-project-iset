@@ -77,6 +77,10 @@ export class StudentService {
   updateuser(id: any, data: any) {
     return this.http.put(baseUrl + 'user/' + id, data);
   }
+
+  update_user(id: any, data: any) {
+    return this.http.put(baseUrl + 'update_user/' + id, data);
+  }
   updatepassword(id: any, data: any) {
     return this.http.put(baseUrl + 'users/update_password/' + id, data);
   }

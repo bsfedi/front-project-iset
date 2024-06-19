@@ -31,7 +31,13 @@ export class AdminComponent {
   show: any
   selectedOption: any
   selectedOption1: string = '';
+  myForm4: FormGroup;
   constructor(private inscriptionservice: InscriptionService, private studentservice: StudentService, private consultantservice: ConsultantService, private router: Router, private userservice: UserService, private socketService: WebSocketService, private fb: FormBuilder) {
+
+    this.myForm4 = this.fb.group({
+      departement: ['', Validators.required],
+      phone: ['', Validators.required],
+    })
     this.myForm = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -528,6 +534,8 @@ export class AdminComponent {
   }
   show_profil: any
   profil: any
+  departement: any
+  phone: any
   openPopup1(id: any, show_profil: any): void {
     this.user_id = id
     this.show_profil = show_profil
@@ -535,6 +543,8 @@ export class AdminComponent {
       this.studentservice.getuserbyid(this.user_id).subscribe({
         next: (res) => {
           this.profil = res
+          this.departement = this.profil.departement
+          this.phone = this.profil.phone
         }, error(e) {
           console.log(e);
 
@@ -620,19 +630,17 @@ export class AdminComponent {
       },
     });
   }
-  updateUserByAdmin(id: any, activated: any) {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `${token}`);
-    console.log(id);
+  updateUserByAdmin(id: any, departement: any, phone: any) {
 
-    const data: any = {
-      "activated": activated
+    const data = {
+      "departement": departement,
+      "phone": phone
     }
-    this.consultantservice.updateUserByAdmin(id, data, headers).subscribe({
+    this.studentservice.update_user(id, this.myForm4.value).subscribe({
       next: (res) => {
         Swal.fire('Success', 'Compte desactivé avec succès!', 'success');
         this.showPopup = false;
-        window.location.reload();
+
         // Handle the response from the server
         console.log(res);
         // Additional logic if needed

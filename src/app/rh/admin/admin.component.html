@@ -540,24 +540,37 @@
                           </div> <br>
                         </div> <br>
                         <div *ngIf="show_profil" style="  justify-content: none;text-align: left;">
-                          <b> Informations du compte </b> <br> <br>
+                          <div style="display: flex;">
+                            <b> Informations du compte </b>
+                            <div
+                              style="margin-left: 15px;background-color: blue;color: white;border-radius: 2rem;padding: 2px 5px 5px 5px;cursor: pointer;"
+                              (click)="updateUserByAdmin(profil._id,profil.departement,profil.phone)">
+                              Edit</div>
+                          </div> <br>
                           <div style="justify-content: none;text-align: left;">
                             <div style="display: flex;">
                               <div style="width: 300px;">
                                 <b> Email : </b> {{profil.email}} <br>
                               </div>
-                              <div>
-                                <b> Télephone : </b> {{profil.phone}} <br>
-                              </div>
-                            </div>
-                            <div style="display: flex; margin-top: 10px;">
                               <div style="width: 300px;">
                                 <b> Adresse : </b> {{profil.adresse}} <br>
                               </div>
-                              <div>
-                                <b> Departement : </b> {{profil.departement}} <br>
+                            </div>
+                            <div style="display: flex; margin-top: 10px;">
+                              <form [formGroup]="myForm4" style="display: flex;">
+                                <div>
+                                  <b> Departement : </b> <input type="text" style="width: auto;"
+                                    [value]="profil.departement" formControlName="departement"
+                                    [(ngModel)]="departement"><br>
 
-                              </div>
+                                </div>
+                                <div>
+                                  <b> Télephone : </b> <input type="text" style="width: auto;" value="profil.phone"
+                                    [(ngModel)]="phone" formControlName="phone">
+                                  <br>
+                                </div>
+                              </form>
+
                             </div>
                             <div style="display: flex;margin-top: 10px;">
                               <div style="width: 300px;">
