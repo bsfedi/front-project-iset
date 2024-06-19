@@ -13,25 +13,69 @@
 
 
             <div>
-                <button class="button newmissionbutton" (click)="openPopup1()" *ngIf="role === 'directeuretudes'">
+                <!-- <button class="button newmissionbutton" (click)="openPopup1()" *ngIf="role === 'directeuretudes'">
                     Ajouter Salle de Classe
-                </button>
+                </button> -->
             </div>
             <br />
 
 
             <br />
             <div *ngIf="role == 'enseignant'">
-                <div class="custom-container">
+                <div class="custom-container" style="display: flex;">
+
+                    <div> Historique </div>
+                    <button style="float: right;width:  auto;margin-left: 810px;" (click)="shownew()">ajouter une nvelle
+                        fiche </button>
+
+                </div>
+
+                <div class="table-wrapper" *ngIf=" role == 'enseignant'">
+                    <form [formGroup]="wishForm" (ngSubmit)="onSubmit()">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem"></th>
+                                    <th>Date dépot</th>
+
+                                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
+                                    <!-- <th>Actions</th> -->
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="modules">
+                                <tr *ngFor="let module of fiche_de_voeux; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{module.added_at.split('T')[0]}}</td>
+                                    <td (click)="generatePdf(module._id)">
+                                        <div
+                                            style="background-color: blue; margin: 5px;color: white;padding: 5px;border-radius: 2rem;cursor: pointer;">
+                                            PDF
+                                        </div>
+                                    </td>
+                                    <!-- <td>
+                                        <svg (click)="removeModule(i)" xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                        </svg>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div> <br>
+                <br>
+                <div class="custom-container" *ngIf="show_new_fiche">
 
                     Matières
 
                 </div>
-                <div style="display: flex;" *ngIf="fiche_de_voeux.modules.length == 0  ">
+                <div style="display: flex;" *ngIf="show_new_fiche">
                     <button type="button" (click)="addModule()">Add Module</button>
 
                 </div>
-                <div class="table-wrapper" *ngIf="fiche_de_voeux.modules.length == 0 && role == 'enseignant'">
+                <div class="table-wrapper" *ngIf="show_new_fiche && role == 'enseignant'">
                     <form [formGroup]="wishForm" (ngSubmit)="onSubmit()">
                         <table>
                             <thead>
@@ -64,47 +108,15 @@
 
                     </form>
                 </div>
-                <div class="table-wrapper" *ngIf="fiche_de_voeux.modules.length != 0 && role == 'enseignant'">
-                    <form [formGroup]="wishForm" (ngSubmit)="onSubmit()">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Priorité</th>
-                                    <th>Matière</th>
-                                    <th>Classe</th>
-                                    <th>CI</th>
-                                    <th style="border-radius: 0rem 0.6875rem 0rem 0rem">TP</th>
-                                    <!-- <th>Actions</th> -->
-                                </tr>
-                            </thead>
-                            <tbody formArrayName="modules">
-                                <tr *ngFor="let module of fiche_de_voeux.modules; let i = index" [formGroupName]="i">
-                                    <td>{{ i + 1 }}</td>
-                                    <td>{{module.module}}</td>
-                                    <td> {{module.Classe}} </td>
-                                    <td>{{module.ChargeCI}}</td>
-                                    <td>{{module.ChargeTP}}</td>
-                                    <!-- <td>
-                                        <svg (click)="removeModule(i)" xmlns="http://www.w3.org/2000/svg" width="16"
-                                            height="16" fill="blue" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                        </svg>
-                                    </td> -->
-                                </tr>
-                            </tbody>
-                        </table>
 
-                    </form>
-                </div> <br>
 
-                <div class="custom-container">
+                <div class="custom-container" *ngIf="show_new_fiche">
 
                     Jours souhaités
 
                 </div>
 
-                <form [formGroup]="scheduleForm" *ngIf="role == 'enseignant'">
+                <form [formGroup]="scheduleForm" *ngIf="role == 'enseignant' && show_new_fiche">
                     <table>
                         <thead>
                             <tr>
@@ -127,11 +139,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="submit">Submit</button>
+                    <!-- <button type="submit">Submit</button> -->
                 </form>
 
 
-                <form [formGroup]="scheduleForm" *ngIf="fiche_de_voeux.modules.length == 15 && role == 'enseignant'">
+                <!-- <form [formGroup]="scheduleForm" *ngIf=" show_new_fiche && role == 'enseignant'">
                     <table>
                         <thead>
                             <tr>
@@ -157,12 +169,13 @@
                         </tbody>
                     </table>
 
-                </form>
+                </form> -->
             </div>
             <button type="submit" (click)="onSubmit()" style="float: right;"
-                *ngIf="role == 'enseignant'">Ajouter</button>
+                *ngIf="role == 'enseignant' && show_new_fiche">Ajouter</button>
 
-            <div class="table-wrapper" *ngIf=" fiche_de_voeux.length>0 && role == 'directeurdepartement'">
+            <div class="table-wrapper"
+                *ngIf=" fiche_de_voeux.length>0 &&  (role == 'directeurdepartement' || user_info.privilege == 'directeurdepartement' )">
                 <div class="custom-container">
 
                     fiches des vœux
@@ -187,7 +200,7 @@
                                 <td>{{module.nom}}</td>
                                 <td> {{module.prenom}} </td>
                                 <td>{{module.grade}}</td>
-                                <td (click)="generatePdf(module.user_id)">
+                                <td (click)="generatePdf(module._id)">
                                     <div
                                         style="background-color: blue; margin: 5px;color: white;padding: 5px;border-radius: 2rem;cursor: pointer;">
                                         PDF

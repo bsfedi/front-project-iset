@@ -652,6 +652,10 @@ export class StudentService {
   get_fiche_de_voeux(user_id: any) {
     return this.http.get(baseUrl + 'fiche_de_voeux/' + user_id);
   }
+  fiche_de_voeux_by_id(voeux_id: any) {
+    return this.http.get(baseUrl + 'fiche_de_voeux_by_id/' + voeux_id);
+
+  }
   all_fiches() {
     return this.http.get(baseUrl + 'fiche_de_voeux');
   }

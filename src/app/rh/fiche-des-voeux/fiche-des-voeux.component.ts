@@ -69,8 +69,13 @@ export class FicheDesVoeuxComponent {
   fullname: any
   show: any
   fiche_de_voeux: any
+  user_info: any
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
+  }
+  show_new_fiche = false
+  shownew() {
+    this.show_new_fiche = true
   }
   ngOnInit(): void {
     this.scheduleForm = this.fb.group({
@@ -94,6 +99,7 @@ export class FicheDesVoeuxComponent {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
           this.show = true
+          this.user_info = res
           if (res.role == 'enseignant') {
             this.studentservice.get_fiche_de_voeux(res._id).subscribe({
               next: (res) => {
@@ -272,7 +278,7 @@ export class FicheDesVoeuxComponent {
 
   absences: any
   generatePdf(id: any) {
-    this.studentservice.get_fiche_de_voeux(id).subscribe({
+    this.studentservice.fiche_de_voeux_by_id(id).subscribe({
       next: (res) => {
         this.absences = res;
 
@@ -421,7 +427,7 @@ export class FicheDesVoeuxComponent {
     // Generate PDF from HTML content
     html2pdf().from(htmlContent).set({
       margin: 10,
-      filename: 'absences.pdf',
+      filename: 'fiche_de_voeux.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
