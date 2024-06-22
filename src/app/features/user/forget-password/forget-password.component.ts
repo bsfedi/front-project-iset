@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { StudentService } from 'src/app/services/student.service';

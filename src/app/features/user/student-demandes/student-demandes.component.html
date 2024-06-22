@@ -12,22 +12,6 @@
       </div>
       <p></p>
 
-      <!-- 
-      <div style="background: rgba(152, 251, 152, 0.75); color: #C3508C;" class="well  text-center">
-
-        <div class="sp-container">
-          <div class="sp-content">
-            <div class="sp-globe"></div>
-            <span class="frame-1">Lancement officiel du site KID&LANGUAGE: </span>
-            <span class="frame-2">SOYEZ LES 1ERS </span>
-            <span class="frame-3">A DEPOSER VOTRE ANNONCE!!!</span>
-            <a class="sp-circle-link" href="#">Enregistrez-vous!</a>
-          </div>
-        </div>
-
-      </div> -->
-
-
       <div>
         <button class="button newmissionbutton" (click)="click()">
           Déclarer une nouvelle demande
@@ -78,9 +62,7 @@
                 <div *ngIf="item.status == 'invalidated'" class="nonvalidée">
                   Non validée
                 </div>
-                <!-- <div>
-                  {{ item.status }}
-                </div> -->
+
               </td>
 
               <td>
@@ -147,9 +129,7 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Afficher d'abord les éléments avec le statut "en cours" -->
 
-            <!-- Afficher ensuite les éléments avec d'autres statuts -->
 
             <tr *ngFor="let item of getDisplayeddocs()">
 
@@ -203,9 +183,6 @@
                   Validée par le département
                 </div>
 
-                <!-- <div>
-                    {{ item.status }}
-                  </div> -->
               </td>
 
 
@@ -218,67 +195,6 @@
               <td>
                 {{ item.enseignants }}
               </td>
-              <!-- <td style="cursor: pointer" class="dropdown">
-                <div>
-                  <div>
-                    <div style="margin-left: 8px">
-                      <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <path
-                            d="M12 7C12.3956 7 12.7822 6.8827 13.1111 6.66294C13.44 6.44318 13.6964 6.13082 13.8478 5.76537C13.9991 5.39992 14.0387 4.99778 13.9616 4.60982C13.8844 4.22186 13.6939 3.86549 13.4142 3.58579C13.1345 3.30608 12.7781 3.1156 12.3902 3.03843C12.0022 2.96126 11.6001 3.00087 11.2346 3.15224C10.8692 3.30362 10.5568 3.55996 10.3371 3.88886C10.1173 4.21776 10 4.60444 10 5C10 5.53043 10.2107 6.03914 10.5858 6.41421C10.9609 6.78929 11.4696 7 12 7ZM12 17C11.6044 17 11.2178 17.1173 10.8889 17.3371C10.56 17.5568 10.3036 17.8692 10.1522 18.2346C10.0009 18.6001 9.96126 19.0022 10.0384 19.3902C10.1156 19.7781 10.3061 20.1345 10.5858 20.4142C10.8655 20.6939 11.2219 20.8844 11.6098 20.9616C11.9978 21.0387 12.3999 20.9991 12.7654 20.8478C13.1308 20.6964 13.4432 20.44 13.6629 20.1111C13.8827 19.7822 14 19.3956 14 19C14 18.4696 13.7893 17.9609 13.4142 17.5858C13.0391 17.2107 12.5304 17 12 17ZM12 10C11.6044 10 11.2178 10.1173 10.8889 10.3371C10.56 10.5568 10.3036 10.8692 10.1522 11.2346C10.0009 11.6001 9.96126 12.0022 10.0384 12.3902C10.1156 12.7781 10.3061 13.1345 10.5858 13.4142C10.8655 13.6939 11.2219 13.8844 11.6098 13.9616C11.9978 14.0387 12.3999 13.9991 12.7654 13.8478C13.1308 13.6964 13.4432 13.44 13.6629 13.1111C13.8827 12.7822 14 12.3956 14 12C14 11.4696 13.7893 10.9609 13.4142 10.5858C13.0391 10.2107 12.5304 10 12 10Z"
-                            fill="black" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dropdown-content">
-                  <div class="dropdown-menu">
-                    <div style="display: flex; cursor: pointer">
-                      <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="gotovalidation(item._id)" style="
-                              margin-top: 7px;
-                              margin-bottom: 10px;
-                              margin-left: 5px;
-                            ">
-                        Voir details
-
-                      </div>
-                    </div>
-                    <div style="display: flex; cursor: pointer">
-                      <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="openPopup(item._id)" style="
-                              margin-top: 7px;
-                              margin-bottom: 10px;
-                              margin-left: 5px;
-                            ">
-                        Modifier TJM
-                      </div>
-                    </div>
-                    <div style="display: flex; cursor: pointer">
-                      <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="gotocra(item._id)" style="
-                              margin-top: 7px;
-                              margin-bottom: 10px;
-                              margin-left: 5px;
-                            ">
-                        CRA
-                      </div>
-                    </div>
-                    <div style="display: flex; cursor: pointer">
-                      <img src="/assets/Checkmark.svg" width="12%" />
-                      <div (click)="deposercra(item._id,item.clientInfo.company)" style="
-                              margin-top: 7px;
-                              margin-bottom: 10px;
-                              margin-left: 5px;
-                            ">
-                        Déposer fichier CRA
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </td> -->
 
             </tr>
 
@@ -312,70 +228,7 @@
         </div>
 
       </div>
-      <div class="popup" *ngIf="deposer">
-        <div class="popup-content" style="  height: 12.4375rem;">
-          <div style="float: right" (click)="closePopup1()">
-            <img class="close-button" src="/assets/close.png" width="50%" height="50%" />
-          </div>
-          <div>
-            <h3>Ajouter CRA</h3>
-            <form action="/submit_form" method="post" style="display: flex">
-              <div class="form-section">
-                <div class="grid-container">
 
-
-                  <div class="custom-file-input" (change)="setFileInput('cra', $event)" style="cursor: pointer">
-                    <label class="file-label" for="fileInput" style="cursor: pointer">
-                      CRA {{document}}
-                    </label>
-
-                    <div class="vertical-line"></div>
-                    <input class="file-input" type="file" id="fileInput" name="fileInput" accept=".pdf"
-                      onclick="document.getElementById('fileInput').click()" />
-                    <div class="upload-icon" onclick="document.getElementById('fileInput').click()">
-                      <div class="chose-file" *ngIf="!cra">
-                        choisir un fichier <br />
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                          class="icon-file" fill="none">
-                          <g clip-path="url(#clip0_972_185)">
-                            <path
-                              d="M0.5 10.5V11.5C0.5 12.0304 0.710714 12.5391 1.08579 12.9142C1.46086 13.2893 1.96957 13.5 2.5 13.5H11.5C12.0304 13.5 12.5391 13.2893 12.9142 12.9142C13.2893 12.5391 13.5 12.0304 13.5 11.5V10.5"
-                              stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M4 4L7 0.5L10 4" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7 0.5V9.5" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_972_185">
-                              <rect width="14" height="14" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div *ngIf="cra" style="align-items: center; text-align: center">
-                        <img src="/assets/1000_F_224760148_gLe2B5UsoB1ecTmczTBhqBnwxfSxPoNw.jpg" alt="Selected Image"
-                          style="
-                            max-width: 320%;
-                            max-height: 50px;
-                            margin: 5px;
-                            margin-top: 10px;
-                          " />
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-
-                <br />
-                <div class="buttons" (click)="submitcra()">
-                  <button type="submit" class="button">
-                    <div class="inscrire">Ajouter</div>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
 
 
       <br /><br />
@@ -398,9 +251,8 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Afficher d'abord les éléments avec le statut "en cours" -->
 
-            <!-- Afficher ensuite les éléments avec d'autres statuts -->
+
 
             <tr *ngFor="let item of getDisplayegetverification_absence()">
 
@@ -454,9 +306,6 @@
                   Validée
                 </div>
 
-                <!-- <div>
-                    {{ item.status }}
-                  </div> -->
               </td>
 
 
@@ -479,91 +328,7 @@
           </tbody>
         </table>
       </div>
-      <!-- <div style="display: flex">
-        <div style="
-            color: #323842;
-            font-size: 1.125rem;
-            font-style: normal;
-            font-weight: 600;
-            line-height: 1.75rem; /* 155.556% */
-          ">
-          Non validées ({{ NotValidated_mission.length }})
-        </div>
 
-      </div> -->
-
-      <!-- <br />
-      <br />
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Statut</th>
-
-              <th>Métier</th>
-              <th>Client</th>
-              <th>Secteur</th>
-              <th>TJM</th>
-              <th>Début</th>
-              <th style="border-radius: 0rem 0.6875rem 0rem 0rem">Fin</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of getDisplayeddocsnv(); let k = index" (click)="gotovalidation(item._id)">
-              <td>
-                <div>
-                  <div class="nonvalidée">Non validée</div>
-                </div>
-              </td>
-
-
-              <td>
-                {{ item.missionInfo.profession.value }}
-              </td>
-              <td>
-                {{ item.clientInfo.company.value }}
-              </td>
-              <td>
-                {{ item.missionInfo.industrySector.value }}
-              </td>
-              <td>
-                {{ item.missionInfo.dailyRate.value }}
-              </td>
-              <td>
-                {{ formatDate( item.missionInfo.startDate.value.split("T")[0]) }}
-
-              </td>
-              <td>
-                {{ formatDate( item.missionInfo.endDate.value.split("T")[0]) }}
-
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pagination" [hidden]="!hideMissions">
-        <div (click)="previousPagenv()" style="cursor: pointer;" [hidden]="!hideMissions">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-              d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-            <path fill-rule="evenodd"
-              d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-          </svg>
-        </div>
-
-
-        <span [hidden]="!hideMissions" style="margin-top: 10px;"> {{ currentPagenv }} sur {{ totalPagesnv }}</span>
-        <div (click)="nextPagenv()" style="cursor: pointer;" [hidden]="!hideMissions">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-              d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
-            <path fill-rule="evenodd"
-              d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
-          </svg>
-        </div>
-
-      </div> -->
     </div>
 
 
@@ -579,7 +344,7 @@
 
         </div>
       </div>
-      <!-- <app-notification></app-notification> -->
+
     </div>
 
 
@@ -652,8 +417,7 @@
                   <option value=""> Selectioner type</option>
                   <option value="CI">CI</option>
                   <option value="TP">TP</option>
-                  <!-- <option value="TC">TC</option>
-                  <option value="Examen">Examen</option> -->
+
                 </select>
 
                 <select formControlName="matiere">

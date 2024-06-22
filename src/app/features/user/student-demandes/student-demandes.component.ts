@@ -4,7 +4,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
 import { Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
 import { environment } from 'src/environments/environment';
 const clientName = `${environment.default}`;
 import {
@@ -18,8 +17,6 @@ import {
   ApexFill
 } from "ng-apexcharts";
 import Swal from 'sweetalert2';
-import { WebSocketService } from 'src/app/services/web-socket.service';
-import { UserService } from 'src/app/services/user.service';
 import { StudentService } from 'src/app/services/student.service';
 
 export type ChartOptions = {
@@ -34,10 +31,10 @@ export type ChartOptions = {
 };
 @Component({
   selector: 'app-missions',
-  templateUrl: './missions.component.html',
-  styleUrls: ['./missions.component.css']
+  templateUrl: './student-demandes.component.html',
+  styleUrls: ['./student-demandes.component.css']
 })
-export class MissionsComponent {
+export class StudentDemandesComponent {
   hideMissions: boolean = true;
   currentDate: Date | undefined;
   items: any;
@@ -87,7 +84,7 @@ export class MissionsComponent {
   form3: boolean = false
   show_chart: boolean = false
   selectedTeachers: string[] = [];
-  constructor(private consultantservice: ConsultantService, private fb: FormBuilder, private studentservice: StudentService, private userservice: UserService, private socketService: WebSocketService, private router: Router, private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder, private studentservice: StudentService, private router: Router, private datePipe: DatePipe) {
     // Ensure that the items array is correctly populated here if needed.
 
     this.getCurrentDate();
@@ -283,217 +280,15 @@ export class MissionsComponent {
         console.error(e);
       }
     });
-    this.consultantservice.virementstatusbar(this.user_id).subscribe({
 
-      next: (res) => {
-        this.stats = res
-        const customColors: string[] = ['#FCE9A4', '#C8E1C3',] // Replace with your desired colors
-
-        // Generate fake data for the chart
-        const generateFakeData = (length: any) => {
-          const currentDate = new Date();
-          const startDate = new Date(currentDate);
-          startDate.setDate(currentDate.getDate() - length);
-
-          const fakeData = [];
-          for (let i = 0; i < length; i++) {
-            const date = new Date(startDate);
-            date.setDate(startDate.getDate() + i);
-            fakeData.push(date.toISOString());
-          }
-
-          return fakeData;
-        };
-
-        // Generate fake series data
-        const generateFakeSeriesData = (length: any) => {
-          const fakeData = [];
-          for (let i = 0; i < length; i++) {
-            fakeData.push(Math.floor(Math.random() * 100));
-          }
-          return fakeData;
-        };
-
-        // Set the number of data points you want
-        const numberOfDataPoints = 10;
-        if (this.stats.series[0].name) {
-          this.show_chart = true
-          const customColors: string[] = ['#FCE9A4', '#C8E1C3',] // Replace with your desired colors
-
-          this.chartOptions = {
-            series: [
-              {
-                name: this.stats.series[0].name,
-                data: this.stats.series[0].data,
-              },
-              {
-                name: this.stats.series[1].name,
-                data: this.stats.series[1].data,
-              },
-              // Add more series if needed
-            ],
-            chart: {
-              toolbar: {
-                show: true, // Show or hide the toolbar
-                tools: {
-                  download: true, // Show or hide the download option in the toolbar
-                  selection: true, // Show or hide the selection tool in the toolbar
-                  zoom: false, // Show or hide the zoom tool in the toolbar
-                  zoomin: true, // Show or hide the zoom in button in the toolbar
-                  zoomout: true, // Show or hide the zoom out button in the toolbar
-                  pan: false, // Show or hide the pan tool in the toolbar
-                  reset: true, // Show or hide the reset zoom button in the toolbar
-                  customIcons: [] // Custom icons for the toolbar, e.g., [{icon: 'image-url', click: function() { // Custom action }}]
-                },
-                autoSelected: 'zoom' // Automatically select the tool on chart render, options: 'zoom', 'pan', 'selection', null
-              },
-              animations: {
-                enabled: true, // Enable or disable animations
-                easing: 'easeout', // Easing function for animations, options: 'linear', 'easein', 'easeout', 'easeinout', etc.
-                speed: 800, // Animation speed in milliseconds
-                animateGradually: {
-                  enabled: true, // Enable or disable gradual animation for chart updates
-                  delay: 150 // Delay in milliseconds between each data point animation
-                },
-                dynamicAnimation: {
-                  enabled: true, // Enable or disable dynamic animation for chart updates
-                  speed: 300 // Animation speed in milliseconds for dynamic animations
-                }
-              },
-              height: 250,
-              type: "area",
-              // Background color
-            },
-            colors: ['#FCE9A4', '#C8E1C3'],  // Line colors
-            stroke: {
-              width: 2,
-              curve: "smooth",
-            },
-            dataLabels: {
-              enabled: false
-            },
-            xaxis: {
-              type: "date",
-              categories: this.stats.categories
-
-            },
-          };
-        }
-        else {
-          this.stats.series[0].name = []
-          this.stats.series[0].data = []
-          this.stats.series[1].name = []
-          this.stats.series[1].data = []
-          this.stats.categories = []
-          this.chartOptions = {
-            series: [
-              {
-                name: [],
-                data: [],
-              },
-              {
-                name: [],
-                data: [],
-              },
-              // Add more series if needed
-            ],
-            chart: {
-
-              height: 250,
-              type: "area",
-              toolbar: {
-                show: true, // Show or hide the toolbar
-                tools: {
-                  download: true, // Show or hide the download option in the toolbar
-                  selection: true, // Show or hide the selection tool in the toolbar
-                  zoom: false, // Show or hide the zoom tool in the toolbar
-                  zoomin: true, // Show or hide the zoom in button in the toolbar
-                  zoomout: true, // Show or hide the zoom out button in the toolbar
-                  pan: false, // Show or hide the pan tool in the toolbar
-                  reset: true, // Show or hide the reset zoom button in the toolbar
-                  customIcons: [] // Custom icons for the toolbar, e.g., [{icon: 'image-url', click: function() { // Custom action }}]
-                },
-                autoSelected: 'zoom' // Automatically select the tool on chart render, options: 'zoom', 'pan', 'selection', null
-              },
-              animations: {
-                enabled: true, // Enable or disable animations
-                easing: 'easeout', // Easing function for animations, options: 'linear', 'easein', 'easeout', 'easeinout', etc.
-                speed: 800, // Animation speed in milliseconds
-                animateGradually: {
-                  enabled: true, // Enable or disable gradual animation for chart updates
-                  delay: 150 // Delay in milliseconds between each data point animation
-                },
-                dynamicAnimation: {
-                  enabled: true, // Enable or disable dynamic animation for chart updates
-                  speed: 300 // Animation speed in milliseconds for dynamic animations
-                }
-              },
-              // Background color
-            },
-            colors: ['#FCE9A4', '#C8E1C3'],  // Line colors
-            stroke: {
-              width: 2,
-              curve: "smooth",
-            },
-            dataLabels: {
-              enabled: false
-            },
-            xaxis: {
-              type: "date",
-              categories: this.stats.categories
-
-            },
-          };
-        }
-      },
-      error: (e) => {
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
     const token = localStorage.getItem('token');
 
     this.user_id = localStorage.getItem('user_id');
     this.new_notif = localStorage.getItem('new_notif');
 
-    // Listen for custom 'rhNotification' event in WebSocketService
-
-    this.consultantservice.getallnotification(this.user_id).subscribe({
-      next: (res1) => {
-        this.res1 = res1
-        this.nblastnotifications = this.res1.length
-        this.lastnotifications = this.res1
-
-      },
-      error: (e) => {
-        this.nblastnotifications = 0
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-    this.userservice.getpersonalinfobyid(this.user_id).subscribe({
-
-
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res
-        console.log('inffffffffoooooo', this.res);
 
 
 
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
     // Check if token is available
     if (token) {
       console.log(token);
@@ -501,27 +296,7 @@ export class MissionsComponent {
       // Include the token in the headers
       this.headers = new HttpHeaders().set('Authorization', `${token}`);
 
-      this.consultantservice.getMyMissions(this.headers).subscribe({
-        next: (res) => {
-          // Handle the response from the server
 
-
-          this.items = res
-          this.nbdemande = this.items.length
-
-
-
-
-
-
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
 
       this.studentservice.getdemandeverification(this.user_id).subscribe({
 
@@ -569,34 +344,7 @@ export class MissionsComponent {
         },
       });
 
-      // this.consultantservice.getNotValidatedMissions(this.headers).subscribe({
-      //   next: (res) => {
-      //     if (res.length != 0) {
-      //       this.NotValidated_mission = res
-      //       console.log(this.NotValidated_mission);
 
-
-      //     } else {
-      //       this.NotValidated_mission = []
-      //       console.log(this.NotValidated_mission.length);
-
-      //     }
-
-      //     console.log(this.NotValidated_mission);
-
-
-
-      //   },
-      //   error: (e) => {
-      //     // Handle errors
-      //     console.error(e);
-
-      //     this.NotValidated_mission = []
-
-      //     // Set loading to false in case of an error
-
-      //   }
-      // });
 
     }
   }
@@ -959,89 +707,6 @@ export class MissionsComponent {
     }
   }
 
-  submitcra() {
-    this.formData.append("client", this.client)
-    this.consultantservice.addCraPdfToUser(this.mission_id, this.formData)
-      .subscribe({
-        next: (res) => {
-          Swal.fire({
-
-            background: 'white',
-            html: `
-              <div>
-              <div style="font-size:1.2rem"> cra ajouté avec succès! </div> 
-                
-              </div>
-            `,
 
 
-            confirmButtonText: 'Ok',
-            confirmButtonColor: "rgb(0, 17, 255)",
-
-            customClass: {
-              confirmButton: 'custom-confirm-button-class',
-              cancelButton: 'custom-cancel-button-class'
-            },
-            reverseButtons: true // Reversing button order
-          })
-
-
-          this.deposer = false
-          // Handle the response from the server
-          console.log(res);
-          // Additional logic if needed
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          Swal.fire('Error', e.error.error, 'error');
-        }
-      });
-
-  }
-  submit(): void {
-    const token = localStorage.getItem('token');
-
-    if (token && this.selectedFile) {
-
-      console.log(this.formData);
-
-
-      // formData.append('simulation', this.selectedFile);
-      this.formData.append('valueOfNewTjm', this.myForm.value.TJM);
-      this.formData.append('datecompte', this.myForm.value.datecompte);
-      this.formData.append('userId', this.user_id)
-      this.formData.append('missionId', this.mission_id)
-
-
-
-
-      // Include the token in the headers
-      const headers = new HttpHeaders().set('Authorization', `${token}`);
-
-      this.consultantservice.createTjmRequest(this.formData)
-        .subscribe({
-          next: (res) => {
-
-            Swal.fire({
-              background: 'white',
-              confirmButtonColor: "rgb(0, 17, 255)",
-              icon: "success",
-              title: 'TJM ajouté avec succès!',
-              showConfirmButton: false,
-              timer: 1500
-            });
-            this.showPopup = false
-            // Handle the response from the server
-            console.log(res);
-            // Additional logic if needed
-          },
-          error: (e) => {
-            // Handle errors
-            console.error(e);
-            Swal.fire('Error', e.error.message);
-          }
-        });
-    }
-  }
 }

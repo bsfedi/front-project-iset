@@ -8,10 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { CommonModule, DatePipe } from '@angular/common';
 import { LeftBarComponent } from './layout/left-bar/left-bar.component';
-
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { WebSocketService } from './services/web-socket.service';
-
 import { environment } from 'src/environments/environment';
 import { ProfilComponent } from './layout/profil/profil.component';
 import { EditProfilComponent } from './features/user/edit-profil/edit-profil.component';
@@ -40,7 +37,7 @@ const config: SocketIoConfig = { url: baseUrl, options: {} };
 
 
   ],
-  providers: [WebSocketService, DatePipe],
+  providers: [DatePipe],
   bootstrap: [AppComponent, GestionAbsencesComponent]
 })
 export class AppModule { }

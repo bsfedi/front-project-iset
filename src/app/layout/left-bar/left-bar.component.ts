@@ -30,6 +30,7 @@ export class LeftBarComponent {
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
         next: (res) => {
+
           this.level = res.preregister.personalInfo.level
         }, error(e) {
           console.log(e);
@@ -39,6 +40,7 @@ export class LeftBarComponent {
     } else {
       this.studentservice.getuserbyid(localStorage.getItem('user_id')).subscribe({
         next: (res) => {
+
           this.level = res.first_name + " " + res.last_name
         }, error(e) {
           console.log(e);

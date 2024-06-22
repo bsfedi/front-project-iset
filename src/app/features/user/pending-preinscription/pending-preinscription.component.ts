@@ -1,10 +1,8 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 // auth.service.ts
 import { jsPDF } from "jspdf";
 declare let html2pdf: any
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -25,7 +23,7 @@ export class PendingPreinscriptionComponent {
   jobCotractEdition: any
   validation_rh: any
   register_id: any
-  constructor(private userservice: UserService, private inscriptionService: StudentService, private fb: FormBuilder, private router: Router) {
+  constructor(private inscriptionService: StudentService, private fb: FormBuilder, private router: Router) {
 
   }
 
@@ -52,32 +50,6 @@ export class PendingPreinscriptionComponent {
             this.router.navigate([clientName + '/student/requests']);
           }
 
-          // this.inscriptionService.getContaractByPrerigister(this.res._id, headers).subscribe({
-          //   next: (res1) => {
-
-
-          //     console.log(res1);
-
-
-          //     this.validation_rh = this.res.status
-          //     this.clientValidation = res1.clientValidation
-          //     this.contactClient = res1.contactClient
-          //     this.contractValidation = res1.contractValidation
-          //     this.jobCotractEdition = res1.jobCotractEdition
-          //     if (this.validation_rh == 'VALIDATED' && this.clientValidation == 'VALIDATED' && this.contactClient == 'VALIDATED' && this.contractValidation == 'VALIDATED' && this.jobCotractEdition == 'VALIDATED') {
-          //       this.router.navigate([clientName + '/student/requests']);
-          //     }
-
-
-
-          //   },
-          //   error: (e) => {
-          //     // Handle errors
-          //     console.error(e);
-          //     // Set loading to false in case of an error
-
-          //   }
-          // });
         },
         error: (e) => {
           // Handle errors

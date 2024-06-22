@@ -41,15 +41,33 @@ export class FicheDesVoeuxComponent {
     this.modules.removeAt(index);
   }
 
+
+
+  selectedData: any[] = [];
+
   get scheduleArray() {
     return this.scheduleForm.get('schedule') as FormArray;
   }
+
+  onCheckboxChange() {
+    this.selectedData = this.scheduleArray.controls.map((dayGroup: any, i: number) => {
+      return {
+        day: this.days[i],
+        sessions: dayGroup.value
+      };
+    });
+    console.log(this.selectedData);
+  }
+
+
+  // get scheduleArray() {
+  //   return this.scheduleForm.get('schedule') as FormArray;
+  // }
   constructor(private fb: FormBuilder, private studentservice: StudentService, private router: Router,) {
     this.scheduleForm = this.fb.group({
-      schedule: this.fb.array(this.days.map(day => this.fb.group({
-        day: day,
-        sessions: this.fb.array(this.sessions.map(session => this.fb.control(false)))
-      })))
+      schedule: this.fb.array(this.days.map(() =>
+        this.fb.array(this.sessions.map(() => new FormControl(false)))
+      ))
     });
     this.wishForm = this.fb.group({
       nom: [''],
@@ -78,12 +96,7 @@ export class FicheDesVoeuxComponent {
     this.show_new_fiche = true
   }
   ngOnInit(): void {
-    this.scheduleForm = this.fb.group({
-      schedule: this.fb.array(this.days.map(day => this.fb.group({
-        day: day,
-        sessions: this.fb.array(this.sessions.map(session => this.fb.control(false)))
-      })))
-    });
+
     this.role = localStorage.getItem('role');
     if (this.role == 'student') {
       this.studentservice.getinscrption(localStorage.getItem('register_id')).subscribe({
@@ -188,11 +201,8 @@ export class FicheDesVoeuxComponent {
         this.wishForm.value.grade = res.grade
         this.wishForm.value.user_id = this.user_id
         this.fullname = res.first_name + " " + res.last_name
-        const selectedData = this.scheduleForm.value.schedule.map((dayGroup: any) => ({
-          day: dayGroup.day,
-          sessions: dayGroup.sessions
-        }));
-        this.wishForm.value.data = selectedData
+
+        this.wishForm.value.data = this.selectedData
         this.studentservice.fiche_de_voeux(this.wishForm.value).subscribe({
           next: (res) => {
             Swal.fire({
@@ -262,13 +272,13 @@ export class FicheDesVoeuxComponent {
 
   }
 
-  onCheckboxChange() {
-    const selectedData = this.scheduleArray.controls.map((dayGroup: any, i: number) => ({
-      day: this.days[i],
-      sessions: this.sessions.filter((session, j) => dayGroup.value.sessions[j])
-    }));
-    console.log(selectedData);
-  }
+  // onCheckboxChange() {
+  //   const selectedData = this.scheduleArray.controls.map((dayGroup: any, i: number) => ({
+  //     day: this.days[i],
+  //     sessions: this.sessions.filter((session, j) => dayGroup.value.sessions[j])
+  //   }));
+  //   console.log(selectedData);
+  // }
 
 
   closePopup2(): void {
@@ -331,37 +341,20 @@ export class FicheDesVoeuxComponent {
     `;
     }).join('');
 
-    // Get the data for the second table (assuming 'scheduleArray', 'days', and 'sessions' are defined in your component)
-
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']; // Adjust 'days' as per your requirement
-    const sessions = ['S1', 'S2', 'S3', 'S4', 'S5']; // Adjust 'sessions' as per your requirement
+    // Get the data for the second table from the backend response
+    const scheduleData = this.absences.data;
 
     // Generate the table headers for the second table
-    const table2Headers = `
-    <thead>
-      <tr>
-        <th>Jours Choisis</th>
-        ${sessions.map(session => `
-          <th>${session}<br>
-            <span *ngIf="session === 'S1'">(08:30–10:00)</span>
-            <span *ngIf="session === 'S2'">(10:15–11:45)</span>
-            <span *ngIf="session === 'S3'">(13:00–14:30)</span>
-            <span *ngIf="session === 'S4'">(14:45–16:15)</span>
-            <span *ngIf="session === 'S5'">(16:30–18:00)</span>
-          </th>
-        `).join('')}
-      </tr>
-    </thead>
-  `;
+
 
     // Generate the table rows for the second table
-    const table2Rows = this.days.map((day, i) => {
+    const table2Rows = scheduleData.map((dayData: any, i: number) => {
       return `
       <tr>
-        <td>${day}</td>
-        ${sessions.map((session, j) => `
+        <td>${dayData.day}</td>
+        ${dayData.sessions.map((session: boolean, j: number) => `
           <td>
-            <input type="checkbox" >
+    <input type="checkbox" ${session ? 'checked' : ''}>
           </td>
         `).join('')}
       </tr>
@@ -373,16 +366,21 @@ export class FicheDesVoeuxComponent {
     <html>
       <head>
         <style>
-           table {
-                width: 90%;
-                margin-top: 20px;
-                border-collapse: collapse;
-              }
-              th, td {
-                border: 1px solid black;
-                padding: 8px;
-                text-align: left;
-              }
+          table {
+            width: 90%;
+            margin-top: 20px;
+            border-collapse: collapse;
+          }
+                input[type="checkbox"][checked] {
+            border: none;
+  outline: 2px solid deeppink;
+                color: blue;
+        }
+          th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+          }
         </style>
       </head>
       <body>
@@ -395,10 +393,10 @@ export class FicheDesVoeuxComponent {
           </div>
         </div>
         <br>
-              <h1> FICHE DE VŒUX </h1>
-          <b> Nom : </b> ${this.absences.nom} <br>
-         <b> Prenom : </b> ${this.absences.prenom} <br>
-           <b> Grade : </b> ${this.absences.grade} <br>
+        <h1> FICHE DE VŒUX </h1>
+        <b> Nom : </b> ${this.absences.nom} <br>
+        <b> Prenom : </b> ${this.absences.prenom} <br>
+        <b> Grade : </b> ${this.absences.grade} <br>
         <table>
           ${tableHeaders}
           <tbody>
@@ -407,14 +405,13 @@ export class FicheDesVoeuxComponent {
         </table>
         <br><br>
         <table>
-        <th> Jours Choisis </th>
+                 <th> Jours Choisis </th>
      
                                     <th *ngIf="session === 'S1'">(08:30–10:00)</th>
                                     <th *ngIf="session === 'S2'">(10:15–11:45)</th>
                                     <th *ngIf="session === 'S3'">(13:00–14:30)</th>
                                     <th *ngIf="session === 'S4'">(14:45–16:15)</th>
                                     <th *ngIf="session === 'S5'">(16:30–18:00)</th>
-                               
           <tbody>
             ${table2Rows}
           </tbody>
@@ -433,6 +430,7 @@ export class FicheDesVoeuxComponent {
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     }).save();
   }
+
 
 
 

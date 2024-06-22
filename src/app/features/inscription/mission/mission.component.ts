@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { environment } from 'src/environments/environment';
 const clientName = `${environment.default}`;
 @Component({
@@ -18,7 +16,7 @@ export class MissionComponent {
   selectedFile: File | null = null;
   isSimulationValidated: string | null = null;
 
-  constructor(private inscriptionservice: InscriptionService, private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
 
     this.myForm = this.fb.group({
       profession: ['', Validators.required],
@@ -69,71 +67,6 @@ export class MissionComponent {
       const headers = new HttpHeaders().set('Authorization', `${token}`);
 
 
-      this.inscriptionservice.getMyPreRegister(headers).subscribe({
-
-
-        next: (res: any) => {
-          // Handle the response from the server
-
-
-          if (this.areAllFieldsFilled() == false) {
-            this.myForm.markAllAsTouched();
-            return;
-          }
-          else {
-            const formData = new FormData();
-            formData.append('profession', this.myForm.value.profession);
-            formData.append('industrySector', this.myForm.value.industrySector);
-            formData.append('finalClient', this.myForm.value.finalClient);
-            formData.append('dailyRate', this.myForm.value.dailyRate);
-            formData.append('endDate', this.myForm.value.endDate);
-            formData.append('startDate', this.myForm.value.startDate);
-            const isSimulationValidatedeee = this.fileInputs.isSimulationValidated.files[0];
-            formData.append('isSimulationValidated', isSimulationValidatedeee);
-            if (res?.missionInfo.missionKilled == false) {
-              this.inscriptionservice.createinscrptionstep3(formData, headers)
-                .subscribe({
-                  next: (res) => {
-                    // Handle the response from the server
-                    console.log(res);
-                    // this.router.navigate([clientName +'/client']);
-                    // this.router.navigate([clientName +'/informations/' + res._id]);
-                    this.router.navigate([clientName + '/pending'])
-                  },
-                  error: (e) => {
-                    // Handle errors
-                    console.error(e);
-                  }
-                });
-
-            }
-            else {
-              this.inscriptionservice.createinscrptionstep5(formData, headers)
-                .subscribe({
-                  next: (res) => {
-                    // Handle the response from the server
-                    console.log(res);
-                    // this.router.navigate([clientName +'/client']);
-                    // this.router.navigate([clientName +'/informations/' + res._id]);
-                    this.router.navigate([clientName + '/pending'])
-                  },
-                  error: (e) => {
-                    // Handle errors
-                    console.error(e);
-                  }
-                });
-
-            }
-
-          }
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
 
 
     }

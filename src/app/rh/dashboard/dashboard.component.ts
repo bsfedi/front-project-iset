@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { environment } from 'src/environments/environment';
 const clientName = `${environment.default}`;
 import {
@@ -17,12 +16,11 @@ import {
   ApexFill,
   ApexResponsive
 } from "ng-apexcharts";
-import { ConsultantService } from 'src/app/services/consultant.service';
+
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { WebSocketService } from 'src/app/services/web-socket.service';
-import { UserService } from 'src/app/services/user.service';
+
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
 
@@ -90,7 +88,7 @@ export class DashboardComponent {
   showfilterbar: any;
   currentDate: Date = new Date();
   myForm2: FormGroup;
-  constructor(private studentservice: StudentService, private datePipe: DatePipe, private socketService: WebSocketService, private userservice: UserService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router) {
+  constructor(private studentservice: StudentService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router) {
 
     this.myForm2 = this.fb.group({
       titre: [''],
@@ -588,54 +586,6 @@ export class DashboardComponent {
   }
   openPopup1(id: any): void {
 
-
-    // this.inscriptionservice.getContaractByPrerigister(id, this.headers).subscribe({
-    //   next: (res) => {
-
-    //     this.getContaractByPrerigister = res
-    //     console.log(res);
-
-    //     // Handle the response from the server
-    //     this.idcontractByPreregister = res._id
-    //     if (res.clientValidation == "VALIDATED") {
-    //       this.clientValidation = true
-    //     }
-    //     else {
-    //       this.clientValidation = false
-    //     }
-    //     if (res.contactClient == "VALIDATED") {
-    //       this.contactClient = true
-    //     }
-    //     else {
-    //       this.contactClient = false
-    //     }
-    //     if (res.contractValidation == "VALIDATED") {
-    //       this.contractValidation = true
-    //     }
-    //     else {
-    //       this.contractValidation = false
-    //     }
-    //     if (res.jobCotractEdition == "VALIDATED") {
-    //       this.jobCotractEdition = true
-    //     }
-    //     else {
-    //       this.jobCotractEdition = false
-    //     }
-
-
-
-
-
-
-
-    //   },
-    //   error: (e) => {
-    //     // Handle errors
-    //     console.error(e);
-    //     // Set loading to false in case of an error
-
-    //   }
-    // });
     this.showPopup1 = true;
   }
   closePopup(): void {
@@ -654,37 +604,12 @@ export class DashboardComponent {
     }
     console.log(data);
 
-    // this.inscriptionservice.validatePriseDeContact(id, data, this.headers).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-
-    //     // Handle the response from the server
-    //   },
-    //   error: (e) => {
-    //     // Handle errors
-    //     console.error(e);
-    //     // Set loading to false in case of an error
-
-    //   }
-    // });
   }
   validateClientValidation(id: any, clientValidation: any): void {
     const data = {
       "validated": clientValidation
     }
-    // this.inscriptionservice.validateClientValidation(id, data, this.headers).subscribe({
-    //   next: (res) => {
-    //     // Handle the response from the server
-    //     console.log(res);
 
-    //   },
-    //   error: (e) => {
-    //     // Handle errors
-    //     console.error(e);
-    //     // Set loading to false in case of an error
-
-    //   }
-    // });
   }
   validateJobCotractEdition(id: any, jobCotractEdition: any): void {
     const data = {
@@ -692,17 +617,6 @@ export class DashboardComponent {
     }
     console.log(data);
 
-    // this.inscriptionservice.validateJobCotractEdition(id, data, this.headers).subscribe({
-    //   next: (res) => {
-    //     // Handle the response from the server
-    //   },
-    //   error: (e) => {
-    //     // Handle errors
-    //     console.error(e);
-    //     // Set loading to false in case of an error
-
-    //   }
-    // });
   }
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])

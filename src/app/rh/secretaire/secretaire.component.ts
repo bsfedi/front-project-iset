@@ -2,10 +2,9 @@ import { DatePipe } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
+
 import { StudentService } from 'src/app/services/student.service';
-import { UserService } from 'src/app/services/user.service';
-import { WebSocketService } from 'src/app/services/web-socket.service';
+
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { jsPDF } from "jspdf";
@@ -36,7 +35,7 @@ export class SecretaireComponent {
   tjm: boolean = true
   mission: any
   rattrapge: any
-  constructor(private consultantservice: ConsultantService, private studentservice: StudentService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe, private userservice: UserService, private socketService: WebSocketService) { }
+  constructor(private studentservice: StudentService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
 
   shownotif() {
 
@@ -228,43 +227,10 @@ export class SecretaireComponent {
 
       this.headers = new HttpHeaders().set('Authorization', `${token}`);
 
-      this.consultantservice.getRhNotificationsnotseen().subscribe({
-        next: (res1) => {
-          this.nblastnotifications = res1.length
-          this.lastnotifications = res1
 
-        },
-        error: (e) => {
-          this.nblastnotifications = 0
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
     }
 
-    this.userservice.getpersonalinfobyid(this.user_id).subscribe({
 
-
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res
-        console.log('inffffffffoooooo', this.res);
-
-
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
 
     this.token = localStorage.getItem('token');
     this.headers = new HttpHeaders().set('Authorization', `${this.token}`);
@@ -866,15 +832,6 @@ export class SecretaireComponent {
       // Add other form data here
     };
 
-    this.consultantservice.createvirement(formData).subscribe(
-      (response) => {
-        console.log('Virement created successfully:', response);
-        // Add any additional handling or notifications if needed
-      },
-      (error) => {
-        console.error('Error creating virement:', error);
-        // Handle the error or display an error message
-      }
-    );
+
   }
 }

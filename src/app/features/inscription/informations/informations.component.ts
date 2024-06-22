@@ -1,10 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-
 import { ActivatedRoute, Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
-import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 declare const PDFObject: any;
 import { environment } from 'src/environments/environment';
@@ -32,7 +29,7 @@ export class InformationsComponent {
   docs: any
   myForm: FormGroup;
   cin_img: string | null = null;
-  constructor(private inscriptionservice: StudentService, private userservice: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  constructor(private inscriptionservice: StudentService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     this.myForm = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -350,18 +347,7 @@ export class InformationsComponent {
           formData.append('drivingLicense', drivingLicense);
           console.log(formData);
 
-          this.userservice.editDrivingLiscence(user_id, formData).subscribe({
 
-            next: (res) => {
-              console.log(formData);
-
-              console.log("drivingLicense", res);
-
-            }, error: (e) => {
-              console.log(e);
-
-            }
-          });
 
         }
         else if (field == 'ribDocument') {
@@ -373,21 +359,6 @@ export class InformationsComponent {
 
           // Append the files if they exist, else append empty strings
           formData.append('ribDocument', ribDocument);
-
-
-          this.userservice.editribdocument(user_id, formData).subscribe({
-
-            next: (res) => {
-              console.log(formData);
-
-              console.log("drivingLicense", res);
-
-            }, error: (e) => {
-              console.log(e);
-
-            }
-          });
-
         }
       };
       reader.readAsDataURL(this.selectedFile);

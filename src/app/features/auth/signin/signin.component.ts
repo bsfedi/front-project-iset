@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 // auth.service.ts
 import { Injectable } from '@angular/core';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { HttpHeaders } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
@@ -27,7 +25,7 @@ export class SigninComponent {
   contractValidation: any
   jobCotractEdition: any
   validation_rh: any
-  constructor(private userservice: StudentService, private inscriptionservice: InscriptionService, private fb: FormBuilder, private router: Router) {
+  constructor(private userservice: StudentService, private fb: FormBuilder, private router: Router) {
     this.signinForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]

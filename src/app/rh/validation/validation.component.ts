@@ -1,18 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-
 import { ActivatedRoute, Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import Swal from 'sweetalert2';
 
 import { delay, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 const clientName = `${environment.default}`;
-
-import { WebSocketService } from 'src/app/services/web-socket.service';
-import { UserService } from 'src/app/services/user.service';
-import { ConsultantService } from 'src/app/services/consultant.service';
 import { DatePipe } from '@angular/common';
 import { StudentService } from 'src/app/services/student.service';
 const baseUrl = `${environment.baseUrl}`;
@@ -94,7 +88,7 @@ export class ValidationComponent implements OnInit {
   res: any
   new_notif: any
   formData1: FormGroup;
-  constructor(private inscriptionservice: StudentService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private consultantService: ConsultantService, private route: ActivatedRoute, private userservice: UserService, private socketService: WebSocketService) {
+  constructor(private inscriptionservice: StudentService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
 
     this.formData1 = this.fb.group({
 
@@ -156,66 +150,12 @@ export class ValidationComponent implements OnInit {
       });
     }
     this.new_notif = localStorage.getItem('new_notif');
-    this.consultantService.getlastnotificationsrh().subscribe({
-      next: (res1) => {
-        console.log(res1);
-        this.lastnotifications = res1.slice(0, 10);
-        for (let item of this.lastnotifications) {
-          //getuserinfomation
-          this.consultantService.getuserinfomation(item["userId"], this.headers).subscribe({
-            next: (info) => {
-              console.log(info);
 
-              item["userId"] = info["firstName"] + ' ' + info["lastName"]
-            }
-          })
-        }
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
     const user_id = localStorage.getItem('user_id')
-    this.userservice.getpersonalinfobyid(user_id).subscribe({
-
-
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res
 
 
 
 
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-    this.consultantService.getRhNotificationsnotseen().subscribe({
-      next: (res1) => {
-        this.nblastnotifications = res1.length
-        this.lastnotifications = res1
-
-      },
-      error: (e) => {
-        // Handle errors
-        this.nblastnotifications = 0
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-
-    // Listen for custom 'rhNotification' event in WebSocketService
 
     // Get the user ID from the route parameters
     this.route.params.subscribe((params) => {
@@ -261,30 +201,7 @@ export class ValidationComponent implements OnInit {
           this.hasCar = this.personalInfo.carInfo.hasCar.value;
           this.loading = false;
           this.isLoading = true;
-          // if (this.personalInfo.ribDocument.value.endsWith('.pdf')) {
-          //   this.inscriptionservice.getPdf(this.personalInfo.ribDocument.value).subscribe({
-          //     next: (res) => {
-          //       this.pdfData = res;
-          //       this.isLoading = false;
-          //       if (this.pdfData) {
-          //         this.handlesecondRenderPdf(this.pdfData);
-          //       }
-          //     },
-          //   });
-          //   this.ispdfdocrib = true
-          // } else {
-          //   this.ispdfdocrib = false
-          // }
 
-          // this.inscriptionservice.getPdf(this.missionInfo.isSimulationValidated.value).subscribe({
-          //   next: (res) => {
-          //     this.pdfData = res;
-          //     this.isLoading = false;
-          //     if (this.pdfData) {
-          //       this.handleRenderPdf(this.pdfData);
-          //     }
-          //   },
-          // });
         },
         error: (e) => {
           // Handle errors

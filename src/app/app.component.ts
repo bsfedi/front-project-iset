@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
-import { WebSocketService } from './services/web-socket.service';
+
 
 const clientName = `${environment.default}`;
 @Component({
@@ -13,14 +13,14 @@ const clientName = `${environment.default}`;
 })
 export class AppComponent {
   title = 'mykrew';
-  private url: string = 'https://websocket-service-dot-chat-ia-403210.ew.r.appspot.com';
+
   public message: string = '';
   public messages: string[] = [];
   private subscription: any;
   private logoutTimer: any;
   private readonly LOGOUT_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
   notification: string | undefined;
-  constructor(private datePipe: DatePipe, private router: Router, private socket: Socket, private webSocketService: WebSocketService) {
+  constructor(private datePipe: DatePipe, private router: Router, private socket: Socket) {
 
     this.startLogoutTimer();
     this.socket.on('notification', (data: any) => {
@@ -62,32 +62,8 @@ export class AppComponent {
     this.resetLogoutTimer();
   }
   ngOnInit(): void {
-    this.webSocketService.connect(this.url);
-    this.subscription = this.webSocketService.getMessages().subscribe(
-      (msg) => {
-        try {
-          const parsedMessage = JSON.parse(msg);
-          console.log(parsedMessage.message);  // Accessing the 'message' property
-        } catch (error) {
-          console.error('Error parsing message:', error);
-        }
-      },
-      (err) => console.error(err),
-      () => console.warn('Completed')
-    );
+
   }
 
-  sendMessage(): void {
-    if (this.message.trim()) {
-      this.webSocketService.sendMessage(this.message);
-      this.message = '';
-    }
-  }
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    this.webSocketService.disconnect();
-  }
 }

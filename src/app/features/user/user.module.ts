@@ -9,22 +9,20 @@ import { PendingPreinscriptionComponent } from './pending-preinscription/pending
 
 
 import { NgApexchartsModule } from "ng-apexcharts";
-import { NewMissionComponent } from './new-mission/new-mission.component';
 
-import { MissionsComponent } from './missions/missions.component';
-import { DetailsMissionComponent } from './details-mission/details-mission.component';
-import { VirementsComponent } from './virements/virements.component';
-import { InfoPersoComponent } from './info-perso/info-perso.component';
-import { NotificationComponent } from 'src/app/layout/notification/notification.component';
+
+
+import { InscriptionsComponent } from './inscriptions/inscriptions.component';
+
 import { LeftBarComponent } from 'src/app/layout/left-bar/left-bar.component';
-import { CRAComponent } from './cra/cra.component';
-import { AllnotificationsComponent } from './allnotifications/allnotifications.component';
+
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { EditProfilComponent } from 'src/app/features/user/edit-profil/edit-profil.component';
 import { StagesComponent } from './stages/stages.component';
 import { OrientationComponent } from './orientation/orientation.component';
 import { AbsencesComponent } from './absences/absences.component';
+import { StudentDemandesComponent } from './student-demandes/student-demandes.component';
 
 
 export const routes: Routes = [
@@ -38,11 +36,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'consultant/new-mission',
-    component: NewMissionComponent,
-
-  },
-  {
     path: 'student/stages',
     component: StagesComponent,
 
@@ -50,24 +43,16 @@ export const routes: Routes = [
 
   {
     path: 'student/requests',
-    component: MissionsComponent,
+    component: StudentDemandesComponent,
 
   },
-  {
-    path: 'consultant/details-mission/:id',
-    component: DetailsMissionComponent,
 
-  },
   {
     path: 'student/inscriptions',
-    component: VirementsComponent,
+    component: InscriptionsComponent,
 
   },
-  {
-    path: 'consultant/infoperso',
-    component: InfoPersoComponent,
 
-  },
   {
     path: "mot-de-passe-oublier",
     component: ForgetPasswordComponent
@@ -76,19 +61,10 @@ export const routes: Routes = [
     path: "change-mot-de-passe/:user_id",
     component: UpdatePasswordComponent
   },
-  {
-    path: 'consultant/allnotifications',
-    component: AllnotificationsComponent,
 
-  },
   {
     path: 'absences',
     component: AbsencesComponent
-  }
-  ,
-  {
-    path: 'CRA/:id',
-    component: CRAComponent
   },
   {
     path: 'edit-profil',
@@ -102,14 +78,13 @@ export const routes: Routes = [
   declarations: [
 
     PendingPreinscriptionComponent,
-    NewMissionComponent,
-    MissionsComponent,
-    DetailsMissionComponent,
-    VirementsComponent,
-    InfoPersoComponent,
-    NotificationComponent,
-    CRAComponent,
-    AllnotificationsComponent,
+
+    StudentDemandesComponent,
+
+    InscriptionsComponent,
+
+
+
     ForgetPasswordComponent,
     EditProfilComponent,
     UpdatePasswordComponent,

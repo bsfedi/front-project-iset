@@ -7,20 +7,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthGuard } from '../auth/auth.module';
 import { ConsultantMissionComponent } from './consultant-mission/consultant-mission.component';
-import { MissionByIdComponent } from './mission-by-id/mission-by-id.component';
+
 import { allStudentsComponent } from './all-consultants/all-consultants.component';
 import { ValidationMissionComponent } from './validation-mission/validation-mission.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LeftBarComponent } from '../layout/left-bar/left-bar.component';
-import { NotificationComponent } from '../layout/notification/notification.component';
+
 import { NotificaionRhComponent } from './notificaion-rh/notificaion-rh.component';
 import { ChargeDocComponent } from './charge-doc/charge-doc.component';
-import { VirementComponent } from './virement/virement.component';
+
 import { tjmrequestsComponent } from './tjmrequests/tjmrequests.component';
-import { ValidatedTjmComponent } from './validated-tjm/validated-tjm.component';
-import { CraMissionComponent } from './cra-mission/cra-mission.component';
+
 import { AdminComponent } from './admin/admin.component';
-import { AllCrasComponent } from './all-cras/all-cras.component';
+
 import { EnseignantComponent } from './enseignant/enseignant.component';
 import { DemandeRattrapageComponent } from './demande-rattrapage/demande-rattrapage.component';
 import { AbsenceComponent } from './absence/absence.component';
@@ -41,11 +40,6 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'signin',
-  },
-  {
-    path: 'allcras',
-    component: AllCrasComponent,
-    canActivate: [AuthGuard]
   },
 
   {
@@ -80,11 +74,6 @@ export const routes: Routes = [
   {
     path: 'enseignant',
     component: EnseignantComponent
-  },
-  {
-    path: 'mission/:id',
-    component: MissionByIdComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: 'validationmission/:id_mission',
@@ -147,26 +136,14 @@ export const routes: Routes = [
     path: 'gestion',
     component: GererDepartementComponent
   },
-  {
-    path: 'virements/:id',
-    component: VirementComponent,
-    canActivate: [AuthGuard]
-  },
+
   {
     path: 'gestionadministrative',
     component: tjmrequestsComponent,
 
   },
-  {
-    path: 'validated-tjmrequests/:id',
-    component: ValidatedTjmComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'cra-mission/:id',
-    component: CraMissionComponent,
-    canActivate: [AuthGuard]
-  },
+
+
   {
     path: 'members',
     component: AdminComponent,
@@ -179,18 +156,15 @@ export const routes: Routes = [
     DashboardComponent,
     ValidationComponent,
     ConsultantMissionComponent,
-    MissionByIdComponent,
+
     allStudentsComponent,
     ValidationMissionComponent,
     NotificaionRhComponent,
     ChargeDocComponent,
-    VirementComponent,
-    tjmrequestsComponent,
-    ValidatedTjmComponent,
-    CraMissionComponent,
-    AdminComponent,
 
-    AllCrasComponent,
+    tjmrequestsComponent,
+
+    AdminComponent,
     EnseignantComponent,
     DemandeRattrapageComponent,
     AbsenceComponent,

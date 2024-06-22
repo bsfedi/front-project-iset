@@ -1,9 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
-
 import { Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { jsPDF } from "jspdf";
 declare let html2pdf: any
 import { DatePipe } from '@angular/common';
@@ -19,9 +17,7 @@ import {
   ApexLegend,
   ApexFill
 } from "ng-apexcharts";
-import { WebSocketService } from 'src/app/services/web-socket.service';
-import { ConsultantService } from 'src/app/services/consultant.service';
-import { UserService } from 'src/app/services/user.service';
+
 import { StudentService } from 'src/app/services/student.service';
 
 export type ChartOptions = {
@@ -75,7 +71,7 @@ export class allStudentsComponent {
   nblastnotifications: any
   lastnotifications: any
   notification: string[] = [];
-  constructor(private inscriptionservice: InscriptionService, private studentservice: StudentService, private userservice: UserService, private datePipe: DatePipe, private consultantservice: ConsultantService, private socketService: WebSocketService, private fb: FormBuilder, private router: Router) {
+  constructor(private studentservice: StudentService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router) {
 
 
 
@@ -159,147 +155,22 @@ export class allStudentsComponent {
     this.new_notif = localStorage.getItem('new_notif');
 
 
-    // Listen for custom 'rhNotification' event in WebSocketService
+
 
     // Check if token is available
     if (token) {
-      this.consultantservice.getRhNotificationsnotseen().subscribe({
-        next: (res1) => {
-          this.nblastnotifications = res1.length
-          this.lastnotifications = res1
 
-        },
-        error: (e) => {
-          // Handle errors
-          this.nblastnotifications = 0
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
-      this.userservice.getpersonalinfobyid(user_id).subscribe({
-
-
-        next: (res) => {
-          // Handle the response from the server
-          this.res = res
-          console.log('inffffffffoooooo', this.res);
-
-
-
-
-
-
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
       // Include the token in the headers
       this.headers = new HttpHeaders().set('Authorization', `${token}`);
 
       this.getpreregister()
-      this.getarichivedPreregisters()
-      this.consultantservice.getConsultantStats().subscribe({
-        next: (res) => {
-          // Handle the response from the server
-
-          this.cardstats = res
 
 
-
-
-
-
-
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
     }
 
   }
   gotomyprofile() {
     this.router.navigate([clientName + '/edit-profil'])
-  }
-
-
-  getarichivedPreregisters() {
-    this.inscriptionservice.getarichivedPreregisters(this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-
-
-        // Update this.items with the response
-        this.items1 = res;
-        this.filteredItems1 = this.items1
-        // Iterate through each item in this.items
-        for (let item of this.items) {
-
-          this.consultantservice.getContaractById(item.contractProcess, this.headers).subscribe({
-            next: (contractRes) => {
-              // Set the process_status for the current item
-              item.process_status = contractRes.statut;
-            },
-            error: (e) => {
-              console.error(e);
-              // Handle error for individual contract retrieval
-              // You may want to set a default value for process_status or handle this error differently
-            }
-          });
-          this.consultantservice.getuserinfomation(item.userId, this.headers).subscribe({
-            next: (user) => {
-              console.log(user);
-
-              // Set the process_status for the current item
-              item.isAvtivated = user.isAvtivated;
-
-
-            },
-            error: (e) => {
-              console.error(e);
-              // Handle error for individual contract retrieval
-              // You may want to set a default value for process_status or handle this error differently
-            }
-          });
-        }
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
-  }
-  updateAccountVisibility(id: any, isArchived: any) {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `${token}`);
-    console.log(id);
-
-    const data: any = {
-      "isArchived": isArchived
-    }
-    this.consultantservice.updateconsultantstauts(id, data, headers).subscribe({
-      next: (res) => {
-
-        this.showPopup = false;
-        window.location.reload();
-        // Handle the response from the server
-        console.log(res);
-        // Additional logic if needed
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-      },
-    });
   }
   getpreregister() {
     this.studentservice.validated_preregister().subscribe({
@@ -582,54 +453,6 @@ export class allStudentsComponent {
   }
   openPopup1(id: any): void {
 
-
-    this.inscriptionservice.getContaractByPrerigister(id, this.headers).subscribe({
-      next: (res) => {
-
-        this.getContaractByPrerigister = res
-        console.log(res);
-
-        // Handle the response from the server
-        this.idcontractByPreregister = res._id
-        if (res.clientValidation == "VALIDATED") {
-          this.clientValidation = true
-        }
-        else {
-          this.clientValidation = false
-        }
-        if (res.contactClient == "VALIDATED") {
-          this.contactClient = true
-        }
-        else {
-          this.contactClient = false
-        }
-        if (res.contractValidation == "VALIDATED") {
-          this.contractValidation = true
-        }
-        else {
-          this.contractValidation = false
-        }
-        if (res.jobCotractEdition == "VALIDATED") {
-          this.jobCotractEdition = true
-        }
-        else {
-          this.jobCotractEdition = false
-        }
-
-
-
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
     this.showPopup1 = true;
   }
   closePopup(): void {
@@ -648,37 +471,12 @@ export class allStudentsComponent {
     }
     console.log(data);
 
-    this.inscriptionservice.validatePriseDeContact(id, data, this.headers).subscribe({
-      next: (res) => {
-        console.log(res);
-
-        // Handle the response from the server
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
   }
   validateClientValidation(id: any, clientValidation: any): void {
     const data = {
       "validated": clientValidation
     }
-    this.inscriptionservice.validateClientValidation(id, data, this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-        console.log(res);
 
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
   }
   validateJobCotractEdition(id: any, jobCotractEdition: any): void {
     const data = {
@@ -686,35 +484,13 @@ export class allStudentsComponent {
     }
     console.log(data);
 
-    this.inscriptionservice.validateJobCotractEdition(id, data, this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
 
-      }
-    });
   }
   validateContractValidation(id: any, contractValidation: any): void {
     const data = {
       "validated": contractValidation
     }
     console.log(data);
-
-    this.inscriptionservice.validateContractValidation(id, data, this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
   }
   gotovalidemission(id_mission: any, id: any) {
     this.router.navigate([clientName + '/validationmission/' + id_mission])

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 const clientName = `${environment.default}`;
 const baseUrl = `${environment.baseUrl}`;
 import { Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
+
 
 import {
   ChartComponent,
@@ -22,9 +22,9 @@ import {
   ApexMarkers,
   ApexYAxis
 } from "ng-apexcharts";
-import { UserService } from 'src/app/services/user.service';
+
 import { DatePipe } from '@angular/common';
-import { WebSocketService } from 'src/app/services/web-socket.service';
+
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
 
@@ -46,10 +46,10 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-virements',
-  templateUrl: './virements.component.html',
+  templateUrl: './inscriptions.component.html',
   styleUrls: ['./virements.component.css']
 })
-export class VirementsComponent {
+export class InscriptionsComponent {
   items: any;
   showPopup: boolean = false;
   showPopup1: boolean = false;
@@ -72,7 +72,7 @@ export class VirementsComponent {
   DocPersolForm: FormGroup
   stats: any
   show_chart: boolean = false
-  constructor(private userservice: UserService, private consultantservice: ConsultantService, private studentservice: StudentService, private socketService: WebSocketService, private fb: FormBuilder, private router: Router, private datePipe: DatePipe) {
+  constructor(private studentservice: StudentService, private fb: FormBuilder, private router: Router, private datePipe: DatePipe) {
     // Ensure that the items array is correctly populated here if needed.
     this.DocPersolForm = this.fb.group({
       note1: ['', Validators.required],
@@ -413,67 +413,10 @@ export class VirementsComponent {
     const user_id = localStorage.getItem('user_id')
     this.new_notif = localStorage.getItem('new_notif');
 
-    // Listen for custom 'rhNotification' event in WebSocketService
-
-    this.consultantservice.getallnotification(user_id).subscribe({
-      next: (res1) => {
-        this.res1 = res1
-        this.nblastnotifications = this.res1.length
-        this.lastnotifications = this.res1
-
-      },
-      error: (e) => {
-        this.nblastnotifications = 0
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-    this.userservice.getpersonalinfobyid(this.user_id).subscribe({
-
-
-      next: (res) => {
-        // Handle the response from the server
-        this.res2 = res
-        console.log('inffffffffoooooo', this.res);
 
 
 
 
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-    this.userservice.getMyvirements(this.user_id).subscribe({
-      next: (res) => {
-        if (res.length > 0) {
-          // Sort the response array by createdAt in ascending order
-          this.res = res.sort((a: any, b: any) => (a.createdAt < b.createdAt) ? 1 : -1);
-
-          this.res = this.res.map((item: any) => ({
-            ...item,
-            createdAt: this.formatDate(item.createdAt),
-          }));
-        }
-        else {
-          this.res = []
-        }
-
-
-      },
-      error: (e) => {
-
-        console.error("eeeeeeeeeeeeeeeeeeee", e);
-        // Set loading to false in case of an error
-      }
-    });
 
 
 
@@ -499,67 +442,9 @@ export class VirementsComponent {
       this.currentPage--;
     }
   }
-  getmyvir() {
 
-    this.userservice.getMyvirements(this.user_id).subscribe({
-      next: (res) => {
-        // Sort the response array by createdAt in ascending order
-        this.res = res.sort((a: any, b: any) => (a.createdAt < b.createdAt) ? 1 : -1);
-
-        this.res = this.res.map((item: any) => ({
-          ...item,
-          createdAt: this.formatDate(item.createdAt),
-        }));
-      },
-      error: (e) => {
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
-  }
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
   }
-  filterByType(selectedType: string, date: any) {
-
-    this.userservice.virementByPeriod(this.user_id, selectedType, date).subscribe({
-      next: (res: any) => {
-        if (res && res.length > 0) {
-          // Sort the filtered response array by createdAt in descending order
-          this.res = res.sort((a: any, b: any) => (a.createdAt < b.createdAt ? 1 : -1));
-          this.res = this.res.map((item: any) => ({
-            ...item,
-            createdAt: this.formatDate(item.createdAt),
-          }));
-        } else {
-          // Handle case when response is empty
-          this.res = [];
-        }
-      },
-      error: (err) => {
-        this.res = [];
-        console.error('Error occurred while fetching data:', err);
-        // Handle error gracefully
-      }
-    });
-
-  }
-
-
-
-
-  // virementByPeriod() {
-  //   this.userservice.virementByPeriod(this.date, this.user_id).subscribe({
-  //     next: (res: any[]) => { // Assuming res is an array of objects
-  //       // Sort the response array by createdAt in descending order
-  //       this.res = res.sort((a: any, b: any) => (a.createdAt < b.createdAt) ? 1 : -1);
-  //       this.res = this.res.map((item: any) => ({
-  //         ...item,
-  //         createdAt: this.formatDate(item.createdAt),
-  //       }));
-  //     },
-  //   } as any);
-  // }
-
 
 }

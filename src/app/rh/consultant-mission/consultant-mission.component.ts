@@ -4,10 +4,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { jsPDF } from "jspdf";
 declare let html2pdf: any
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
-import { InscriptionService } from 'src/app/services/inscription.service';
+
 import Swal from 'sweetalert2';
-import { UserService } from 'src/app/services/user.service';
+
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
@@ -64,10 +63,10 @@ export class ConsultantMissionComponent {
   showPopup3: any
   searchTerm: any
   searchTerm1: any
-  constructor(private consultantservice: ConsultantService, private inscriptionservice: InscriptionService,
+  constructor(
     private studentservice: StudentService,
     private datePipe: DatePipe,
-    private userservice: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+    private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1; // Month is zero-based, so add 1
@@ -218,197 +217,22 @@ export class ConsultantMissionComponent {
       }
     });
 
-    this.userservice.getpersonalinfobyid(user_id).subscribe({
 
-
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res
-        console.log('inffffffffoooooo', this.res);
-
-
-
-
-
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
     const token = localStorage.getItem('token');
 
 
-    this.userservice.getMyvirements(this.user_id).subscribe({
-      next: (res) => {
-        // Sort the response array by createdAt in ascending order
-        this.res14 = res.sort((a: any, b: any) => (a.createdAt < b.createdAt) ? 1 : -1);
-
-
-        this.res14 = this.res14.map((item: any) => ({
-          ...item,
-          createdAt: this.formatDate(item.createdAt),
-        }));
-      },
-      error: (e) => {
-        console.error(e);
-        // Set loading to false in case of an error
-      }
-    });
-
-    this.consultantservice.get_all_cra_by_userid(this.user_id).subscribe({
-
-
-      next: (res) => {
-        this.allcra = res
-        this.allcra = this.allcra.craPdfs
-
-
-        console.log("allcra", this.allcra);
-
-        for (let item of this.allcra) {
-
-          console.log("item", item);
-
-          console.log("filename", item.filename);
-
-
-          item.filename = baseUrl + "uploads/" + item.filename
-          this.inscriptionservice.getPdf(item.filename).subscribe({
-
-          });
-        }
-        // Handle the response from the server
-        console.log("allc_cra_pdf", res);
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
-
-
-
-    // this.userservice.getAllDacumentsofuser(this.user_id).subscribe({
-
-
-    //   next: (res) => {
-    //     // Handle the response from the server
-    //     this.docs = res
-    //     this.filteredItems = this.docs
-    //     for (let item of this.filteredItems) {
-    //       if (item.document.endsWith('.pdf')) {
-    //         item.pdf = true
-    //         item.document = baseUrl + "uploads/" + item.document
-    //         this.inscriptionservice.getPdf(item.document).subscribe({
-
-    //         });
-
-    //       } else {
-    //         item.pdf = false
-    //         item.document = baseUrl + "uploads/" + item.document
-    //       }
-
-    //       //   if (item.document.split(['.'][-1] == 'pdf')){
-
-
-    //     }
 
 
 
 
-    //   },
-    //   error: (e) => {
-    //     // Handle errors
-    //     console.error(e);
-    //     // Set loading to false in case of an error
 
-    //   }
-    // });
     // Check if token is available
     if (token) {
       // Include the token in the headers
       this.headers = new HttpHeaders().set('Authorization', `${token}`);
-      this.userservice.getpersonalinfobyid(this.user_id).subscribe({
-        next: (res) => {
-          this.user_info = res
-
-          this.user_info.carInfo.drivingLicense = baseUrl + "uploads/" + this.user_info.carInfo.drivingLicense;
-          this.user_info.identificationDocument = baseUrl + "uploads/" + this.user_info.identificationDocument;
-          this.user_info.ribDocument = baseUrl + "uploads/" + this.user_info.ribDocument;
-
-          this.docs.push(
-            {
-              "createdAt": this.user_info.addedDate || '',
-              "document": this.user_info.carInfo.drivingLicense,
-              "documentName": "permis"
-            },
-            {
-              "createdAt": this.user_info.addedDate || '',
-              "document": this.user_info.identificationDocument,
-              "documentName": "CNI"
-            },
-            {
-              "createdAt": this.user_info.addedDate || '',
-              "document": this.user_info.ribDocument,
-              "documentName": "rib"
-            }
-          );
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-        }
-      });
-
-      this.consultantservice.getMissionsofUser(this.user_id, this.headers).subscribe({
-        next: (res) => {
-          // Handle the response from the server
-
-          this.items = res
-
-
-          for (let mission of this.items) {
-            if (mission.validated_by) {
-              console.log(this.getvalidateby(mission.validated_by));
-              this.consultantservice.getuserinfomation(mission.validated_by).subscribe({
-                next: (res) => {
-                  mission.validated_by = res.firstName + ' ' + res.lastName
-                },
-                error: (e) => {
-                  // Handle errors
-                  console.error(e);
-                  // Set loading to false in case of an error
-                }
-              });
-
-            } else {
-              mission.validated_by = ''
-            }
-            console.log(mission);
-
-
-          }
 
 
 
-
-
-        },
-        error: (e) => {
-          // Handle errors
-          console.error(e);
-          // Set loading to false in case of an error
-
-        }
-      });
     }
 
   }
@@ -775,9 +599,7 @@ export class ConsultantMissionComponent {
   }
   sanctions: any
 
-  getvalidateby(user_id: any) {
-    return this.consultantservice.getuserinfomation(user_id);
-  }
+
   onTypeChange() {
 
     this.showPopup1 = true;
@@ -848,29 +670,7 @@ export class ConsultantMissionComponent {
           "subject": formData1.subject,
           "message": formData1.message
         };
-        this.consultantservice.sendemailconsultant(data).subscribe({
-          next: (res) => {
-            // Handle the response from the server
-            Swal.fire({
-              background: 'white',
-              title: 'Email envoyé',
-              text: 'L\'email a été envoyé avec succès !',
-              confirmButtonColor: "rgb(0, 17, 255)",
 
-            });
-            this.showPopup3 = false;
-          },
-          error: (e) => {
-            console.log(e);
-            // Handle errors
-            Swal.fire({
-              background: 'white',
-              title: 'Erreur d\'envoi',
-              text: "L'envoi de l'email a échoué. Veuillez réessayer.",
-              confirmButtonColor: "rgb(0, 17, 255)",
-            });
-          }
-        });
       } else {
         Swal.fire({
 
@@ -1039,55 +839,16 @@ export class ConsultantMissionComponent {
     }
     console.log(data);
 
-    this.consultantservice.validatePriseDeContact(id, data, this.headers).subscribe({
-      next: (res) => {
-        console.log(res);
 
-        // Handle the response from the server
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
   }
   validateClientValidation(id: any, clientValidation: any): void {
     const data = {
       "validated": clientValidation
     }
-    this.consultantservice.validateClientValidation(id, data, this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-        console.log(res);
 
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
   }
 
-  validateContractValidation(id: any, jobCotractEdition: any): void {
-    const data = {
-      "validated": jobCotractEdition
-    }
-    this.consultantservice.validateContractValidation(id, data, this.headers).subscribe({
-      next: (res) => {
-        // Handle the response from the server
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
 
-      }
-    });
-  }
   as_prete(id: any) {
     this.studentservice.update_new_status_demande(id).subscribe({
       next: (res) => {
@@ -1147,39 +908,12 @@ export class ConsultantMissionComponent {
       // Include the token in the headers
       const headers = new HttpHeaders().set('Authorization', `${token}`);
 
-      this.consultantservice.addDocumentToUser(this.user_id, formData, headers)
-        .subscribe({
-          next: (res) => {
 
-            Swal.fire({
-
-              background: 'white',
-              confirmButtonText: 'Ok',
-
-              confirmButtonColor: "rgb(0, 17, 255)",
-              title: 'Document ajouté avec succès!',
-              showConfirmButton: false,
-              timer: 3000 // Adjusted timer to 3000 milliseconds (3 seconds)
-            });
-            // Hide the popup after 3 seconds
-            setTimeout(() => {
-              this.showPopup = false;
-              // Reload the page after hiding the popup
-              window.location.reload();
-            }, 1000);
-            // Handle the response from the server
-          },
-          error: (e) => {
-            // Handle errors
-            console.error(e);
-          }
-        });
     }
   }
 
   downloadFile(urlpdf: any, filename: any) {
 
-    this.consultantservice.downloadpdffile(urlpdf, filename)
 
   }
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 const baseUrl = `${environment.baseUrl}`;
 
+import { delay, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,15 @@ export class StudentService {
   create(data: any): Observable<any> {
     return this.http.post(baseUrl + 'auth/signup', data);
   }
+  hasRole(role: any) {
+    if (role == localStorage.getItem('role')) {
+      return true;
+    }
+    else {
+      return false
+    }
 
+  }
   login(data: any): Observable<any> {
     console.log(baseUrl);
 
@@ -672,6 +681,8 @@ export class StudentService {
     return this.http.get(baseUrl + 'all_conge');
   }
 
-
+  getPdf(datae: any) {
+    return of(datae).pipe(delay(1000));
+  }
 
 }

@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
+
 
 declare const PDFObject: any;
 import { environment } from 'src/environments/environment';
@@ -11,8 +10,7 @@ const clientName = `${environment.default}`;
 const baseUrl = `${environment.baseUrl}`;
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
-import { WebSocketService } from 'src/app/services/web-socket.service';
+
 import { StudentService } from 'src/app/services/student.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -46,7 +44,7 @@ export class SupportCoursComponent {
   openfileInputdibInput() {
     this.fileInputdib.nativeElement.click();
   }
-  constructor(private inscriptionservice: InscriptionService, private fb: FormBuilder, private consultantservice: ConsultantService, private router: Router, private socketService: WebSocketService, private studentservice: StudentService, private userservice: UserService, private http: HttpClient, private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder, private router: Router, private studentservice: StudentService, private http: HttpClient, private datePipe: DatePipe) {
     this.myForm2 = this.fb.group({
       classe_id: ['', Validators.required],
       titre: ['', Validators.required],
@@ -59,8 +57,6 @@ export class SupportCoursComponent {
     console.log(urlpdf);
     console.log(filename);
 
-
-    this.consultantservice.downloadpdffile(urlpdf, filename)
 
   }
   list_view() {
@@ -114,7 +110,7 @@ export class SupportCoursComponent {
                 if (item.document.endsWith('.pdf')) {
                   item.pdf = true;
                   item.document = baseUrl + "uploads/" + item.document;
-                  this.inscriptionservice.getPdf(item.document).subscribe({
+                  this.studentservice.getPdf(item.document).subscribe({
                     next: (res) => {
                       const pdfData = res;
                       console.log(pdfData);
@@ -159,16 +155,7 @@ export class SupportCoursComponent {
                 if (item.document.endsWith('.pdf')) {
                   item.pdf = true;
                   item.document = baseUrl + "uploads/" + item.document;
-                  this.inscriptionservice.getPdf(item.document).subscribe({
-                    next: (res) => {
-                      const pdfData = res;
-                      console.log(pdfData);
 
-                      if (pdfData) {
-                        this.handleRenderPdf(i, pdfData); // Pass index to dynamically generate function name
-                      }
-                    },
-                  });
                 } else {
                   item.pdf = false;
                   item.document = baseUrl + "uploads/" + item.document;
@@ -212,23 +199,9 @@ export class SupportCoursComponent {
         }
       });
     }
-    // Listen for custom 'rhNotification' event in WebSocketService
 
-    this.consultantservice.getallnotification(user_id).subscribe({
-      next: (res1) => {
-        this.res1 = res1
-        this.nblastnotifications = this.res1.length
-        this.lastnotifications = this.res1
 
-      },
-      error: (e) => {
-        this.nblastnotifications = 0
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
 
-      }
-    });
     // Check if token is available
     if (token) {
       // Include the token in the headers
@@ -433,18 +406,7 @@ export class SupportCoursComponent {
           formData.append('drivingLicense', drivingLicense);
           console.log(formData);
 
-          this.userservice.editDrivingLiscence(user_id, formData).subscribe({
 
-            next: (res) => {
-              console.log(formData);
-
-              console.log("drivingLicense", res);
-
-            }, error: (e) => {
-              console.log(e);
-
-            }
-          });
 
         }
         else if (field == 'ribDocument') {
@@ -458,18 +420,7 @@ export class SupportCoursComponent {
           formData.append('ribDocument', ribDocument);
 
 
-          this.userservice.editribdocument(user_id, formData).subscribe({
 
-            next: (res) => {
-              console.log(formData);
-
-              console.log("drivingLicense", res);
-
-            }, error: (e) => {
-              console.log(e);
-
-            }
-          });
 
         }
       };

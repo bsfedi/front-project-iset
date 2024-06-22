@@ -115,7 +115,6 @@
                     Jours souhaités
 
                 </div>
-
                 <form [formGroup]="scheduleForm" *ngIf="role == 'enseignant' && show_new_fiche">
                     <table>
                         <thead>
@@ -139,7 +138,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <button type="submit">Submit</button> -->
                 </form>
 
 
@@ -188,7 +186,7 @@
                             <tr>
                                 <th style="border-radius: 0.6875rem 0rem 0rem 0rem">Nom</th>
                                 <th>Prenom</th>
-
+                                <th> Date dépot</th>
                                 <th> Grade</th>
                                 <th style="border-radius: 0rem 0.6875rem 0rem 0rem"></th>
                                 <!-- <th>Actions</th> -->
@@ -199,6 +197,7 @@
 
                                 <td>{{module.nom}}</td>
                                 <td> {{module.prenom}} </td>
+                                <td>{{module.added_at.split('T')[0]}}</td>
                                 <td>{{module.grade}}</td>
                                 <td (click)="generatePdf(module._id)">
                                     <div

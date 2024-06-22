@@ -3,10 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import Swal from 'sweetalert2';
-import { UserService } from 'src/app/services/user.service';
+
 
 import { environment } from 'src/environments/environment';
 import { StudentService } from 'src/app/services/student.service';
@@ -40,7 +38,7 @@ export class ValidationMissionComponent {
   demandeur: any
   user_id: any
   paymenttype: any
-  constructor(private inscriptionservice: InscriptionService, private consultantservice: StudentService, private userservice: UserService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
+  constructor(private consultantservice: StudentService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
     // Ensure that the items array is correctly populated here if needed.
   }
   role: any
@@ -76,21 +74,7 @@ export class ValidationMissionComponent {
 
 
 
-    this.userservice.getpersonalinfobyid(user_id).subscribe({
 
-
-      next: (res) => {
-        // Handle the response from the server
-        this.res = res
-
-      },
-      error: (e) => {
-        // Handle errors
-        console.error(e);
-        // Set loading to false in case of an error
-
-      }
-    });
 
     // Check if token is available
     if (token) {

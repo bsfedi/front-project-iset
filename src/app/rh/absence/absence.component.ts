@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConsultantService } from 'src/app/services/consultant.service';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { StudentService } from 'src/app/services/student.service';
@@ -24,7 +24,7 @@ export class AbsenceComponent {
   expanded: boolean = false;
   selectedFile: File | null = null;
   isSimulationValidated: string | null = null;
-  constructor(private consultantservice: ConsultantService, private studentsrvice: StudentService, private fb: FormBuilder, private router: Router) {
+  constructor(private studentsrvice: StudentService, private fb: FormBuilder, private router: Router) {
     this.myForm = this.fb.group({
       durée: ['', Validators.required],
       date: [''],
@@ -169,20 +169,7 @@ export class AbsenceComponent {
         return;
       }
       else {
-        this.consultantservice.createNewMission(formData, headers)
-          .subscribe({
-            next: (res) => {
-              // Handle the response from the server
-              console.log(res);
-              // this.router.navigate([clientName +'/client']);
-              // this.router.navigate([clientName +'/informations/' + res._id]);
-              this.router.navigate([clientName + '/student/requests'])
-            },
-            error: (e) => {
-              // Handle errors
-              console.error(e);
-            }
-          });
+
       }
     }
   }

@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
 import { environment } from 'src/environments/environment';
 import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;
@@ -72,40 +69,6 @@ export class ClientComponent {
       console.error('Form is invalid');
     }
   }
-  // submit(): void {
-  //   const token = localStorage.getItem('token');
-
-  //   // Check if token is available
-  //   if (token) {
-  //     // Include the token in the headers
-  //     const headers = new HttpHeaders().set('Authorization', `${token}`);
-
-
-
-
-  //     if (this.areAllFieldsFilled() == false) {
-  //       this.myForm.markAllAsTouched();
-  //       return;
-  //     }
-  //     else {
-  //       this.inscriptionservice.createinscrptionstep2(this.myForm.value, headers)
-  //         .subscribe({
-  //           next: (res) => {
-  //             // Handle the response from the server
-  //             console.log(res);
-  //             this.router.navigate([clientName + '/mission']);
-
-  //           },
-  //           error: (e) => {
-  //             // Handle errors
-  //             console.error(e);
-  //           }
-  //         });
-  //     }
-
-  //   }
-  // }
-
   // Assuming you have an object to hold file inputs
   fileInputs: any = {};
 

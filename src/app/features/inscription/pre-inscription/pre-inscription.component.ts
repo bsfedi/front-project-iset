@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
+
 import { Router } from '@angular/router';
-import { InscriptionService } from 'src/app/services/inscription.service';
+
 import { environment } from 'src/environments/environment';
 import { StudentService } from 'src/app/services/student.service';
 const clientName = `${environment.default}`;

@@ -1,7 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { InscriptionService } from 'src/app/services/inscription.service';
-import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -31,7 +29,7 @@ export class EditProfilComponent {
   role: any;
   ens_id: any
   fullname: any
-  constructor(private studentservice: StudentService, private userservice: UserService, private router: Router) {
+  constructor(private studentservice: StudentService, private router: Router) {
 
   }
   ngOnInit(): void {
